@@ -23,7 +23,7 @@
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .js,.jsx,.ts,.tsx",
     "lint:styles": "npx stylelint '**/*.css'",
     "dev": "vite --open --port 3000",
-    "start": "vite --open --port 3000",
+    "start": "vite --port 3000",
     "preview": "vite preview",
     "coverage": "vitest run --coverage --watch=false",
     "cy-coverage": "cross-env NODE_OPTIONS=- vitest run --coverage --watch=false"
