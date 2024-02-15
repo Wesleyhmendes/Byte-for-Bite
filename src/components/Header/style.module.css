@@ -1,0 +1,80 @@
+.headerOff {
+  display: none;
+}
+
+.headerMainSection {
+  background-repeat: no-repeat;
+}
+
+.headerImg {
+  border-radius: 0px 0px 25px 25px;
+  position: absolute;
+  height: 130px;
+  width: 100%;
+  z-index: -5;
+}
+
+.headerGradient {
+  background: rgb(255,255,255);
+  background: linear-gradient(180deg, rgba(255,255,255,0) 66%, rgba(255,255,255,0.7161239495798319) 87%);
+  border-radius: 0px 0px 25px 25px;
+  height: 130px;
+  position: absolute;
+  width: 100%;
+  z-index: -4;
+}
+
+.headerGradient2 {
+  background: rgb(255,255,255);
+  background: linear-gradient(0deg, rgba(255,255,255,0) 38%, rgba(255,255,255,0.5816701680672269) 100%);
+  border-radius: 0px 0px 25px 25px;
+  height: 130px;
+  position: absolute;
+  width: 100%;
+  z-index: -3;
+}
+
+.headerPageNameAndProfile {
+  height: 38px;
+}
+
+.headerPageName {
+  align-self: center;
+  color: #000;
+  font-family: Poppins;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  position: relative;
+  text-align: center;
+}
+
+.headerPageProfileIcon {
+  position: relative;
+  bottom: 42px;
+  left: 330px;
+  height: 20px;
+  width: 20px;
+}
+
+
+/* Lupa */ 
+
+.headerLupeDiv {
+  display: flex;
+  justify-content: center;
+}
+
+.headerLupeBtn {
+  background: #FFCE01;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  height: 35px;
+  width: 35px;
+}
+
+.headerLupeImg {
+  width: 25px;
+}
