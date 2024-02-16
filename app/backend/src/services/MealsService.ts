@@ -10,4 +10,12 @@ export default class MealsService {
     const recipes = await this.mealsModel.findAll();
     return {status: 'SUCCESSFUL', data: recipes};
   }
+  async getRecipeByName(name: string): Promise<ServiceResponse<IMealRecipes[]>> {
+    const recipes = await this.mealsModel.findByName(name);
+    return{status: 'SUCCESSFUL', data: recipes};
+  }
+  async getByFirstLetter(letter: string): Promise<ServiceResponse<IMealRecipes[]>> {
+    const recipes = await this.mealsModel.findByFirstLetter(letter);
+    return {status: 'SUCCESSFUL', data: recipes};
+  }
 }
