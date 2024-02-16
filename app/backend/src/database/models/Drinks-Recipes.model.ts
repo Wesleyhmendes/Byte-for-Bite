@@ -12,10 +12,10 @@ InferCreationAttributes<DrinksRecipes>> {
 
   declare idDrink: CreationOptional<number>
   declare strDrink: string
-  declare strDrinkAlternate: string
+  declare strDrinkAlternate: boolean
   declare strTags: string
   declare strVideo: string
-  declare strCategory: string
+  declare strCategory: number
   declare strIBA: string
   declare strAlcoholic: string
   declare strGlass: string
@@ -75,7 +75,7 @@ DrinksRecipes.init ({
     type: DataTypes.STRING,
   },
   strDrinkAlternate: {
-    type: DataTypes.STRING,
+    type: DataTypes.BOOLEAN,
   },
   strTags:{
     type: DataTypes.STRING,
@@ -84,7 +84,7 @@ DrinksRecipes.init ({
     type: DataTypes.STRING,
   },
   strCategory:{
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
   },
   strIBA:{
     type: DataTypes.STRING,
@@ -226,3 +226,5 @@ DrinksRecipes.init ({
   modelName: 'DrinksRecipes',
   timestamps: false,
 })
+
+export default DrinksRecipes;
