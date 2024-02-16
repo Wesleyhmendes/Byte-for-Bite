@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import mapStatusHTTP from '../utils/mapStatusHTTP';
-import DrinkService from '../services/drinks.service';
+import DrinkService from '../services/DrinksService';
 
 export default class MatchesController {
   constructor(
@@ -10,6 +10,13 @@ export default class MatchesController {
   public async getDrinks(req: Request, res: Response) {
     const { status, data } = await this.drinkService.getDrinks();
 
-    return res.status(200).json({ teste: "teste" });
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  public async getFilteredDrinks(req: Request, res: Response) {
+    const q = req.query.q;
+    const { status, data } = await this.drinkService.getFilteredDrinks(q);
+
+    return res.status(mapStatusHTTP(status)).json(data);
   }
 }
