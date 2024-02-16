@@ -165,5 +165,6 @@ DrinksRecipes.init({
     modelName: 'DrinksRecipes',
     timestamps: false,
 });
+
 exports.default = DrinksRecipes;
 //# sourceMappingURL=Drinks-Recipes.model.js.map
