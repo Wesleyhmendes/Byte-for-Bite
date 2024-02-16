@@ -1,0 +1,1 @@
+{"version":3,"file":"MealsModel.js","sourceRoot":"","sources":["../../src/models/MealsModel.ts"],"names":[],"mappings":";;AAEA,oEAA2D;AAE3D,MAAqB,UAAU;IAA/B;QACU,eAAU,GAAG,uBAAW,CAAC;IAKnC,CAAC;IAJC,OAAO;QACL,MAAM,OAAO,GAAG,IAAI,CAAC,UAAU,CAAC,OAAO,EAAE,CAAC;QAC1C,OAAO,OAAO,CAAC;IACjB,CAAC;CACF;AAND,6BAMC"}
