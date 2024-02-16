@@ -1,7 +1,5 @@
 [
   {
-  "drinks": [
-  {
   "strCategory": "Ordinary Drink"
   },
   {
@@ -35,5 +33,3 @@
   "strCategory": "Soft Drink"
   }
   ]
-  }
-]

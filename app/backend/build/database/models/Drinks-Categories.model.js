@@ -13,7 +13,7 @@ DrinksCategories.init({
     },
 }, {
     sequelize: _1.default,
-    modelName: 'DrinksCategories',
+    modelName: 'drinks_categories',
     timestamps: false,
 });
 exports.default = DrinksCategories;

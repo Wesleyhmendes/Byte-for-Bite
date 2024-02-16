@@ -173,7 +173,7 @@ exports.default = {
         });
     },
     down(queryInterface) {
-        return queryInterface.dropTable('meals_categories');
+        return queryInterface.dropTable('meals_recipes');
     },
 };
 //# sourceMappingURL=02Meals-Recipes.js.map

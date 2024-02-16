@@ -8,6 +8,7 @@ exports.default = {
                 type: sequelize_1.DataTypes.INTEGER,
                 allowNull: false,
                 autoIncrement: true,
+                primaryKey: true
             },
             strDrink: {
                 type: sequelize_1.DataTypes.STRING,
@@ -22,7 +23,11 @@ exports.default = {
                 type: sequelize_1.DataTypes.STRING,
             },
             strCategory: {
-                type: sequelize_1.DataTypes.STRING,
+                type: sequelize_1.DataTypes.INTEGER,
+                references: {
+                    model: 'drinks_categories',
+                    key: 'idCategory'
+                }
             },
             strIBA: {
                 type: sequelize_1.DataTypes.STRING,

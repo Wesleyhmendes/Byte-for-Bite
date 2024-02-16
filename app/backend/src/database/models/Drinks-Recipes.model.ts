@@ -70,6 +70,7 @@ DrinksRecipes.init ({
     type: DataTypes.INTEGER,
     allowNull: false,
     autoIncrement: true,
+    primaryKey: true,
    },
   strDrink:{
     type: DataTypes.STRING,
@@ -85,6 +86,10 @@ DrinksRecipes.init ({
   },
   strCategory:{
     type: DataTypes.INTEGER,
+    references: {
+      model: 'drinks_categories',
+      key: 'idCategory'
+    }
   },
   strIBA:{
     type: DataTypes.STRING,
@@ -223,7 +228,7 @@ DrinksRecipes.init ({
   },
 }, {
   sequelize: db,
-  modelName: 'DrinksRecipes',
+  modelName: 'drinks_recipes',
   timestamps: false,
 })
 

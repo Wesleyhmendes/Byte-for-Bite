@@ -225,6 +225,6 @@ export default {
     });
   },
   down(queryInterface: QueryInterface) {
-    return queryInterface.dropTable('meals_categories');
+    return queryInterface.dropTable('meals_recipes');
   },
 };

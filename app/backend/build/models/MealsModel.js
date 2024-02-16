@@ -5,8 +5,8 @@ class MealsModel {
     constructor() {
         this.mealsModel = Meals_Recipes_1.default;
     }
-    findAll() {
-        const recipes = this.mealsModel.findAll();
+    async findAll() {
+        const recipes = await this.mealsModel.findAll();
         return recipes;
     }
 }

@@ -22,7 +22,7 @@ MealsCategories.init({
     },
 }, {
     sequelize: _1.default,
-    modelName: 'MealsCategories',
+    modelName: 'meals_categories',
     timestamps: false,
 });
 exports.default = MealsCategories;

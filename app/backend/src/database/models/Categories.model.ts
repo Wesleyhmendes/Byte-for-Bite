@@ -34,7 +34,7 @@ MealsCategories.init({
   },
 }, {
   sequelize: db,
-  modelName: 'MealsCategories',
+  modelName: 'meals_categories',
   timestamps: false,
 });
 
