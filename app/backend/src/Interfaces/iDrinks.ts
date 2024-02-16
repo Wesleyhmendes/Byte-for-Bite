@@ -1,7 +1,7 @@
 export interface iDrinkRecipe {
   idDrink: number,
   strDrink: string,
-  strDrinkAlternate: null,
+  strDrinkAlternate: boolean,
   strTags: string,
   strVideo: string,
   strCategory: number,
@@ -50,6 +50,10 @@ export interface iDrinkRecipe {
   strImageAttribution: string,
   strCreativeCommonsConfirmed: string,
   dateModified: string,
+}
+
+export interface IDrinkModel {
+  findAll(): Promise<iDrinkRecipe[] | null>,
 }
 
 export interface iDrinkCategories {
