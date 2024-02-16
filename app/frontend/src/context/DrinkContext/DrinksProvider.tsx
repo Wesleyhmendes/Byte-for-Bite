@@ -8,6 +8,7 @@ import {
   fetchDrinksCategories,
   fetchDrinksFilterByCategory,
 } from '../../services/fetchApi';
+import mapCategories from '../../utils/mapCategories';
 
 type DrinksProviderProps = {
   children: React.ReactNode;
@@ -44,12 +45,13 @@ export default function DrinksProvider({ children }: DrinksProviderProps) {
   };
 
   const getDrinksByCategory = async (category: string) => {
+    const categoryNumber = mapCategories(category);
     if (category === currentCategoryDrinks) {
       setCurrentCategoryDrinks('');
       setDrinksData(drinksInitialData);
     } else {
       setCurrentCategoryDrinks(category);
-      const data = await fetchDrinksFilterByCategory(category);
+      const data = await fetchDrinksFilterByCategory(categoryNumber);
       setDrinksData(data);
     }
   };

@@ -24,5 +24,14 @@ export default class DrinksModel implements IDrinkModel {
 
     return dbResponse;
   }
-  
+
+  async getDrinkByCategory(q: number): Promise<iDrinkRecipe[] | null> {
+    const dbResponse = await this.model.findAll({
+      where: {
+        strCategory: q
+      },
+    });
+    if (!dbResponse) return null;
+    return dbResponse;
+  }
 }

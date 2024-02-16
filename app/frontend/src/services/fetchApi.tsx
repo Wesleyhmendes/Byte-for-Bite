@@ -48,16 +48,17 @@ export const fetchDrinksByFilter = async (
 
 export const fetchDrinksCategories = async () => {
   const URL_API = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+
   const response = await fetch(URL_API);
   const data = await response.json();
   return data.drinks;
 };
 
-export const fetchDrinksFilterByCategory = async (category: string) => {
-  const URL_API = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
+export const fetchDrinksFilterByCategory = async (category: number) => {
+  const URL_API = `http://localhost:3001/drinks/category?q=${category}`;
   const response = await fetch(URL_API);
   const data = await response.json();
-  return data.drinks;
+  return data;
 };
 
 export const fetchRecipeById = async (typeRecipe: string, id: string) => {

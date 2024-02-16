@@ -9,6 +9,14 @@ class MealsService {
         const recipes = await this.mealsModel.findAll();
         return { status: 'SUCCESSFUL', data: recipes };
     }
+    async getRecipeByName(name) {
+        const recipes = await this.mealsModel.findByName(name);
+        return { status: 'SUCCESSFUL', data: recipes };
+    }
+    async getByFirstLetter(letter) {
+        const recipes = await this.mealsModel.findByFirstLetter(letter);
+        return { status: 'SUCCESSFUL', data: recipes };
+    }
 }
 exports.default = MealsService;
 //# sourceMappingURL=MealsService.js.map

@@ -38,4 +38,14 @@ export default class MatchesService {
 
     return { status: 'SUCCESSFUL', data: response };
   }
+
+  public async getDrinkByCategory(q: number) {
+    const drinks = await this.drinkModel.getDrinkByCategory(q);
+
+    if (drinks === null) {
+      return { status: 'NOT_FOUND', data: { message: 'drink not found' } } 
+    };
+
+    return { status: 'SUCCESSFUL', data: drinks };
+  }
 }
