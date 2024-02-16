@@ -3,12 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.app = exports.App = void 0;
 const express = require("express");
 require("express-async-errors");
-// import router from './routes';
+const routes_1 = require("./routes");
 class App {
     constructor() {
         this.app = express();
         this.config();
-        // this.routes();
+        this.routes();
         // Não remover essa rota
         this.app.get('/', (req, res) => res.json({ ok: true }));
     }
@@ -24,6 +24,9 @@ class App {
     }
     start(PORT) {
         this.app.listen(PORT, () => console.log(`Running on port ${PORT}`));
+    }
+    routes() {
+        this.app.use(routes_1.default);
     }
 }
 exports.App = App;
