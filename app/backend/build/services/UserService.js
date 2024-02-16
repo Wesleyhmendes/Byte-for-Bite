@@ -29,4 +29,3 @@ class UserService {
     }
 }
 exports.default = UserService;
-//# sourceMappingURL=UserService.js.map

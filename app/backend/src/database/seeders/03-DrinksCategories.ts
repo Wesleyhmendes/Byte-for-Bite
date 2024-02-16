@@ -4,15 +4,15 @@ import { QueryInterface } from 'sequelize';
 
 export default {
   up: async (queryInterface: QueryInterface) => {
-    const filePath = path.join(__dirname, '..', '..', '..', 'mealsCategory.db.json');
+    const filePath = path.join(__dirname, '..', '..', '..', 'drinksCategory.db.json');
 
     const jsonData = fs.readFileSync(filePath);
     const categories = JSON.parse(jsonData);
 
-    await queryInterface.bulkInsert('meals_categories', categories, {});
+    await queryInterface.bulkInsert('drinks_categories', categories, {});
   },
 
   down: async (queryInterface: QueryInterface) => {
-    await queryInterface.bulkDelete('meals_categories', {});
+    await queryInterface.bulkDelete('drinks_categories', {});
   },
 }
