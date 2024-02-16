@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../src/routes/index.ts"],"names":[],"mappings":";;AAAA,qCAAiC;AACjC,iDAAyC;AAEzC,MAAM,MAAM,GAAG,IAAA,gBAAM,GAAE,CAAC;AAExB,MAAM,CAAC,GAAG,CAAC,QAAQ,EAAE,sBAAW,CAAC,CAAC;AAElC,kBAAe,MAAM,CAAC"}
-=======
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../src/routes/index.ts"],"names":[],"mappings":";;AAAA,qCAAiC;AACjC,mDAA2C;AAE3C,MAAM,MAAM,GAAG,IAAA,gBAAM,GAAE,CAAC;AAExB,MAAM,CAAC,GAAG,CAAC,SAAS,EAAE,uBAAY,CAAC,CAAC;AAEpC,kBAAe,MAAM,CAAC"}
->>>>>>> fd948c6a29a01b5116b0acd7b93de73ca903ad73
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../src/routes/index.ts"],"names":[],"mappings":";;AACA,qCAAiC;AACjC,mDAA2C;AAC3C,iDAAyC;AAEzC,MAAM,MAAM,GAAG,IAAA,gBAAM,GAAE,CAAC;AAExB,MAAM,CAAC,GAAG,CAAC,SAAS,EAAE,uBAAY,CAAC,CAAC;AACpC,MAAM,CAAC,GAAG,CAAC,QAAQ,EAAE,sBAAW,CAAC,CAAC;AAElC,kBAAe,MAAM,CAAC"}

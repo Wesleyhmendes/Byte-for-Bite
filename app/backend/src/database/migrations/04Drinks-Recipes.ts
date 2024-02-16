@@ -8,6 +8,7 @@ export default {
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
+        primaryKey: true
        },
       strDrink:{
         type: DataTypes.STRING,
@@ -22,7 +23,11 @@ export default {
         type: DataTypes.STRING,
       },
       strCategory:{
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
+        references: {
+          model: 'drinks_categories',
+          key: 'idCategory'
+        }
       },
       strIBA:{
         type: DataTypes.STRING,

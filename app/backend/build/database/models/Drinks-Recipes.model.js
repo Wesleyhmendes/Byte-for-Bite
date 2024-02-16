@@ -9,6 +9,7 @@ DrinksRecipes.init({
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
+        primaryKey: true,
     },
     strDrink: {
         type: sequelize_1.DataTypes.STRING,
@@ -24,6 +25,10 @@ DrinksRecipes.init({
     },
     strCategory: {
         type: sequelize_1.DataTypes.INTEGER,
+        references: {
+            model: 'drinks_categories',
+            key: 'idCategory'
+        }
     },
     strIBA: {
         type: sequelize_1.DataTypes.STRING,
@@ -162,9 +167,8 @@ DrinksRecipes.init({
     },
 }, {
     sequelize: _1.default,
-    modelName: 'DrinksRecipes',
+    modelName: 'drinks_recipes',
     timestamps: false,
 });
-
 exports.default = DrinksRecipes;
 //# sourceMappingURL=Drinks-Recipes.model.js.map

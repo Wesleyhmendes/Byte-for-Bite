@@ -22,7 +22,7 @@ DrinksCategories.init({
   },
 }, {
   sequelize: db,
-  modelName: 'DrinksCategories',
+  modelName: 'drinks_categories',
   timestamps: false,
 });
 

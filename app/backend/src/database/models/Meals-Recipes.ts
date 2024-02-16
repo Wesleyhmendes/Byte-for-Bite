@@ -285,7 +285,7 @@ MealsRecipe.init({
   }
 }, {
   sequelize: db,
-  modelName: 'MealsRecipe',
+  modelName: 'meals_recipes',
   timestamps: false,
 });
 

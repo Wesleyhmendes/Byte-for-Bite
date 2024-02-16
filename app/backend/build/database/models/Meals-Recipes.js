@@ -173,7 +173,7 @@ MealsRecipe.init({
     }
 }, {
     sequelize: _1.default,
-    modelName: 'MealsRecipe',
+    modelName: 'meals_recipes',
     timestamps: false,
 });
 exports.default = MealsRecipe;
