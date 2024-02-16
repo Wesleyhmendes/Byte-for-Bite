@@ -7,5 +7,6 @@ const router = Router();
 
 router.get('/', (req: Request, res: Response) => drinkController.getDrinks(req, res));
 router.get('/name', (req: Request, res: Response) => drinkController.getFilteredDrinks(req, res));
+router.get('/letter', (req: Request, res: Response) => drinkController.getDrinksByFirstLetter(req, res));
 
 export default router;

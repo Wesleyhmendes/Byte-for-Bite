@@ -19,4 +19,11 @@ export default class MatchesController {
 
     return res.status(mapStatusHTTP(status)).json(data);
   }
+
+  public async getDrinksByFirstLetter(req: Request, res: Response) {
+    const q = req.query.q;
+    const { status, data } = await this.drinkService.getDrinksByFirstLetter(q);
+
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
 }
