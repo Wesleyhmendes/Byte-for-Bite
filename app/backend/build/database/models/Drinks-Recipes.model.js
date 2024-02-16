@@ -14,7 +14,7 @@ DrinksRecipes.init({
         type: sequelize_1.DataTypes.STRING,
     },
     strDrinkAlternate: {
-        type: sequelize_1.DataTypes.STRING,
+        type: sequelize_1.DataTypes.BOOLEAN,
     },
     strTags: {
         type: sequelize_1.DataTypes.STRING,
@@ -23,7 +23,7 @@ DrinksRecipes.init({
         type: sequelize_1.DataTypes.STRING,
     },
     strCategory: {
-        type: sequelize_1.DataTypes.STRING,
+        type: sequelize_1.DataTypes.INTEGER,
     },
     strIBA: {
         type: sequelize_1.DataTypes.STRING,
@@ -165,4 +165,6 @@ DrinksRecipes.init({
     modelName: 'DrinksRecipes',
     timestamps: false,
 });
+
+exports.default = DrinksRecipes;
 //# sourceMappingURL=Drinks-Recipes.model.js.map
