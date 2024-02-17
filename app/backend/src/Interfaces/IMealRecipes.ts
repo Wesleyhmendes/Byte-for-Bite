@@ -2,7 +2,7 @@ export default interface IMealRecipes {
   idMeal: number,
   strMeal: string,
   strDrinkAlternate: boolean,
-  strCategory: number,
+  strCategory: number | string | undefined, 
   strArea: string,
   strInstructions: string,
   strMealThumb: string,
@@ -52,4 +52,5 @@ export default interface IMealRecipes {
   strImageSource: string,
   strCreativeCommonsConfirmed: string,
   dateModified: string,
+  category?: {strCategory: string}
 }

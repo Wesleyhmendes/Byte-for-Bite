@@ -17,6 +17,11 @@ class MealsService {
         const recipes = await this.mealsModel.findByFirstLetter(letter);
         return { status: 'SUCCESSFUL', data: recipes };
     }
+    async getRandomRecipe() {
+        const recipes = await this.mealsModel.findAll();
+        const randomRecipe = recipes[Math.floor(Math.random() * recipes.length) + 1];
+        return { status: 'SUCCESSFUL', data: randomRecipe };
+    }
 }
 exports.default = MealsService;
 //# sourceMappingURL=MealsService.js.map

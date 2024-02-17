@@ -6,6 +6,7 @@ import {
   CreationOptional,
 } from 'sequelize';
 import db from '.';
+import MealsRecipe from './Meals-Recipes';
 
 class MealsCategories extends Model<InferAttributes<MealsCategories>,
 InferCreationAttributes<MealsCategories>> {
@@ -37,5 +38,8 @@ MealsCategories.init({
   modelName: 'meals_categories',
   timestamps: false,
 });
+
+
+MealsRecipe.belongsTo(MealsCategories, {as: 'category', foreignKey: 'strCategory'})
 
 export default MealsCategories;

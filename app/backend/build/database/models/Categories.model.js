@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const _1 = require(".");
+const Meals_Recipes_1 = require("./Meals-Recipes");
 class MealsCategories extends sequelize_1.Model {
 }
 MealsCategories.init({
@@ -25,5 +26,6 @@ MealsCategories.init({
     modelName: 'meals_categories',
     timestamps: false,
 });
+Meals_Recipes_1.default.belongsTo(MealsCategories, { as: 'category', foreignKey: 'strCategory' });
 exports.default = MealsCategories;
 //# sourceMappingURL=Categories.model.js.map

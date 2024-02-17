@@ -22,7 +22,7 @@ class MatchesController {
     }
     async getDrinkByCategory(req, res) {
         const q = req.query.q;
-        const { status, data } = await this.drinkService.getDrinksByFirstLetter(Number(q));
+        const { status, data } = await this.drinkService.getDrinkByCategory(Number(q));
         return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
     }
 }

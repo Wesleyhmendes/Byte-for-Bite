@@ -7,6 +7,6 @@ const router = (0, express_1.Router)();
 router.get('/', (req, res) => drinkController.getDrinks(req, res));
 router.get('/name', (req, res) => drinkController.getFilteredDrinks(req, res));
 router.get('/letter', (req, res) => drinkController.getDrinksByFirstLetter(req, res));
-router.get('/category', (req, res) => drinkController.getDrinksByFirstLetter(req, res));
+router.get('/category', (req, res) => drinkController.getDrinkByCategory(req, res));
 exports.default = router;
 //# sourceMappingURL=drinks.routes.js.map

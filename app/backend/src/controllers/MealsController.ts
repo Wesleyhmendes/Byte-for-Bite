@@ -13,11 +13,22 @@ export default class MealsController {
     }
     const {status, data} = await this.mealsService.getAllMealsRecipe();
     return res.status(mapStatusHTTP(status)).json(data);
-  }
+  };
 
   async getByFirstLetter(req: Request, res: Response) {
     const {q} = req.query;
     const {status, data} = await this.mealsService.getByFirstLetter(q as string);
+    return res.status(mapStatusHTTP(status)).json(data);
+  };
+
+  async getRandomRecipe(_req: Request, res: Response) {
+    const {status, data} = await this.mealsService.getRandomRecipe();
+
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  async getAllCategories(_req: Request, res: Response) {
+    const {status, data} = await this.mealsService.getAllCategories();
     return res.status(mapStatusHTTP(status)).json(data);
   }
 }
