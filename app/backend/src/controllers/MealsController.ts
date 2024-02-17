@@ -31,4 +31,21 @@ export default class MealsController {
     const {status, data} = await this.mealsService.getAllCategories();
     return res.status(mapStatusHTTP(status)).json(data);
   }
+
+  async getAllAreas(_req: Request, res: Response) {
+    const {status, data} = await this.mealsService.getAllAreas();
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+  
+  async getRecipeByCategory(req: Request, res: Response) {
+    const {q} = req.query;
+    const {status, data} = await this.mealsService.getByCategory(q as string);
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  async getRecipeByArea(req: Request, res: Response) {
+    const {q} = req.query;
+    const{status, data} = await this.mealsService.getByArea(q as string);
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
 }
