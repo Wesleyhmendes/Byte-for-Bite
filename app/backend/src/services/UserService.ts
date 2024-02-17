@@ -14,29 +14,60 @@ export default class UserService {
 
   public async verifyLogin(login: Login): Promise<ServiceResponse<Token>> {
     const { email, password } = login;
+    
   
-    if (!email || !password) {
-      return { status: 'INVALID_DATA', data: { message: 'All fields must be filled' } };
-    }
+    const invalidLogin = this.validate(email, password);    
+
+    if(invalidLogin) return invalidLogin;
+
+    const user = await this.userModel.findByEmail(email);    
+
+    if (!user) return this.invalidStatusResponse('invalid_password');
+
+    const invalidPassword = await this.checkPassword(password, user.password);
+
+    if (invalidPassword) return invalidPassword as ServiceResponse<Token>;
+    // if (!await bcrypt.compare(password, user.password)) return this.invalidStatusResponse('invalid_password');
+  
+    const token = this.tokenBuilder(user.id, user.role, user.email);    
+  
+    return { status: 'SUCCESSFUL', data: { token },
+    };
+  }
+
+  private validate(email: string, password: string) {
     const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if (!email || !password) return this.invalidStatusResponse('invalid_data');
 
-    if (!validEmail.test(email) || password.length < 6) {
-      return { status: 'UNAUTHORIZED', data: { message: 'Invalid email or password' } };
-    }
+    if (!validEmail.test(email)) return this.invalidStatusResponse('invalid_emailOrPassword');
 
-    const user = await this.userModel.findByEmail(email);
+    if (password.length < 6) return this.invalidStatusResponse('invalid_emailOrPassword');
 
-    if (!user || !await bcrypt.compare(password, user.password)) {
-      return { status: 'UNAUTHORIZED', data: { message: 'Invalid email or password' } };
-    }
-  
-    const payload = { sub: user.id, role: user.role, email: user.email };
+    return false;
+  }
+
+  private async checkPassword(password: string, userPassword: string) {
+    const match = await bcrypt.compare(password, userPassword);
+    if (!match) return this.invalidStatusResponse('invalid_password');
+
+    return false;
+  }
+
+  private invalidStatusResponse(status: string): ServiceResponse<Token> {
+    if (status === 'invalid_data') return { status: 'INVALID_DATA', data: { message: 'All fields must be filled' } };
+    if (status === 'invalid_emailOrPassword') return { status: 'UNAUTHORIZED', data: { message: 'Invalid email or password' } };
+
+    return { status: 'UNAUTHORIZED', data: { message: 'Invalid email or password' } };    
+  }
+
+  private tokenBuilder(sub: number, role: string, email: string) {
+    const payload = { sub, role, email };
   
     const secret = process.env.JWT_SECRET ?? 'jwt_secret';
   
     const token = jwt.sign(payload, secret, { expiresIn: '7d' });
-  
-    return { status: 'SUCCESSFUL', data: { token },
-    };
+
+    return token;
   }
 }

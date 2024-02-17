@@ -27,8 +27,10 @@ SequelizeUsers.init({
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
     },
+    profileImage: {
+        type: sequelize_1.DataTypes.STRING,
+    },
 }, {
-    underscored: true,
     sequelize: _1.default,
     modelName: 'users',
     timestamps: false,

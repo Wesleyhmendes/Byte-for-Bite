@@ -26,10 +26,13 @@ exports.default = {
                 type: sequelize_1.DataTypes.STRING,
                 allowNull: false,
             },
+            profileImage: {
+                type: sequelize_1.DataTypes.STRING,
+            },
         });
     },
     down(queryInterface) {
         return queryInterface.dropTable('users');
     },
 };
-//# sourceMappingURL=03Users.js.map
+//# sourceMappingURL=05Users.js.map

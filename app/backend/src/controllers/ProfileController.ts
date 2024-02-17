@@ -6,8 +6,10 @@ class ProfileController {
     private profileService: ProfileService
   ) { }
 
-  public getProfile(_req: Request, res: Response) {
-    
+  async getProfile(req: Request, res: Response) {
+    const { email } = req.body;
+    const profile = await this.profileService.getProfile(email) 
+    return res.status(200).json(profile);
   }
 }
 

@@ -7,7 +7,7 @@ class UserModel {
     }
     async findByEmail(email) {
         const user = await this.model.findOne({ where: { email } });
-        if (user == null)
+        if (user === null)
             return null;
         return user.dataValues;
     }
