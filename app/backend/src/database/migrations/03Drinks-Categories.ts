@@ -6,9 +6,9 @@ export default {
     return queryInterface.createTable<Model<iDrinkCategories>>('drinks_categories', {
       idCategory: {
         type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
         allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
       },
       strCategory: {
         type: DataTypes.STRING,
