@@ -11,4 +11,12 @@ export default class UserModel implements IUsersModel {
 
     return user.dataValues;
   }
+  
+  async findByUsername(username: string): Promise<IUsers | null> {
+    const user = await this.model.findOne({ where: { username } });    
+
+    if (user === null) return null;
+
+    return user.dataValues; 
+  }
 }

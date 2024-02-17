@@ -8,5 +8,5 @@ export default interface IUsers {
 }
 
 export interface IUsersModel {
-  findByEmail(email: IUsers['email']): Promise<IUsers | null>
+  findByEmail(email: IUsers['email']): Promise<IUsers | null>  
 }

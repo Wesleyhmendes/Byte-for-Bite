@@ -7,9 +7,9 @@ class ProfileController {
   ) { }
 
   async getProfile(req: Request, res: Response) {
-    const { email } = req.body;
-    const profile = await this.profileService.getProfile(email) 
-    return res.status(200).json(profile);
+    const { username } = req.body;
+    const { status, data } = await this.profileService.getProfile(username) 
+    return res.status(status).json(data);
   }
 }
 

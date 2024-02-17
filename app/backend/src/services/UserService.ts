@@ -13,8 +13,7 @@ export default class UserService {
   ) { }
 
   public async verifyLogin(login: Login): Promise<ServiceResponse<Token>> {
-    const { email, password } = login;
-    
+    const { email, password } = login;    
   
     const invalidLogin = this.validate(email, password);    
 
