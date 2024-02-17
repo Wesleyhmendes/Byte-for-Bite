@@ -23,6 +23,22 @@ class UserService {
         return { status: 'SUCCESSFUL', data: { token },
         };
     }
+    async createNewUser(newUser) {
+        const { email, password, username } = newUser;
+        const invalidData = this.validate(email, password);
+        if (invalidData)
+            return this.invalidStatusResponse('invalid_data');
+        const emailExists = await this.userModel.findByEmail(email);
+        if (emailExists)
+            return this.invalidStatusResponse('email_exists');
+        const usernameExists = await this.userModel.findByUsername(username);
+        if (usernameExists)
+            return this.invalidStatusResponse('username_exists');
+        const hashedPassword = await this.encryptPassword(password);
+        const encryptedUser = { ...newUser, password: hashedPassword };
+        const user = await this.userModel.createUser(encryptedUser);
+        return { status: 'CREATED', data: user };
+    }
     validate(email, password) {
         const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!email || !password)
@@ -32,6 +48,11 @@ class UserService {
         if (password.length < 6)
             return this.invalidStatusResponse('invalid_emailOrPassword');
         return false;
+    }
+    async encryptPassword(password) {
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        return hashedPassword;
     }
     async checkPassword(password, userPassword) {
         const match = await bcrypt.compare(password, userPassword);
@@ -44,6 +65,10 @@ class UserService {
             return { status: 'INVALID_DATA', data: { message: 'All fields must be filled' } };
         if (status === 'invalid_emailOrPassword')
             return { status: 'UNAUTHORIZED', data: { message: 'Invalid email or password' } };
+        if (status === 'email_exists')
+            return { status: 'INVALID_DATA', data: { message: 'Email already exists' } };
+        if (status === 'username_exists')
+            return { status: 'INVALID_DATA', data: { message: 'Username already exists' } };
         return { status: 'UNAUTHORIZED', data: { message: 'Invalid email or password' } };
     }
     tokenBuilder(sub, role, email) {

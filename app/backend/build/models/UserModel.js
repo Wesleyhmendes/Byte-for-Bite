@@ -5,8 +5,18 @@ class UserModel {
     constructor() {
         this.model = UserModel_1.default;
     }
+    async createUser(newUser) {
+        const { dataValues } = await this.model.create(newUser);
+        return dataValues;
+    }
     async findByEmail(email) {
         const user = await this.model.findOne({ where: { email } });
+        if (user === null)
+            return null;
+        return user.dataValues;
+    }
+    async findByUsername(username) {
+        const user = await this.model.findOne({ where: { username } });
         if (user === null)
             return null;
         return user.dataValues;

@@ -2,8 +2,15 @@ import IUsers from '../Interfaces/IUsers';
 import SequelizeUsers from '../database/models/UserModel';
 import { IUsersModel } from '../Interfaces/IUsers';
 
+
 export default class UserModel implements IUsersModel {
   private model = SequelizeUsers;
+
+  async createUser(newUser: Omit<IUsers, 'id'>): Promise<Omit<IUsers, 'id'>>{
+    const { dataValues } = await this.model.create(newUser)
+
+    return dataValues;
+  }
 
   async findByEmail(email: string): Promise<IUsers | null> {
     const user = await this.model.findOne({ where: { email } });    

@@ -10,6 +10,12 @@ class UserController {
         const httpStatus = (0, mapStatusHTTP_1.default)(status);
         return res.status(httpStatus).json(data);
     }
+    async createNewUser(req, res) {
+        const newUser = req.body;
+        const { data, status } = await this.userService.createNewUser(newUser);
+        const httpStatus = (0, mapStatusHTTP_1.default)(status);
+        return res.status(httpStatus).json(data);
+    }
 }
 exports.default = UserController;
 //# sourceMappingURL=UserController.js.map
