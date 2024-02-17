@@ -25,8 +25,7 @@ export default class UserService {
 
     const invalidPassword = await this.checkPassword(password, user.password);
 
-    if (invalidPassword) return invalidPassword as ServiceResponse<Token>;
-    // if (!await bcrypt.compare(password, user.password)) return this.invalidStatusResponse('invalid_password');
+    if (invalidPassword) return invalidPassword as ServiceResponse<Token>;    
   
     const token = this.tokenBuilder(user.id, user.role, user.email);    
   
@@ -38,7 +37,7 @@ export default class UserService {
     const { email, password, username } = newUser;
     const invalidData = this.validate(email, password);
 
-    if (invalidData) return this.invalidStatusResponse('invalid_data');
+    if (invalidData) return invalidData;
 
     const emailExists = await this.userModel.findByEmail(email);
 

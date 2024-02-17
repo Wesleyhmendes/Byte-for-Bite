@@ -26,4 +26,13 @@ export default class UserModel implements IUsersModel {
 
     return user.dataValues; 
   }
+
+  async updateImage(id: number, imageUrl: string) {
+    const rowCount = await this.model.update({ profileImage: imageUrl }, {
+      where: { id },
+    })
+    if (rowCount[0] === 0) return null;
+
+    return rowCount;
+  }
 }

@@ -8,5 +8,6 @@ const profileService = new ProfileService();
 const profileController = new ProfileController(profileService);
 
 router.get('/', (req: Request, res: Response) => profileController.getProfile(req, res));
+router.patch('/:id', (req: Request, res: Response) => profileController.updateProfileImage(req, res));
 
 export default router;
