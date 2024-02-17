@@ -4,7 +4,7 @@ export interface iDrinkRecipe {
   strDrinkAlternate: boolean,
   strTags: string,
   strVideo: string,
-  strCategory: number,
+  strCategory: number | string | undefined,
   strIBA: string,
   strAlcoholic: string,
   strGlass: string,
@@ -50,6 +50,7 @@ export interface iDrinkRecipe {
   strImageAttribution: string,
   strCreativeCommonsConfirmed: string,
   dateModified: string,
+  category?: {strCategory: string}
 }
 
 export interface IDrinkModel {

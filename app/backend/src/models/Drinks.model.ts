@@ -1,37 +1,63 @@
 import { Op } from 'sequelize';
 import SequelizeDrinks from '../database/models/Drinks-Recipes.model';
-import { IDrinkModel, iDrinkRecipe } from '../Interfaces/iDrinks';
+import SequelizeCategoryDrink from '../database/models/Drinks-Categories.model';
+import { IDrinkModel, iDrinkCategories, iDrinkRecipe } from '../Interfaces/iDrinks';
+import DrinksCategories from '../database/models/Drinks-Categories.model';
 
 export default class DrinksModel implements IDrinkModel {
-  private model = SequelizeDrinks;
+  private Drinkmodel = SequelizeDrinks;
+  private CategoryModel = SequelizeCategoryDrink;
 
-  async findAll(): Promise<iDrinkRecipe[] | null> {
-    const dbResponse = await this.model.findAll();
+  async findAll(): Promise<iDrinkRecipe[]> {
+    const recipes = await this.Drinkmodel.findAll({
+      include: [{
+        model: DrinksCategories, as: 'category', attributes: ['strCategory']
+      }],
+      attributes: { exclude: ['strCategory'] }
+    });
 
-    if (!dbResponse) return null;
+    const newRecipes = recipes.map((recipe) => {
+      const { category, ...rest } = recipe.toJSON() as iDrinkRecipe;
+      return { ...rest, strCategory: category?.strCategory };
+    });
 
-    return dbResponse;
+    return newRecipes;
   }
 
   async getFilteredDrinks(q: any): Promise<iDrinkRecipe[] | null> {
-    const dbResponse = await this.model.findAll({ where: {
-      strDrink: {
-        [Op.like]: `%${q}%`
+    const dbResponse = await this.Drinkmodel.findAll({
+      where: {
+        strDrink: {
+          [Op.like]: `%${q}%`
+        }
       }
-    }});
+    });
 
     if (!dbResponse) return null;
 
     return dbResponse;
   }
 
-  async getDrinkByCategory(q: number): Promise<iDrinkRecipe[] | null> {
-    const dbResponse = await this.model.findAll({
-      where: {
-        strCategory: q
-      },
+  async getDrinkByCategory(q: string): Promise<iDrinkRecipe[] | iDrinkCategories[]> {
+    const recipes = await this.Drinkmodel.findAll({
+      include: [{
+        model: DrinksCategories, as: 'category', attributes: ['strCategory']
+      }],
+      attributes: { exclude: ['strCategory'] }
     });
-    if (!dbResponse) return null;
-    return dbResponse;
+
+    const newRecipes = recipes.map((recipe) => {
+      const { category, ...rest } = recipe.toJSON() as iDrinkRecipe;
+      return { ...rest, strCategory: category?.strCategory };
+    });
+
+    if (q) {
+      return newRecipes.filter((recipe) => recipe.strCategory === q);
+    }
+
+    const categories = await this.CategoryModel.findAll({
+      attributes: { exclude: ['idCategory'] }
+    });
+    return categories;
   }
 }

@@ -1,6 +1,6 @@
 [
   {
-    "idDrink": 1,
+    "idDrink": "1",
     "strDrink": "3-Mile Long Island Iced Tea",
     "strDrinkAlternate": null,
     "strTags": null,
@@ -53,7 +53,7 @@
     "dateModified": "2016-08-31 19:42:52"
   },
   {
-    "idDrink": 2,
+    "idDrink": "2",
     "strDrink": "155 Belmont",
     "strDrinkAlternate": null,
     "strTags": null,
@@ -106,7 +106,7 @@
     "dateModified": "2016-10-05 12:36:28"
   },
   {
-    "idDrink": 3,
+    "idDrink": "3",
     "strDrink": "151 Florida Bushwacker",
     "strDrinkAlternate": null,
     "strTags": null,
@@ -159,7 +159,7 @@
     "dateModified": "2016-07-18 22:28:43"
   },
   {
-    "idDrink": 4,
+    "idDrink": "4",
     "strDrink": "A Piece of Ass",
     "strDrinkAlternate": null,
     "strTags": null,
@@ -212,7 +212,7 @@
     "dateModified": "2016-09-01 09:48:57"
   },
   {
-    "idDrink": 5,
+    "idDrink": "5",
     "strDrink": "Castillian Hot Chocolate",
     "strDrinkAlternate": null,
     "strTags": null,
@@ -265,7 +265,7 @@
     "dateModified": "2017-02-20 15:06:36"
   },
   {
-    "idDrink": 6,
+    "idDrink": "6",
     "strDrink": "24k nightmare",
     "strDrinkAlternate": null,
     "strTags": null,
@@ -318,7 +318,7 @@
     "dateModified": "2016-07-18 22:31:38"
   },
   {
-    "idDrink": 7,
+    "idDrink": "7",
     "strDrink": "Afternoon",
     "strDrinkAlternate": null,
     "strTags": null,
@@ -371,7 +371,7 @@
     "dateModified": "2016-08-31 19:22:57"
   },
   {
-    "idDrink": 8,
+    "idDrink": "8",
     "strDrink": "Absinthe #2",
     "strDrinkAlternate": null,
     "strTags": null,
@@ -424,7 +424,7 @@
     "dateModified": "2016-08-31 19:13:17"
   },
   {
-    "idDrink": 9,
+    "idDrink": "9",
     "strDrink": "Adam Bomb",
     "strDrinkAlternate": null,
     "strTags": null,
@@ -477,7 +477,7 @@
     "dateModified": "2016-02-03 15:23:36"
   },
   {
-    "idDrink": 10,
+    "idDrink": "10",
     "strDrink": "110 in the shade",
     "strDrinkAlternate": null,
     "strTags": null,
@@ -530,7 +530,7 @@
     "dateModified": "2016-02-03 14:51:57"
   },
   {
-    "idDrink": 11,
+    "idDrink": "11",
     "strDrink": "Bailey's Dream Shake",
     "strDrinkAlternate": null,
     "strTags": null,

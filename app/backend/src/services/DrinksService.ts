@@ -1,3 +1,4 @@
+import { ServiceResponse } from '../Interfaces/serviceReponse';
 import { iDrinkRecipe } from '../Interfaces/iDrinks';
 import DrinksModel from '../models/Drinks.model';
 
@@ -39,13 +40,15 @@ export default class MatchesService {
     return { status: 'SUCCESSFUL', data: response };
   }
 
-  public async getDrinkByCategory(q: number) {
+  public async getDrinkByCategory(q: string) {
     const drinks = await this.drinkModel.getDrinkByCategory(q);
-
-    if (drinks === null) {
-      return { status: 'NOT_FOUND', data: { message: 'drink not found' } } 
-    };
-
     return { status: 'SUCCESSFUL', data: drinks };
+  }
+
+  async getRandomDrink(): Promise<ServiceResponse<iDrinkRecipe>> {
+    const recipes = await this.drinkModel.findAll();
+    const randomRecipe = recipes[Math.floor(Math.random() * recipes.length) + 1];
+
+    return {status: 'SUCCESSFUL', data: randomRecipe};
   }
 }
