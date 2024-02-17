@@ -26,7 +26,7 @@ class DrinksModel {
         const dbResponse = await this.model.findAll({
             where: {
                 strCategory: q
-            }
+            },
         });
         if (!dbResponse)
             return null;

@@ -7,5 +7,7 @@ const mealsController = new MealsController();
 
 mealsRouter.get('/name', (req: Request, res: Response) => mealsController.getAllMealsRecipe(req, res));
 mealsRouter.get('/letter', (req: Request, res: Response) => mealsController.getByFirstLetter(req, res));
+mealsRouter.get('/random', (req: Request, res: Response) => mealsController.getRandomRecipe(req, res));
+mealsRouter.get('/categories', (req: Request, res: Response) => mealsController.getAllCategories(req, res))
 
 export default mealsRouter;
