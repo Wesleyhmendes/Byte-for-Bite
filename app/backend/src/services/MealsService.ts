@@ -1,3 +1,4 @@
+import IAreaType from "../Interfaces/IAreaType";
 import IMealsCategory from "../Interfaces/iCategory";
 import IMealRecipes from "../Interfaces/IMealRecipes";
 import { ServiceResponse } from "../Interfaces/serviceReponse";
@@ -29,5 +30,20 @@ export default class MealsService {
   async getAllCategories(): Promise<ServiceResponse<IMealsCategory[]>> {
     const categories = await this.mealsModel.findAllCategories();
     return {status: 'SUCCESSFUL', data: categories};
+  }
+
+  async getAllAreas(): Promise<ServiceResponse<IAreaType[]>> {
+    const areas = await this.mealsModel.findAllAreas();
+    return {status: 'SUCCESSFUL', data: areas}
+  }
+
+  async getByCategory(category: string): Promise<ServiceResponse<IMealRecipes[]>> {
+    const recipes = await this.mealsModel.findRecipeByCategory(category);
+    return {status: 'SUCCESSFUL', data: recipes};
+  }
+
+  async getByArea(area: string): Promise<ServiceResponse<IMealRecipes[]>> {
+    const recipes = await this.mealsModel.findRecipeByArea(area);
+    return {status: 'SUCCESSFUL', data: recipes};
   }
 }
