@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
 import { ServiceResponse } from '../Interfaces/serviceReponse';
 import { iDrinkRecipe } from '../Interfaces/iDrinks';
->>>>>>> f41362d0826f8aa44b4d6929fed5e91411a6bc72
 import DrinksModel from '../models/Drinks.model';
 
 export default class MatchesService {
@@ -13,10 +10,6 @@ export default class MatchesService {
   public async getDrinks() {
     const drinks = await this.drinkModel.findAll();
 
-<<<<<<< HEAD
-    return { status: 'SUCCESSFUL', data: drinks };
-  }
-=======
     if (drinks === null) {
       return { status: 'NOT_FOUND', data: { message: 'drinks not found' } } 
     };
@@ -58,5 +51,4 @@ export default class MatchesService {
 
     return {status: 'SUCCESSFUL', data: randomRecipe};
   }
->>>>>>> f41362d0826f8aa44b4d6929fed5e91411a6bc72
 }
