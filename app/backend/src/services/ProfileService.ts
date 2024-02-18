@@ -17,7 +17,7 @@ class ProfileService {
     return { status: 'SUCCESSFUL', data: profile }
   }
 
-  async updateProfileImage(id: number, imageUrl: string) {
+  async updateProfileImage(id: number, imageUrl: string): Promise<ServiceResponse<{ message: string }>> {
     const response = await this.userModel.updateImage(id, imageUrl);
 
     if (response !== 1) return { status: 'NOT_FOUND', data: { message: 'ID not found!' } }
