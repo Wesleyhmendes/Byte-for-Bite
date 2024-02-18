@@ -2,8 +2,7 @@ import IUsers from '../Interfaces/IUsers';
 import { ServiceResponse } from '../Interfaces/serviceReponse';
 import UserModel from '../models/UserModel';
 
-const notFound = 'Email not found';
-const invalidData = 'Invalid data';
+const notFound = 'Username not found';
 
 class ProfileService {
   constructor(
@@ -19,18 +18,17 @@ class ProfileService {
   }
 
   async updateProfileImage(id: number, imageUrl: string) {
-    const result = await this.userModel.updateImage(id, imageUrl);
+    const response = await this.userModel.updateImage(id, imageUrl);
 
-    if (!result) return { status: 'NOT_FOUND', data: { message: 'ID not found!' } }
+    if (response !== 1) return { status: 'NOT_FOUND', data: { message: 'ID not found!' } }
 
     return { status: 'SUCCESSFUL', data: { message: `Profile ID:${id} image updated!` } }
-
   }
 
   private serviceResponse(status: string): ServiceResponse<IUsers> {
-    if (status === notFound) return { status: 'NOT_FOUND', data: { message: notFound } }
+    if (status === notFound) return { status: 'NOT_FOUND', data: { message: 'Username not found'} }
     
-    return { status: 'INVALID_DATA', data: { message: invalidData } }
+    return { status: 'INVALID_DATA', data: { message: 'Invalid data' } }
   }
 }
 

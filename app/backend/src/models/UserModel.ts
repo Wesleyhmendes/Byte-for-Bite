@@ -27,12 +27,12 @@ export default class UserModel implements IUsersModel {
     return user.dataValues; 
   }
 
-  async updateImage(id: number, imageUrl: string) {
+  async updateImage(id: number, imageUrl: string): Promise<number | null> {
     const rowCount = await this.model.update({ profileImage: imageUrl }, {
       where: { id },
     })
     if (rowCount[0] === 0) return null;
 
-    return rowCount;
+    return rowCount[0];
   }
 }

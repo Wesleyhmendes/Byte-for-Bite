@@ -17,6 +17,7 @@ export default class UserController {
   async createNewUser(req: Request, res: Response) {
     const newUser = req.body;
     const { data, status } = await this.userService.createNewUser(newUser);
+    
     const httpStatus = mapStatusHTTP(status);
 
     return res.status(httpStatus).json(data);

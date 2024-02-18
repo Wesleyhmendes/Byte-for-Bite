@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import mapStatusHTTP from '../utils/mapStatusHTTP';
-import DrinkService from '../services/drinks.service';
+import DrinkService from '../services/DrinksService';
 
 export default class MatchesController {
   constructor(
