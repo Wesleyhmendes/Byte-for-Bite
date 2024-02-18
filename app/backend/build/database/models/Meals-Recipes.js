@@ -170,6 +170,9 @@ MealsRecipe.init({
     },
     dateModified: {
         type: sequelize_1.DataTypes.STRING,
+    },
+    category: {
+        type: sequelize_1.DataTypes.STRING
     }
 }, {
     sequelize: _1.default,

@@ -10,6 +10,31 @@ export default class MatchesController {
   public async getDrinks(req: Request, res: Response) {
     const { status, data } = await this.drinkService.getDrinks();
 
-    return res.status(200).json({ teste: "teste" });
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  public async getFilteredDrinks(req: Request, res: Response) {
+    const q = req.query.q;
+    const { status, data } = await this.drinkService.getFilteredDrinks(q);
+
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  public async getDrinksByFirstLetter(req: Request, res: Response) {
+    const q = req.query.q;
+    const { status, data } = await this.drinkService.getDrinksByFirstLetter(q);
+
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  public async getDrinkByCategory(req: Request, res: Response) {
+    const { q } = req.query;
+    const { status, data } = await this.drinkService.getDrinkByCategory(q as string);
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  public async getRandomDrink(req: Request, res: Response) {
+    const { status, data } = await this.drinkService.getRandomDrink();
+    return res.status(mapStatusHTTP(status)).json(data);
   }
 }

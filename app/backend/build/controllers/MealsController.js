@@ -7,7 +7,23 @@ class MealsController {
         this.mealsService = mealsService;
     }
     async getAllMealsRecipe(req, res) {
+        const { q } = req.query;
+        if (q) {
+            const { status, data } = await this.mealsService.getRecipeByName(q);
+            return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
+        }
         const { status, data } = await this.mealsService.getAllMealsRecipe();
+        return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
+    }
+    ;
+    async getByFirstLetter(req, res) {
+        const { q } = req.query;
+        const { status, data } = await this.mealsService.getByFirstLetter(q);
+        return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
+    }
+    ;
+    async getRandomRecipe(_req, res) {
+        const { status, data } = await this.mealsService.getRandomRecipe();
         return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
     }
 }

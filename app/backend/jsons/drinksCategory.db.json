@@ -1,35 +1,46 @@
 [
   {
+  "idCategory": "1",
   "strCategory": "Ordinary Drink"
   },
   {
+  "idCategory": "2",
   "strCategory": "Cocktail"
   },
   {
+  "idCategory": "3",
   "strCategory": "Shake"
   },
   {
+  "idCategory": "4",
   "strCategory": "Other / Unknown"
   },
   {
+  "idCategory": "5",
   "strCategory": "Cocoa"
   },
   {
+  "idCategory": "6",
   "strCategory": "Shot"
   },
   {
+  "idCategory": "7",
   "strCategory": "Coffee / Tea"
   },
   {
+  "idCategory": "8",
   "strCategory": "Homemade Liqueur"
   },
   {
+  "idCategory": "9",
   "strCategory": "Punch / Party Drink"
   },
   {
+  "idCategory": "10",
   "strCategory": "Beer"
   },
   {
+  "idCategory": "11",
   "strCategory": "Soft Drink"
   }
   ]
