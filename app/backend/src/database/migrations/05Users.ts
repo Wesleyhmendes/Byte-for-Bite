@@ -26,6 +26,9 @@ export default {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      profileImage: {
+        type: DataTypes.STRING,
+      },    
     });
   },
   down(queryInterface: QueryInterface) {

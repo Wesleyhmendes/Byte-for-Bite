@@ -26,6 +26,9 @@ exports.default = {
                 type: sequelize_1.DataTypes.STRING,
                 allowNull: false,
             },
+            profileImage: {
+                type: sequelize_1.DataTypes.STRING,
+            },
         });
     },
     down(queryInterface) {

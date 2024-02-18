@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 exports.default = {
     up: async (queryInterface) => {
-        const filePath = path.join(__dirname, '..', '..', '..', 'drinksCategory.db.json');
+        const filePath = path.join(__dirname, '..', '..', '..', 'jsons', 'drinksCategory.db.json');
         const jsonData = fs.readFileSync(filePath);
         const categories = JSON.parse(jsonData);
         await queryInterface.bulkInsert('drinks_categories', categories, {});
