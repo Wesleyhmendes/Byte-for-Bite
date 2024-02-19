@@ -1,42 +1,55 @@
-import * as bcrypt from 'bcryptjs';
-import * as jwt from 'jsonwebtoken';
 import { ServiceResponse } from '../Interfaces/serviceReponse';
 import UserModel from '../models/UserModel';
-import {IUsersModel} from '../Interfaces/IUsers';
-
-type Login = { email: string, password: string };
-type Token = { token: string };
+import IUsers, {IUsersModel} from '../Interfaces/IUsers';
+import { Token, Login } from '../Interfaces/Login';
+import UserValidation from '../utils/userValidation';
 
 export default class UserService {
   constructor(
     private userModel: IUsersModel = new UserModel(),
+    private userValidation = new UserValidation()
   ) { }
 
   public async verifyLogin(login: Login): Promise<ServiceResponse<Token>> {
-    const { email, password } = login;
+    const { email, password } = login;    
   
-    if (!email || !password) {
-      return { status: 'INVALID_DATA', data: { message: 'All fields must be filled' } };
-    }
-    const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const invalidLogin = this.userValidation.validate(email, password);    
 
-    if (!validEmail.test(email) || password.length < 6) {
-      return { status: 'UNAUTHORIZED', data: { message: 'Invalid email or password' } };
-    }
+    if(invalidLogin) return invalidLogin;
 
-    const user = await this.userModel.findByEmail(email);
+    const user = await this.userModel.findByEmail(email);    
 
-    if (!user || !await bcrypt.compare(password, user.password)) {
-      return { status: 'UNAUTHORIZED', data: { message: 'Invalid email or password' } };
-    }
+    if (!user) return this.userValidation.invalidStatusResponse('invalid_password');
+
+    const invalidPassword = await this.userValidation.checkPassword(password, user.password);
+
+    if (invalidPassword) return invalidPassword as ServiceResponse<Token>;    
   
-    const payload = { sub: user.id, role: user.role, email: user.email };
+    const token = this.userValidation.tokenBuilder(user.id, user.role, user.email);    
   
-    const secret = process.env.JWT_SECRET ?? 'jwt_secret';
-  
-    const token = jwt.sign(payload, secret, { expiresIn: '7d' });
-  
-    return { status: 'SUCCESSFUL', data: { token },
-    };
+    return { status: 'SUCCESSFUL', data: token };
   }
+
+  async createNewUser(newUser: Omit<IUsers, 'id' | 'role' | 'profileImage'>): Promise<ServiceResponse<Token | { message: string }>> {
+    const { email, password, username } = newUser;
+    const invalidData = this.userValidation.validate(email, password);
+
+    if (invalidData) return invalidData;
+
+    const emailExists = await this.userModel.findByEmail(email);
+
+    if (emailExists) return this.userValidation.invalidStatusResponse('email_exists');
+
+    const usernameExists = await this.userModel.findByUsername(username);
+
+    if (usernameExists) return this.userValidation.invalidStatusResponse('username_exists');
+
+    const hashedPassword = await this.userValidation.encryptPassword(password);
+
+    const encryptedUser = { ...newUser, role: 'user', profileImage: '', password: hashedPassword }
+
+    const userInfo = await this.userModel.createUser(encryptedUser);
+
+    return { status: 'CREATED', data: { message: `User: "${userInfo.username}" created!` } };
+  } 
 }

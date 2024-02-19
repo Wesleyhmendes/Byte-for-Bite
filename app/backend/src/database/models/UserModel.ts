@@ -11,6 +11,7 @@ class SequelizeUsers extends Model<InferAttributes<SequelizeUsers>,
 InferCreationAttributes<SequelizeUsers>> {
   declare id: CreationOptional<number>;
   declare username: string;
+  declare profileImage: string;  
   declare role: string;
   declare email: string;
   declare password: string;
@@ -39,8 +40,11 @@ SequelizeUsers.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
-}, {
-  underscored: true,
+  profileImage: {
+    type: DataTypes.STRING,
+  }, 
+}, 
+{  
   sequelize: db,
   modelName: 'users',
   timestamps: false,

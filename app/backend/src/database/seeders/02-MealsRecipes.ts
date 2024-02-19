@@ -4,7 +4,7 @@ import { QueryInterface } from 'sequelize';
 
 export default {
   up: async (queryInterface: QueryInterface) => {
-    const filePath = path.join(__dirname, '..', '..', '..', 'mealRecipes.db.json');
+    const filePath = path.join(__dirname,  '..', '..', '..', 'jsons', 'mealRecipes.db.json');
 
     const jsonData = fs.readFileSync(filePath);
     const meals = JSON.parse(jsonData);
