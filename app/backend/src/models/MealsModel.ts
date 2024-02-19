@@ -136,4 +136,8 @@ export default class MealsModel implements IMealsRecipesModel {
     return recipesFiltred;
   }
   
+  async findRecipeById(id: number): Promise<IMealRecipes | null> {
+    const recipe = await this.mealsModel.findByPk(id);
+    return recipe;
+  }
 }
