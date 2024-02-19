@@ -1,23 +1,36 @@
-import { ChangeEvent } from 'react';
-import useSignup from '../../hooks/useSignup';
+import { useState } from 'react';
+import useFetch from '../../hooks/useFetch';
+import useSignUp from '../../hooks/useSignUp';
 import validateUser from '../../utils/functions/validateUser';
 
 function SignUp() {
+  const { user, RESET_USER, dispatch, handleChange } = useSignUp();
+  const isInvalid = validateUser(user); 
+  const [response, setResponse] = useState('');  
 
-  const { UPDATE_USER, user, dispatch  } = useSignup();
-  const isInvalid = validateUser(user);  
+  const { confirmPassword, ...rest } = user;
+  const requestBody = rest;
 
-  const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = target;
-    dispatch({ type: UPDATE_USER, key: name, value });    
+  const signUpURL = 'http://localhost:3001/user';
+  const { data, handleFetch } = useFetch(signUpURL, { method: 'POST', body: requestBody });
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();    
+    
+    await handleFetch();
+    const result = await data;      
+    dispatch({type: RESET_USER});
+    setResponse(await result.message);    
   }
+
   
+  console.log(response);
   return(
     <main>
       <h2>
         SignUp
       </h2>
-      <form>
+      <form onSubmit={ handleSubmit }>
         <label>
           E-mail:
           <input 

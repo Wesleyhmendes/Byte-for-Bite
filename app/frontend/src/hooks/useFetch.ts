@@ -45,7 +45,7 @@ const useFetch = (URL: string, options: FetchOptions = {}) => {
 
   const [ state, dispatch ] = useReducer(fetchReducer, initialState);
 
-  const handleFetch = useCallback(async () => {
+  const handleFetch = async () => {
     const { method = 'GET', body } = options;
 
     const request = {
@@ -66,16 +66,13 @@ const useFetch = (URL: string, options: FetchOptions = {}) => {
     } catch (err) {
       dispatch({ type: 'error', payload: err })
     }
-  }, [URL]);
-
-  useEffect(() => {
-    handleFetch()
-  }, [handleFetch]);
+  }; 
 
   return {
     data: state.data,
     isLoading: state.isLoading,
     error: state.error,
+    handleFetch,  
   }
 }
 
