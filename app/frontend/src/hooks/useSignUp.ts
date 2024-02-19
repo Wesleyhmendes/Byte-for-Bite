@@ -1,13 +1,15 @@
-import { useReducer } from 'react';
+import { ChangeEvent, useReducer } from 'react';
 
 type UserAction = {
   type: string,
-  key: string,
-  value: string,
+  key?: string,
+  value?: string,
 }
 
-const useSignup = () => {
-  const UPDATE_USER = 'UPDATE_USER'
+const useSignUp = () => {
+  const UPDATE_USER = 'UPDATE_USER';
+  const RESET_USER = 'RESET_USER';
+
   const initialState = {
     email: '',
     username: '',
@@ -22,6 +24,8 @@ const useSignup = () => {
           ...state,
           [action.key]: action.value,
         }
+      case RESET_USER:
+        return initialState
       default:
         return state
     }
@@ -29,11 +33,18 @@ const useSignup = () => {
 
   const [user, dispatch] = useReducer(signUpReducer, initialState);
 
+  const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = target;
+
+    dispatch({ type: UPDATE_USER, key: name, value }); 
+  } 
+
   return {
     user,
-    UPDATE_USER,
-    dispatch
+    RESET_USER,
+    handleChange,
+    dispatch,
   }
 }
 
-export default useSignup;
+export default useSignUp;

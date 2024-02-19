@@ -12,7 +12,7 @@ interface FetchOptions {
   body?: any;
 }
 
-const useFetch = (URL: string, options: FetchOptions = {}) => {
+const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
   const initialState = {
     data: undefined,
     isLoading: true,
@@ -45,8 +45,8 @@ const useFetch = (URL: string, options: FetchOptions = {}) => {
 
   const [ state, dispatch ] = useReducer(fetchReducer, initialState);
 
-  const handleFetch = useCallback(async () => {
-    const { method = 'GET', body } = options;
+  const handleFetch =async () => { 
+    const { method, body } = options;
 
     const request = {
       method,
@@ -62,20 +62,26 @@ const useFetch = (URL: string, options: FetchOptions = {}) => {
       const response = await fetch(URL, request);
       const result = await response.json();
 
-      dispatch({ type: 'fetched', payload: await result });
+      dispatch({ type: 'fetched', payload: result });
+
     } catch (err) {
       dispatch({ type: 'error', payload: err })
-    }
-  }, [URL]);
+    }    
+  };
+   
 
   useEffect(() => {
-    handleFetch()
-  }, [handleFetch]);
+    if (options.method === 'GET') {
+      handleFetch();
+      return
+    }
+  }, [])
 
   return {
     data: state.data,
     isLoading: state.isLoading,
     error: state.error,
+    handleFetch,  
   }
 }
 
