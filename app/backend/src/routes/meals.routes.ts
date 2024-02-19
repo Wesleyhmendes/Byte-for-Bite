@@ -13,6 +13,6 @@ mealsRouter.get('/areas', (req:Request, res: Response) => mealsController.getAll
 mealsRouter.get('/category', (req: Request, res: Response) => mealsController.getRecipeByCategory(req, res));
 mealsRouter.get('/area', (req: Request, res: Response) => mealsController.getRecipeByArea(req, res));
 mealsRouter.get('/ingredients', (req: Request, res: Response) => mealsController.getAllIngredients(req, res));
-mealsRouter.get('/ingredient', (req: Request, res: Response) => mealsController.getByIngredient(req, res))
+mealsRouter.get('/ingredient', (req: Request, res: Response) => mealsController.getByIngredient(req, res));
 
 export default mealsRouter;
