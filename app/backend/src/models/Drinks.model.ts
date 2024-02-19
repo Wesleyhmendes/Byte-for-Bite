@@ -60,4 +60,32 @@ export default class DrinksModel implements IDrinkModel {
     });
     return categories;
   }
+
+  async getAllIngredients(): Promise<string[]> {
+    const recipes = await this.findAll();
+    const uniqueIngredients:any [] = [];
+    recipes.forEach((recipe) => {
+      for(let i = 1; i <= 20; i += 1) {
+        const ingredientKey = `strIngredient${i}` as keyof iDrinkRecipe;
+        const ingredient = recipe[ingredientKey];
+        if(ingredient) {
+          uniqueIngredients.push(ingredient);
+        }
+      }
+    });
+    const removedDup = new Set(uniqueIngredients);
+    const newIngredients = Array.from(removedDup);
+    return newIngredients;
+  }
+
+  async getByIngredients(q: string) {
+    const allRecipes: iDrinkRecipe[] = await this.findAll();
+    const recipes: iDrinkRecipe[] = [];
+
+    for (let i = 1; i <= 15; i += 1) {
+      const filteredRecipes = allRecipes.filter((recipe) => recipe[`strIngredient${i}` as keyof iDrinkRecipe] === q);
+      recipes.push(...filteredRecipes);
+    }
+    return recipes;
+  }
 }

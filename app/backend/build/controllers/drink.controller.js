@@ -21,8 +21,16 @@ class MatchesController {
         return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
     }
     async getDrinkByCategory(req, res) {
-        const q = req.query.q;
-        const { status, data } = await this.drinkService.getDrinkByCategory(Number(q));
+        const { q } = req.query;
+        const { status, data } = await this.drinkService.getDrinkByCategory(q);
+        return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
+    }
+    async getRandomDrink(req, res) {
+        const { status, data } = await this.drinkService.getRandomDrink();
+        return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
+    }
+    async getAllIngredients(req, res) {
+        const { status, data } = await this.drinkService.getAllIngredients();
         return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
     }
 }

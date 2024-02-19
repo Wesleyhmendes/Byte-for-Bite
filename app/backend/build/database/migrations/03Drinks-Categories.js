@@ -6,9 +6,9 @@ exports.default = {
         return queryInterface.createTable('drinks_categories', {
             idCategory: {
                 type: sequelize_1.DataTypes.INTEGER,
-                primaryKey: true,
-                autoIncrement: true,
                 allowNull: false,
+                autoIncrement: true,
+                primaryKey: true,
             },
             strCategory: {
                 type: sequelize_1.DataTypes.STRING,
