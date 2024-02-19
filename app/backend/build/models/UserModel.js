@@ -21,6 +21,14 @@ class UserModel {
             return null;
         return user.dataValues;
     }
+    async updateImage(id, imageUrl) {
+        const rowCount = await this.model.update({ profileImage: imageUrl }, {
+            where: { id },
+        });
+        if (rowCount[0] === 0)
+            return null;
+        return rowCount[0];
+    }
 }
 exports.default = UserModel;
 //# sourceMappingURL=UserModel.js.map

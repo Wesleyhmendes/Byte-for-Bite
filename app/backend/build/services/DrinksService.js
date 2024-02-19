@@ -44,6 +44,10 @@ class MatchesService {
         const recipes = await this.drinkModel.getAllIngredients();
         return { status: 'SUCCESSFUL', data: recipes };
     }
+    async getByIngredients(q) {
+        const recipes = await this.drinkModel.getByIngredients(q);
+        return { status: 'SUCCESSFUL', data: recipes };
+    }
 }
 exports.default = MatchesService;
 //# sourceMappingURL=DrinksService.js.map

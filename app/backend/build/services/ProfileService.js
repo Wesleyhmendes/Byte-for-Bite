@@ -1,8 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const UserModel_1 = require("../models/UserModel");
-const notFound = 'Email not found';
-const successfull = 'Success!';
+const notFound = 'Username not found';
 class ProfileService {
     constructor(userModel = new UserModel_1.default()) {
         this.userModel = userModel;
@@ -13,12 +12,18 @@ class ProfileService {
             return this.serviceResponse(notFound);
         const { password, email, ...rest } = result;
         const profile = rest;
-        return { status: 200, data: profile };
+        return { status: 'SUCCESSFUL', data: profile };
+    }
+    async updateProfileImage(id, imageUrl) {
+        const response = await this.userModel.updateImage(id, imageUrl);
+        if (response !== 1)
+            return { status: 'NOT_FOUND', data: { message: 'ID not found!' } };
+        return { status: 'SUCCESSFUL', data: { message: `Profile ID:${id} image updated!` } };
     }
     serviceResponse(status) {
         if (status === notFound)
-            return { status: 404, data: { message: notFound } };
-        return { status: 200, data: { message: successfull } };
+            return { status: 'NOT_FOUND', data: { message: 'Username not found' } };
+        return { status: 'INVALID_DATA', data: { message: 'Invalid data' } };
     }
 }
 exports.default = ProfileService;

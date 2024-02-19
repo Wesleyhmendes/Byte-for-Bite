@@ -93,6 +93,36 @@ class MealsModel {
         });
         return newRecipes;
     }
+    async findAllIngredients() {
+        const recipes = await this.findAll();
+        const uniqueIngredients = [];
+        recipes.forEach((recipe) => {
+            for (let i = 1; i <= 20; i += 1) {
+                const ingredientKey = `strIngredient${i}`;
+                const ingredient = recipe[ingredientKey];
+                if (ingredient) {
+                    uniqueIngredients.push(ingredient);
+                }
+            }
+        });
+        const removedDup = new Set(uniqueIngredients);
+        const newIngredients = Array.from(removedDup);
+        return newIngredients;
+    }
+    async findByIngredient(ingredient) {
+        const recipes = await this.findAll();
+        const recipesFiltred = recipes.filter((recipe) => {
+            const values = Object.values(recipe);
+            const valuesLower = values.map((value) => {
+                return typeof value === 'string' ? value.toLowerCase() : value;
+            });
+            if (valuesLower.includes(ingredient.toLowerCase())) {
+                return true;
+            }
+            return false;
+        });
+        return recipesFiltred;
+    }
 }
 exports.default = MealsModel;
 //# sourceMappingURL=MealsModel.js.map
