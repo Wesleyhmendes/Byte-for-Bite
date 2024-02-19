@@ -3,6 +3,13 @@ export type UserInfoType = {
   password: string;
 };
 
+export type User = {
+  email: string,
+  username: string,
+  password: string,
+  confirmPassword: string,
+}
+
 export type FilterRadioType = {
   radioSelected: 'ingredient' | 'name' | 'firstLetter' | string;
   search: string,
