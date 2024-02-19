@@ -80,11 +80,11 @@ export default class DrinksModel implements IDrinkModel {
 
   async getByIngredients(q: string) {
     const allRecipes: iDrinkRecipe[] = await this.findAll();
-    const recipes: iDrinkRecipe[] = [];
+    const recipes = [];
 
     for (let i = 1; i <= 15; i += 1) {
       const filteredRecipes = allRecipes.filter((recipe) => recipe[`strIngredient${i}` as keyof iDrinkRecipe] === q);
-      recipes.push(...filteredRecipes);
+      recipes.push(...filteredRecipes)
     }
     return recipes;
   }
