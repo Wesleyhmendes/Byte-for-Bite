@@ -1,33 +1,35 @@
 import { FilterRadioType } from '../type';
+import { createUrlMealsFilter } from '../utils/functions/createUrlMealsFilter';
 
 export const fetchMeals = async () => {
-  const URL_API = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const URL_API = 'http://localhost:3001/meals/name';
   const response = await fetch(URL_API);
   const data = await response.json();
-  return data.meals;
+  return data;
 };
 
 export const fetchMealsByFilter = async (
   { radioSelected, search }: FilterRadioType,
 ) => {
-  const URL_API = `https://www.themealdb.com/api/json/v1/1/${radioSelected === 'i' ? 'filter' : 'search'}.php?${radioSelected}=${search}`;
+  const URL_API = createUrlMealsFilter(radioSelected, search);
   const response = await fetch(URL_API);
   const data = await response.json();
-  return data.meals;
+  return data;
 };
 
 export const fetchMealsCategories = async () => {
-  const URL_API = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+  const URL_API = 'http://localhost:3001/meals/categories';
   const response = await fetch(URL_API);
   const data = await response.json();
-  return data.meals;
+  return data;
 };
 
 export const fetchMealsFilterByCategory = async (category: string) => {
-  const URL_API = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
+
+  const URL_API = `http://localhost:3001/meals/category?q=${category}`;
   const response = await fetch(URL_API);
   const data = await response.json();
-  return data.meals;
+  return data;
 };
 
 export const fetchDrinks = async () => {
@@ -62,8 +64,8 @@ export const fetchDrinksFilterByCategory = async (category: number) => {
 };
 
 export const fetchRecipeById = async (typeRecipe: string, id: string) => {
-  const URL_API = typeRecipe === 'meals' ? `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}` : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const URL_API = typeRecipe === 'meals' ? `http://localhost:3001/meals/${id}` : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
   const response = await fetch(URL_API);
   const data = await response.json();
-  return data[typeRecipe][0];
+  return data;
 };
