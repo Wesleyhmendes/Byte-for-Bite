@@ -7,11 +7,13 @@ import DoneRecipes from '../pages/DoneRecipes';
 import FavoriteRecipes from '../pages/FavoriteRecipes';
 import RecipeDetails from '../pages/RecipeDetails';
 import RecipeInProgress from '../pages/RecipeInProgress';
+import SignUp from '../pages/SignUp';
 
 export default function RoutesApp() {
   return (
     <Routes>
       <Route path="/" Component={ Login } />
+      <Route path='/signup' Component={ SignUp } />
       <Route path="/meals/:id" Component={ RecipeDetails } />
       <Route path="/drinks/:id" Component={ RecipeDetails } />
       <Route path="/" Component={ Layout }>

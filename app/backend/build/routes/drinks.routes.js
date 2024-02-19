@@ -8,5 +8,7 @@ router.get('/', (req, res) => drinkController.getDrinks(req, res));
 router.get('/name', (req, res) => drinkController.getFilteredDrinks(req, res));
 router.get('/letter', (req, res) => drinkController.getDrinksByFirstLetter(req, res));
 router.get('/category', (req, res) => drinkController.getDrinkByCategory(req, res));
+router.get('/random', (req, res) => drinkController.getRandomDrink(req, res));
+router.get('/ingredients', (req, res) => drinkController.getAllIngredients(req, res));
 exports.default = router;
 //# sourceMappingURL=drinks.routes.js.map

@@ -2,6 +2,7 @@ import { ChangeEvent, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserInfoType } from '../../type';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
+import { Link } from 'react-router-dom';
 
 function Login() {
   const INITIAL_STATE: UserInfoType = {
@@ -63,6 +64,10 @@ function Login() {
           Entrar
         </button>
       </form>
+      <div>
+        <p>Don't have an account?</p>
+        <p>Sign up <Link to='/signup'>here</Link></p>
+      </div>
     </main>
   );
 }
