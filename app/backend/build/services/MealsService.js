@@ -38,6 +38,14 @@ class MealsService {
         const recipes = await this.mealsModel.findRecipeByArea(area);
         return { status: 'SUCCESSFUL', data: recipes };
     }
+    async getAllIngredients() {
+        const ingredients = await this.mealsModel.findAllIngredients();
+        return { status: 'SUCCESSFUL', data: { ingredients } };
+    }
+    async getByIngredient(ingredient) {
+        const recipes = await this.mealsModel.findByIngredient(ingredient);
+        return { status: 'SUCCESSFUL', data: recipes };
+    }
 }
 exports.default = MealsService;
 //# sourceMappingURL=MealsService.js.map

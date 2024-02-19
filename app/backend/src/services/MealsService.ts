@@ -57,4 +57,12 @@ export default class MealsService {
     const recipes = await this.mealsModel.findByIngredient(ingredient);
     return {status: 'SUCCESSFUL', data: recipes};
   }
+
+  async getRecipeById(id: number): Promise<ServiceResponse<IMealRecipes>>{
+    const recipe = await this.mealsModel.findRecipeById(id);
+    if(!recipe) {
+      return {status: 'NOT_FOUND', data: {message: 'Food not found'}};
+    }
+    return {status: 'SUCCESSFUL', data: recipe};
+  }
 }

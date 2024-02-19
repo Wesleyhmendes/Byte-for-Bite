@@ -11,5 +11,7 @@ mealsRouter.get('/categories', (req, res) => mealsController.getAllCategories(re
 mealsRouter.get('/areas', (req, res) => mealsController.getAllAreas(req, res));
 mealsRouter.get('/category', (req, res) => mealsController.getRecipeByCategory(req, res));
 mealsRouter.get('/area', (req, res) => mealsController.getRecipeByArea(req, res));
+mealsRouter.get('/ingredients', (req, res) => mealsController.getAllIngredients(req, res));
+mealsRouter.get('/ingredient', (req, res) => mealsController.getByIngredient(req, res));
 exports.default = mealsRouter;
 //# sourceMappingURL=meals.routes.js.map

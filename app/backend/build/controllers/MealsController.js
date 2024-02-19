@@ -44,6 +44,15 @@ class MealsController {
         const { status, data } = await this.mealsService.getByArea(q);
         return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
     }
+    async getAllIngredients(req, res) {
+        const { status, data } = await this.mealsService.getAllIngredients();
+        return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
+    }
+    async getByIngredient(req, res) {
+        const { q } = req.query;
+        const { status, data } = await this.mealsService.getByIngredient(q);
+        return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
+    }
 }
 exports.default = MealsController;
 //# sourceMappingURL=MealsController.js.map

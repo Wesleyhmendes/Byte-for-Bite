@@ -59,4 +59,11 @@ export default class MealsController {
     const {status, data} = await this.mealsService.getByIngredient(q as string);
     return res.status(mapStatusHTTP(status)).json(data);
   }
+
+  async getById(req: Request, res: Response) {
+    const {id} = req.params;
+    console.log(id);
+    const {status, data} = await this.mealsService.getRecipeById(Number(id));
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
 }

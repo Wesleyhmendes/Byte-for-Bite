@@ -69,6 +69,15 @@ class DrinksModel {
         const newIngredients = Array.from(removedDup);
         return newIngredients;
     }
+    async getByIngredients(q) {
+        const allRecipes = await this.findAll();
+        const recipes = [];
+        for (let i = 1; i <= 15; i += 1) {
+            const filteredRecipes = allRecipes.filter((recipe) => recipe[`strIngredient${i}`] === q);
+            recipes.push(...filteredRecipes);
+        }
+        return recipes;
+    }
 }
 exports.default = DrinksModel;
 //# sourceMappingURL=Drinks.model.js.map
