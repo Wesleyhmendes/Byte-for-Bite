@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import useSignUp from '../../hooks/useSignUp';
 import validateUser from '../../utils/functions/validateUser';
@@ -6,25 +5,23 @@ import validateUser from '../../utils/functions/validateUser';
 function SignUp() {
   const { user, RESET_USER, dispatch, handleChange } = useSignUp();
   const isInvalid = validateUser(user); 
-  const [response, setResponse] = useState('');  
+    
 
   const { confirmPassword, ...rest } = user;
   const requestBody = rest;
+   
 
   const signUpURL = 'http://localhost:3001/user';
-  const { data, handleFetch } = useFetch(signUpURL, { method: 'POST', body: requestBody });
+  const { handleFetch } = useFetch(signUpURL, { method: 'POST', body: requestBody });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();    
     
     await handleFetch();
-    const result = await data;      
-    dispatch({type: RESET_USER});
-    setResponse(await result.message);    
-  }
 
+    dispatch({type: RESET_USER});
+  } 
   
-  console.log(response);
   return(
     <main>
       <h2>
