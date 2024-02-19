@@ -26,6 +26,24 @@ class MealsController {
         const { status, data } = await this.mealsService.getRandomRecipe();
         return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
     }
+    async getAllCategories(_req, res) {
+        const { status, data } = await this.mealsService.getAllCategories();
+        return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
+    }
+    async getAllAreas(_req, res) {
+        const { status, data } = await this.mealsService.getAllAreas();
+        return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
+    }
+    async getRecipeByCategory(req, res) {
+        const { q } = req.query;
+        const { status, data } = await this.mealsService.getByCategory(q);
+        return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
+    }
+    async getRecipeByArea(req, res) {
+        const { q } = req.query;
+        const { status, data } = await this.mealsService.getByArea(q);
+        return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
+    }
 }
 exports.default = MealsController;
 //# sourceMappingURL=MealsController.js.map
