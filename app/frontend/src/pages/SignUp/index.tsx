@@ -17,7 +17,7 @@ function SignUp() {
   const requestBody = rest;   
 
   const signUpURL = 'http://localhost:3001/user';
-  const { handleFetch, data, isLoading, error, dispatch } = useFetch(signUpURL, { method: 'POST', body: requestBody });
+  const { handleFetch, data, isLoading, error } = useFetch(signUpURL, { method: 'POST', body: requestBody });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -108,7 +108,7 @@ function SignUp() {
     {isModalOpen && error ? (
 
       <h4>Unexpected error... Please try again.</h4>
-      
+
     ) : null }
     
     </main>
