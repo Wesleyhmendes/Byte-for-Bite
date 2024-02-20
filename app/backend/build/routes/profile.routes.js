@@ -7,5 +7,6 @@ const router = (0, express_1.Router)();
 const profileService = new ProfileService_1.default();
 const profileController = new ProfileController_1.default(profileService);
 router.get('/', (req, res) => profileController.getProfile(req, res));
+router.patch('/:id', (req, res) => profileController.updateProfileImage(req, res));
 exports.default = router;
 //# sourceMappingURL=profile.routes.js.map

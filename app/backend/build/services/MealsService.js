@@ -22,6 +22,30 @@ class MealsService {
         const randomRecipe = recipes[Math.floor(Math.random() * recipes.length) + 1];
         return { status: 'SUCCESSFUL', data: randomRecipe };
     }
+    async getAllCategories() {
+        const categories = await this.mealsModel.findAllCategories();
+        return { status: 'SUCCESSFUL', data: categories };
+    }
+    async getAllAreas() {
+        const areas = await this.mealsModel.findAllAreas();
+        return { status: 'SUCCESSFUL', data: areas };
+    }
+    async getByCategory(category) {
+        const recipes = await this.mealsModel.findRecipeByCategory(category);
+        return { status: 'SUCCESSFUL', data: recipes };
+    }
+    async getByArea(area) {
+        const recipes = await this.mealsModel.findRecipeByArea(area);
+        return { status: 'SUCCESSFUL', data: recipes };
+    }
+    async getAllIngredients() {
+        const ingredients = await this.mealsModel.findAllIngredients();
+        return { status: 'SUCCESSFUL', data: { ingredients } };
+    }
+    async getByIngredient(ingredient) {
+        const recipes = await this.mealsModel.findByIngredient(ingredient);
+        return { status: 'SUCCESSFUL', data: recipes };
+    }
 }
 exports.default = MealsService;
 //# sourceMappingURL=MealsService.js.map

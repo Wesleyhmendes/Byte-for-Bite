@@ -10,5 +10,6 @@ router.get('/name', (req: Request, res: Response) => drinkController.getFiltered
 router.get('/letter', (req: Request, res: Response) => drinkController.getDrinksByFirstLetter(req, res));
 router.get('/category', (req: Request, res: Response) => drinkController.getDrinkByCategory(req, res));
 router.get('/random', (req: Request, res: Response) => drinkController.getRandomDrink(req, res));
+router.get('/ingredients', (req: Request, res: Response) => drinkController.getIngredients(req, res));
 
 export default router;

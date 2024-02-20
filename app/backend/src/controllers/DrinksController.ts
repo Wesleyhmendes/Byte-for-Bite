@@ -37,4 +37,14 @@ export default class MatchesController {
     const { status, data } = await this.drinkService.getRandomDrink();
     return res.status(mapStatusHTTP(status)).json(data);
   }
+
+  public async getIngredients(req: Request, res: Response) {
+    const { q } = req.query;
+    if (q) {
+      const { status, data } = await this.drinkService.getByIngredients(q as string);
+      return res.status(mapStatusHTTP(status)).json(data);
+    }
+    const { status, data } = await this.drinkService.getAllIngredients();
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
 }

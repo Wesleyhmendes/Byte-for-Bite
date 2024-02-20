@@ -100,5 +100,44 @@ export default class MealsModel implements IMealsRecipesModel {
     })
     return newRecipes;
   }
+
+  async findAllIngredients(): Promise<string[]> {
+    const recipes = await this.findAll();
+    const uniqueIngredients:any [] = [];
+    recipes.forEach((recipe) => {
+      for(let i = 1; i <= 20; i += 1) {
+        const ingredientKey = `strIngredient${i}` as keyof IMealRecipes;
+        const ingredient = recipe[ingredientKey];
+        if(ingredient) {
+          uniqueIngredients.push(ingredient);
+        }
+      }
+    });
+    const removedDup = new Set(uniqueIngredients);
+    const newIngredients = Array.from(removedDup);
+    return newIngredients;
+  }
+
+  async findByIngredient(ingredient: string): Promise<IMealRecipes[]> {
+    const recipes = await this.findAll();
+    const recipesFiltred = recipes.filter((recipe) => {
+      const values: string[] = Object.values(recipe);
+
+      const valuesLower: string[] = values.map((value) =>{
+        return typeof value === 'string'? value.toLowerCase() : value;
+      })
+      
+      if(valuesLower.includes(ingredient.toLowerCase())) {
+        return true
+      }
+      return false;
+    })
+
+    return recipesFiltred;
+  }
   
+  async findRecipeById(id: number): Promise<IMealRecipes | null> {
+    const recipe = await this.mealsModel.findByPk(id);
+    return recipe;
+  }
 }

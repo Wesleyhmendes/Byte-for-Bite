@@ -29,10 +29,15 @@ class MatchesController {
         const { status, data } = await this.drinkService.getRandomDrink();
         return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
     }
-    async getAllIngredients(req, res) {
+    async getIngredients(req, res) {
+        const { q } = req.query;
+        if (q) {
+            const { status, data } = await this.drinkService.getByIngredients(q);
+            return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
+        }
         const { status, data } = await this.drinkService.getAllIngredients();
         return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
     }
 }
 exports.default = MatchesController;
-//# sourceMappingURL=drink.controller.js.map
+//# sourceMappingURL=DrinksController.js.map
