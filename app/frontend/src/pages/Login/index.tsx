@@ -4,24 +4,25 @@ import { UserInfoType } from '../../type';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import { Link } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
+import LoginModal from '../../components/Modals/LoginModal';
+import Loading from '../../components/Loading/Loading';
 
 
 function Login() {
   const INITIAL_STATE: UserInfoType = {
     email: '',
     password: '',
-  };
-
-  const navigate = useNavigate();  
+  };  
 
   const { updateUser } = useContext(UserInfoContext);
 
   const [user, setUserInfo] = useState<UserInfoType>(INITIAL_STATE);
-  const [isDisable, setIsDisable] = useState<boolean>(true);
+  const [isDisable, setIsDisable] = useState(true);  
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const url = 'http://localhost:3001/user/login';
   const requestBody = user
-  const { handleFetch, data, dispatch } = useFetch(url, {method: 'POST', body: requestBody});  
+  const { handleFetch, data, isLoading } = useFetch(url, {method: 'POST', body: requestBody});  
 
   const validateFields = ({ email, password }: UserInfoType) => {
     const validateRegexEmail = /\S+@\S+\.\S+/;
@@ -37,56 +38,63 @@ function Login() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      updateUser(user);
-      localStorage.setItem('user', JSON.stringify(user.email));    
-      await handleFetch();           
-    }
-    
-    
-    if (data) {
-      if (data.message) {
-        window.alert(data.message); 
-        dispatch({type: 'reset'})  
-      }
-      if (data.token) {
-        localStorage.setItem('token', JSON.stringify(data.token));
-        navigate('/meals');
-      }
-    }
-    
+      await handleFetch();        
+      setIsModalOpen(true);
+      updateUser(user);      
+      localStorage.setItem('user', JSON.stringify(user.email));  
+      setUserInfo(INITIAL_STATE);
+    }   
 
   return (
     <main>
-      <h2>Login</h2>
-      <form onSubmit={ handleSubmit }>
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          value={ user.email }
-          onChange={ handleChange }
-          data-testid="email-input"
-        />
-        <input
-          name="password"
-          type="password"
-          placeholder="Senha"
-          value={ user.password }
-          onChange={ handleChange }
-          data-testid="password-input"
-        />
-        <button
-          type="submit"
-          data-testid="login-submit-btn"
-          disabled={ isDisable }
-        >
-          Entrar
-        </button>
-      </form>
-      <div>
-        <p>Don't have an account?</p>
-        <p>Sign up <Link to='/signup'>here</Link></p>
-      </div>
+      {!isModalOpen ? (
+
+        <>
+          <h2>Login</h2>
+          <form onSubmit={ handleSubmit }>
+            <input
+              name="email"
+              type="email"
+              placeholder="Email"
+              value={ user.email }
+              onChange={ handleChange }
+              data-testid="email-input"
+            />
+            <input
+              name="password"
+              type="password"
+              placeholder="Senha"
+              value={ user.password }
+              onChange={ handleChange }
+              data-testid="password-input"
+            />
+            <button
+              type="submit"
+              data-testid="login-submit-btn"
+              disabled={ isDisable }
+            >
+              Entrar
+            </button>            
+          </form>
+          <div>
+            <p>Don't have an account?</p>
+            <p>Sign up <Link to='/signup'>here</Link></p>
+          </div>
+        </>  
+
+      ) : null }
+
+      { isLoading && isModalOpen ? (
+
+        <Loading />
+
+      ) : null}
+      
+      { isModalOpen && !isLoading ? (
+
+        <LoginModal setIsModalOpen={ setIsModalOpen } token={ data.token } message={ data.message }/>
+
+      ) : null }
     </main>
   );
 }

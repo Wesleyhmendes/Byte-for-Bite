@@ -4,7 +4,7 @@ import validateUser from '../../utils/functions/validateUser';
 import { useContext, useState } from 'react';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import Loading from '../../components/Loading/Loading';
-import Modal from '../../components/Modal/Modal';
+import Modal from '../../components/Modals/SignUpModal';
 
 function SignUp() {
   const { updateUser } = useContext(UserInfoContext)    

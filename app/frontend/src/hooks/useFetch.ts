@@ -48,7 +48,7 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
 
   const [ state, dispatch ] = useReducer(fetchReducer, initialState);
 
-  const handleFetch =async () => { 
+  const handleFetch = async () => { 
     const { method, body } = options;
 
     const request = {
@@ -64,8 +64,11 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
     try {
       const response = await fetch(URL, request.method === 'GET' ? undefined : request);
       const result = await response.json();
-      
-      dispatch({ type: 'fetched', payload: await result });
+
+      setTimeout(() => {
+        
+        dispatch({ type: 'fetched', payload: result });
+      }, 1000); 
 
     } catch (err) {
       dispatch({ type: 'error', payload: err })
