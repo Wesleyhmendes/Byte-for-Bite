@@ -42,9 +42,7 @@ export default function Profile() {
         setProfileImage('');
       }
     }
-  }  
-  console.log(updateResponse);
-  
+  }   
 
   return (
     <main>
