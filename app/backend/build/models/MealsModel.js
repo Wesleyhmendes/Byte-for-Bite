@@ -123,6 +123,10 @@ class MealsModel {
         });
         return recipesFiltred;
     }
+    async findRecipeById(id) {
+        const recipe = await this.mealsModel.findByPk(id);
+        return recipe;
+    }
 }
 exports.default = MealsModel;
 //# sourceMappingURL=MealsModel.js.map

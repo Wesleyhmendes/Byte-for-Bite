@@ -27,7 +27,7 @@ exports.default = {
                 allowNull: false,
             },
             profileImage: {
-                type: sequelize_1.DataTypes.STRING,
+                type: sequelize_1.DataTypes.TEXT,
             },
         });
     },

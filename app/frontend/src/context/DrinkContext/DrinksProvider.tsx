@@ -18,15 +18,17 @@ export default function DrinksProvider({ children }: DrinksProviderProps) {
   const [drinksData, setDrinksData] = useState<DrinkType[]>([]);
   const [drinksInitialData, setDrinksInitialData] = useState([]);
   const [drinksCategoriesData, setDrinksCategoriesData] = useState([]);
-  const [currentCategoryDrinks, setCurrentCategoryDrinks] = useState('');
-  const navigate = useNavigate();
+  const [currentCategoryDrinks, setCurrentCategoryDrinks] = useState('');   
+  
+  const navigate = useNavigate();    
 
-  const getDrinksCategories = async () => {
-    const data = await fetchDrinksCategories();
-    setDrinksCategoriesData(data);
-  };
+  const getDrinksCategories = async () => {  
+    const data = await fetchDrinksCategories(); 
+    setDrinksCategoriesData(data);   
+  }; 
 
   const getDrinks = async () => {
+   
     const data = await fetchDrinks();
     setDrinksData(data);
     setDrinksInitialData(data);
@@ -61,9 +63,10 @@ export default function DrinksProvider({ children }: DrinksProviderProps) {
     setDrinksData(drinksInitialData);
   };
 
-  useEffect(() => {
+  useEffect(() => { 
     getDrinksCategories();
     getDrinks();
+    
   }, []);
 
   const value = {
@@ -72,7 +75,7 @@ export default function DrinksProvider({ children }: DrinksProviderProps) {
     drinksCategoriesData,
     getDrinksByFilter,
     getDrinksByCategory,
-    clearCategoriesDrink,
+    clearCategoriesDrink,        
   };
 
   return (

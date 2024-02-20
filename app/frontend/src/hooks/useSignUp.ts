@@ -22,7 +22,7 @@ const useSignUp = () => {
       case UPDATE_USER:
         return {
           ...state,
-          [action.key]: action.value,
+          [action.key as string]: action.value,
         }
       case RESET_USER:
         return initialState
@@ -31,19 +31,19 @@ const useSignUp = () => {
     }
   }
 
-  const [user, dispatch] = useReducer(signUpReducer, initialState);
+  const [user, signUpDispatch] = useReducer(signUpReducer, initialState);
 
   const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = target;
 
-    dispatch({ type: UPDATE_USER, key: name, value }); 
+    signUpDispatch({ type: UPDATE_USER, key: name, value }); 
   } 
 
   return {
     user,
     RESET_USER,
     handleChange,
-    dispatch,
+    signUpDispatch,
   }
 }
 

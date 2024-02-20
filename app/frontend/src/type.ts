@@ -1,6 +1,7 @@
-export type UserInfoType = {
+export type UserInfoType = { 
   email: string;
   password: string;
+  profileImage?: string;
 };
 
 export type User = {

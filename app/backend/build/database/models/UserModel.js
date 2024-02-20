@@ -28,7 +28,7 @@ SequelizeUsers.init({
         allowNull: false,
     },
     profileImage: {
-        type: sequelize_1.DataTypes.STRING,
+        type: sequelize_1.DataTypes.TEXT,
     },
 }, {
     sequelize: _1.default,

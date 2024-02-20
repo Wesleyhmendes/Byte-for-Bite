@@ -53,6 +53,12 @@ class MealsController {
         const { status, data } = await this.mealsService.getByIngredient(q);
         return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
     }
+    async getById(req, res) {
+        const { id } = req.params;
+        console.log(id);
+        const { status, data } = await this.mealsService.getRecipeById(Number(id));
+        return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
+    }
 }
 exports.default = MealsController;
 //# sourceMappingURL=MealsController.js.map
