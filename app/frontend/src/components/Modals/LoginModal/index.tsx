@@ -21,9 +21,9 @@ function LoginModal(props: ModalProps) {
 
   if (token) {
     localStorage.setItem('token', JSON.stringify(token));
-    setInterval(() => {
-      setIsModalOpen(false);
+    setTimeout(() => {
       navigate('/meals');
+      setIsModalOpen(false);      
     }, 1000)
   }
 

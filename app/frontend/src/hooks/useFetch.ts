@@ -66,8 +66,8 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
       const result = await response.json();
 
       setTimeout(() => {
-        
         dispatch({ type: 'fetched', payload: result });
+       
       }, 1000); 
 
     } catch (err) {
