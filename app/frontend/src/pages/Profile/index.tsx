@@ -9,13 +9,14 @@ export default function Profile() {
 
   const [profileImage, setProfileImage] = useState('');
   const [wantChange, setWantChange] = useState(false);
+  const [imageUpdated, setImageUpdated] = useState(false);
   const [id, setId] = useState<number | undefined>(undefined);
 
   const { userInfo, updateUser } = useContext(UserInfoContext);
 
   const email = JSON.parse(localStorage.getItem('user') as string);
   const url = `http://localhost:3001/profile?email=${email}`;  
-  const { data, isLoading, error } = useFetch(url, { method: 'GET', body: { email: email } });
+  const { data, isLoading, error } = useFetch(url, { method: 'GET', body: { email } });
   
   const updateImageURL = `http://localhost:3001/profile/${id}`
   const { handleFetch } = useFetch(updateImageURL, { method: "PATCH", body: { profileImage } });
@@ -34,20 +35,23 @@ export default function Profile() {
     if (profileImage === '') {
       window.alert('Please insert a image URL!');
       return    
-    } 
-    updateUser({
-      ...userInfo,
-      profileImage
-    })           
+    }                
     if (id) {
       await handleFetch();
-      
-      setWantChange(false);
-      localStorage.setItem('profileImg', JSON.stringify(profileImage));
-      setProfileImage('');      
-    }    
-  }
 
+      updateUser({
+        ...userInfo,
+        profileImage
+      });      
+      setWantChange(false);      
+      setImageUpdated(true);      
+    }    
+  } 
+
+  const handleAccept = async() => {    
+    setImageUpdated(false);
+    setProfileImage(''); 
+  }  
   return (
     <main>
       { !isLoading && data.username ? (
@@ -65,7 +69,7 @@ export default function Profile() {
 
       ) : null }
       
-      { wantChange ? (
+      { wantChange && !imageUpdated ? (
 
         <div>
         <label>
@@ -84,7 +88,14 @@ export default function Profile() {
           </button>
         </div>
 
-      ) : null }      
+      ) : null }
+
+      { !wantChange && imageUpdated ? (
+        <>
+          <p>Image updated!</p>
+          <button onClick={handleAccept}>Ok</button>
+        </>
+      ) : null }    
 
       { !isLoading && data.username ? (
         <>

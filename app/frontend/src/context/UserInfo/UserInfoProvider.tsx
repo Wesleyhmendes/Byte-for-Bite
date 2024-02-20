@@ -8,8 +8,10 @@ type UserInfoProviderProps = {
 
 export default function UserInfoProvider({ children }: UserInfoProviderProps) {
   const INITIAL_USER = {
+    username: '',
     email: '',
     password: '',
+    profileImage: '',
   };
 
   const [userInfo, setUserInfo] = useState<UserInfoType>(INITIAL_USER);
