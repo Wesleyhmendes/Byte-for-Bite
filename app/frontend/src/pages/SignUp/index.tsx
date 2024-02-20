@@ -1,26 +1,47 @@
+import { useNavigate } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import useSignUp from '../../hooks/useSignUp';
 import validateUser from '../../utils/functions/validateUser';
+import { useContext } from 'react';
+import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 
 function SignUp() {
-  const { user, RESET_USER, dispatch, handleChange } = useSignUp();
+  const { user, RESET_USER, signUpDispatch, handleChange } = useSignUp();
   const isInvalid = validateUser(user); 
-    
+  const navigate = useNavigate();
+  const { updateUser } = useContext(UserInfoContext)    
 
   const { confirmPassword, ...rest } = user;
   const requestBody = rest;
    
 
   const signUpURL = 'http://localhost:3001/user';
-  const { handleFetch } = useFetch(signUpURL, { method: 'POST', body: requestBody });
+  const { handleFetch, data, dispatch } = useFetch(signUpURL, { method: 'POST', body: requestBody });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();    
     
     await handleFetch();
 
-    dispatch({type: RESET_USER});
+    updateUser({      
+      email: user.email,
+      password: user.password
+    })
+
+    localStorage.setItem('user', JSON.stringify(user.email));
+
+    signUpDispatch({type: RESET_USER});
+
+    navigate('/meals');
   } 
+  
+
+  if (data) {
+    if (data.message) {
+      window.alert(data.message)
+      dispatch({type: 'reset'});
+    }
+  }
   
   return(
     <main>

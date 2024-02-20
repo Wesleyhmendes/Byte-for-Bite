@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { UserInfoType } from '../../type';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import { Link } from 'react-router-dom';
+import useFetch from '../../hooks/useFetch';
+
 
 function Login() {
   const INITIAL_STATE: UserInfoType = {
@@ -10,16 +12,20 @@ function Login() {
     password: '',
   };
 
-  const navigate = useNavigate();
+  const navigate = useNavigate();  
 
   const { updateUser } = useContext(UserInfoContext);
 
   const [user, setUserInfo] = useState<UserInfoType>(INITIAL_STATE);
   const [isDisable, setIsDisable] = useState<boolean>(true);
 
+  const url = 'http://localhost:3001/user/login';
+  const requestBody = user
+  const { handleFetch, data, dispatch } = useFetch(url, {method: 'POST', body: requestBody});  
+
   const validateFields = ({ email, password }: UserInfoType) => {
     const validateRegexEmail = /\S+@\S+\.\S+/;
-    const isValid = validateRegexEmail.test(email) && password.length > 6;
+    const isValid = validateRegexEmail.test(email) && password.length >= 6;
     setIsDisable(!isValid);
   };
 
@@ -29,12 +35,25 @@ function Login() {
     validateFields(updateUserInfo);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    updateUser(user);
-    localStorage.setItem('user', JSON.stringify({ email: user.email }));
-    navigate('/meals');
-  };
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      updateUser(user);
+      localStorage.setItem('user', JSON.stringify(user.email));    
+      await handleFetch();           
+    }
+    
+    
+    if (data) {
+      if (data.message) {
+        window.alert(data.message); 
+        dispatch({type: 'reset'})  
+      }
+      if (data.token) {
+        localStorage.setItem('token', JSON.stringify(data.token));
+        navigate('/meals');
+      }
+    }
+    
 
   return (
     <main>

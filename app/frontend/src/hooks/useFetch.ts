@@ -3,7 +3,8 @@ import { useReducer, useEffect, useCallback } from 'react';
 type FetchAction =
   | { type: 'loading' }
   | { type: 'error'; payload: any }
-  | { type: 'fetched'; payload: any };
+  | { type: 'fetched'; payload: any }
+  | { type: 'reset' }
 
 type RequestMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
@@ -38,6 +39,8 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
           isLoading: false,
           data: action.payload,
         }
+      case 'reset':
+        return initialState;
       default:
         return state;
     }
@@ -59,10 +62,10 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
     dispatch({type: 'loading'});
 
     try {
-      const response = await fetch(URL, request);
+      const response = await fetch(URL, request.method === 'GET' ? undefined : request);
       const result = await response.json();
-
-      dispatch({ type: 'fetched', payload: result });
+      
+      dispatch({ type: 'fetched', payload: await result });
 
     } catch (err) {
       dispatch({ type: 'error', payload: err })
@@ -71,17 +74,17 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
    
 
   useEffect(() => {
-    if (options.method === 'GET') {
-      handleFetch();
-      return
+    if (options.method === 'GET' ) {
+      handleFetch();      
     }
-  }, [])
+  }, [URL])
 
   return {
     data: state.data,
     isLoading: state.isLoading,
     error: state.error,
-    handleFetch,  
+    handleFetch,
+    dispatch,
   }
 }
 

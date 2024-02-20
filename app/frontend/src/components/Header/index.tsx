@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import SearchBar from '../SearchBar';
 
+
 function Header() {
   const [searchVisible, setSearchVisible] = useState(false);
+  
 
   const pathName = useLocation().pathname;
   const pageTitle = useLocation().pathname
@@ -18,6 +20,7 @@ function Header() {
   const toggleSearch = () => {
     setSearchVisible(!searchVisible);
   };
+  
 
   return (
     <header>
