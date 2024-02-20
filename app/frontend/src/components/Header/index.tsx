@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import SearchBar from '../SearchBar';
+import profileIcon from '../../images/profileIcon.svg';
 
 
 function Header() {
   const [searchVisible, setSearchVisible] = useState(false);
-  
+  const profileIMG = localStorage.getItem('profileImg') ? JSON.parse(localStorage.getItem('profileImg') as string) : undefined;  
 
   const pathName = useLocation().pathname;
   const pageTitle = useLocation().pathname
@@ -19,8 +20,7 @@ function Header() {
 
   const toggleSearch = () => {
     setSearchVisible(!searchVisible);
-  };
-  
+  };  
 
   return (
     <header>
@@ -28,7 +28,7 @@ function Header() {
         <h1 data-testid="page-title">{ pageTitle }</h1>
         <Link to="/profile">
           <img
-            src="src/images/profileIcon.svg"
+            src={ profileIMG ? profileIMG : profileIcon }
             alt="Profile"
             data-testid="profile-top-btn"
           />

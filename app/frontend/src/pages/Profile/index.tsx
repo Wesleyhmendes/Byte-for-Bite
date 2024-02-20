@@ -18,7 +18,7 @@ export default function Profile() {
   const { data, isLoading, error } = useFetch(url, { method: 'GET', body: { email: email } });
   
   const updateImageURL = `http://localhost:3001/profile/${id}`
-  const { handleFetch, isLoading: loadingImg, data: updateResponse } = useFetch(updateImageURL, { method: "PATCH", body: { profileImage } });
+  const { handleFetch } = useFetch(updateImageURL, { method: "PATCH", body: { profileImage } });
 
   const handleWantChange = () => {
     setWantChange((prev) => !prev);
@@ -46,7 +46,7 @@ export default function Profile() {
       localStorage.setItem('profileImg', JSON.stringify(profileImage));
       setProfileImage('');      
     }    
-  }   
+  }
 
   return (
     <main>
