@@ -6,11 +6,11 @@ class ProfileService {
     constructor(userModel = new UserModel_1.default()) {
         this.userModel = userModel;
     }
-    async getProfile(username) {
-        const result = await this.userModel.findByUsername(username);
+    async getProfile(email) {
+        const result = await this.userModel.findByEmail(email);
         if (!result)
             return this.serviceResponse(notFound);
-        const { password, email, ...rest } = result;
+        const { password, ...rest } = result;
         const profile = rest;
         return { status: 'SUCCESSFUL', data: profile };
     }
@@ -22,7 +22,7 @@ class ProfileService {
     }
     serviceResponse(status) {
         if (status === notFound)
-            return { status: 'NOT_FOUND', data: { message: 'Username not found' } };
+            return { status: 'NOT_FOUND', data: { message: 'User not found' } };
         return { status: 'INVALID_DATA', data: { message: 'Invalid data' } };
     }
 }

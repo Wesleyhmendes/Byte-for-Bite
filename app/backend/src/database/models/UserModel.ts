@@ -41,7 +41,7 @@ SequelizeUsers.init({
     allowNull: false,
   },
   profileImage: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
   }, 
 }, 
 {  

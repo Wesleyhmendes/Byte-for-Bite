@@ -22,6 +22,7 @@ export default function Profile() {
 
   const handleWantChange = () => {
     setWantChange((prev) => !prev);
+    setId(data.id); 
   }
 
   const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
@@ -29,27 +30,31 @@ export default function Profile() {
     setProfileImage(value);
   }  
   
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
+    if (profileImage === '') {
+      window.alert('Please insert a image URL!');
+      return    
+    } 
     updateUser({
       ...userInfo,
       profileImage
-    })
-    if (!isLoading) {
-      setId(data.id);      
-      if (id) {
-        handleFetch();
-        setWantChange(false);
-        setProfileImage('');
-      }
-    }
+    })           
+    if (id) {
+      await handleFetch();
+      
+      setWantChange(false);
+      localStorage.setItem('profileImg', JSON.stringify(profileImage));
+      setProfileImage('');      
+    }    
   }   
 
   return (
     <main>
       { !isLoading && data.username ? (
         <>
-          <p>{ data.username }</p>
-          <p data-testid="profile-email">{ data.email }</p>
+          <p>{ `Username: ${data.username}` }</p>
+          <p data-testid="profile-email">{ `E-mail: ${data.email}` }</p>
+          <p>{ `Role: ${data.role}` }</p>
           <button onClick={handleWantChange}>Change profile image</button>
         </>
       ) : null }
