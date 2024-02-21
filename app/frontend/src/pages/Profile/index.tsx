@@ -46,21 +46,28 @@ export default function Profile() {
       setWantChange(false);      
       setImageUpdated(true);      
     }    
-  } 
+  }   
 
-  const handleAccept = async() => {    
-    setImageUpdated(false);
-    setProfileImage(''); 
-  }  
+  if (imageUpdated) {
+    setTimeout(() => {
+
+      setImageUpdated(false);
+      setProfileImage(''); 
+
+    }, 1000)
+  }
+
   return (
     <main>
       { !isLoading && data.username ? (
+
         <>
           <p>{ `Username: ${data.username}` }</p>
           <p data-testid="profile-email">{ `E-mail: ${data.email}` }</p>
           <p>{ `Role: ${data.role}` }</p>
           <button onClick={handleWantChange}>Change profile image</button>
         </>
+
       ) : null }
 
       { isLoading ? (
@@ -91,13 +98,13 @@ export default function Profile() {
       ) : null }
 
       { !wantChange && imageUpdated ? (
-        <>
-          <p>Image updated!</p>
-          <button onClick={handleAccept}>Ok</button>
-        </>
+        
+        <p>Image updated!</p>        
+
       ) : null }    
 
       { !isLoading && data.username ? (
+        
         <>
           <button
             data-testid="profile-done-btn"

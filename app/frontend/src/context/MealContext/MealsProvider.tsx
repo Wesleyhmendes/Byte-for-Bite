@@ -59,10 +59,14 @@ export default function MealsProvider({ children }: MealsProviderProps) {
     setMealsData(mealsInitialData);
   };
 
-  useEffect(() => {
-    getMealsCategories();
-    getMeals();
-  }, []);
+  if (mealsCategoriesData.length === 0) getMealsCategories();
+
+  if (mealsInitialData.length === 0) getMeals();
+
+  // useEffect(() => {
+  //   getMealsCategories();
+  //   getMeals();
+  // }, []);
 
   const value = {
     mealsData,

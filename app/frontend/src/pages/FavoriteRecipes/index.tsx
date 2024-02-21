@@ -4,31 +4,30 @@ import { FavoriteRecipeType } from '../../type';
 
 export default function FavoriteRecipes() {
   const [shareMessage, setShareMessage] = useState<boolean>(false);
-  const [favoriteRecipes, setFavoriteRecipes] = useState<FavoriteRecipeType[]>([]);
+  const [_favoriteRecipes, setFavoriteRecipes] = useState<FavoriteRecipeType[]>([]);
   const [filter, setFilter] = useState('all');
 
-  useEffect(() => {
-    const getLocalStorageData = JSON.parse(
-      localStorage.getItem('favoriteRecipes') as string,
-    );
-    if (getLocalStorageData) {
-      setFavoriteRecipes(getLocalStorageData);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const getLocalStorageData = JSON.parse(
+  //     localStorage.getItem('favoriteRecipes') as string,
+  //   );
+  //   if (getLocalStorageData) {
+  //     setFavoriteRecipes(getLocalStorageData);
+  //   }
+  // }, []);
+
+  const getLocalStorageData: FavoriteRecipeType[] = JSON.parse(
+    localStorage.getItem('favoriteRecipes') ?? '[]');
 
   const filteredRecipes = filter === 'all'
-    ? favoriteRecipes
-    : favoriteRecipes.filter((recipe) => recipe.type === filter);
+    ? getLocalStorageData
+    : getLocalStorageData.filter((recipe) => recipe.type === filter);
 
   const copyText = async (recipe: FavoriteRecipeType) => {
     const recipeUrl = `${window.location.origin}/${recipe.type}s/${recipe.id}`;
     await navigator.clipboard.writeText(recipeUrl);
     setShareMessage(true);
-  };
-
-  const getLocalStorageData = JSON.parse(
-    localStorage.getItem('favoriteRecipes') as string,
-  );
+  }; 
 
   const handleRemoveFavorites = (recipeId: string) => {
     const updateFavorites = getLocalStorageData

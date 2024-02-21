@@ -1,21 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DoneRecipeType } from '../../type';
 import shareIcon from '../../images/shareIcon.svg';
 
-export default function DoneRecipes() {
-  const [recipesDone, setRecipesDone] = useState<DoneRecipeType[]>([]);
+export default function DoneRecipes() {  
   const [filter, setFilter] = useState('all');
   const [shareMessage, setShareMessage] = useState<boolean>(false);
 
-  useEffect(() => {
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes') ?? '[]');
-    setRecipesDone(doneRecipes);
-  }, []);
+  const doneRecipes: DoneRecipeType[] = JSON.parse(localStorage.getItem('doneRecipes') ?? '[]');  
 
   const filteredRecipes = filter === 'all'
-    ? recipesDone
-    : recipesDone.filter((recipe) => recipe.type === filter);
+    ? doneRecipes
+    : doneRecipes.filter((recipe) => recipe.type === filter);
 
   const copyText = async (recipe: DoneRecipeType) => {
     const recipeUrl = `${window.location.origin}/${recipe.type}s/${recipe.id}`;

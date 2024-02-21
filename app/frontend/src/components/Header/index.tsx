@@ -31,8 +31,7 @@ function Header() {
     setSearchVisible(!searchVisible);
   };   
   
-  useEffect(() => {handleFetch()}, [userInfo]);
-  
+  useEffect(() => { handleFetch() }, [userInfo]); 
 
   return (
     <header>
