@@ -26,7 +26,8 @@ export default function MealsProvider({ children }: MealsProviderProps) {
   };
 
   const getMeals = async () => {
-    const data = await fetchMeals();
+    const token = JSON.parse(localStorage.getItem('token') ?? '')    
+    const data = await fetchMeals(token);
     setMealsData(data);
     setMealsInitialData(data);
   };
