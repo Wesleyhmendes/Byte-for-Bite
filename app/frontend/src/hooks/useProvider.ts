@@ -1,12 +1,14 @@
+import { FetchedData } from '../type';
 import mapCategories from '../utils/mapCategories';
 import useFetch from './useFetch';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const useProvider = (path: string) => { 
   const mealsPath =  path === 'meals' ? true : false;
   
   // URL's PARAMETERS
   const [selectedCategory, setSelectedCategory] = useState('')
+  // const [categories, setCategories] = useState<FetchedData>()
 
   // CATEGORIES
   const categoriesURL = mealsPath ? 'http://localhost:3001/meals/categories' : 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
@@ -28,9 +30,15 @@ const useProvider = (path: string) => {
     setSelectedCategory(pathCategory);
     const { handleFetch } = byCategory;
     handleFetch();  
-  };
+  };  
 
+  // console.log(categories)
 
+  // useEffect(() => {
+  //   if (teste.data) {
+  //     setCategories(teste)
+  //   }
+  // }, [path])
 
   return {
     categories,

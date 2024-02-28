@@ -7,12 +7,13 @@ export default function Category() {
   const { categories, getByCategory, path } = useContext(Context);
   const { data, isLoading } = categories;   
   
-  const handleData = () => {
-    
+  const handleData = () => {   
     if (data && path === 'meals') {
+      // console.log('meals ---->', categories)
       return data as CategoryType[]
     }
     if (data && path === 'drinks') {
+      // console.log('drinks  ---->',categories)
       return data.drinks as CategoryType[]
     }
 
@@ -23,7 +24,7 @@ export default function Category() {
   
   const allCategories = getData?.slice(0, 5)  
   
-  console.log(allCategories) 
+  // console.log(allCategories) 
 
   return (
     <section>

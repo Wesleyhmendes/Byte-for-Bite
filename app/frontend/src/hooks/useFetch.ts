@@ -1,5 +1,6 @@
 import { useReducer, useEffect, useCallback } from 'react';
 import { FetchAction } from '../type';
+import { useLocation } from 'react-router-dom';
 
 type RequestMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
@@ -9,6 +10,7 @@ interface FetchOptions {
 }
 
 const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
+  const path = useLocation().pathname
   const initialState = {
     data: undefined,
     isLoading: true,
@@ -29,6 +31,7 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
           error: action.payload,
         };
       case 'fetched':
+        console.log(action.payload)
         return {
           ...state,
           isLoading: false,
@@ -68,12 +71,15 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
     } catch (err) {
       dispatch({ type: 'error', payload: err })
     }    
-  };
+  }; 
    
-
-  useEffect(() => {
+  useEffect(() => {   
+    // console.log('entrou')
     if (options.method === 'GET') {
-      handleFetch();      
+      handleFetch();           
+    }
+    return () => {     
+      dispatch({type: 'reset'})
     }
   }, [URL])
 
