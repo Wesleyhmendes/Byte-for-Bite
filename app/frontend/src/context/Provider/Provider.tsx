@@ -10,15 +10,14 @@ type ProviderProps = {
 
 export default function Provider({ children }: ProviderProps) {  
   const path = useLocation().pathname === '/meals' ? 'meals' : 'drinks'
-  const { categories, allRecipes, byCategory, getByCategory } = useProvider(path)  
-  
-  const navigate = useNavigate(); 
+  const { categories, selectedCategory, allRecipes, byCategory, getByCategory } = useProvider(path)
 
   const value = {
     path,
-    allRecipes,
     categories,
+    selectedCategory,
     byCategory,
+    allRecipes,
     getByCategory,
   };
 

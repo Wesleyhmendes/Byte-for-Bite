@@ -1,21 +1,36 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { CategoryType } from '../../type';
 import CategoryButton from '../CategoryButton/CategoryButton';
 import Context from '../../context/Context';
 
-export default function Category() {
-  const { categories, getByCategory } = useContext(Context)
-  const { data, isLoading } = categories;
-  const renderCategories: CategoryType[] = data?.slice(0, 5)
+export default function Category() {  
+  const { categories, getByCategory, path } = useContext(Context);
+  const { data, isLoading } = categories;   
+  
+  const handleData = () => {
+    
+    if (data && path === 'meals') {
+      return data as CategoryType[]
+    }
+    if (data && path === 'drinks') {
+      return data.drinks as CategoryType[]
+    }
 
+    return []
+  }
+  const getData = handleData();
+ 
+  
+  const allCategories = getData?.slice(0, 5)  
+  
+  console.log(allCategories) 
 
   return (
     <section>
 
       { isLoading ? <p>Carregando...</p> : null }
 
-      {!isLoading && renderCategories
-        ? renderCategories.map(({ strCategory }: CategoryType) => (
+      {!isLoading ? allCategories?.map(({ strCategory }: CategoryType) => (
             <CategoryButton
               key={ strCategory }
               strCategory={strCategory}
