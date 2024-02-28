@@ -8,6 +8,7 @@ import {
   fetchMealsCategories,
   fetchMealsFilterByCategory,
 } from '../../services/fetchApi';
+import useFetch from '../../hooks/useFetch';
 
 type MealsProviderProps = {
   children: React.ReactNode;
@@ -18,6 +19,7 @@ export default function MealsProvider({ children }: MealsProviderProps) {
   const [mealsInitialData, setMealsInitialData] = useState([]);
   const [mealsCategoriesData, setMealsCategoriesData] = useState([]);
   const [currentCategoryMeals, setCurrentCategoryMeals] = useState('');
+  const mealsCategories = useFetch('http://localhost:3001/meals/categories')
   const navigate = useNavigate();
 
   const getMealsCategories = async () => {
@@ -73,6 +75,7 @@ export default function MealsProvider({ children }: MealsProviderProps) {
     mealsData,
     mealsInitialData,
     mealsCategoriesData,
+    mealsCategories,
     getMealsByFilter,
     getMealsByCategory,
     clearCategoriesMeal,

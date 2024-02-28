@@ -11,6 +11,20 @@ export type User = {
   confirmPassword: string,
 }
 
+export type FetchAction =
+| { type: 'loading' }
+| { type: 'error'; payload: any }
+| { type: 'fetched'; payload: any }
+| { type: 'reset' }
+
+export type FetchedData = {
+  data: any;
+  isLoading: boolean;
+  error: any;
+  handleFetch: () => Promise<void>;
+  dispatch: React.Dispatch<FetchAction>;
+}
+
 export type FilterRadioType = {
   radioSelected: 'ingredient' | 'name' | 'firstLetter' | string;
   search: string,

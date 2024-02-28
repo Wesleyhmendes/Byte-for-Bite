@@ -3,8 +3,18 @@ import { useLocation, Link } from 'react-router-dom';
 import MealsContext from '../../context/MealContext/MealsContext';
 import DrinksContext from '../../context/DrinkContext/DrinksContext';
 import Category from '../../components/Category';
+import Context from '../../context/Context';
+import { DrinkType, MealType } from '../../type';
 
 export default function Recipes() {
+  const { byCategory, path, allRecipes } = useContext(Context)
+  
+  const { data, isLoading } = byCategory;  
+  const recipes = path === 'meals' ? data as MealType[] : data as DrinkType[];
+  const slicedRecipes = recipes.slice(0, 12);
+  console.log(slicedRecipes)
+
+
   const { drinksData } = useContext(DrinksContext);
   const { mealsData } = useContext(MealsContext);
 

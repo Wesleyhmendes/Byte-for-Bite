@@ -1,14 +1,13 @@
 import { createContext } from 'react';
-import { CategoryType, FilterRadioType, MealType } from '../../type';
+import { CategoryType, FetchedData, FilterRadioType, MealType } from '../../type';
 
 export type MealsContextType = {
   mealsData: MealType[];
-  mealsCategoriesData: CategoryType[],
+  mealsCategoriesData: CategoryType[],  
   mealsInitialData: CategoryType[],
   getMealsByFilter: (Filter: FilterRadioType) => void;
   getMealsByCategory: (category: string) => void;
   clearCategoriesMeal: () => void;
-
 };
 
 const MealsContext = createContext({} as MealsContextType);

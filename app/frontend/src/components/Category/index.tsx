@@ -1,47 +1,31 @@
 import { useContext } from 'react';
-import { useLocation } from 'react-router-dom';
-import DrinksContext from '../../context/DrinkContext/DrinksContext';
-import MealsContext from '../../context/MealContext/MealsContext';
 import { CategoryType } from '../../type';
+import CategoryButton from '../CategoryButton/CategoryButton';
+import Context from '../../context/Context';
 
 export default function Category() {
-  const location = useLocation().pathname;
+  const { categories, getByCategory } = useContext(Context)
+  const { data, isLoading } = categories;
+  const renderCategories: CategoryType[] = data?.slice(0, 5)
 
-  const {
-    getMealsByCategory,
-    clearCategoriesMeal,
-    mealsCategoriesData,
-  } = useContext(MealsContext);
-
-  const {
-    getDrinksByCategory,
-    clearCategoriesDrink,
-    drinksCategoriesData,
-  } = useContext(DrinksContext);
 
   return (
     <section>
-      {location === '/meals' ? (mealsCategoriesData.slice(0, 5)
-        .map(({ strCategory }: CategoryType) => (
-          <button
-            onClick={ () => getMealsByCategory(strCategory) }
-            data-testid={ `${strCategory}-category-filter` }
-            key={ strCategory }
-          >
-            { strCategory }
-          </button>
-        ))) : (drinksCategoriesData.slice(0, 5)
-        .map(({ strCategory }: CategoryType) => (
-          <button
-            onClick={ () => getDrinksByCategory(strCategory) }
-            data-testid={ `${strCategory}-category-filter` }
-            key={ strCategory }
-          >
-            { strCategory }
-          </button>
-        )))}
+
+      { isLoading ? <p>Carregando...</p> : null }
+
+      {!isLoading && renderCategories
+        ? renderCategories.map(({ strCategory }: CategoryType) => (
+            <CategoryButton
+              key={ strCategory }
+              strCategory={strCategory}
+              getByCategory={ getByCategory }
+            />
+          ))
+        : null }
+
       <button
-        onClick={ location === '/meals' ? clearCategoriesMeal : clearCategoriesDrink }
+        onClick={ () => getByCategory('') }
         data-testid="All-category-filter"
       >
         All

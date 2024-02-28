@@ -1,10 +1,5 @@
 import { useReducer, useEffect, useCallback } from 'react';
-
-type FetchAction =
-  | { type: 'loading' }
-  | { type: 'error'; payload: any }
-  | { type: 'fetched'; payload: any }
-  | { type: 'reset' }
+import { FetchAction } from '../type';
 
 type RequestMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
@@ -65,10 +60,10 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
       const response = await fetch(URL, request.method === 'GET' ? undefined : request);
       const result = await response.json();
 
-      setTimeout(() => {
-        dispatch({ type: 'fetched', payload: result });
+      dispatch({ type: 'fetched', payload: result });
+      // setTimeout(() => {
        
-      }, 1000); 
+      // }, 1000); 
 
     } catch (err) {
       dispatch({ type: 'error', payload: err })
@@ -77,7 +72,7 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
    
 
   useEffect(() => {
-    if (options.method === 'GET' ) {
+    if (options.method === 'GET') {
       handleFetch();      
     }
   }, [URL])
