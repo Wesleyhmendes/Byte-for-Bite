@@ -17,8 +17,7 @@ export default function Recipes() {
 
       {selectedCategory !== '' ? (
         byCategory?.map((recipe,i) => <RecipesMiniCard key={i} recipe={recipe} path={path} index={i}/>)
-      ) : null}      
-      
+      ) : null}     
     </main>
   );
 }

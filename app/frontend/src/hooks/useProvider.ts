@@ -1,4 +1,4 @@
-import { DrinkType, FetchedData, MealType } from '../type';
+import { DrinkType, FetchedData, FilterRadioType, MealType } from '../type';
 import useFetch from './useFetch';
 import { useState } from 'react';
 
@@ -60,7 +60,13 @@ const useProvider = (path: string) => {
     }
     return [];
   }
-  
+
+  const getRecipesByFilter = (path: string, filter: FilterRadioType) => {    
+    if (filter.radioSelected === 'f' && filter.search.length > 1) {
+      window.alert('Your search must have only 1 (one) character');
+    }
+  }
+
   return {
     mealsCategories,
     drinksCategories,

@@ -38,12 +38,13 @@ export default class MatchesController {
     return res.status(mapStatusHTTP(status)).json(data);
   }
 
-  public async getIngredients(req: Request, res: Response) {
-    const { q } = req.query;
-    if (q) {
+  public async getByIngredient(req: Request, res: Response) {
+    const { q } = req.query;    
       const { status, data } = await this.drinkService.getByIngredients(q as string);
-      return res.status(mapStatusHTTP(status)).json(data);
-    }
+      return res.status(mapStatusHTTP(status)).json(data);    
+  }
+  
+  public async getAllIngredients(_req: Request, res: Response) {    
     const { status, data } = await this.drinkService.getAllIngredients();
     return res.status(mapStatusHTTP(status)).json(data);
   }
