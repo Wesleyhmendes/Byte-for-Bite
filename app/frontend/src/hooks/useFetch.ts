@@ -10,7 +10,7 @@ interface FetchOptions {
 }
 
 const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
-  const path = useLocation().pathname
+  
   const initialState = {
     data: undefined,
     isLoading: true,
@@ -30,8 +30,7 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
           isLoading: false,
           error: action.payload,
         };
-      case 'fetched':
-        console.log(action.payload)
+      case 'fetched':        
         return {
           ...state,
           isLoading: false,
@@ -74,8 +73,8 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
   }; 
    
   useEffect(() => {   
-    // console.log('entrou')
-    if (options.method === 'GET') {
+    
+    if (options.method === 'GET') {      
       handleFetch();           
     }
     return () => {     

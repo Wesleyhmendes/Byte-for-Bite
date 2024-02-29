@@ -58,7 +58,7 @@ export const fetchDrinksCategories = async () => {
   return data.drinks;
 };
 
-export const fetchDrinksFilterByCategory = async (category: number) => {
+export const fetchDrinksFilterByCategory = async (category: string) => {
   const URL_API = `http://localhost:3001/drinks/category?q=${category}`;
   const response = await fetch(URL_API);
   const data = await response.json();

@@ -3,7 +3,8 @@ import { FetchedData } from '../type';
 
 export type ContextType = {
   path: string,
-  categories: FetchedData,
+  mealsCategories: FetchedData,
+  drinksCategories: FetchedData,
   selectedCategory: string,
   allRecipes: FetchedData,
   byCategory: FetchedData,

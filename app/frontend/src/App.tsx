@@ -8,13 +8,13 @@ import { useState } from 'react';
 export default function App() {  
   return (
     <UserInfoProvider>
-      <Provider>
-        <DrinksProvider>
-          <MealsProvider>
+      <DrinksProvider>
+        <MealsProvider>
+          <Provider>
             <RoutesApp />
-          </MealsProvider>
-        </DrinksProvider>
-      </Provider>
+          </Provider>
+        </MealsProvider>
+      </DrinksProvider>
     </UserInfoProvider>
   );
 }

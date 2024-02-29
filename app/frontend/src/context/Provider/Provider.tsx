@@ -8,13 +8,14 @@ type ProviderProps = {
   children: React.ReactNode;  
 };
 
-export default function Provider({ children }: ProviderProps) {  
-  const path = useLocation().pathname === '/meals' ? 'meals' : 'drinks'
-  const { categories, selectedCategory, allRecipes, byCategory, getByCategory } = useProvider(path)
+export default function Provider({ children }: ProviderProps) {   
+  const path = useLocation().pathname
+  const { mealsCategories, drinksCategories, selectedCategory, allRecipes, byCategory, getByCategory } = useProvider(path)
 
   const value = {
     path,
-    categories,
+    mealsCategories,
+    drinksCategories,
     selectedCategory,
     byCategory,
     allRecipes,

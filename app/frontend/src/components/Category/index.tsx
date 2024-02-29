@@ -1,51 +1,48 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { CategoryType } from '../../type';
 import CategoryButton from '../CategoryButton/CategoryButton';
 import Context from '../../context/Context';
 
 export default function Category() {  
-  const { categories, getByCategory, path } = useContext(Context);
-  const { data, isLoading } = categories;   
+  const { mealsCategories, drinksCategories, getByCategory, path } = useContext(Context);   
   
-  const handleData = () => {   
-    if (data && path === 'meals') {
-      // console.log('meals ---->', categories)
-      return data as CategoryType[]
-    }
-    if (data && path === 'drinks') {
-      // console.log('drinks  ---->',categories)
-      return data.drinks as CategoryType[]
-    }
-
-    return []
+  const handleData = () => {      
+    if (path === '/meals' && mealsCategories) {
+      // console.log('meals ---->', data);
+      return mealsCategories.data as CategoryType[];
+    } 
+    if (path === '/drinks' && drinksCategories) {
+      return drinksCategories.data.drinks as CategoryType[];
+    }   
   }
   const getData = handleData();
  
   
-  const allCategories = getData?.slice(0, 5)  
-  
-  // console.log(allCategories) 
+  const allCategories = getData?.slice(0, 5);  
 
   return (
     <section>
+      {mealsCategories.isLoading || drinksCategories.isLoading ? (
+        <p>Carregando...</p>
+      ) : null}
 
-      { isLoading ? <p>Carregando...</p> : null }
-
-      {!isLoading ? allCategories?.map(({ strCategory }: CategoryType) => (
+      {!mealsCategories.isLoading && !drinksCategories.isLoading
+        ? allCategories?.map(({ strCategory }: CategoryType) => (
             <CategoryButton
-              key={ strCategory }
+              key={strCategory}
               strCategory={strCategory}
-              getByCategory={ getByCategory }
+              getByCategory={getByCategory}
             />
           ))
-        : null }
-
-      <button
-        onClick={ () => getByCategory('') }
-        data-testid="All-category-filter"
-      >
-        All
-      </button>
+        : null}
+      {!mealsCategories.isLoading && !drinksCategories.isLoading ? (
+        <button
+          onClick={() => getByCategory('')}
+          data-testid="All-category-filter"
+        >
+          All
+        </button>
+      ) : null}
     </section>
   );
 }
