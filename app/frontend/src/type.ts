@@ -5,16 +5,16 @@ export type UserInfoType = {
 };
 
 export type User = {
-  email: string,
-  username: string,
-  password: string,
-  confirmPassword: string,
+  email: string;
+  username: string;
+  password: string;
+  confirmPassword: string;
 }
 
 export type FetchAction =
 | { type: 'loading' }
-| { type: 'error'; payload: any }
-| { type: 'fetched'; payload: any }
+| { type: 'error', payload: any }
+| { type: 'fetched', payload: any }
 | { type: 'reset' }
 
 export type FetchedData = {
@@ -26,8 +26,8 @@ export type FetchedData = {
 }
 
 export type FilterRadioType = {
-  radioSelected: 'ingredient' | 'name' | 'firstLetter' | string;
-  search: string,
+  radioSelected: 'i' | 's' | 'f';
+  search: string;
 };
 
 export type CategoryType = {
@@ -35,15 +35,15 @@ export type CategoryType = {
 };
 
 export type MealType = {
-  idMeal: string,
+  idMeal: string;
   strMealThumb: string;
   strMeal: string;
-  strCategory: string
+  strCategory: string;
   [strIngredient: string]: string;
 };
 
 export type DrinkType = {
-  idDrink: string,
+  idDrink: string;
   strDrinkThumb: string;
   strDrink: string;
   strAlcoholic: string;
@@ -60,23 +60,29 @@ export type InProgressRecipeType = {
 };
 
 export type DoneRecipeType = {
-  id: string,
-  type: string,
-  nationality: string,
-  category: string,
-  alcoholicOrNot: string,
-  name: string,
-  image: string,
-  doneDate: string,
+  id: string;
+  type: string;
+  nationality: string;
+  category: string;
+  alcoholicOrNot: string;
+  name: string;
+  image: string;
+  doneDate: string;
   tags: string[]
 };
 
 export type FavoriteRecipeType = {
-  id: string,
-  type: string,
-  nationality: string,
-  category: string,
-  alcoholicOrNot: string,
-  name: string,
-  image: string,
+  id: string;
+  type: string;
+  nationality: string;
+  category: string;
+  alcoholicOrNot: string;
+  name: string;
+  image: string;
 };
+
+export type SearchActionType = {
+  type: string,
+  key?: string,
+  value?: string,
+}

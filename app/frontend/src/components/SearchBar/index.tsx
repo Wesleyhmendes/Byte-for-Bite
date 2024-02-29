@@ -1,37 +1,16 @@
-import { useLocation } from 'react-router-dom';
-import { ChangeEvent, FormEvent, useContext, useState } from 'react';
-import DrinksContext from '../../context/DrinkContext/DrinksContext';
-import MealsContext from '../../context/MealContext/MealsContext';
-import { FilterRadioType } from '../../type';
+import { FormEvent, useContext} from 'react';
+import Context from '../../context/Context';
 
 function SearchBar() {
-  const [userSearchInfo, setUserSearchInfo] = useState<FilterRadioType>({
-    radioSelected: 'ingredient',
-    search: '',
-  });
-
-  const { getMealsByFilter } = useContext(MealsContext);
-  const { getDrinksByFilter } = useContext(DrinksContext);
-
-  const location = useLocation().pathname;
-
-  const handleChange = ({ target: { name, value } }: ChangeEvent<HTMLInputElement>) => {
-    setUserSearchInfo({
-      ...userSearchInfo,
-      [name]: value,
-    });
-  };
+  const RESET_SEARCH = 'RESET_SEARCH'
+  const { filter, handleFilterChange, setRecipesFilter, filterDispatch} = useContext(Context);  
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (location === '/meals') {
-      getMealsByFilter(userSearchInfo);
-    }
-    if (location === '/drinks') {
-      getDrinksByFilter(userSearchInfo);
-    }
+    setRecipesFilter(filter);
+    filterDispatch({ type: RESET_SEARCH })
   };
-
+  
   return (
     <div>
       <form onSubmit={ handleSubmit }>
@@ -39,8 +18,8 @@ function SearchBar() {
           <input
             data-testid="search-input"
             name="search"
-            value={ userSearchInfo.search }
-            onChange={ (event) => handleChange(event) }
+            value={ filter.search }
+            onChange={ handleFilterChange }
             type="text"
             required
           />
@@ -50,7 +29,8 @@ function SearchBar() {
           <input
             name="radioSelected"
             value="i"
-            onChange={ (event) => handleChange(event) }
+            onChange={ handleFilterChange }
+            defaultChecked
             data-testid="ingredient-search-radio"
             type="radio"
             required
@@ -62,7 +42,7 @@ function SearchBar() {
           <input
             name="radioSelected"
             value="s"
-            onChange={ (event) => handleChange(event) }
+            onChange={ handleFilterChange }
             data-testid="name-search-radio"
             type="radio"
             required
@@ -74,7 +54,7 @@ function SearchBar() {
           <input
             name="radioSelected"
             value="f"
-            onChange={ (event) => handleChange(event) }
+            onChange={ handleFilterChange }
             data-testid="first-letter-search-radio"
             type="radio"
             required

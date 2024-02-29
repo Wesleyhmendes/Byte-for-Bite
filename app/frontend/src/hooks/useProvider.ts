@@ -1,10 +1,16 @@
 import { DrinkType, FetchedData, FilterRadioType, MealType } from '../type';
+import { createURLFilter } from '../utils/functions/createURLFilter';
 import useFetch from './useFetch';
 import { useState } from 'react';
+import useSearchBar from './useSearchBar';
 
 const useProvider = (path: string) => { 
-  // URL's PARAMETERS
-  const [selectedCategory, setSelectedCategory] = useState('') 
+  
+  // URL's CATEGORY PARAMETERS
+  const [selectedCategory, setSelectedCategory] = useState('');
+  
+  // FILTER
+  const { filter, handleFilterChange, filterDispatch } = useSearchBar();  
 
   // CATEGORIES URL
   const mealsCategoriesURL = 'http://localhost:3001/meals/categories';
@@ -15,8 +21,11 @@ const useProvider = (path: string) => {
   const allDrinksRecipesURL = 'http://localhost:3001/drinks/';
 
   // MEALS OR DRINKS BY CATEGORIES URL
-  const byCategoryURL = `http://localhost:3001${path}/category?q=${selectedCategory}`;  
-  
+  const byCategoryURL = `http://localhost:3001${path}/category?q=${selectedCategory}`;
+
+  // MEALS OR DRINKS WITH FILTER URL
+  const [byFilterURL, setByFilterURL] = useState('');
+
   // CATEGORIES FETCHS
   const mealsCategories: FetchedData = useFetch(mealsCategoriesURL);
   const drinksCategories: FetchedData = useFetch(drinksCategoriesURL);
@@ -24,8 +33,12 @@ const useProvider = (path: string) => {
   // ALL RECIPES FETCHS
   const allMealRecipes: FetchedData = useFetch(allMealRecipesURL);
   const allDrinksRecipes: FetchedData = useFetch(allDrinksRecipesURL);
-  
+
+  // BY CATEGORY FETCH
   const byCategory: FetchedData = useFetch(byCategoryURL);
+
+  // BY FILTER FETCH
+  const byFilter = useFetch(byFilterURL);
 
   // GETTER FUNCTIONS 
 
@@ -61,17 +74,42 @@ const useProvider = (path: string) => {
     return [];
   }
 
-  const getRecipesByFilter = (path: string, filter: FilterRadioType) => {    
-    if (filter.radioSelected === 'f' && filter.search.length > 1) {
+  const setRecipesFilter = (selectedFilter: FilterRadioType) => {    
+    if (selectedFilter.radioSelected === 'f' && selectedFilter.search.length > 1) {
       window.alert('Your search must have only 1 (one) character');
+    } else {
+      const url = createURLFilter(path, filter.radioSelected, filter.search);
+      setByFilterURL(url);
     }
   }
+
+  const getByRecipesByFilter = () => {
+    const { data, isLoading } = byFilter
+    if (path === '/meals' && !isLoading) {
+      const meals: MealType[] = data;
+      return meals
+    }
+    if (path === '/drinks' && !isLoading) {
+      const drinks: DrinkType[] = data;
+      return drinks
+    }
+    if (data?.length === 0) {
+      alert("Sorry, we haven't found any recipes for these filters.");
+    }
+    return [];
+  }   
+  
 
   return {
     mealsCategories,
     drinksCategories,
     selectedCategory,    
     byCategory,
+    filter,
+    filterDispatch,
+    handleFilterChange,
+    setRecipesFilter,
+    getByRecipesByFilter,    
     getSelectedCategory,
     getByCategory,
     getAllRecipes,
