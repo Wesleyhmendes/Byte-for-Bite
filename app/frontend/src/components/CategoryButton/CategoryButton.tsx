@@ -1,12 +1,12 @@
 type CategoryBtnProps = {
   strCategory: string,
-  getByCategory: (category: string) => void
+  getSelectedCategory: (category: string) => void
 }
 
-function CategoryButton({ strCategory, getByCategory }: CategoryBtnProps) {
+function CategoryButton({ strCategory, getSelectedCategory }: CategoryBtnProps) {
   return (
     <button
-      onClick={() => getByCategory(strCategory)}
+      onClick={() => getSelectedCategory(strCategory)}
       data-testid={`${strCategory}-category-filter`}      
     >
       {strCategory}

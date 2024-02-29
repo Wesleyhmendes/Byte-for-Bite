@@ -4,20 +4,17 @@ import CategoryButton from '../CategoryButton/CategoryButton';
 import Context from '../../context/Context';
 
 export default function Category() {  
-  const { mealsCategories, drinksCategories, getByCategory, path } = useContext(Context);   
+  const { mealsCategories, drinksCategories, getSelectedCategory, path } = useContext(Context);   
   
   const handleData = () => {      
-    if (path === '/meals' && mealsCategories) {
-      // console.log('meals ---->', data);
+    if (path === '/meals' && mealsCategories.data) {      
       return mealsCategories.data as CategoryType[];
     } 
-    if (path === '/drinks' && drinksCategories) {
+    if (path === '/drinks' && drinksCategories.data) {
       return drinksCategories.data.drinks as CategoryType[];
     }   
   }
-  const getData = handleData();
- 
-  
+  const getData = handleData();  
   const allCategories = getData?.slice(0, 5);  
 
   return (
@@ -31,13 +28,13 @@ export default function Category() {
             <CategoryButton
               key={strCategory}
               strCategory={strCategory}
-              getByCategory={getByCategory}
+              getSelectedCategory={getSelectedCategory}
             />
           ))
         : null}
       {!mealsCategories.isLoading && !drinksCategories.isLoading ? (
         <button
-          onClick={() => getByCategory('')}
+          onClick={() => getSelectedCategory('')}
           data-testid="All-category-filter"
         >
           All

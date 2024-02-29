@@ -1,14 +1,15 @@
 import { createContext } from 'react';
-import { FetchedData } from '../type';
+import { DrinkType, FetchedData, MealType } from '../type';
 
 export type ContextType = {
   path: string,
   mealsCategories: FetchedData,
   drinksCategories: FetchedData,
-  selectedCategory: string,
-  allRecipes: FetchedData,
+  selectedCategory: string,  
   byCategory: FetchedData,
-  getByCategory: (selectedCategory: string) => Promise<void>
+  getSelectedCategory: (category: string) => void,
+  getAllRecipes: (path: string) => MealType[] | DrinkType[],
+  getByCategory: (path: string) => MealType[] | DrinkType[],
 };
 
 const Context = createContext({} as ContextType);

@@ -1,6 +1,5 @@
-import { useReducer, useEffect, useCallback } from 'react';
+import { useReducer, useEffect } from 'react';
 import { FetchAction } from '../type';
-import { useLocation } from 'react-router-dom';
 
 type RequestMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
@@ -72,8 +71,7 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
     }    
   }; 
    
-  useEffect(() => {   
-    
+  useEffect(() => {    
     if (options.method === 'GET') {      
       handleFetch();           
     }

@@ -1,25 +1,29 @@
 import { Link } from 'react-router-dom';
-import { DrinkType, FetchedData, MealType } from '../../type';
+import { DrinkType, MealType } from '../../type';
 
 type RecipesMiniCardProps = {
-  recipeData: FetchedData
-  path: string,  
+  recipe: MealType | DrinkType
+  path: string,
+  index: number, 
 }
 
-function RecipesMiniCard ({ recipeData, path }: RecipesMiniCardProps) {
-  
+function RecipesMiniCard ({ recipe, path, index }: RecipesMiniCardProps) {
+  const id = path === '/meals' ? recipe.idMeal : recipe.idDrink;
+  const url = `${path}/${id}`; 
+  const title = path === '/meals' ? recipe.strMeal : recipe.strDrink;
+  const thumbnail = path === '/meals' ? recipe.strMealThumb : recipe.strDrinkThumb;
   return (
-    // <Link to={`/meals/${meal.idMeal}`} key={meal.idMeal}>
-    //   <div data-testid={`${index}-recipe-card`}>
-    //     <p data-testid={`${index}-card-name`}>{meal.strMeal}</p>
-    //     <img
-    //       width="150"
-    //       data-testid={`${index}-card-img`}
-    //       src={meal.strMealThumb}
-    //       alt={meal.strMeal}
-    //     />
-    //   </div>
-    // </Link>
+    <Link to={ url } key={ id }>
+      <div data-testid={`${index}-recipe-card`}>
+        <p data-testid={`${index}-card-name`}>{ title }</p>
+        <img
+          width="150"
+          data-testid={`${index}-card-img`}
+          src={ thumbnail }
+          alt={ title }
+        />
+      </div>
+    </Link>
   );
 }
 

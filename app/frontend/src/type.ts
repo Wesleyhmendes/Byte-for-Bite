@@ -35,6 +35,7 @@ export type CategoryType = {
 };
 
 export type MealType = {
+  idMeal: string,
   strMealThumb: string;
   strMeal: string;
   strCategory: string
@@ -42,6 +43,7 @@ export type MealType = {
 };
 
 export type DrinkType = {
+  idDrink: string,
   strDrinkThumb: string;
   strDrink: string;
   strAlcoholic: string;

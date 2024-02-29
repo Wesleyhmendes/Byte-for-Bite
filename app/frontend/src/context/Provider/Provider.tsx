@@ -1,7 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import useFetch from '../../hooks/useFetch';
 import Context from '../Context';
-import { useState } from 'react';
 import useProvider from '../../hooks/useProvider';
 
 type ProviderProps = {
@@ -10,16 +8,25 @@ type ProviderProps = {
 
 export default function Provider({ children }: ProviderProps) {   
   const path = useLocation().pathname
-  const { mealsCategories, drinksCategories, selectedCategory, allRecipes, byCategory, getByCategory } = useProvider(path)
+  const {
+    mealsCategories,
+    drinksCategories,
+    selectedCategory,    
+    byCategory,
+    getSelectedCategory,
+    getByCategory,
+    getAllRecipes,
+  } = useProvider(path);
 
   const value = {
     path,
     mealsCategories,
     drinksCategories,
     selectedCategory,
-    byCategory,
-    allRecipes,
+    byCategory,   
+    getSelectedCategory,
     getByCategory,
+    getAllRecipes,
   };
 
   return (
