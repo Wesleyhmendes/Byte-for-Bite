@@ -6,17 +6,17 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Recipes() {
   const navigate = useNavigate();
-  const { getAllRecipes, getByCategory, getByRecipesByFilter, selectedCategory, path } = useContext(Context)
-  const allRecipes = getAllRecipes(path);
-  const byCategory = getByCategory(path);
-  const byFilter = getByRecipesByFilter();
+  const { getAllRecipes, getByCategory, getRecipesByFilter, selectedCategory, path } = useContext(Context)
+  const allRecipes = getAllRecipes();
+  const byCategory = getByCategory();
+  // const byFilter = getRecipesByFilter();
   
-  if (path === '/meals' && byFilter?.length === 1) {
-    navigate(`/meals/${byFilter[0].idMeal}`);
-  }
-  if (path === '/drinks' && byFilter?.length === 1) {
-    navigate(`/meals/${byFilter[0].idDrink}`);
-  }
+  // if (path === '/meals' && byFilter?.length === 1) {
+  //   navigate(`/meals/${byFilter[0].idMeal}`);
+  // }
+  // if (path === '/drinks' && byFilter?.length === 1) {
+  //   navigate(`/meals/${byFilter[0].idDrink}`);
+  // }
 
   return (
     <main>
@@ -29,9 +29,9 @@ export default function Recipes() {
         byCategory?.map((recipe,i) => <RecipesMiniCard key={i} recipe={recipe} path={path} index={i}/>)
       ) : null} 
 
-      {byFilter?.length > 1 ? (
+      {/* {byFilter?.length > 1 ? (
         byFilter?.map((recipe, i) => <RecipesMiniCard key={i} recipe={recipe} path={path} index={i}/>)
-      ) : null}    
+      ) : null}     */}
     </main>
   );
 }

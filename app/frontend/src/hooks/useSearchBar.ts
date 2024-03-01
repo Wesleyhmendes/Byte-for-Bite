@@ -1,4 +1,4 @@
-import { ChangeEvent, useReducer } from 'react';
+import { useReducer } from 'react';
 import { FilterRadioType, SearchActionType } from '../type';
 
 const useSearchBar = () => {
@@ -24,18 +24,11 @@ const useSearchBar = () => {
     }
   }
   
-  const [filter, filterDispatch] = useReducer(searchReducer, initialFilter);
-
-  const handleFilterChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = target;
-    filterDispatch({type: SET_SEARCH, key: name, value})
-  }
+  const [filter, filterDispatch] = useReducer(searchReducer, initialFilter); 
 
   return {
-    filter,
-    RESET_SEARCH,
-    filterDispatch,
-    handleFilterChange,
+    filter,    
+    filterDispatch,    
   }
 
 }

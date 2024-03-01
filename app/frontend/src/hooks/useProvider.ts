@@ -10,15 +10,14 @@ const useProvider = (path: string) => {
   const [selectedCategory, setSelectedCategory] = useState('');
   
   // SEARCH BAR FILTER
-  const { filter, handleFilterChange, filterDispatch } = useSearchBar();  
+  const { filter, filterDispatch } = useSearchBar();  
 
   // CATEGORIES URL
   const mealsCategoriesURL = 'http://localhost:3001/meals/categories';
-  const drinksCategoriesURL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list'; 
+  const drinksCategoriesURL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
 
-  // ALL RECIPES URL  
-  const allMealRecipesURL = 'http://localhost:3001/meals/name';
-  const allDrinksRecipesURL = 'http://localhost:3001/drinks/';
+  // ALL RECIPES URL
+  const allRecipesURL = `http://localhost:3001${path}/name`;
 
   // MEALS OR DRINKS BY CATEGORIES URL
   const byCategoryURL = `http://localhost:3001${path}/category?q=${selectedCategory}`;
@@ -30,9 +29,8 @@ const useProvider = (path: string) => {
   const mealsCategories: FetchedData = useFetch(mealsCategoriesURL);
   const drinksCategories: FetchedData = useFetch(drinksCategoriesURL);
 
-  // ALL RECIPES FETCHS
-  const allMealRecipes: FetchedData = useFetch(allMealRecipesURL);
-  const allDrinksRecipes: FetchedData = useFetch(allDrinksRecipesURL);
+  // ALL RECIPES FETCHS 
+  const allRecipes: FetchedData = useFetch(allRecipesURL);
 
   // BY CATEGORY FETCH
   const byCategory: FetchedData = useFetch(byCategoryURL);
@@ -48,33 +46,23 @@ const useProvider = (path: string) => {
       const meals: MealType[] = data; 
       return meals
     }
-    if (path === '/drinks') {
+    if (path === '/drinks' && !isLoading) {
       const drinks: DrinkType[] = data;
       return drinks
     }
     return [];
   }
 
-  const getAllRecipes = (path: string) => {
-    const { data: mealsData, isLoading: loadingMeals } = allMealRecipes;
-    const {data: drinksData, isLoading: loadingDrinks} = allDrinksRecipes
-
-    if (path === '/meals' && !loadingMeals) {
-      const allMeals: MealType[] = mealsData;
-      return allMeals?.slice(0, 12);
-    }
-    if (path === '/drinks' && !loadingDrinks) {
-      const allDrinks: DrinkType[] = drinksData;
-      return allDrinks?.slice(0, 12);
-    }
-    return [];
+  const getAllRecipes = () => {    
+    const recipes = analiseData(allRecipes);
+    return recipes?.slice(0, 12);
   }
 
   const getSelectedCategory = (category: string) => {
     setSelectedCategory(category);    
   };
 
-  const getByCategory = (path: string) => {
+  const getByCategory = () => {
     const recipesByCategory = analiseData(byCategory);
     return recipesByCategory?.slice(0, 12);
   }
@@ -88,17 +76,9 @@ const useProvider = (path: string) => {
     }
   }
 
-  const getByRecipesByFilter = () => {
-    const { data, isLoading } = byFilter
-    if (path === '/meals' && !isLoading) {
-      const meals: MealType[] = data;
-      return meals
-    }
-    if (path === '/drinks' && !isLoading) {
-      const drinks: DrinkType[] = data;
-      return drinks
-    }
-    if (data?.length === 0) {
+  const getRecipesByFilter = () => {    
+    const recipesByFilter = analiseData(byFilter)
+    if (recipesByFilter?.length === 0) {
       alert("Sorry, we haven't found any recipes for these filters.");
     }
     return [];
@@ -106,15 +86,14 @@ const useProvider = (path: string) => {
   
 
   return {
+    path,
     mealsCategories,
     drinksCategories,
-    selectedCategory,    
-    byCategory,
+    selectedCategory,   
     filter,
-    filterDispatch,
-    handleFilterChange,
+    filterDispatch,    
     setRecipesFilter,
-    getByRecipesByFilter,    
+    getRecipesByFilter,    
     getSelectedCategory,
     getByCategory,
     getAllRecipes,

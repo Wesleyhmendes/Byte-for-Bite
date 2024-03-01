@@ -8,19 +8,17 @@ import {
 } from '../type';
 
 export type ContextType = {
-  path: string,
+  path: string, 
   mealsCategories: FetchedData,
   drinksCategories: FetchedData,
   selectedCategory: string,  
-  byCategory: FetchedData,
   filter: FilterRadioType,
   filterDispatch: React.Dispatch<SearchActionType>,
   setRecipesFilter: (selectedFilter: FilterRadioType) => void,
-  getByRecipesByFilter: () => MealType[] | DrinkType[],
-  handleFilterChange: ({ target }: React.ChangeEvent<HTMLInputElement>) => void,
+  getRecipesByFilter: () => MealType[] | DrinkType[],  
   getSelectedCategory: (category: string) => void,
-  getAllRecipes: (path: string) => MealType[] | DrinkType[],
-  getByCategory: (path: string) => MealType[] | DrinkType[],
+  getAllRecipes: () => MealType[] | DrinkType[],
+  getByCategory: () => MealType[] | DrinkType[],
 };
 
 const Context = createContext({} as ContextType);
