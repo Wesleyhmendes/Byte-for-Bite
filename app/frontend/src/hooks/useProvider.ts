@@ -38,7 +38,7 @@ const useProvider = (path: string) => {
 
   // GETTER FUNCTIONS 
 
-  const analiseData = (fetchedData: FetchedData) => {
+  const checkData = (fetchedData: FetchedData) => {
     const { data, isLoading } = fetchedData;
     if (path === '/meals' && !isLoading) {
       const meals: MealType[] = data; 
@@ -61,7 +61,7 @@ const useProvider = (path: string) => {
   }
 
   const getAllRecipes = () => {    
-    const recipes = analiseData(allRecipes);
+    const recipes = checkData(allRecipes);
     return recipes?.slice(0, 12);
   }
 
@@ -70,7 +70,7 @@ const useProvider = (path: string) => {
   };
 
   const getByCategory = () => {
-    const recipesByCategory = analiseData(byCategory);
+    const recipesByCategory = checkData(byCategory);
     return recipesByCategory?.slice(0, 12);
   }
 
@@ -84,7 +84,7 @@ const useProvider = (path: string) => {
   }
 
   const getRecipesByFilter = () => {    
-    const recipesByFilter = analiseData(byFilter)
+    const recipesByFilter = checkData(byFilter)
     if (recipesByFilter?.length === 0) {
       alert("Sorry, we haven't found any recipes for these filters.");
     }
