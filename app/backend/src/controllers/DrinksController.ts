@@ -25,6 +25,11 @@ export default class MatchesController {
     return res.status(mapStatusHTTP(status)).json(data);
   }
 
+  public async getAllCategories(_req: Request, res: Response) {
+    const { status, data } = await this.drinkService.getAllCategories();
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
   public async getDrinkByCategory(req: Request, res: Response) {
     const { q } = req.query;
     const { status, data } = await this.drinkService.getDrinkByCategory(q as string);

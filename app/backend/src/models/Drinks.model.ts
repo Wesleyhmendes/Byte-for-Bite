@@ -1,12 +1,12 @@
 import { Op } from 'sequelize';
 import SequelizeDrinks from '../database/models/Drinks-Recipes.model';
-import SequelizeCategoryDrink from '../database/models/Drinks-Categories.model';
+import DrinkCategories from '../database/models/Drinks-Categories.model';
 import { IDrinkModel, iDrinkCategories, iDrinkRecipe } from '../Interfaces/iDrinks';
 import DrinksCategories from '../database/models/Drinks-Categories.model';
 
 export default class DrinksModel implements IDrinkModel {
   private Drinkmodel = SequelizeDrinks;
-  private CategoryModel = SequelizeCategoryDrink;
+  private CategoryModel = DrinkCategories;
 
   async findAll(): Promise<iDrinkRecipe[]> {
     const recipes = await this.Drinkmodel.findAll({
@@ -38,7 +38,7 @@ export default class DrinksModel implements IDrinkModel {
     return dbResponse;
   }
 
-  async getDrinkByCategory(q: string): Promise<iDrinkRecipe[] | iDrinkCategories[]> {
+  async getDrinkByCategory(q: string): Promise<iDrinkRecipe[]> {
     const recipes = await this.Drinkmodel.findAll({
       include: [{
         model: DrinksCategories, as: 'category', attributes: ['strCategory']
@@ -51,13 +51,15 @@ export default class DrinksModel implements IDrinkModel {
       return { ...rest, strCategory: category?.strCategory };
     });
 
-    if (q) {
-      return newRecipes.filter((recipe) => recipe.strCategory === q);
+    if (!q) {
+      return newRecipes;
     }
 
-    const categories = await this.CategoryModel.findAll({
-      attributes: { exclude: ['idCategory'] }
-    });
+    return newRecipes.filter((recipe) => recipe.strCategory === q);
+  }
+
+  async getCategories(): Promise<iDrinkCategories[]> {
+    const categories = await this.CategoryModel.findAll();
     return categories;
   }
 

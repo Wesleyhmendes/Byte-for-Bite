@@ -11,7 +11,9 @@ import DrinksRecipes from './Drinks-Recipes.model';
 class DrinksCategories extends Model<InferAttributes<DrinksCategories>,
 InferCreationAttributes<DrinksCategories>> {
   declare idCategory: CreationOptional<number>;
-  declare strCategory: string
+  declare strCategory: string;
+  declare strCategoryThumb: string;
+  declare strCategoryDescription: string;
 }
 
 DrinksCategories.init({
@@ -22,6 +24,12 @@ DrinksCategories.init({
     autoIncrement: true,
   },
   strCategory: {
+    type: DataTypes.STRING,
+  },
+  strCategoryThumb: {
+    type: DataTypes.STRING,
+  },
+  strCategoryDescription: {
     type: DataTypes.STRING,
   },
 }, {
