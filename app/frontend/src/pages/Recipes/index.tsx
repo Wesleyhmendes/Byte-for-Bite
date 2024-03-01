@@ -2,7 +2,6 @@ import { useContext } from 'react';
 import Category from '../../components/Category';
 import Context from '../../context/Context';
 import RecipesMiniCard from '../../components/RecipesMiniCard/RecipesMiniCard';
-import { useNavigate } from 'react-router-dom';
 
 export default function Recipes() {  
   const { getAllRecipes, getByCategory, getRecipesByFilter, selectedCategory, path } = useContext(Context)

@@ -6,17 +6,21 @@ import { useContext } from 'react';
 import Context from '../../context/Context';
 
 export default function Footer() {
-  const { getSelectedCategory } = useContext(Context)
+  const { getSelectedCategory, setByFilterURL } = useContext(Context)
+  const handleReset = () => {
+    getSelectedCategory('')
+    setByFilterURL('');
+  }
   return (
     <footer
       className={ style.footer }
       data-testid="footer"
     >
-      <Link onClick={ () => getSelectedCategory('') } to="/drinks">
+      <Link onClick={ handleReset } to="/drinks">
         <img src={ drinkIcon } alt="ícone de drink" data-testid="drinks-bottom-btn" />
       </Link>
 
-      <Link onClick={ () => getSelectedCategory('') } to="/meals">
+      <Link onClick={ handleReset } to="/meals">
         <img src={ mealIcon } alt="ícone do drink" data-testid="meals-bottom-btn" />
       </Link>
 

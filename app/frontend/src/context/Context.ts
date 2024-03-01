@@ -14,6 +14,7 @@ export type ContextType = {
   getCategories: () => CategoryType[],
   filterDispatch: React.Dispatch<SearchActionType>,
   setRecipesFilter: (selectedFilter: FilterRadioType) => void,
+  setByFilterURL: (value: React.SetStateAction<string>) => void,
   getRecipesByFilter: () => MealType[] | DrinkType[],  
   getSelectedCategory: (category: string) => void,
   getAllRecipes: () => MealType[] | DrinkType[],

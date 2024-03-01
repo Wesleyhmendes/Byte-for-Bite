@@ -98,14 +98,16 @@ const useProvider = (path: string) => {
       navigate(`${path}/${id}`);
       setByFilterURL('');     
       return [];
-    }        
+    }
+    return [];       
   } 
  
   return {      
     selectedCategory,   
     filter,
     getCategories,
-    filterDispatch,    
+    filterDispatch,
+    setByFilterURL, 
     setRecipesFilter,
     getRecipesByFilter,    
     getSelectedCategory,
