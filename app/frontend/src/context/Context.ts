@@ -1,8 +1,7 @@
 import { createContext } from 'react';
 import {
   CategoryType,
-  DrinkType,
-  FetchedData,
+  DrinkType,  
   FilterRadioType,
   MealType,
   SearchActionType,

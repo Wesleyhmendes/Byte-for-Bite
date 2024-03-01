@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Context from '../Context';
 import useProvider from '../../hooks/useProvider';
 
@@ -8,6 +8,7 @@ type ProviderProps = {
 
 export default function Provider({ children }: ProviderProps) {   
   const path = useLocation().pathname
+  const simplifiedPath = path.includes('meals') ? '/meals' : '/drinks';
   const {    
     selectedCategory,    
     filter, 
@@ -18,7 +19,7 @@ export default function Provider({ children }: ProviderProps) {
     getSelectedCategory,
     getByCategory,
     getAllRecipes,
-  } = useProvider(path);
+  } = useProvider(simplifiedPath);
 
   const value = { 
     path,   

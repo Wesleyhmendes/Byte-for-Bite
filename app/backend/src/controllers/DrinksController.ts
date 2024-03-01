@@ -8,7 +8,7 @@ export default class MatchesController {
   ) { }
 
   public async getAllDrinks(req: Request, res: Response) {
-    const q = req.query.q;
+    const { q } = req.query;
     if (!q) {
       const { status, data } = await this.drinkService.getDrinks();
       return res.status(mapStatusHTTP(status)).json(data);
@@ -19,8 +19,8 @@ export default class MatchesController {
   } 
 
   public async getDrinksByFirstLetter(req: Request, res: Response) {
-    const q = req.query.q;
-    const { status, data } = await this.drinkService.getDrinksByFirstLetter(q);
+    const { q } = req.query;
+    const { status, data } = await this.drinkService.getDrinksByFirstLetter(q as string);
 
     return res.status(mapStatusHTTP(status)).json(data);
   }

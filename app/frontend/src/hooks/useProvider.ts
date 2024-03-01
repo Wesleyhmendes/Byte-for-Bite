@@ -3,8 +3,10 @@ import { createURLFilter } from '../utils/functions/createURLFilter';
 import useFetch from './useFetch';
 import { useState } from 'react';
 import useSearchBar from './useSearchBar';
+import { useNavigate } from 'react-router-dom';
 
 const useProvider = (path: string) => { 
+  const navigate = useNavigate();
   
   // URL's CATEGORY PARAMETERS
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -83,14 +85,21 @@ const useProvider = (path: string) => {
     }
   }
 
-  const getRecipesByFilter = () => {    
-    const recipesByFilter = checkData(byFilter)
-    if (recipesByFilter?.length === 0) {
-      alert("Sorry, we haven't found any recipes for these filters.");
+  const getRecipesByFilter = () => {   
+    const recipesByFilter = checkData(byFilter);
+    if (!recipesByFilter) {
+      return [];
     }
-    return [];
+    if (recipesByFilter.length === 1) {
+      const id = recipesByFilter[0].idMeal ? recipesByFilter[0].idMeal : recipesByFilter[0].idDrink;
+      // navigate(`${path}/${id}`);      
+      return recipesByFilter[0];
+    }
+    if (recipesByFilter.length > 1) {
+      return recipesByFilter;
+    }
   } 
-  
+  console.log(getRecipesByFilter())
   return {      
     selectedCategory,   
     filter,

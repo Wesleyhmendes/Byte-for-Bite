@@ -24,7 +24,7 @@ export default class DrinksModel implements IDrinkModel {
     return newRecipes;
   }
 
-  async getFilteredDrinks(q: any): Promise<iDrinkRecipe[] | null> {
+  async getFilteredDrinks(q: string): Promise<iDrinkRecipe[] | null> {
     const dbResponse = await this.Drinkmodel.findAll({
       where: {
         strDrink: {
@@ -49,13 +49,9 @@ export default class DrinksModel implements IDrinkModel {
     const newRecipes = recipes.map((recipe) => {
       const { category, ...rest } = recipe.toJSON() as iDrinkRecipe;
       return { ...rest, strCategory: category?.strCategory };
-    });
+    }).filter((recipe) => recipe.strCategory === q);
 
-    if (!q) {
-      return newRecipes;
-    }
-
-    return newRecipes.filter((recipe) => recipe.strCategory === q);
+    return newRecipes
   }
 
   async getCategories(): Promise<iDrinkCategories[]> {
@@ -80,14 +76,21 @@ export default class DrinksModel implements IDrinkModel {
     return newIngredients;
   }
 
-  async getByIngredients(q: string) {
-    const allRecipes: iDrinkRecipe[] = await this.findAll();
-    const recipes = [];
+  async getByIngredients(q: string) {   
+    const recipes = await this.findAll();
+    const recipesFiltred = recipes.filter((recipe) => {
+      const values: string[] = Object.values(recipe);
 
-    for (let i = 1; i <= 15; i += 1) {
-      const filteredRecipes = allRecipes.filter((recipe) => recipe[`strIngredient${i}` as keyof iDrinkRecipe] === q);
-      recipes.push(...filteredRecipes)
-    }
-    return recipes;
+      const valuesLower: string[] = values.map((value) =>{
+        return typeof value === 'string'? value.toLowerCase() : value;
+      })
+      
+      if(valuesLower.includes(q.toLowerCase())) {
+        return true;
+      }
+      return false;
+    });
+
+    return recipesFiltred;
   }
 }

@@ -10,7 +10,7 @@ export default function Category() {
 
   return (
     <section>
-      { !allCategories ? <p>Carregando...</p> : null }
+      {!allCategories ? <p>Carregando...</p> : null}
 
       {allCategories ? allCategories?.map(({ strCategory }: CategoryType) => (
             <CategoryButton
