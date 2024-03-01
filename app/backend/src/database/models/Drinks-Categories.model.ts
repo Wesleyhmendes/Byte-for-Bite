@@ -11,9 +11,7 @@ import DrinksRecipes from './Drinks-Recipes.model';
 class DrinksCategories extends Model<InferAttributes<DrinksCategories>,
 InferCreationAttributes<DrinksCategories>> {
   declare idCategory: CreationOptional<number>;
-  declare strCategory: string;
-  declare strCategoryThumb: string;
-  declare strCategoryDescription: string;
+  declare strCategory: string;  
 }
 
 DrinksCategories.init({
@@ -25,13 +23,7 @@ DrinksCategories.init({
   },
   strCategory: {
     type: DataTypes.STRING,
-  },
-  strCategoryThumb: {
-    type: DataTypes.STRING,
-  },
-  strCategoryDescription: {
-    type: DataTypes.STRING,
-  },
+  },  
 }, {
   sequelize: db,
   modelName: 'drinks_categories',

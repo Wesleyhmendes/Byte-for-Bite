@@ -1,4 +1,4 @@
-import { DrinkType, FetchedData, FilterRadioType, MealType } from '../type';
+import { CategoryType, DrinkType, FetchedData, FilterRadioType, MealType } from '../type';
 import { createURLFilter } from '../utils/functions/createURLFilter';
 import useFetch from './useFetch';
 import { useState } from 'react';
@@ -12,9 +12,8 @@ const useProvider = (path: string) => {
   // SEARCH BAR FILTER
   const { filter, filterDispatch } = useSearchBar();  
 
-  // CATEGORIES URL
-  const mealsCategoriesURL = 'http://localhost:3001/meals/categories';
-  const drinksCategoriesURL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+  // CATEGORIES URL  
+  const allCategoriesURL = `http://localhost:3001${path}/categories`;
 
   // ALL RECIPES URL
   const allRecipesURL = `http://localhost:3001${path}/name`;
@@ -25,11 +24,10 @@ const useProvider = (path: string) => {
   // MEALS OR DRINKS WITH FILTER URL
   const [byFilterURL, setByFilterURL] = useState('');
 
-  // CATEGORIES FETCHS
-  const mealsCategories: FetchedData = useFetch(mealsCategoriesURL);
-  const drinksCategories: FetchedData = useFetch(drinksCategoriesURL);
+  // CATEGORIES FETCH  
+  const allCategories: FetchedData = useFetch(allCategoriesURL); 
 
-  // ALL RECIPES FETCHS 
+  // ALL RECIPES FETCHS
   const allRecipes: FetchedData = useFetch(allRecipesURL);
 
   // BY CATEGORY FETCH
@@ -49,6 +47,15 @@ const useProvider = (path: string) => {
     if (path === '/drinks' && !isLoading) {
       const drinks: DrinkType[] = data;
       return drinks
+    }
+    return [];
+  }  
+
+  const getCategories = () => {
+    const { data, isLoading } = allCategories;
+    if (!isLoading) {
+      const categories: CategoryType[] = data;
+      return categories?.slice(0, 5);
     }
     return [];
   }
@@ -82,15 +89,12 @@ const useProvider = (path: string) => {
       alert("Sorry, we haven't found any recipes for these filters.");
     }
     return [];
-  }   
+  } 
   
-
-  return {
-    path,
-    mealsCategories,
-    drinksCategories,
+  return {      
     selectedCategory,   
     filter,
+    getCategories,
     filterDispatch,    
     setRecipesFilter,
     getRecipesByFilter,    

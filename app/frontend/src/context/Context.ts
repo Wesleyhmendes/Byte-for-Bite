@@ -1,5 +1,6 @@
 import { createContext } from 'react';
 import {
+  CategoryType,
   DrinkType,
   FetchedData,
   FilterRadioType,
@@ -8,11 +9,10 @@ import {
 } from '../type';
 
 export type ContextType = {
-  path: string, 
-  mealsCategories: FetchedData,
-  drinksCategories: FetchedData,
+  path: string,  
   selectedCategory: string,  
   filter: FilterRadioType,
+  getCategories: () => CategoryType[],
   filterDispatch: React.Dispatch<SearchActionType>,
   setRecipesFilter: (selectedFilter: FilterRadioType) => void,
   getRecipesByFilter: () => MealType[] | DrinkType[],  
