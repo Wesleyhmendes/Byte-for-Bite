@@ -90,16 +90,17 @@ const useProvider = (path: string) => {
     if (!recipesByFilter) {
       return [];
     }
-    if (recipesByFilter.length === 1) {
-      const id = recipesByFilter[0].idMeal ? recipesByFilter[0].idMeal : recipesByFilter[0].idDrink;
-      // navigate(`${path}/${id}`);      
-      return recipesByFilter[0];
-    }
     if (recipesByFilter.length > 1) {
       return recipesByFilter;
     }
+    if (recipesByFilter.length === 1 && byFilterURL !== '') {
+      const id = recipesByFilter[0].idMeal ? recipesByFilter[0].idMeal : recipesByFilter[0].idDrink;
+      navigate(`${path}/${id}`);
+      setByFilterURL('');     
+      return [];
+    }        
   } 
-  console.log(getRecipesByFilter())
+ 
   return {      
     selectedCategory,   
     filter,
