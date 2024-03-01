@@ -17,7 +17,7 @@ export default class MatchesService {
     return { status: 'SUCCESSFUL', data: drinks };
   }
 
-  public async getFilteredDrinks(q: any) {
+  public async getDrinkByName(q: string) {
     const drinks = await this.drinkModel.getFilteredDrinks(q);
 
     if (drinks === null) {

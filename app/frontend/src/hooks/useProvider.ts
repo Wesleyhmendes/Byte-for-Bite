@@ -9,7 +9,7 @@ const useProvider = (path: string) => {
   // URL's CATEGORY PARAMETERS
   const [selectedCategory, setSelectedCategory] = useState('');
   
-  // FILTER
+  // SEARCH BAR FILTER
   const { filter, handleFilterChange, filterDispatch } = useSearchBar();  
 
   // CATEGORIES URL
@@ -42,6 +42,19 @@ const useProvider = (path: string) => {
 
   // GETTER FUNCTIONS 
 
+  const analiseData = (fetchedData: FetchedData) => {
+    const { data, isLoading } = fetchedData;
+    if (path === '/meals' && !isLoading) {
+      const meals: MealType[] = data; 
+      return meals
+    }
+    if (path === '/drinks') {
+      const drinks: DrinkType[] = data;
+      return drinks
+    }
+    return [];
+  }
+
   const getAllRecipes = (path: string) => {
     const { data: mealsData, isLoading: loadingMeals } = allMealRecipes;
     const {data: drinksData, isLoading: loadingDrinks} = allDrinksRecipes
@@ -62,16 +75,8 @@ const useProvider = (path: string) => {
   };
 
   const getByCategory = (path: string) => {
-    const { data, isLoading } = byCategory;    
-    if (path === '/meals' && !isLoading) {
-      const mealByCategory: MealType[] = data?.slice(0, 12);
-      return mealByCategory;
-    }
-    if (path === '/drinks' && !isLoading) {      
-      const drinksByCategory: DrinkType[] = data?.slice(0, 12);
-      return drinksByCategory;
-    }
-    return [];
+    const recipesByCategory = analiseData(byCategory);
+    return recipesByCategory?.slice(0, 12);
   }
 
   const setRecipesFilter = (selectedFilter: FilterRadioType) => {    
