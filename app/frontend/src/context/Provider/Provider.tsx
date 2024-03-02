@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import Context from '../Context';
-import useProvider from '../../hooks/useProvider';
+import useRecipesProvider from '../../hooks/useRecipesProvider';
 
 type ProviderProps = {
   children: React.ReactNode;  
@@ -20,7 +20,7 @@ export default function Provider({ children }: ProviderProps) {
     getSelectedCategory,
     getByCategory,
     getAllRecipes,
-  } = useProvider(simplifiedPath);
+  } = useRecipesProvider(simplifiedPath);
 
   const value = { 
     path,   

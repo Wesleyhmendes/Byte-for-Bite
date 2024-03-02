@@ -5,7 +5,7 @@ import { useState } from 'react';
 import useSearchBar from './useSearchBar';
 import { useNavigate } from 'react-router-dom';
 
-const useProvider = (path: string) => { 
+const useRecipesProvider = (path: string) => { 
   const navigate = useNavigate();
   
   // URL's CATEGORY PARAMETERS
@@ -116,4 +116,4 @@ const useProvider = (path: string) => {
   }
 }
 
-export default useProvider;
+export default useRecipesProvider;
