@@ -24,6 +24,11 @@ export default class DrinksModel implements IDrinkModel {
     return newRecipes;
   }
 
+  async getDrinkById(id: number) {
+    const recipe = await this.Drinkmodel.findByPk(id);
+    return recipe;
+  }
+
   async getFilteredDrinks(q: string): Promise<iDrinkRecipe[] | null> {
     const dbResponse = await this.Drinkmodel.findAll({
       where: {

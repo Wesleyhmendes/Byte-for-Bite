@@ -17,6 +17,15 @@ export default class MatchesService {
     return { status: 'SUCCESSFUL', data: drinks };
   }
 
+  async getById(id: number) {
+    const recipe = await this.drinkModel.getDrinkById(id);
+    if (!recipe) {
+      return { status: 'NOT_FOUND', data: { message: 'drinks not found' } }
+    }
+
+    return { status: 'SUCCESSFUL', data: recipe };
+  }
+
   async getDrinkByName(q: string) {
     const drinks = await this.drinkModel.getFilteredDrinks(q);
 

@@ -12,5 +12,6 @@ drinksRouter.get('/categories', (req: Request, res: Response) => drinkController
 drinksRouter.get('/random', (req: Request, res: Response) => drinkController.getRandomDrink(req, res));
 drinksRouter.get('/ingredients', (req: Request, res: Response) => drinkController.getAllIngredients(req, res));
 drinksRouter.get('/ingredient', (req: Request, res: Response) => drinkController.getByIngredient(req, res));
+drinksRouter.get('/:id', (req: Request, res: Response) => drinkController.getById(req, res));
 
 export default drinksRouter;

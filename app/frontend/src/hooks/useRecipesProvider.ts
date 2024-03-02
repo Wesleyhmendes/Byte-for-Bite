@@ -10,6 +10,7 @@ const useRecipesProvider = (path: string) => {
   
   // URL's CATEGORY PARAMETERS
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [id, setId] = useState<string | undefined>(undefined);  
   
   // SEARCH BAR FILTER
   const { filter, filterDispatch } = useSearchBar();  
@@ -19,6 +20,9 @@ const useRecipesProvider = (path: string) => {
 
   // ALL RECIPES URL
   const allRecipesURL = `http://localhost:3001${path}/name`;
+
+  // RECIPES BY ID URL
+  const recipeByIdURL = `http://localhost:3001${path}/${id}`;
 
   // MEALS OR DRINKS BY CATEGORIES URL
   const byCategoryURL = `http://localhost:3001${path}/category?q=${selectedCategory}`;
@@ -32,6 +36,9 @@ const useRecipesProvider = (path: string) => {
   // ALL RECIPES FETCHS
   const allRecipes: FetchedData = useFetch(allRecipesURL);
 
+  // BY ID FETCH
+  const recipeById: FetchedData = useFetch(recipeByIdURL);
+
   // BY CATEGORY FETCH
   const byCategory: FetchedData = useFetch(byCategoryURL);
 
@@ -39,19 +46,37 @@ const useRecipesProvider = (path: string) => {
   const byFilter = useFetch(byFilterURL);
 
   // GETTER FUNCTIONS 
-
   const checkData = (fetchedData: FetchedData) => {
-    const { data, isLoading } = fetchedData;
+    const { data, isLoading, error } = fetchedData;
     if (path === '/meals' && !isLoading) {
-      const meals: MealType[] = data; 
-      return meals
+      const meals: MealType[] = data;
+      return meals;
     }
     if (path === '/drinks' && !isLoading) {
       const drinks: DrinkType[] = data;
-      return drinks
+      return drinks;
+    }
+    if (!isLoading && error) {
+      console.log(error);
     }
     return [];
-  }  
+  };
+
+  const checkDataById = (fetchedData: FetchedData) => {
+    const { data, isLoading, error } = fetchedData;
+    if (path === '/meals' && !isLoading) {
+      const meals: MealType = data;
+      return meals;
+    }
+    if (path === '/drinks' && !isLoading) {
+      const drinks: DrinkType = data;
+      return drinks;
+    }
+    if (!isLoading && error) {
+      console.log(error.message);
+    }
+    return undefined;
+  };
 
   const getCategories = () => {
     const { data, isLoading } = allCategories;
@@ -66,6 +91,18 @@ const useRecipesProvider = (path: string) => {
     const recipes = checkData(allRecipes);
     return recipes?.slice(0, 12);
   }
+
+  const setSelectedId = (id: string) => {
+    setId(id);
+  }
+
+  const getRecipeById = () => {    
+    const recipe = checkDataById(recipeById);
+    if (recipe) {
+      return recipe;
+    }
+    return undefined
+  };
 
   const getSelectedCategory = (category: string) => {
     setSelectedCategory(category);    
@@ -107,12 +144,14 @@ const useRecipesProvider = (path: string) => {
     filter,
     getCategories,
     filterDispatch,
-    setByFilterURL, 
+    setByFilterURL,
+    setSelectedId, 
     setRecipesFilter,
     getRecipesByFilter,    
     getSelectedCategory,
     getByCategory,
     getAllRecipes,
+    getRecipeById,
   }
 }
 

@@ -8,7 +8,7 @@ type ProviderProps = {
 
 export default function Provider({ children }: ProviderProps) {   
   const path = useLocation().pathname
-  const simplifiedPath = path.includes('meals') ? '/meals' : '/drinks';
+  const route = path.includes('meals') ? '/meals' : '/drinks';
   const {    
     selectedCategory,    
     filter, 
@@ -16,24 +16,28 @@ export default function Provider({ children }: ProviderProps) {
     filterDispatch,
     setRecipesFilter,
     setByFilterURL,
+    setSelectedId,
     getRecipesByFilter,
     getSelectedCategory,
     getByCategory,
     getAllRecipes,
-  } = useRecipesProvider(simplifiedPath);
+    getRecipeById,
+  } = useRecipesProvider(route);
 
   const value = { 
-    path,   
+    route,   
     selectedCategory,    
     filter,
     getCategories,  
     filterDispatch,
     setRecipesFilter,
     setByFilterURL,
+    setSelectedId,
     getRecipesByFilter, 
     getSelectedCategory,
     getByCategory,
     getAllRecipes,
+    getRecipeById,
   };
 
   return (

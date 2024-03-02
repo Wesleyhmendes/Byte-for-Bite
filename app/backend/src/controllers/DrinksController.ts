@@ -18,6 +18,13 @@ export default class MatchesController {
     return res.status(mapStatusHTTP(status)).json(data);
   } 
 
+  public async getById(req: Request, res: Response) {
+    const { id } = req.params;
+    const { status, data } = await this.drinkService.getById(Number(id));
+
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
   public async getDrinksByFirstLetter(req: Request, res: Response) {
     const { q } = req.query;
     const { status, data } = await this.drinkService.getDrinksByFirstLetter(q as string);
