@@ -28,7 +28,8 @@ function SignUp() {
 
     updateUser({      
       email: user.email,
-      password: user.password
+      password: user.password,
+      profileImage: '',
     })
 
     localStorage.setItem('user', JSON.stringify(user.email));

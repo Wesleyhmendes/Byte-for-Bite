@@ -1,10 +1,5 @@
-import { useReducer, useEffect, useCallback } from 'react';
-
-type FetchAction =
-  | { type: 'loading' }
-  | { type: 'error'; payload: any }
-  | { type: 'fetched'; payload: any }
-  | { type: 'reset' }
+import { useReducer, useEffect } from 'react';
+import { FetchAction } from '../type';
 
 type RequestMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
@@ -14,6 +9,7 @@ interface FetchOptions {
 }
 
 const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
+  
   const initialState = {
     data: undefined,
     isLoading: true,
@@ -33,7 +29,7 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
           isLoading: false,
           error: action.payload,
         };
-      case 'fetched':
+      case 'fetched':        
         return {
           ...state,
           isLoading: false,
@@ -65,20 +61,22 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
       const response = await fetch(URL, request.method === 'GET' ? undefined : request);
       const result = await response.json();
 
-      setTimeout(() => {
-        dispatch({ type: 'fetched', payload: result });
+      dispatch({ type: 'fetched', payload: result });
+      // setTimeout(() => {
        
-      }, 1000); 
+      // }, 1000); 
 
     } catch (err) {
       dispatch({ type: 'error', payload: err })
     }    
-  };
+  }; 
    
-
-  useEffect(() => {
-    if (options.method === 'GET' ) {
-      handleFetch();      
+  useEffect(() => {    
+    if (options.method === 'GET') {      
+      handleFetch();           
+    }
+    return () => {     
+      dispatch({type: 'reset'})
     }
   }, [URL])
 

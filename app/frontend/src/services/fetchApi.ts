@@ -1,9 +1,11 @@
 import { FilterRadioType } from '../type';
 import { createUrlMealsFilter } from '../utils/functions/createUrlMealsFilter';
 
-export const fetchMeals = async () => {
+export const fetchMeals = async (token: string) => {
   const URL_API = 'http://localhost:3001/meals/name';
-  const response = await fetch(URL_API);
+  const response = await fetch(URL_API, { headers: {
+    Authorization: `bearer ${ token }`
+  } });
   const data = await response.json();
   return data;
 };
@@ -56,7 +58,7 @@ export const fetchDrinksCategories = async () => {
   return data.drinks;
 };
 
-export const fetchDrinksFilterByCategory = async (category: number) => {
+export const fetchDrinksFilterByCategory = async (category: string) => {
   const URL_API = `http://localhost:3001/drinks/category?q=${category}`;
   const response = await fetch(URL_API);
   const data = await response.json();
@@ -64,7 +66,7 @@ export const fetchDrinksFilterByCategory = async (category: number) => {
 };
 
 export const fetchRecipeById = async (typeRecipe: string, id: string) => {
-  const URL_API = typeRecipe === 'meals' ? `http://localhost:3001/meals/${id}` : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const URL_API = typeRecipe === 'meals' ? `http://localhost:3001/meals/${id}` : `http://localhost:3001/drinks/${id}`;
   const response = await fetch(URL_API);
   const data = await response.json();
   return data;

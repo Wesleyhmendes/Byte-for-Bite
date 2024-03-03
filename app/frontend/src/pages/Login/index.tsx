@@ -22,7 +22,7 @@ function Login() {
 
   const url = 'http://localhost:3001/user/login';
   const requestBody = user
-  const { handleFetch, data, isLoading } = useFetch(url, {method: 'POST', body: requestBody});  
+  const { handleFetch, data, isLoading } = useFetch(url, { method: 'POST', body: requestBody });  
 
   const validateFields = ({ email, password }: UserInfoType) => {
     const validateRegexEmail = /\S+@\S+\.\S+/;
@@ -43,7 +43,7 @@ function Login() {
       updateUser(user);      
       localStorage.setItem('user', JSON.stringify(user.email));  
       setUserInfo(INITIAL_STATE);
-    }   
+    }    
 
   return (
     <main>

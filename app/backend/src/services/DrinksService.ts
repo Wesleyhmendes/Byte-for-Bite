@@ -7,7 +7,7 @@ export default class MatchesService {
     private drinkModel = new DrinksModel(),
   ) { }
 
-  public async getDrinks() {
+  async getDrinks() {
     const drinks = await this.drinkModel.findAll();
 
     if (drinks === null) {
@@ -17,7 +17,16 @@ export default class MatchesService {
     return { status: 'SUCCESSFUL', data: drinks };
   }
 
-  public async getFilteredDrinks(q: any) {
+  async getById(id: number) {
+    const recipe = await this.drinkModel.getDrinkById(id);
+    if (!recipe) {
+      return { status: 'NOT_FOUND', data: { message: 'drinks not found' } }
+    }
+
+    return { status: 'SUCCESSFUL', data: recipe };
+  }
+
+  async getDrinkByName(q: string) {
     const drinks = await this.drinkModel.getFilteredDrinks(q);
 
     if (drinks === null) {
@@ -27,7 +36,7 @@ export default class MatchesService {
     return { status: 'SUCCESSFUL', data: drinks };
   }
 
-  public async getDrinksByFirstLetter(q: any) {
+  async getDrinksByFirstLetter(q: string) {
     const drinks = await this.drinkModel.getFilteredDrinks(q);
 
     if (drinks === null) {
@@ -40,9 +49,14 @@ export default class MatchesService {
     return { status: 'SUCCESSFUL', data: response };
   }
 
-  public async getDrinkByCategory(q: string) {
+  async getDrinkByCategory(q: string) {
     const drinks = await this.drinkModel.getDrinkByCategory(q);
     return { status: 'SUCCESSFUL', data: drinks };
+  }
+
+  async getAllCategories() {
+    const categories = await this.drinkModel.getCategories();
+    return { status: 'SUCCESSFUL', data: categories }
   }
 
   async getRandomDrink(): Promise<ServiceResponse<iDrinkRecipe>> {

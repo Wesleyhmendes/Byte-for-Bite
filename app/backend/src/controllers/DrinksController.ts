@@ -7,23 +7,33 @@ export default class MatchesController {
     private drinkService = new DrinkService(),
   ) { }
 
-  public async getDrinks(req: Request, res: Response) {
-    const { status, data } = await this.drinkService.getDrinks();
+  public async getAllDrinks(req: Request, res: Response) {
+    const { q } = req.query;
+    if (!q) {
+      const { status, data } = await this.drinkService.getDrinks();
+      return res.status(mapStatusHTTP(status)).json(data);
+    }
 
+    const { status, data } = await this.drinkService.getDrinkByName(q as string);
     return res.status(mapStatusHTTP(status)).json(data);
-  }
+  } 
 
-  public async getFilteredDrinks(req: Request, res: Response) {
-    const q = req.query.q;
-    const { status, data } = await this.drinkService.getFilteredDrinks(q);
+  public async getById(req: Request, res: Response) {
+    const { id } = req.params;
+    const { status, data } = await this.drinkService.getById(Number(id));
 
     return res.status(mapStatusHTTP(status)).json(data);
   }
 
   public async getDrinksByFirstLetter(req: Request, res: Response) {
-    const q = req.query.q;
-    const { status, data } = await this.drinkService.getDrinksByFirstLetter(q);
+    const { q } = req.query;
+    const { status, data } = await this.drinkService.getDrinksByFirstLetter(q as string);
 
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  public async getAllCategories(_req: Request, res: Response) {
+    const { status, data } = await this.drinkService.getAllCategories();
     return res.status(mapStatusHTTP(status)).json(data);
   }
 
@@ -38,12 +48,13 @@ export default class MatchesController {
     return res.status(mapStatusHTTP(status)).json(data);
   }
 
-  public async getIngredients(req: Request, res: Response) {
-    const { q } = req.query;
-    if (q) {
+  public async getByIngredient(req: Request, res: Response) {
+    const { q } = req.query;    
       const { status, data } = await this.drinkService.getByIngredients(q as string);
-      return res.status(mapStatusHTTP(status)).json(data);
-    }
+      return res.status(mapStatusHTTP(status)).json(data);    
+  }
+  
+  public async getAllIngredients(_req: Request, res: Response) {    
     const { status, data } = await this.drinkService.getAllIngredients();
     return res.status(mapStatusHTTP(status)).json(data);
   }

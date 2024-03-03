@@ -1,12 +1,12 @@
 import { Op } from 'sequelize';
 import SequelizeDrinks from '../database/models/Drinks-Recipes.model';
-import SequelizeCategoryDrink from '../database/models/Drinks-Categories.model';
+import DrinkCategories from '../database/models/Drinks-Categories.model';
 import { IDrinkModel, iDrinkCategories, iDrinkRecipe } from '../Interfaces/iDrinks';
 import DrinksCategories from '../database/models/Drinks-Categories.model';
 
 export default class DrinksModel implements IDrinkModel {
   private Drinkmodel = SequelizeDrinks;
-  private CategoryModel = SequelizeCategoryDrink;
+  private CategoryModel = DrinkCategories;
 
   async findAll(): Promise<iDrinkRecipe[]> {
     const recipes = await this.Drinkmodel.findAll({
@@ -24,7 +24,12 @@ export default class DrinksModel implements IDrinkModel {
     return newRecipes;
   }
 
-  async getFilteredDrinks(q: any): Promise<iDrinkRecipe[] | null> {
+  async getDrinkById(id: number) {
+    const recipe = await this.Drinkmodel.findByPk(id);
+    return recipe;
+  }
+
+  async getFilteredDrinks(q: string): Promise<iDrinkRecipe[] | null> {
     const dbResponse = await this.Drinkmodel.findAll({
       where: {
         strDrink: {
@@ -38,7 +43,7 @@ export default class DrinksModel implements IDrinkModel {
     return dbResponse;
   }
 
-  async getDrinkByCategory(q: string): Promise<iDrinkRecipe[] | iDrinkCategories[]> {
+  async getDrinkByCategory(q: string): Promise<iDrinkRecipe[]> {
     const recipes = await this.Drinkmodel.findAll({
       include: [{
         model: DrinksCategories, as: 'category', attributes: ['strCategory']
@@ -49,15 +54,13 @@ export default class DrinksModel implements IDrinkModel {
     const newRecipes = recipes.map((recipe) => {
       const { category, ...rest } = recipe.toJSON() as iDrinkRecipe;
       return { ...rest, strCategory: category?.strCategory };
-    });
+    }).filter((recipe) => recipe.strCategory === q);
 
-    if (q) {
-      return newRecipes.filter((recipe) => recipe.strCategory === q);
-    }
+    return newRecipes
+  }
 
-    const categories = await this.CategoryModel.findAll({
-      attributes: { exclude: ['idCategory'] }
-    });
+  async getCategories(): Promise<iDrinkCategories[]> {
+    const categories = await this.CategoryModel.findAll();
     return categories;
   }
 
@@ -78,14 +81,21 @@ export default class DrinksModel implements IDrinkModel {
     return newIngredients;
   }
 
-  async getByIngredients(q: string) {
-    const allRecipes: iDrinkRecipe[] = await this.findAll();
-    const recipes = [];
+  async getByIngredients(q: string) {   
+    const recipes = await this.findAll();
+    const recipesFiltred = recipes.filter((recipe) => {
+      const values: string[] = Object.values(recipe);
 
-    for (let i = 1; i <= 15; i += 1) {
-      const filteredRecipes = allRecipes.filter((recipe) => recipe[`strIngredient${i}` as keyof iDrinkRecipe] === q);
-      recipes.push(...filteredRecipes)
-    }
-    return recipes;
+      const valuesLower: string[] = values.map((value) =>{
+        return typeof value === 'string'? value.toLowerCase() : value;
+      })
+      
+      if(valuesLower.includes(q.toLowerCase())) {
+        return true;
+      }
+      return false;
+    });
+
+    return recipesFiltred;
   }
 }

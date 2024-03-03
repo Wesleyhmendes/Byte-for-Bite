@@ -8,6 +8,7 @@ import {
   fetchMealsCategories,
   fetchMealsFilterByCategory,
 } from '../../services/fetchApi';
+import useFetch from '../../hooks/useFetch';
 
 type MealsProviderProps = {
   children: React.ReactNode;
@@ -18,6 +19,7 @@ export default function MealsProvider({ children }: MealsProviderProps) {
   const [mealsInitialData, setMealsInitialData] = useState([]);
   const [mealsCategoriesData, setMealsCategoriesData] = useState([]);
   const [currentCategoryMeals, setCurrentCategoryMeals] = useState('');
+  const mealsCategories = useFetch('http://localhost:3001/meals/categories')
   const navigate = useNavigate();
 
   const getMealsCategories = async () => {
@@ -26,7 +28,8 @@ export default function MealsProvider({ children }: MealsProviderProps) {
   };
 
   const getMeals = async () => {
-    const data = await fetchMeals();
+    const token = JSON.parse(localStorage.getItem('token') ?? '')    
+    const data = await fetchMeals(token);
     setMealsData(data);
     setMealsInitialData(data);
   };
@@ -59,15 +62,20 @@ export default function MealsProvider({ children }: MealsProviderProps) {
     setMealsData(mealsInitialData);
   };
 
-  useEffect(() => {
-    getMealsCategories();
-    getMeals();
-  }, []);
+  if (mealsCategoriesData.length === 0) getMealsCategories();
+
+  if (mealsInitialData.length === 0) getMeals();
+
+  // useEffect(() => {
+  //   getMealsCategories();
+  //   getMeals();
+  // }, []);
 
   const value = {
     mealsData,
     mealsInitialData,
     mealsCategoriesData,
+    mealsCategories,
     getMealsByFilter,
     getMealsByCategory,
     clearCategoriesMeal,

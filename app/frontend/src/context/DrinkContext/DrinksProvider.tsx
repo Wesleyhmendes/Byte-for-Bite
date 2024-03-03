@@ -63,11 +63,15 @@ export default function DrinksProvider({ children }: DrinksProviderProps) {
     setDrinksData(drinksInitialData);
   };
 
-  useEffect(() => { 
-    getDrinksCategories();
-    getDrinks();
+  if (drinksCategoriesData.length === 0) getDrinksCategories();
+
+  if (drinksInitialData.length === 0) getDrinks();
+
+  // useEffect(() => { 
+  //   // getDrinksCategories();
+  //   getDrinks();
     
-  }, []);
+  // }, []);
 
   const value = {
     drinksData,

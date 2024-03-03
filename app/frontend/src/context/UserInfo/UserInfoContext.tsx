@@ -3,10 +3,10 @@ import { UserInfoType } from '../../type';
 
 type UserInfoContextType = {
   userInfo: {
-    username: string,
+    username?: string,
     email: string;
     password: string;
-    profileImg: string | null;
+    profileImage?: string | null;
   }
   updateUser: (newInfo: UserInfoType) => void;
 };

@@ -1,51 +1,33 @@
 import { useContext } from 'react';
-import { useLocation } from 'react-router-dom';
-import DrinksContext from '../../context/DrinkContext/DrinksContext';
-import MealsContext from '../../context/MealContext/MealsContext';
 import { CategoryType } from '../../type';
+import CategoryButton from '../CategoryButton/CategoryButton';
+import Context from '../../context/Context';
 
-export default function Category() {
-  const location = useLocation().pathname;
-
-  const {
-    getMealsByCategory,
-    clearCategoriesMeal,
-    mealsCategoriesData,
-  } = useContext(MealsContext);
-
-  const {
-    getDrinksByCategory,
-    clearCategoriesDrink,
-    drinksCategoriesData,
-  } = useContext(DrinksContext);
+export default function Category() {  
+  const { getCategories, getSelectedCategory } = useContext(Context);  
+ 
+  const allCategories = getCategories();  
 
   return (
     <section>
-      {location === '/meals' ? (mealsCategoriesData.slice(0, 5)
-        .map(({ strCategory }: CategoryType) => (
-          <button
-            onClick={ () => getMealsByCategory(strCategory) }
-            data-testid={ `${strCategory}-category-filter` }
-            key={ strCategory }
-          >
-            { strCategory }
-          </button>
-        ))) : (drinksCategoriesData.slice(0, 5)
-        .map(({ strCategory }: CategoryType) => (
-          <button
-            onClick={ () => getDrinksByCategory(strCategory) }
-            data-testid={ `${strCategory}-category-filter` }
-            key={ strCategory }
-          >
-            { strCategory }
-          </button>
-        )))}
-      <button
-        onClick={ location === '/meals' ? clearCategoriesMeal : clearCategoriesDrink }
-        data-testid="All-category-filter"
-      >
-        All
-      </button>
+      {!allCategories ? <p>Carregando...</p> : null}
+
+      {allCategories ? allCategories?.map(({ strCategory }: CategoryType) => (
+            <CategoryButton
+              key={strCategory}
+              strCategory={strCategory}
+              getSelectedCategory={getSelectedCategory}
+            />
+          ))
+        : null}
+      {allCategories ? (
+        <button
+          onClick={() => getSelectedCategory('')}
+          data-testid="All-category-filter"
+        >
+          All
+        </button>
+      ) : null}
     </section>
   );
 }

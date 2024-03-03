@@ -9,13 +9,14 @@ export default function Profile() {
 
   const [profileImage, setProfileImage] = useState('');
   const [wantChange, setWantChange] = useState(false);
+  const [imageUpdated, setImageUpdated] = useState(false);
   const [id, setId] = useState<number | undefined>(undefined);
 
   const { userInfo, updateUser } = useContext(UserInfoContext);
 
   const email = JSON.parse(localStorage.getItem('user') as string);
   const url = `http://localhost:3001/profile?email=${email}`;  
-  const { data, isLoading, error } = useFetch(url, { method: 'GET', body: { email: email } });
+  const { data, isLoading, error } = useFetch(url, { method: 'GET', body: { email } });
   
   const updateImageURL = `http://localhost:3001/profile/${id}`
   const { handleFetch } = useFetch(updateImageURL, { method: "PATCH", body: { profileImage } });
@@ -34,29 +35,39 @@ export default function Profile() {
     if (profileImage === '') {
       window.alert('Please insert a image URL!');
       return    
-    } 
-    updateUser({
-      ...userInfo,
-      profileImage
-    })           
+    }                
     if (id) {
       await handleFetch();
-      
-      setWantChange(false);
-      localStorage.setItem('profileImg', JSON.stringify(profileImage));
-      setProfileImage('');      
+
+      updateUser({
+        ...userInfo,
+        profileImage
+      });      
+      setWantChange(false);      
+      setImageUpdated(true);      
     }    
+  }   
+
+  if (imageUpdated) {
+    setTimeout(() => {
+
+      setImageUpdated(false);
+      setProfileImage(''); 
+
+    }, 1000)
   }
 
   return (
     <main>
       { !isLoading && data.username ? (
+
         <>
           <p>{ `Username: ${data.username}` }</p>
           <p data-testid="profile-email">{ `E-mail: ${data.email}` }</p>
           <p>{ `Role: ${data.role}` }</p>
           <button onClick={handleWantChange}>Change profile image</button>
         </>
+
       ) : null }
 
       { isLoading ? (
@@ -65,7 +76,7 @@ export default function Profile() {
 
       ) : null }
       
-      { wantChange ? (
+      { wantChange && !imageUpdated ? (
 
         <div>
         <label>
@@ -84,9 +95,16 @@ export default function Profile() {
           </button>
         </div>
 
-      ) : null }      
+      ) : null }
+
+      { !wantChange && imageUpdated ? (
+        
+        <p>Image updated!</p>        
+
+      ) : null }    
 
       { !isLoading && data.username ? (
+        
         <>
           <button
             data-testid="profile-done-btn"

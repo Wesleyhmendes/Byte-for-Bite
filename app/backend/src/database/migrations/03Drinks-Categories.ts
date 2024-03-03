@@ -12,8 +12,7 @@ export default {
       },
       strCategory: {
         type: DataTypes.STRING,
-      },
-  
+      }, 
     })},
     down(queryInterface: QueryInterface) {
       return queryInterface.dropTable('drinks_categories')
