@@ -1,5 +1,5 @@
 import { ServiceResponse } from '../Interfaces/serviceReponse';
-import { iDrinkRecipe } from '../Interfaces/iDrinks';
+import { iDrinkRecipe } from '../Interfaces/drinks/iDrinks';
 import DrinksModel from '../models/Drinks.model';
 
 export default class MatchesService {

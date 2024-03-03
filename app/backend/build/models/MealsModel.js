@@ -1,17 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
-const Meals_Recipes_1 = require("../database/models/Meals-Recipes");
-const Categories_model_1 = require("../database/models/Categories.model");
+const _04Meals_Recipes_1 = require("../database/models/04Meals-Recipes");
+const _02Meals_Categories_model_1 = require("../database/models/02Meals-Categories.model");
 class MealsModel {
     constructor() {
-        this.mealsModel = Meals_Recipes_1.default;
-        this.mealsCategoryModel = Categories_model_1.default;
+        this.mealsModel = _04Meals_Recipes_1.default;
+        this.mealsCategoryModel = _02Meals_Categories_model_1.default;
     }
     async findAll() {
         const recipes = await this.mealsModel.findAll({
             include: [{
-                    model: Categories_model_1.default, as: 'category', attributes: ['strCategory']
+                    model: _02Meals_Categories_model_1.default, as: 'category', attributes: ['strCategory']
                 }],
             attributes: { exclude: ['strCategory'] }
         });
@@ -27,7 +27,7 @@ class MealsModel {
                     [sequelize_1.Op.like]: `%${name}%`
                 }
             }, include: [{
-                    model: Categories_model_1.default, as: 'category', attributes: ['strCategory']
+                    model: _02Meals_Categories_model_1.default, as: 'category', attributes: ['strCategory']
                 }],
             attributes: { exclude: ['strCategory'] } });
         const newRecipes = recipes.map((recipe) => {
@@ -45,7 +45,7 @@ class MealsModel {
                 }
             },
             include: [{
-                    model: Categories_model_1.default, as: 'category', attributes: ['strCategory']
+                    model: _02Meals_Categories_model_1.default, as: 'category', attributes: ['strCategory']
                 }],
             attributes: { exclude: ['strCategory'] }
         });
@@ -69,7 +69,7 @@ class MealsModel {
     async findRecipeByCategory(category) {
         const recipes = await this.mealsModel.findAll({
             include: [{
-                    model: Categories_model_1.default, as: 'category', attributes: ['strCategory'],
+                    model: _02Meals_Categories_model_1.default, as: 'category', attributes: ['strCategory'],
                 }],
             attributes: { exclude: ['strCategory'] },
         });
@@ -83,7 +83,7 @@ class MealsModel {
         const recipes = await this.mealsModel.findAll({
             where: { strArea: area },
             include: [{
-                    model: Categories_model_1.default, as: 'category', attributes: ['strCategory'],
+                    model: _02Meals_Categories_model_1.default, as: 'category', attributes: ['strCategory'],
                 }],
             attributes: { exclude: ['strCategory'] },
         });

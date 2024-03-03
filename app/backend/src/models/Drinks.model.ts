@@ -1,8 +1,8 @@
 import { Op } from 'sequelize';
-import SequelizeDrinks from '../database/models/Drinks-Recipes.model';
-import DrinkCategories from '../database/models/Drinks-Categories.model';
-import { IDrinkModel, iDrinkCategories, iDrinkRecipe } from '../Interfaces/iDrinks';
-import DrinksCategories from '../database/models/Drinks-Categories.model';
+import SequelizeDrinks from '../database/models/03Drinks-Recipes.model';
+import DrinkCategories from '../database/models/01Drinks-Categories.model';
+import { IDrinkModel, iDrinkCategories, iDrinkRecipe } from '../Interfaces/drinks/iDrinks';
+import DrinksCategories from '../database/models/01Drinks-Categories.model';
 
 export default class DrinksModel implements IDrinkModel {
   private Drinkmodel = SequelizeDrinks;

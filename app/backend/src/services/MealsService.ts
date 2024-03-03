@@ -1,7 +1,7 @@
 import { Ingredients } from "../Interfaces/Ingredients";
 import IAreaType from "../Interfaces/IAreaType";
 import IMealsCategory from "../Interfaces/iCategory";
-import IMealRecipes from "../Interfaces/IMealRecipes";
+import IMealRecipes from "../Interfaces/meals/IMealRecipes";
 import { ServiceResponse } from "../Interfaces/serviceReponse";
 import MealsModel from "../models/MealsModel";
 

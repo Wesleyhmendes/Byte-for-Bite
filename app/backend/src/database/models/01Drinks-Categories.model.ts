@@ -6,9 +6,9 @@ import {
   CreationOptional,
 } from 'sequelize';
 import db from '.';
-import DrinksRecipes from './Drinks-Recipes.model';
+import DrinksRecipes from './03Drinks-Recipes.model';
 
-class DrinksCategories extends Model<InferAttributes<DrinksCategories>,
+export default class DrinksCategories extends Model<InferAttributes<DrinksCategories>,
 InferCreationAttributes<DrinksCategories>> {
   declare idCategory: CreationOptional<number>;
   declare strCategory: string;  
@@ -31,5 +31,3 @@ DrinksCategories.init({
 });
 
 DrinksRecipes.belongsTo(DrinksCategories, {as: 'category', foreignKey: 'strCategory'})
-
-export default DrinksCategories;
