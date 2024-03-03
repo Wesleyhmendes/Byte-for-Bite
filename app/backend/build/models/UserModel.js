@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const UserModel_1 = require("../database/models/UserModel");
+const _00UserModel_1 = require("../database/models/00UserModel");
 class UserModel {
     constructor() {
-        this.model = UserModel_1.default;
+        this.model = _00UserModel_1.default;
     }
     async createUser(newUser) {
         const { dataValues } = await this.model.create(newUser);

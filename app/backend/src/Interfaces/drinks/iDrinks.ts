@@ -1,3 +1,5 @@
+import { DrinkMarkedIngredients, MealMarkedIngredients } from "../MarkedIngredients"
+
 export interface iDrinkRecipe {
   idDrink: number,
   strDrink: string,
@@ -60,4 +62,11 @@ export interface IDrinkModel {
 export interface iDrinkCategories {
   idCategory: number,
   strCategory: string,
+}
+
+export interface IProgressRecipe {
+  id: number,
+  userId: number,
+  recipeId: number,
+  markedIngredients: DrinkMarkedIngredients | MealMarkedIngredients,
 }

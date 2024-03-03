@@ -1,8 +1,8 @@
 import { Op } from "sequelize";
-import IMealRecipes from "../Interfaces/IMealRecipes";
+import IMealRecipes from "../Interfaces/meals/IMealRecipes";
 import { IMealsRecipesModel } from "../Interfaces/meals/IMealsRecipesModel";
-import MealsRecipe from "../database/models/Meals-Recipes";
-import MealsCategories from "../database/models/Categories.model";
+import MealsRecipe from "../database/models/04Meals-Recipes";
+import MealsCategories from "../database/models/02Meals-Categories.model";
 import IMealsCategory from "../Interfaces/iCategory";
 import IAreaType from "../Interfaces/IAreaType";
 

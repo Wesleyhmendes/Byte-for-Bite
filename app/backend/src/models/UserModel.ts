@@ -1,5 +1,5 @@
 import IUsers from '../Interfaces/IUsers';
-import SequelizeUsers from '../database/models/UserModel';
+import SequelizeUsers from '../database/models/00UserModel';
 import { IUsersModel } from '../Interfaces/IUsers';
 
 
