@@ -1,9 +1,9 @@
 import { Model, QueryInterface, DataTypes } from 'sequelize';
-import { IFavoriteMeals } from '../../Interfaces/meals/IMeals';
+import { IRecipeStatus } from '../../Interfaces/IRecipeStatus';
 
 export default {
   up(queryInterface: QueryInterface) {
-    return queryInterface.createTable<Model<IFavoriteMeals>>('favorite_meals', {
+    return queryInterface.createTable<Model<IRecipeStatus>>('favorite_meals', {
       id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -13,7 +13,7 @@ export default {
       userId: {
         type: DataTypes.INTEGER,
       },
-      mealId: {
+      recipeId: {
         type: DataTypes.INTEGER,
       },
     });

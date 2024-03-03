@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 exports.default = {
     up(queryInterface) {
-        return queryInterface.createTable('favorite_meals', {
+        return queryInterface.createTable('finished_meals', {
             id: {
                 type: sequelize_1.DataTypes.INTEGER,
                 allowNull: false,
@@ -19,7 +19,7 @@ exports.default = {
         });
     },
     down(queryInterface) {
-        return queryInterface.dropTable('favorite_meals');
+        return queryInterface.dropTable('finished_meals');
     },
 };
-//# sourceMappingURL=06Favorite-Meals.js.map
+//# sourceMappingURL=10Finished-Meals.js.map

@@ -3,7 +3,7 @@ import { IRecipeStatus } from '../../Interfaces/IRecipeStatus';
 
 export default {
   up(queryInterface: QueryInterface) {
-    return queryInterface.createTable<Model<IRecipeStatus>>('favorite_drinks', {
+    return queryInterface.createTable<Model<IRecipeStatus>>('finished_drinks', {
       id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -19,6 +19,6 @@ export default {
     });
   },
   down(queryInterface: QueryInterface) {
-    return queryInterface.dropTable('favorite_drinks');
+    return queryInterface.dropTable('finished_drinks');
   },
 };

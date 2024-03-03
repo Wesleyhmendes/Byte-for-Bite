@@ -1,5 +1,5 @@
 import { Model, QueryInterface, DataTypes } from 'sequelize';
-import { IProgressRecipe } from '../../Interfaces/drinks/iDrinks';
+import { IProgressRecipe } from '../../Interfaces/IProgress';
 
 export default {
   up(queryInterface: QueryInterface) {

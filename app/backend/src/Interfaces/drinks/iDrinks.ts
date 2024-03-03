@@ -63,10 +63,3 @@ export interface iDrinkCategories {
   idCategory: number,
   strCategory: string,
 }
-
-export interface IProgressRecipe {
-  id: number,
-  userId: number,
-  recipeId: number,
-  markedIngredients: DrinkMarkedIngredients | MealMarkedIngredients,
-}
