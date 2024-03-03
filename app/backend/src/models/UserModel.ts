@@ -6,7 +6,7 @@ import { IUsersModel } from '../Interfaces/IUsers';
 export default class UserModel implements IUsersModel {
   private model = SequelizeUsers;
 
-  async createUser(newUser: Omit<IUsers, 'id'>): Promise<Omit<IUsers, 'id'>>{
+  async createUser(newUser: Omit<IUsers, 'id'>): Promise<IUsers>{
     const { dataValues } = await this.model.create(newUser)
 
     return dataValues;
