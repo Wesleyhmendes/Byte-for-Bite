@@ -7,7 +7,7 @@ import {
 } from 'sequelize';
 import db from '.';
 
-class DrinksRecipes extends Model <InferAttributes<DrinksRecipes>,
+export default class DrinksRecipes extends Model <InferAttributes<DrinksRecipes>,
 InferCreationAttributes<DrinksRecipes>> {
 
   declare idDrink: CreationOptional<number>
@@ -231,5 +231,3 @@ DrinksRecipes.init ({
   modelName: 'drinks_recipes',
   timestamps: false,
 })
-
-export default DrinksRecipes;

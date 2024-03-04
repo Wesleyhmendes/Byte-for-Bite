@@ -6,7 +6,7 @@ import {
   CreationOptional,
 } from 'sequelize';
 import db from '.';
-import MealsRecipe from './Meals-Recipes';
+import MealsRecipe from './04Meals-Recipes';
 
 class MealsCategories extends Model<InferAttributes<MealsCategories>,
 InferCreationAttributes<MealsCategories>> {

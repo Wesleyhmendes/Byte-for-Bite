@@ -13,7 +13,14 @@ class MatchesService {
         ;
         return { status: 'SUCCESSFUL', data: drinks };
     }
-    async getFilteredDrinks(q) {
+    async getById(id) {
+        const recipe = await this.drinkModel.getDrinkById(id);
+        if (!recipe) {
+            return { status: 'NOT_FOUND', data: { message: 'drinks not found' } };
+        }
+        return { status: 'SUCCESSFUL', data: recipe };
+    }
+    async getDrinkByName(q) {
         const drinks = await this.drinkModel.getFilteredDrinks(q);
         if (drinks === null) {
             return { status: 'NOT_FOUND', data: { message: 'drink not found' } };
@@ -34,6 +41,10 @@ class MatchesService {
     async getDrinkByCategory(q) {
         const drinks = await this.drinkModel.getDrinkByCategory(q);
         return { status: 'SUCCESSFUL', data: drinks };
+    }
+    async getAllCategories() {
+        const categories = await this.drinkModel.getCategories();
+        return { status: 'SUCCESSFUL', data: categories };
     }
     async getRandomDrink() {
         const recipes = await this.drinkModel.findAll();

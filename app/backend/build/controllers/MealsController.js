@@ -7,6 +7,7 @@ class MealsController {
         this.mealsService = mealsService;
     }
     async getAllMealsRecipe(req, res) {
+        const token = req.headers.authorization;
         const { q } = req.query;
         if (q) {
             const { status, data } = await this.mealsService.getRecipeByName(q);
