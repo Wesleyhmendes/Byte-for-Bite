@@ -102,7 +102,7 @@ function SignUp() {
 
     { isModalOpen && !isLoading ? (
 
-      <Modal message={ data.message } setIsModalOpen={ setIsModalOpen }/>
+      <Modal data={ data } setIsModalOpen={ setIsModalOpen }/>
 
     ) : null }
 
