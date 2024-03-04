@@ -12,8 +12,11 @@ function Modal(props: ModalProps) {
   const navigate = useNavigate();
   const route = token ? '/meals' : '/signup';
   const returnMessage = token ? 'Registration complete!' : message
-  localStorage.setItem('token', JSON.stringify(token));
+  
   const handleModal = () => {
+    if (token) {
+      localStorage.setItem('token', JSON.stringify(token));
+    }
     setIsModalOpen(false);
     navigate(route);
   }

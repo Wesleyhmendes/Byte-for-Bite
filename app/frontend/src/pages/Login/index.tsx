@@ -38,13 +38,13 @@ function Login() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      await handleFetch();        
+      await handleFetch();          
       setIsModalOpen(true);
       updateUser(user);      
       localStorage.setItem('user', JSON.stringify(user.email));  
       setUserInfo(INITIAL_STATE);
     }    
-
+   
   return (
     <main>
       {!isModalOpen ? (

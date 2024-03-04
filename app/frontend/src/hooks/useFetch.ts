@@ -44,12 +44,13 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
 
   const [ state, dispatch ] = useReducer(fetchReducer, initialState);
 
-  const handleFetch = async () => { 
+  const handleFetch = async () => {    
     const { method, body } = options;
-
+    const token = JSON.parse(localStorage.getItem('token') as string);   
     const request = {
       method,
       headers: {
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
       body: body ? JSON.stringify(body) : undefined,
@@ -58,7 +59,7 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
     dispatch({type: 'loading'});
 
     try {
-      const response = await fetch(URL, request.method === 'GET' ? undefined : request);
+      const response = await fetch(URL, request);
       const result = await response.json();
 
       dispatch({ type: 'fetched', payload: result });

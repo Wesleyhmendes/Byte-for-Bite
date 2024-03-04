@@ -15,7 +15,6 @@ router.post(
 
 router.post(
   '/login',
-  Authorization.auth,
   (req: Request, res: Response) => userController.login(req, res)
 );
 
