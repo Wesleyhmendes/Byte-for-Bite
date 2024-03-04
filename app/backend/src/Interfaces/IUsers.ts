@@ -10,5 +10,5 @@ export default interface IUsers {
 export interface IUsersModel {
   findByEmail(email: IUsers['email']): Promise<IUsers | null>
   findByUsername(username: IUsers['username']): Promise<IUsers | null>
-  createUser(newUser: Omit<IUsers, 'id'>): Promise<Omit<IUsers, 'id'>>
+  createUser(newUser: Omit<IUsers, 'id'>): Promise<IUsers>
 }

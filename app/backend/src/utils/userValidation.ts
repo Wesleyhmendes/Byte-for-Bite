@@ -42,7 +42,7 @@ class UserValidation {
   }
 
   tokenBuilder(sub: number, role: string, email: string): Token {
-    const payload = { sub, role, email };   
+    const payload = { sub, role, email };
   
     const secret = process.env.JWT_SECRET ?? 'jwt_secret';
   

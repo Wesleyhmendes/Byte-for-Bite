@@ -25,12 +25,15 @@ export default class UserService {
 
     if (invalidPassword) return invalidPassword as ServiceResponse<Token>;    
   
-    const token = this.userValidation.tokenBuilder(user.id, user.role, user.email);    
+    const token = this.userValidation.tokenBuilder(user.id, user.role, user.email);
   
     return { status: 'SUCCESSFUL', data: token };
   }
 
-  async createNewUser(newUser: Omit<IUsers, 'id' | 'role' | 'profileImage'>): Promise<ServiceResponse<Token | { message: string }>> {
+  async createNewUser(
+    newUser: Omit<IUsers, 'role' | 'profileImage'>
+    ): Promise<ServiceResponse<Token>> {
+
     const { email, password, username } = newUser;
     const invalidData = this.userValidation.validate(email, password);
 
@@ -48,8 +51,10 @@ export default class UserService {
 
     const encryptedUser = { ...newUser, role: 'user', profileImage: '', password: hashedPassword }
 
-    const userInfo = await this.userModel.createUser(encryptedUser);
+    const userInfo = (await this.userModel.createUser(encryptedUser));
 
-    return { status: 'CREATED', data: { message: `User: "${userInfo.username}" created!` } };
+    const token = this.userValidation.tokenBuilder(userInfo.id, userInfo.role, userInfo.email);
+
+    return { status: 'CREATED', data: token };
   } 
 }
