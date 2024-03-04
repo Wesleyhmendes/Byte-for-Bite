@@ -2,15 +2,17 @@ import { useNavigate } from 'react-router-dom';
 
 type ModalProps = {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
-  message: string,  
+  data: any,  
 }
 
 function Modal(props: ModalProps) {
-  const { setIsModalOpen, message } = props;
+  const { setIsModalOpen, data } = props;
+  const token = data.token ? data.token : undefined;
+  const message = data.message ? data.message : null;
   const navigate = useNavigate();
-  const route = message.includes('created!') ? '/meals' : '/signup';
-  const returnMessage = message.includes('created!') ? 'Registration complete!' : message
-
+  const route = token ? '/meals' : '/signup';
+  const returnMessage = token ? 'Registration complete!' : message
+  localStorage.setItem('token', JSON.stringify(token));
   const handleModal = () => {
     setIsModalOpen(false);
     navigate(route);
