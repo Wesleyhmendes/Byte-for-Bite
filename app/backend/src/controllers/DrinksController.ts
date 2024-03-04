@@ -58,4 +58,10 @@ export default class MatchesController {
     const { status, data } = await this.drinkService.getAllIngredients();
     return res.status(mapStatusHTTP(status)).json(data);
   }
+
+  async addDrinkInProgress(req: Request, res: Response) {
+    const inProgress = req.body;
+    const { status, data } = await this.drinkService.addDrinkInProgress(inProgress);
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
 }

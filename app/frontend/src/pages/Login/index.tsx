@@ -1,5 +1,4 @@
 import { ChangeEvent, useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { UserInfoType } from '../../type';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import { Link } from 'react-router-dom';

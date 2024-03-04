@@ -4,19 +4,23 @@ import IMealsCategory from "../Interfaces/iCategory";
 import IMealRecipes from "../Interfaces/meals/IMealRecipes";
 import { ServiceResponse } from "../Interfaces/serviceReponse";
 import MealsModel from "../models/MealsModel";
+import { IProgressMealRecipe } from '../Interfaces/IProgress';
 
 export default class MealsService {
   constructor(
     private mealsModel = new MealsModel(),
   ) {}
+
   async getAllMealsRecipe():Promise<ServiceResponse<IMealRecipes[]>> {
     const recipes = await this.mealsModel.findAll();
     return {status: 'SUCCESSFUL', data: recipes};
   }
+
   async getRecipeByName(name: string): Promise<ServiceResponse<IMealRecipes[]>> {
     const recipes = await this.mealsModel.findByName(name);
     return{status: 'SUCCESSFUL', data: recipes};
   }
+
   async getByFirstLetter(letter: string): Promise<ServiceResponse<IMealRecipes[]>> {
     const recipes = await this.mealsModel.findByFirstLetter(letter);
     return {status: 'SUCCESSFUL', data: recipes};
@@ -55,6 +59,9 @@ export default class MealsService {
 
   async getByIngredient(ingredient: string): Promise<ServiceResponse<IMealRecipes[]>> {
     const recipes = await this.mealsModel.findByIngredient(ingredient);
+    if (!ingredient) {
+      return {status: 'INVALID_DATA', data: {message: 'Must provide a ingredient'}}
+    }
     return {status: 'SUCCESSFUL', data: recipes};
   }
 
@@ -64,5 +71,18 @@ export default class MealsService {
       return {status: 'NOT_FOUND', data: {message: 'Food not found'}};
     }
     return {status: 'SUCCESSFUL', data: recipe};
+  }
+
+  async addRecipeInProgress(recipeInProgress: Omit<IProgressMealRecipe, 'id'>): Promise<ServiceResponse<IProgressMealRecipe>> {
+    const { userId, mealId } = recipeInProgress;
+    if (!userId) {
+      return {status: 'INVALID_DATA', data: { message: 'Must provide a userId' } }
+    }
+    if (!mealId) {
+      return {status: 'INVALID_DATA', data: { message: 'Must provide a mealId' } }
+    }
+    
+    const recipe = await this.mealsModel.addMealInProgress(recipeInProgress);   
+    return { status: 'SUCCESSFUL', data: recipe }
   }
 }

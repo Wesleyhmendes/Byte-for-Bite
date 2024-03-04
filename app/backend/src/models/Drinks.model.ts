@@ -3,9 +3,12 @@ import SequelizeDrinks from '../database/models/03Drinks-Recipes.model';
 import DrinkCategories from '../database/models/01Drinks-Categories.model';
 import { IDrinkModel, iDrinkCategories, iDrinkRecipe } from '../Interfaces/drinks/iDrinks';
 import DrinksCategories from '../database/models/01Drinks-Categories.model';
+import InProgressDrinksModel from '../database/models/07In-Progress-Drinks';
+import { IProgressDrinkRecipe } from '../Interfaces/IProgress';
 
 export default class DrinksModel implements IDrinkModel {
   private Drinkmodel = SequelizeDrinks;
+  private inProgressModel = InProgressDrinksModel;
   private CategoryModel = DrinkCategories;
 
   async findAll(): Promise<iDrinkRecipe[]> {
@@ -97,5 +100,10 @@ export default class DrinksModel implements IDrinkModel {
     });
 
     return recipesFiltred;
+  }
+
+  async addDrinkInProgress(recipeInProgress: Omit<IProgressDrinkRecipe, 'id'>): Promise<IProgressDrinkRecipe> {
+    const { dataValues } = await this.inProgressModel.create(recipeInProgress);
+    return dataValues;
   }
 }

@@ -1,9 +1,9 @@
 import { Model, QueryInterface, DataTypes } from 'sequelize';
-import { IProgressRecipe } from '../../Interfaces/IProgress';
+import { IProgressMealRecipe } from '../../Interfaces/IProgress';
 
 export default {
   up(queryInterface: QueryInterface) {
-    return queryInterface.createTable<Model<IProgressRecipe>>('in_progress_meals', {
+    return queryInterface.createTable<Model<IProgressMealRecipe>>('in_progress_meals', {
       id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -13,7 +13,7 @@ export default {
       userId: {
         type: DataTypes.INTEGER,
       },
-      recipeId: {
+      mealId: {
         type: DataTypes.INTEGER,
       },
       markedIngredients: {
