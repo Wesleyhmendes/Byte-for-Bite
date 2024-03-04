@@ -56,6 +56,7 @@ drinksRouter.get(
 
 drinksRouter.post(
   '/inprogress',
+  Authorization.auth,
   (req: Request, res: Response) => drinkController.addDrinkInProgress(req, res)
 )
 
