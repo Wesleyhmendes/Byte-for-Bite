@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import UserInfoContext from './UserInfoContext';
-import { UserInfoType } from '../../type';
-import useUserProvider from '../../hooks/useUserProvider';
+import useUserProvider from '../hooks/useUserProvider';
 
 type UserInfoProviderProps = {
   children: React.ReactNode;

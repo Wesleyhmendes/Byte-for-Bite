@@ -2,10 +2,9 @@ import { useContext, useState } from 'react';
 import { User } from '../../type';
 import { Link } from 'react-router-dom';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
-import useFetch from '../../hooks/useFetch';
+import useFetch from '../../context/hooks/useFetch';
 import LoginModal from '../../components/Modals/LoginModal';
 import Loading from '../../components/Loading/Loading';
-
 import bgImgMobile from '../../assets/Images/bgImgMobile.png';
 import bgImgDesktop from '../../assets/Images/bgImgDesktop.png';
 import logo from '../../assets/Images/BfB_Logo.png';

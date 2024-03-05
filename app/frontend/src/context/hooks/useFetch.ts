@@ -62,10 +62,7 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
       const response = await fetch(URL, request);
       const result = await response.json();
 
-      dispatch({ type: 'fetched', payload: result });
-      // setTimeout(() => {
-       
-      // }, 1000); 
+      dispatch({ type: 'fetched', payload: result });      
 
     } catch (err) {
       dispatch({ type: 'error', payload: err })
@@ -79,7 +76,7 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
     return () => {     
       dispatch({type: 'reset'})
     }
-  }, [URL])
+  }, [URL]);
 
   return {
     data: state.data,

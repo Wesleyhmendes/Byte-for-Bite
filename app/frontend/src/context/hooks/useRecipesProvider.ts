@@ -1,5 +1,4 @@
 import { CategoryType, DrinkType, FetchedData, FilterRadioType, MealType } from '../type';
-import { createURLFilter } from '../utils/functions/createURLFilter';
 import useFetch from './useFetch';
 import { useState } from 'react';
 import useSearchBar from './useSearchBar';

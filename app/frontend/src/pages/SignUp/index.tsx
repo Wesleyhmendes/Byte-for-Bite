@@ -1,4 +1,4 @@
-import useFetch from '../../hooks/useFetch';
+import useFetch from '../../context/hooks/useFetch';
 import validateUser from '../../utils/functions/validateUser';
 import { useContext, useState } from 'react';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';

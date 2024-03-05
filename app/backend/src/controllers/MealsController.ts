@@ -69,7 +69,7 @@ export default class MealsController {
 
   async addRecipeInProgress(req: Request, res: Response) {
     const inProgress = req.body;
-    const { status, data } = await this.mealsService.addRecipeInProgress(inProgress);
+    const { status, data } = await this.mealsService.addRecipeInProgress(inProgress);    
     return res.status(mapStatusHTTP(status)).json(data);
   }
 }
