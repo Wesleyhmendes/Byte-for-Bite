@@ -1,10 +1,5 @@
 import { ChangeEvent, useReducer } from 'react';
-
-type UserAction = {
-  type: string,
-  key?: string,
-  value?: string,
-}
+import { UserAction } from '../type';
 
 const useSignUp = () => {
   const UPDATE_USER = 'UPDATE_USER';
@@ -14,7 +9,8 @@ const useSignUp = () => {
     email: '',
     username: '',
     password: '',
-    confirmPassword: '',    
+    confirmPassword: '',
+    profileImage: '',  
   }
 
   const signUpReducer = (state = initialState, action: UserAction) => {
@@ -41,7 +37,8 @@ const useSignUp = () => {
 
   return {
     user,
-    RESET_USER,
+    UPDATE_USER,
+    RESET_USER,    
     handleChange,
     signUpDispatch,
   }

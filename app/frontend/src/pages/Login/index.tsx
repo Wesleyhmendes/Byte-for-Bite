@@ -1,49 +1,41 @@
 import { ChangeEvent, useContext, useState } from 'react';
-import { UserInfoType } from '../../type';
+import { User, UserInfoType } from '../../type';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import { Link } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import LoginModal from '../../components/Modals/LoginModal';
 import Loading from '../../components/Loading/Loading';
+import useUserProvider from '../../hooks/useUserProvider';
 
 
-function Login() {
-  const INITIAL_STATE: UserInfoType = {
-    email: '',
-    password: '',
-  };  
-
-  const { updateUser } = useContext(UserInfoContext);
-
-  const [user, setUserInfo] = useState<UserInfoType>(INITIAL_STATE);
-  const [isDisable, setIsDisable] = useState(true);  
+function Login() {  
+  const { user, RESET_USER, handleChange, signUpDispatch } = useContext(UserInfoContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const url = 'http://localhost:3001/user/login';
-  const requestBody = user
-  const { handleFetch, data, isLoading } = useFetch(url, { method: 'POST', body: requestBody });  
+  const requestBody = user;
+  const { handleFetch, data, isLoading } = useFetch(url, {
+    method: 'POST',
+    body: requestBody,
+  });
 
-  const validateFields = ({ email, password }: UserInfoType) => {
+  const validateFields = (user: User) => {
+    const { email, password } = user;
     const validateRegexEmail = /\S+@\S+\.\S+/;
     const isValid = validateRegexEmail.test(email) && password.length >= 6;
-    setIsDisable(!isValid);
-  };
-
-  const handleChange = ({ target: { name, value } }: ChangeEvent<HTMLInputElement>) => {
-    const updateUserInfo = { ...user, [name]: value };
-    setUserInfo(updateUserInfo);
-    validateFields(updateUserInfo);
+    return isValid;
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      await handleFetch();          
-      setIsModalOpen(true);
-      updateUser(user);      
-      localStorage.setItem('user', JSON.stringify(user.email));  
-      setUserInfo(INITIAL_STATE);
-    }    
-   console.log(data);
+    event.preventDefault();
+    await handleFetch();
+    setIsModalOpen(true);
+    localStorage.setItem('user', JSON.stringify(user.email));
+    signUpDispatch({type: RESET_USER})
+  };
+
+  const isDisabled = validateFields(user);
+
   return (
     <main>
       {!isModalOpen ? (
@@ -70,7 +62,7 @@ function Login() {
             <button
               type="submit"
               data-testid="login-submit-btn"
-              disabled={ isDisable }
+              disabled={ !isDisabled }
             >
               Entrar
             </button>            
