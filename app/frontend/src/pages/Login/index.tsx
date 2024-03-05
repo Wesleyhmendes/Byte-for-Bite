@@ -43,7 +43,7 @@ function Login() {
       localStorage.setItem('user', JSON.stringify(user.email));  
       setUserInfo(INITIAL_STATE);
     }    
-   
+   console.log(data);
   return (
     <main>
       {!isModalOpen ? (

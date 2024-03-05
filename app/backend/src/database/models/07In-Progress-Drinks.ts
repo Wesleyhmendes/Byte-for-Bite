@@ -48,5 +48,5 @@ InProgressDrinksModel.init({
   timestamps: false,
 })
 
-SequelizeUsers.belongsTo(InProgressDrinksModel, { foreignKey: 'userId'})
-DrinksRecipes.belongsTo(InProgressDrinksModel, { foreignKey: 'drinkId'})
+SequelizeUsers.belongsTo(InProgressDrinksModel, { foreignKey: 'id' })
+DrinksRecipes.belongsTo(InProgressDrinksModel, { foreignKey: 'idDrink' })

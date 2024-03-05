@@ -19,6 +19,11 @@ export default function RecipeDetails() {
   const isDone = isRecipeDone(id as string);
   
   const buttonText = isInProgress ? 'Continue recipe' : 'Start recipe';
+  console.log(route)
+
+  const handleClick = () => {
+    navigate(`${route}/${id}/in-progress`)
+  }
 
   useEffect(() => {
     if (id) {
@@ -47,9 +52,7 @@ export default function RecipeDetails() {
           className={ style.btnStartRecipe }
           data-testid="start-recipe-btn"
           type="button"
-          onClick={
-            () => navigate(`${route}/${id}/in-progress`)
-          }
+          onClick={ handleClick }
         >
           {buttonText}
         </button>

@@ -48,5 +48,5 @@ InProgressMealsModel.init({
   timestamps: false,
 })
 
-SequelizeUsers.belongsTo(InProgressMealsModel, { foreignKey: 'userid'})
-MealsRecipe.belongsTo(InProgressMealsModel, {foreignKey: 'mealId'})
+SequelizeUsers.belongsTo(InProgressMealsModel, { foreignKey: 'id'})
+MealsRecipe.belongsTo(InProgressMealsModel, { foreignKey: 'idMeal' })

@@ -13,10 +13,15 @@ export default class UserModel implements IUsersModel {
   }
 
   async findByEmail(email: string): Promise<IUsers | null> {
-    const user = await this.model.findOne({ where: { email } });    
-    if (user === null) return null;
-
-    return user.dataValues;
+   try {
+    const user = await this.model.findOne({ where: { email } }); 
+    if (user) {
+      return user.dataValues;
+    }    
+   } catch (error: any) {
+    console.error(error.message);
+   }
+   return null
   }
   
   async findByUsername(username: string): Promise<IUsers | null> {

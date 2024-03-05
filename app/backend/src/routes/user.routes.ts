@@ -1,7 +1,6 @@
 import { Request, Router, Response } from 'express';
 import UserController from '../controllers/UserController';
 import UserService from '../services/UserService';
-import Authorization from '../middlewares/auth.middlware';
 
 const router = Router();
 
