@@ -1,30 +1,41 @@
-export type UserInfoType = { 
-  email: string;
-  password: string;
-  profileImage?: string;
-};
-
+// USER
 export type User = {
   email: string;
-  username: string;
+  username?: string;
   password: string;
-  confirmPassword: string;
+  confirmPassword?: string;
+  profileImage?: string;
+}
+
+// ACTIONS
+export type UserAction = {
+  type: string,
+  key?: string,
+  value?: string,
 }
 
 export type FetchAction =
 | { type: 'loading' }
 | { type: 'error', payload: any }
 | { type: 'fetched', payload: any }
-| { type: 'reset' }
+| { type: 'reset' };
 
+export type SearchActionType = {
+  type: string,
+  key?: string,
+  value?: string,
+};
+
+// FETCHED DATA
 export type FetchedData = {
   data: any;
   isLoading: boolean;
   error: any;
   handleFetch: () => Promise<void>;
   dispatch: React.Dispatch<FetchAction>;
-}
+};
 
+// RECIPE TYPES
 export type FilterRadioType = {
   radioSelected: 'i' | 's' | 'f';
   search: string;
@@ -80,9 +91,3 @@ export type FavoriteRecipeType = {
   name: string;
   image: string;
 };
-
-export type SearchActionType = {
-  type: string,
-  key?: string,
-  value?: string,
-}

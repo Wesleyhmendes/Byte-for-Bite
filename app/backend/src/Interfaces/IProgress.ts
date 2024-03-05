@@ -1,8 +1,15 @@
 import { DrinkMarkedIngredients, MealMarkedIngredients } from "./MarkedIngredients";
 
-export interface IProgressRecipe {
+export interface IProgressMealRecipe {
   id: number,
   userId: number,
-  recipeId: number,
-  markedIngredients: DrinkMarkedIngredients | MealMarkedIngredients,
+  mealId: number,
+  markedIngredients: MealMarkedIngredients,
+}
+
+export interface IProgressDrinkRecipe {
+  id: number,
+  userId: number,
+  drinkId: number,
+  markedIngredients: DrinkMarkedIngredients
 }

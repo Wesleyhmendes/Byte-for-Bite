@@ -54,5 +54,11 @@ drinksRouter.get(
   (req: Request, res: Response) => drinkController.getById(req, res)
 );
 
+drinksRouter.post(
+  '/inprogress',
+  Authorization.auth,
+  (req: Request, res: Response) => drinkController.addDrinkInProgress(req, res)
+)
+
 
 export default drinksRouter;

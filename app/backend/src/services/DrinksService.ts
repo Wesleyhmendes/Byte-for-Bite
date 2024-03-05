@@ -1,6 +1,8 @@
 import { ServiceResponse } from '../Interfaces/serviceReponse';
 import { iDrinkRecipe } from '../Interfaces/drinks/iDrinks';
 import DrinksModel from '../models/Drinks.model';
+import { IProgressDrinkRecipe } from '../Interfaces/IProgress';
+import { startDrinkRecipeInProgress } from '../utils/startRecipeInProgress';
 
 export default class MatchesService {
   constructor(
@@ -76,5 +78,18 @@ export default class MatchesService {
     const recipes = await this.drinkModel.getByIngredients(q);
 
     return { status: 'SUCCESSFUL', data: recipes };
+  }
+
+  async addDrinkInProgress(recipeInProgress: Omit<IProgressDrinkRecipe, 'id'>): Promise<ServiceResponse<IProgressDrinkRecipe>> {
+    const { userId, drinkId } = recipeInProgress;
+    if (!userId) {
+      return {status: 'INVALID_DATA', data: { message: 'Must have a userId' } }
+    }
+    if (!drinkId) {
+      return {status: 'INVALID_DATA', data: { message: 'Must have a drinkId' } }
+    }
+    const defaultIngredients = startDrinkRecipeInProgress();
+    const recipe = await this.drinkModel.addDrinkInProgress({ ...recipeInProgress, markedIngredients: defaultIngredients })   
+    return { status: 'SUCCESSFUL', data: recipe }
   }
 }

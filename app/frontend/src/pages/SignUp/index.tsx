@@ -1,15 +1,13 @@
 import useFetch from '../../hooks/useFetch';
-import useSignUp from '../../hooks/useSignUp';
 import validateUser from '../../utils/functions/validateUser';
 import { useContext, useState } from 'react';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import Loading from '../../components/Loading/Loading';
 import Modal from '../../components/Modals/SignUpModal';
 
-function SignUp() {
-  const { updateUser } = useContext(UserInfoContext)    
 
-  const { user, RESET_USER, signUpDispatch, handleChange } = useSignUp();
+function SignUp() {
+  const { user, RESET_USER, handleChange, signUpDispatch } = useContext(UserInfoContext) 
 
   const isInvalid = validateUser(user);   
 
@@ -24,20 +22,14 @@ function SignUp() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();    
     
-    await handleFetch();
-
-    updateUser({      
-      email: user.email,
-      password: user.password,
-      profileImage: '',
-    })
+    await handleFetch();   
 
     localStorage.setItem('user', JSON.stringify(user.email));
-
-    signUpDispatch({type: RESET_USER});
+    
+    signUpDispatch({type: RESET_USER})
 
     setIsModalOpen(true);    
-  }   
+  } 
   
   return(
     <main>

@@ -8,12 +8,8 @@ import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 
 function Header() {
   const [searchVisible, setSearchVisible] = useState(false);  
-  const { userInfo } = useContext(UserInfoContext);  
-
-  const email = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') as string) : undefined;  
-
-  const profileURL = `http://localhost:3001/profile?email=${email}`;
-  const { data, handleFetch } = useFetch(profileURL, { method: 'GET', body: { email } });
+  const { user, profile } = useContext(UserInfoContext);  
+  const { data, handleFetch } = profile; 
  
   const profileIMG = data ? data.profileImage : undefined;  
 
@@ -31,8 +27,7 @@ function Header() {
     setSearchVisible(!searchVisible);
   };   
   
-  useEffect(() => { handleFetch() }, [userInfo]); 
-
+  useEffect(() => { handleFetch() }, [user]);  
   return (
     <header>
       <div>

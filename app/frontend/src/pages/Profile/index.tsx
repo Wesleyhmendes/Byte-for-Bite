@@ -6,17 +6,14 @@ import Loading from '../../components/Loading/Loading';
 
 export default function Profile() { 
   const navigate = useNavigate();
-
+  
   const [profileImage, setProfileImage] = useState('');
   const [wantChange, setWantChange] = useState(false);
   const [imageUpdated, setImageUpdated] = useState(false);
   const [id, setId] = useState<number | undefined>(undefined);
 
-  const { userInfo, updateUser } = useContext(UserInfoContext);
-
-  const email = JSON.parse(localStorage.getItem('user') as string);
-  const url = `http://localhost:3001/profile?email=${email}`;  
-  const { data, isLoading, error } = useFetch(url, { method: 'GET', body: { email } });
+  const { UPDATE_USER, profile, signUpDispatch } = useContext(UserInfoContext);
+  const { data, isLoading, error } = profile; 
   
   const updateImageURL = `http://localhost:3001/profile/${id}`
   const { handleFetch } = useFetch(updateImageURL, { method: "PATCH", body: { profileImage } });
@@ -38,11 +35,7 @@ export default function Profile() {
     }                
     if (id) {
       await handleFetch();
-
-      updateUser({
-        ...userInfo,
-        profileImage
-      });      
+      signUpDispatch({type: UPDATE_USER, key: 'profileImage', value: profileImage})     
       setWantChange(false);      
       setImageUpdated(true);      
     }    

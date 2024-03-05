@@ -13,7 +13,7 @@ import MealsRecipe from './04Meals-Recipes';
 export default class InProgressMealsModel extends Model<InferAttributes<InProgressMealsModel>,
   InferCreationAttributes<InProgressMealsModel>> {
   declare id: CreationOptional<number>;
-  declare userId: string;
+  declare userId: number;
   declare mealId: number;
   declare markedIngredients: MealMarkedIngredients;
 }
@@ -48,5 +48,5 @@ InProgressMealsModel.init({
   timestamps: false,
 })
 
-SequelizeUsers.belongsTo(InProgressMealsModel, {as: 'userId', foreignKey: 'id'})
-MealsRecipe.belongsTo(InProgressMealsModel, {as: 'mealId', foreignKey: 'idMeal'})
+SequelizeUsers.belongsTo(InProgressMealsModel, { foreignKey: 'id'})
+MealsRecipe.belongsTo(InProgressMealsModel, { foreignKey: 'idMeal' })

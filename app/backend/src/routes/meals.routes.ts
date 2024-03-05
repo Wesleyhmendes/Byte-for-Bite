@@ -65,6 +65,11 @@ mealsRouter.get(
   Authorization.auth,
   (req: Request, res: Response) => mealsController.getById(req, res)
 );
+mealsRouter.post(
+  '/inprogress', 
+  Authorization.auth,
+  (req: Request, res: Response) => mealsController.addRecipeInProgress(req, res)
+);
 
 
 export default mealsRouter;
