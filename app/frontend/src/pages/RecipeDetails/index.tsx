@@ -30,8 +30,8 @@ export default function RecipeDetails() {
   const URL = `http://localhost:3001${route}/inprogress`; 
   const reqBody =
     route === '/meals'
-      ? { userId: profile.data.id, mealId: Number(id) }
-      : { userId: profile.data.id, drinkId: Number(id) };
+      ? { userId: profile?.data?.id, mealId: Number(id) }
+      : { userId: profile?.data?.id, drinkId: Number(id) };
 
   const { handleFetch } = useFetch(URL, {method: "POST", body: reqBody });
 
