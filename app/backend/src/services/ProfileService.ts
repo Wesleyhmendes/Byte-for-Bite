@@ -10,6 +10,7 @@ class ProfileService {
   ) { }
 
   async getProfile(email: string): Promise<ServiceResponse<Omit<IUsers, 'password'>>> {
+    console.log(email)
     const result = await this.userModel.findByEmail(email);
     if (!result) return this.serviceResponse(notFound);
     const { password, ...rest } = result;

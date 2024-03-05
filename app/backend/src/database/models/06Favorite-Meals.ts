@@ -43,5 +43,5 @@ FavoriteMealsModel.init({
   timestamps: false,
 })
 
-SequelizeUsers.belongsTo(FavoriteMealsModel, {as: 'userId', foreignKey: 'id'})
-MealsRecipe.belongsTo(FavoriteMealsModel, {as: 'mealId', foreignKey: 'idMeal'})
+SequelizeUsers.belongsTo(FavoriteMealsModel, { foreignKey: 'id' })
+MealsRecipe.belongsTo(FavoriteMealsModel, { foreignKey: 'idMeal' })

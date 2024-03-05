@@ -5,10 +5,14 @@ import MealsRecipe from "../database/models/04Meals-Recipes";
 import MealsCategories from "../database/models/02Meals-Categories.model";
 import IMealsCategory from "../Interfaces/iCategory";
 import IAreaType from "../Interfaces/IAreaType";
+import { IProgressMealRecipe } from '../Interfaces/IProgress';
+import InProgressMealsModel from '../database/models/08In-Progress-Meals';
+import { startMealRecipeInProgress } from '../utils/startRecipeInProgress';
 
 export default class MealsModel implements IMealsRecipesModel {
   private mealsModel = MealsRecipe;
-  private mealsCategoryModel = MealsCategories
+  private inProgressModel = InProgressMealsModel;
+  private mealsCategoryModel = MealsCategories;
   
   async findAll(): Promise<IMealRecipes[]> {
     const recipes = await this.mealsModel.findAll({
@@ -139,5 +143,11 @@ export default class MealsModel implements IMealsRecipesModel {
   async findRecipeById(id: number): Promise<IMealRecipes | null> {
     const recipe = await this.mealsModel.findByPk(id);
     return recipe;
+  }
+
+  async addMealInProgress(recipeInProgress: Omit<IProgressMealRecipe, 'id'|'markedIngredients'>): Promise<IProgressMealRecipe> {
+    const defaultIngrediends = startMealRecipeInProgress();
+    const { dataValues } = await this.inProgressModel.create({...recipeInProgress, markedIngredients: defaultIngrediends});
+    return dataValues;
   }
 }

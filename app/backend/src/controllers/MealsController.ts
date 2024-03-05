@@ -62,9 +62,14 @@ export default class MealsController {
   }
 
   async getById(req: Request, res: Response) {
-    const {id} = req.params;
-    console.log(id);
+    const {id} = req.params;    
     const {status, data} = await this.mealsService.getRecipeById(Number(id));
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  async addRecipeInProgress(req: Request, res: Response) {
+    const inProgress = req.body;
+    const { status, data } = await this.mealsService.addRecipeInProgress(inProgress);
     return res.status(mapStatusHTTP(status)).json(data);
   }
 }

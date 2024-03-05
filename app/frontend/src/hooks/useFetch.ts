@@ -52,7 +52,7 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
-      },
+      },      
       body: body ? JSON.stringify(body) : undefined,
     }
     

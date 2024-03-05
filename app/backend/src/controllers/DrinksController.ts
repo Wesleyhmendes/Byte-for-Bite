@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import mapStatusHTTP from '../utils/mapStatusHTTP';
 import DrinkService from '../services/DrinksService';
 
-export default class MatchesController {
+export default class DrinksController {
   constructor(
     private drinkService = new DrinkService(),
   ) { }
@@ -56,6 +56,12 @@ export default class MatchesController {
   
   public async getAllIngredients(_req: Request, res: Response) {    
     const { status, data } = await this.drinkService.getAllIngredients();
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  async addDrinkInProgress(req: Request, res: Response) {
+    const inProgress = req.body;
+    const { status, data } = await this.drinkService.addDrinkInProgress(inProgress);
     return res.status(mapStatusHTTP(status)).json(data);
   }
 }

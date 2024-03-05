@@ -11,14 +11,14 @@ export default class UserService {
   ) { }
 
   public async verifyLogin(login: Login): Promise<ServiceResponse<Token>> {
-    const { email, password } = login;    
-  
-    const invalidLogin = this.userValidation.validate(email, password);    
+    const { email, password } = login;   
+     
+    const invalidLogin = this.userValidation.validate(email, password);     
 
     if(invalidLogin) return invalidLogin;
-
-    const user = await this.userModel.findByEmail(email);    
-
+    
+    const user = await this.userModel.findByEmail(email);
+    
     if (!user) return this.userValidation.invalidStatusResponse('invalid_password');
 
     const invalidPassword = await this.userValidation.checkPassword(password, user.password);

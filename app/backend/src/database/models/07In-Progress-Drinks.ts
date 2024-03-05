@@ -13,7 +13,7 @@ import { DrinkMarkedIngredients } from '../../Interfaces/MarkedIngredients';
 export default class InProgressDrinksModel extends Model<InferAttributes<InProgressDrinksModel>,
   InferCreationAttributes<InProgressDrinksModel>> {
   declare id: CreationOptional<number>;
-  declare userId: string;
+  declare userId: number;
   declare drinkId: number;
   declare markedIngredients: DrinkMarkedIngredients;
 }
@@ -48,5 +48,5 @@ InProgressDrinksModel.init({
   timestamps: false,
 })
 
-SequelizeUsers.belongsTo(InProgressDrinksModel, {as: 'userId', foreignKey: 'id'})
-DrinksRecipes.belongsTo(InProgressDrinksModel, {as: 'drinkId', foreignKey: 'idDrink'})
+SequelizeUsers.belongsTo(InProgressDrinksModel, { foreignKey: 'id' })
+DrinksRecipes.belongsTo(InProgressDrinksModel, { foreignKey: 'idDrink' })
