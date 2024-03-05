@@ -1,12 +1,10 @@
-import { ChangeEvent, useContext, useState } from 'react';
-import { User, UserInfoType } from '../../type';
+import { useContext, useState } from 'react';
+import { User } from '../../type';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import { Link } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import LoginModal from '../../components/Modals/LoginModal';
 import Loading from '../../components/Loading/Loading';
-import useUserProvider from '../../hooks/useUserProvider';
-
 
 function Login() {  
   const { user, RESET_USER, handleChange, signUpDispatch } = useContext(UserInfoContext);
