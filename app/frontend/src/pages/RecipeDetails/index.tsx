@@ -18,8 +18,7 @@ export default function RecipeDetails() {
   const isInProgress = isRecipeInProgress(route, id as string);
   const isDone = isRecipeDone(id as string);
   
-  const buttonText = isInProgress ? 'Continue recipe' : 'Start recipe';
-  console.log(route)
+  const buttonText = isInProgress ? 'Continue recipe' : 'Start recipe';  
 
   const handleClick = () => {
     navigate(`${route}/${id}/in-progress`)

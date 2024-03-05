@@ -8,7 +8,7 @@ class ProfileController {
   ) { }
 
   async getProfile(req: Request, res: Response) {
-    const { email } = req.query;
+    const { email } = req.query;    
     const { status, data } = await this.profileService.getProfile(email as string); 
     const httpStatus = mapStatusHTTP(status);
 

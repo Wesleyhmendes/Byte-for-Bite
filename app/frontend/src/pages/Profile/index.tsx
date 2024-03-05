@@ -14,10 +14,9 @@ export default function Profile() {
 
   const { userInfo, updateUser } = useContext(UserInfoContext);
 
-  const email = JSON.parse(localStorage.getItem('user') as string);
-  const url = `http://localhost:3001/profile?email=${email}`;  
-  const { data, isLoading, error } = useFetch(url, { method: 'GET', body: { email } });
-  console.log(data);
+  const email = JSON.parse(localStorage.getItem('user') as string);  
+  const url = `http://localhost:3001/profile?email=${email}`;
+  const { data, isLoading, error } = useFetch(url);  
   
   const updateImageURL = `http://localhost:3001/profile/${id}`
   const { handleFetch } = useFetch(updateImageURL, { method: "PATCH", body: { profileImage } });
