@@ -1,4 +1,9 @@
 import { useNavigate } from 'react-router-dom';
+import {
+  ModalDiv,
+  H3,
+  Button,
+} from './Modal.styles';
 
 type ModalProps = {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
@@ -28,19 +33,19 @@ function LoginModal(props: ModalProps) {
   }
 
   return (
-    <div>
-      <h3>
+    <ModalDiv>
+      <H3>
         { returnMessage }
-      </h3>
+      </H3>
       {message ? (
-        <button
+        <Button
           onClick={ handleModal }
         >
           Ok
-        </button>
+        </Button>
 
       ) : null }
-    </div>
+    </ModalDiv>
   );
 }
 

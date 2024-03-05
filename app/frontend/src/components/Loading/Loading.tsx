@@ -1,12 +1,17 @@
 import loadingGIF from '../../assets/Images/loading.gif';
+import {
+  Div,
+  Img,
+  H3,
+} from './Loading.styles';
 
-function Loading () {
+function Loading() {
   return (
-    <div>
-      <img src={ loadingGIF } alt="Loading frying pan" />
-      <h3>Loading...</h3>
-    </div>
-  )
+    <Div>
+      <Img src={ loadingGIF } alt="Loading frying pan" />
+      <H3>Loading...</H3>
+    </Div>
+  );
 }
 
 export default Loading;
