@@ -1,47 +1,52 @@
 import { useNavigate } from 'react-router-dom';
+import {
+  ModalDiv,
+  H3,
+  Button,
+} from './Modal.styles';
 
 type ModalProps = {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
   message: string,
   token: string,
-}
+};
 
 function LoginModal(props: ModalProps) {
   const { setIsModalOpen, message, token } = props;
-  
-  const returnMessage = message ? message : 'Welcome!'  
-  const navigate = useNavigate();  
+
+  const returnMessage = message || 'Welcome!';
+  const navigate = useNavigate();
 
   const handleModal = () => {
     if (message) {
       setIsModalOpen(false);
-      navigate('/'); 
-    }   
-  }
+      navigate('/');
+    }
+  };
 
   if (token) {
     localStorage.setItem('token', JSON.stringify(token));
     setTimeout(() => {
       navigate('/meals');
-      setIsModalOpen(false);      
-    }, 1000)
+      setIsModalOpen(false);
+    }, 1000);
   }
 
   return (
-    <div>
-      <h3>
+    <ModalDiv>
+      <H3>
         { returnMessage }
-      </h3>
+      </H3>
       {message ? (
-        <button
+        <Button
           onClick={ handleModal }
         >
           Ok
-        </button>
+        </Button>
 
       ) : null }
-    </div>
-  )
+    </ModalDiv>
+  );
 }
 
 export default LoginModal;

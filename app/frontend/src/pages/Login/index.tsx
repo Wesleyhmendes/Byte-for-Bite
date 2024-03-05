@@ -1,10 +1,27 @@
 import { useContext, useState } from 'react';
 import { User } from '../../type';
-import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import { Link } from 'react-router-dom';
+import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import useFetch from '../../hooks/useFetch';
 import LoginModal from '../../components/Modals/LoginModal';
 import Loading from '../../components/Loading/Loading';
+
+import bgImgMobile from '../../assets/Images/bgImgMobile.png';
+import bgImgDesktop from '../../assets/Images/bgImgDesktop.png';
+import logo from '../../assets/Images/BfB_Logo.png';
+import {
+  BackgroundImgMobile,
+  BackgroundImgDesktop,
+  Form,
+  Inputs,
+  Main,
+  FormMainDiv,
+  Phrase,
+  Button,
+  LogoDiv,
+  Logo,
+  NoAccountDiv,
+} from './Login.styles';
 
 function Login() {  
   const { user, RESET_USER, handleChange, signUpDispatch } = useContext(UserInfoContext);
@@ -12,6 +29,7 @@ function Login() {
 
   const url = 'http://localhost:3001/user/login';
   const requestBody = user;
+
   const { handleFetch, data, isLoading } = useFetch(url, {
     method: 'POST',
     body: requestBody,
@@ -35,13 +53,16 @@ function Login() {
   const isDisabled = validateFields(user);
 
   return (
-    <main>
+    <Main>
+      <BackgroundImgDesktop src={ bgImgDesktop } alt="background" />
+      <BackgroundImgMobile src={ bgImgMobile } alt="background" />
+      <LogoDiv>
+        <Logo src={ logo } alt="logo" />
+      </LogoDiv>
       {!isModalOpen ? (
-
-        <>
-          <h2>Login</h2>
-          <form onSubmit={ handleSubmit }>
-            <input
+        <FormMainDiv>
+          <Form onSubmit={ handleSubmit }>
+            <Inputs
               name="email"
               type="email"
               placeholder="Email"
@@ -49,7 +70,7 @@ function Login() {
               onChange={ handleChange }
               data-testid="email-input"
             />
-            <input
+            <Inputs
               name="password"
               type="password"
               placeholder="Senha"
@@ -57,19 +78,22 @@ function Login() {
               onChange={ handleChange }
               data-testid="password-input"
             />
-            <button
+            <Button
               type="submit"
               data-testid="login-submit-btn"
               disabled={ !isDisabled }
             >
               Entrar
-            </button>            
-          </form>
-          <div>
-            <p>Don't have an account?</p>
-            <p>Sign up <Link to='/signup'>here</Link></p>
-          </div>
-        </>  
+            </Button>
+          </Form>
+          <NoAccountDiv>
+            <Phrase>
+              Don't have an account? Sign up
+              { ' ' }
+              <Link to="/signup">here</Link>
+            </Phrase>
+          </NoAccountDiv>
+        </FormMainDiv>
 
       ) : null }
 
@@ -78,13 +102,17 @@ function Login() {
         <Loading />
 
       ) : null}
-      
+
       { isModalOpen && !isLoading ? (
 
-        <LoginModal setIsModalOpen={ setIsModalOpen } token={ data.token } message={ data.message }/>
+        <LoginModal
+          setIsModalOpen={ setIsModalOpen }
+          token={ data.token }
+          message={ data.message }
+        />
 
       ) : null }
-    </main>
+    </Main>
   );
 }
 
