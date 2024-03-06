@@ -1,7 +1,7 @@
 import { ChangeEvent, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import style from './style.module.css';
-import { DrinkType, MealType } from '../../type';
+import { DrinkType, IngredientListType, MealType } from '../../type';
 import { fetchRecipeById } from '../../services/fetchApi';
 import { verifyLocalStorageKeys } from '../../utils/functions/localStorage';
 import ShareFavoriteButtons from '../../components/ShareFavoriteButtons';
@@ -10,6 +10,7 @@ import useFetch from '../../hooks/useFetch';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import Context from '../../context/Context';
 import getIngredients from '../../utils/functions/getIngredients';
+import useCheckIngredients from '../../hooks/useCheckIngredients';
 
 export default function RecipeInProgress() {
   const navigate = useNavigate();
@@ -21,72 +22,32 @@ export default function RecipeInProgress() {
   // GET UNMARKED INGREDIENT LIST OF RECIPE IN PROGRESS FROM DB
   const inProgressURL = `http://localhost:3001${route}/inprogress/${id}?user=${userId}`;
   const {data: inProgress} = useFetch(inProgressURL);
-  console.log(inProgress)
+  
+  // HOOK THAT CONTROLS STATE OF INGREDIENTS CHECKBOX AND USES DATA FROM DB AS INITIAL STATE
+  const initialState = inProgress ? inProgress.markedIngredients : undefined;
+  const {stateIngredients, checkIngredientsDispatch} = useCheckIngredients();  
+  
   // GET RECIPE
   const recipeURL = `http://localhost:3001${route}/${id}`;
   const { data, isLoading, error } =useFetch(recipeURL);
   if (!data) {
     return undefined
   }
-  const recipeData = data
-  console.log(recipeData)
+  const recipeData = data  
   const typeRecipe = route === '/meals' ? 'Meal' : 'Drink';  
   
   // SEPARATES INGREDIENT LIST FROM RECIPE DATA AND RETURN A ARRAY OF INGREDIENTS
-  const ingredients = getIngredients(recipeData);
-  // const [recipeData, setRecipeData] = useState<MealType | DrinkType>();
-  // const [usedIngredients, setUsedIngredients] = useState<string[]>([]);
-  // const [ingredients, setIngredients] = useState<string[]>([]);
-  // const [isDisable, setIsDisable] = useState(true);  
+  const ingredients = getIngredients(recipeData);  
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     if (id) {
-  //       const data = (await fetchRecipeById(location.split('/')[1], id));
-  //       setRecipeData(data);
-  //       setIngredients((getIngredients(data)));
-  //     }
-  //   };
+  // HANDLECHANGE
 
-    // const getIngredients = (recipe: MealType | DrinkType) => {
-    //   return Object.entries(recipe).filter((content: [string, unknown]) => content[0]
-    //     .includes('strIngredient') && content[1]).flat()
-    //     .filter((ingredient: any) => !(
-    //       ingredient.includes('strIngredient'))) as string[];
-    // };
+  const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    const {name, checked} = target
 
-  //   const checkInProgressRecipes = () => {
-  //     const storeData = JSON.parse(localStorage.getItem('inProgressRecipes') as string);
-  //     if (id && storeData[location.split('/')[1]][id]) {
-  //       setUsedIngredients(storeData[location.split('/')[1]][id]);
-  //     }
-  //   };
-
-  //   getData();
-  //   verifyLocalStorageKeys('inProgressRecipes', 'favoriteRecipes');
-  //   checkInProgressRecipes();
-  // }, [id]);
-
-  // const handleChange = ({
-  //   target: { value } }: ChangeEvent<HTMLInputElement>) => {
-  //   const storeData = JSON.parse(localStorage.getItem('inProgressRecipes') as string);
-  //   if (id && !usedIngredients.includes(value)) {
-  //     const newUsedIngredients = [...usedIngredients, value];
-  //     setUsedIngredients(newUsedIngredients);
-  //     storeData[location.split('/')[1]] = { [id]: newUsedIngredients };
-  //     localStorage.setItem('inProgressRecipes', JSON.stringify(storeData));
-  //     if (newUsedIngredients.length === ingredients.length) setIsDisable(false);
-  //   } else {
-  //     const removedIngredient = usedIngredients
-  //       .filter((ingredient) => ingredient !== value);
-  //     setUsedIngredients(removedIngredient);
-  //     if (id) storeData[location.split('/')[1]] = { [id]: removedIngredient };
-  //     localStorage.setItem('inProgressRecipes', JSON.stringify(storeData));
-  //     setIsDisable(true);
-  //   }
-  // };
+    checkIngredientsDispatch({type: 'CHANGE', name, value: checked});
+  }
+  console.log(stateIngredients)
   
-
   return (
     <div>
       { isLoading ? (
@@ -136,9 +97,9 @@ export default function RecipeInProgress() {
             >
               <input
                 type="checkbox"
-                value={ ingredient }
-                // onChange={ handleChange }
-                checked={ inProgress?.markedIngredients[`strIngredient${index + 1}`] }
+                name={`strIngredient${index + 1}`}                
+                onChange={ handleChange }
+                checked={ initialState[`strIngredient${index + 1}`] }
               />
               {ingredient}
             </label>

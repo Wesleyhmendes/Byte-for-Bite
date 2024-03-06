@@ -44,8 +44,8 @@ export default function RecipeDetails() {
   const handleClick = () => {
     if (!inProgress?.data) {
       handleFetch();
-      setIsLoadingNextPage(true);
     }
+    setIsLoadingNextPage(true);
     setTimeout(() => {
       navigate(`${route}/${id}/in-progress`);
     }, 2000)

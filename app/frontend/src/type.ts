@@ -26,6 +26,12 @@ export type SearchActionType = {
   value?: string,
 };
 
+export type CheckIngredientActionType = {
+  type: string,
+  name?: string,
+  value?: boolean,
+};
+
 // FETCHED DATA
 export type FetchedData = {
   data: any;
@@ -90,4 +96,29 @@ export type FavoriteRecipeType = {
   alcoholicOrNot: string;
   name: string;
   image: string;
+};
+
+// INGREDIENT LIST TYPE
+
+export type IngredientListType = {
+    strIngredient1: boolean,
+    strIngredient2: boolean,
+    strIngredient3: boolean,
+    strIngredient4: boolean,
+    strIngredient5: boolean,
+    strIngredient6: boolean,
+    strIngredient7: boolean,
+    strIngredient8: boolean,
+    strIngredient9: boolean,
+    strIngredient10: boolean,
+    strIngredient11: boolean,
+    strIngredient12: boolean,
+    strIngredient13: boolean,
+    strIngredient14: boolean,
+    strIngredient15: boolean,
+    strIngredient16: boolean,
+    strIngredient17: boolean,
+    strIngredient18: boolean,
+    strIngredient19: boolean,
+    strIngredient20: boolean,
 };
