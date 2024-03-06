@@ -59,10 +59,9 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
     dispatch({type: 'loading'});
 
     try {
-      const response = await fetch(URL, request);
+      const response = await fetch(URL, request);    
             
-      if (!response.ok) {
-        console.log(response.status)
+      if (!response.ok) {        
         if (response.status === 401){
           dispatch({type: "reset"});
           return
@@ -71,7 +70,7 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
       }
       const result = await response.json();      
 
-      dispatch({ type: 'fetched', payload: result });      
+      dispatch({ type: 'fetched', payload: result });         
 
     } catch (err: any) {
       if (err.message !== 'Erro na requisição: 401') {

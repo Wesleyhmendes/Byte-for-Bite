@@ -75,8 +75,11 @@ export default class MealsController {
 
   async findRecipeInProgressById(req: Request, res: Response) {
     const { id } = req.params
-    const { userId } = req.body;    
-    const { status, data } = await this.mealsService.findRecipeInProgressById({userId, mealId: Number(id)});
+    const { user } = req.query;
+    const { status, data } = await this.mealsService.findRecipeInProgressById({
+      userId: Number(user as string),
+      mealId: Number(id),
+    });
     return res.status(mapStatusHTTP(status)).json(data);
   }
 }

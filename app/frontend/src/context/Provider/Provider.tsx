@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import Context from '../Context';
-import useRecipesProvider from '../hooks/useRecipesProvider';
+import useRecipesProvider from '../../hooks/useRecipesProvider';
 
 type ProviderProps = {
   children: React.ReactNode;  

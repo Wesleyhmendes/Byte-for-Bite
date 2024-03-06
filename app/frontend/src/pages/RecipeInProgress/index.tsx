@@ -14,12 +14,12 @@ export default function RecipeInProgress() {
   const { route } = useContext(Context);
   const { profile } = useContext(UserInfoContext);
   const { id } = useParams();
-  const reqBody = {
-    userId: profile?.data?.id
-  }
-  const URL = `http://localhost:3001${route}/inprogress/${id}`;
-  const { data, isLoading, error } = useFetch(URL, { body: reqBody });
-  console.log(data);
+  const userId = profile?.data?.id
+  
+  const inProgressURL = `http://localhost:3001${route}/inprogress/${id}?user=${userId}`;
+  const response = useFetch(inProgressURL);
+  console.log(response)
+  
   // const [recipeData, setRecipeData] = useState<MealType | DrinkType>();
   // const [usedIngredients, setUsedIngredients] = useState<string[]>([]);
   // const [ingredients, setIngredients] = useState<string[]>([]);
@@ -128,8 +128,8 @@ export default function RecipeInProgress() {
 
           <p data-testid="instructions">{ recipeData.strInstructions }</p>
 
-        </section> */}
-      )}
+        </section>
+      )} */}
     </div>
   );
 }
