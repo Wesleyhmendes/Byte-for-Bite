@@ -1,5 +1,5 @@
-import { ChangeEvent, useContext, useEffect, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { ChangeEvent, useContext } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import style from './style.module.css';
 import { DrinkType, MealType } from '../../type';
 import { fetchRecipeById } from '../../services/fetchApi';
@@ -9,25 +9,34 @@ import { finishRecipe } from '../../utils/functions/finish';
 import useFetch from '../../hooks/useFetch';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import Context from '../../context/Context';
+import getIngredients from '../../utils/functions/getIngredients';
 
 export default function RecipeInProgress() {
+  const navigate = useNavigate();
   const { route } = useContext(Context);
   const { profile } = useContext(UserInfoContext);
   const { id } = useParams();
   const userId = profile?.data?.id
-  
+
+  // GET UNMARKED INGREDIENT LIST OF RECIPE IN PROGRESS FROM DB
   const inProgressURL = `http://localhost:3001${route}/inprogress/${id}?user=${userId}`;
-  const response = useFetch(inProgressURL);
-  console.log(response)
+  const {data: inProgress} = useFetch(inProgressURL);
+
+  // GET RECIPE
+  const recipeURL = `http://localhost:3001${route}/${id}`;
+  const { data, isLoading, error } =useFetch(recipeURL);
+  if (!data) {
+    return undefined
+  }
+  const recipeData = data
+  const typeRecipe = route === '/meals' ? 'Meal' : 'Drink';  
   
+  // SEPARATES INGREDIENT LIST FROM RECIPE DATA AND RETURN A ARRAY OF INGREDIENTS
+  const ingredients = getIngredients(recipeData);
   // const [recipeData, setRecipeData] = useState<MealType | DrinkType>();
   // const [usedIngredients, setUsedIngredients] = useState<string[]>([]);
   // const [ingredients, setIngredients] = useState<string[]>([]);
-  // const [isDisable, setIsDisable] = useState(true);
-  // const { id } = useParams();
-  // const navigate = useNavigate();
-  // const location = useLocation().pathname;
-  // const typeRecipe = location.includes('meals') ? 'Meal' : 'Drink';
+  // const [isDisable, setIsDisable] = useState(true);  
 
   // useEffect(() => {
   //   const getData = async () => {
@@ -38,12 +47,12 @@ export default function RecipeInProgress() {
   //     }
   //   };
 
-  //   const getIngredients = (recipe: MealType | DrinkType) => {
-  //     return Object.entries(recipe).filter((content: [string, unknown]) => content[0]
-  //       .includes('strIngredient') && content[1]).flat()
-  //       .filter((ingredient: any) => !(
-  //         ingredient.includes('strIngredient'))) as string[];
-  //   };
+    // const getIngredients = (recipe: MealType | DrinkType) => {
+    //   return Object.entries(recipe).filter((content: [string, unknown]) => content[0]
+    //     .includes('strIngredient') && content[1]).flat()
+    //     .filter((ingredient: any) => !(
+    //       ingredient.includes('strIngredient'))) as string[];
+    // };
 
   //   const checkInProgressRecipes = () => {
   //     const storeData = JSON.parse(localStorage.getItem('inProgressRecipes') as string);
@@ -78,18 +87,30 @@ export default function RecipeInProgress() {
 
   return (
     <div>
-      {/* { recipeData && (
+      { isLoading ? (
+        <h3>Carregando...</h3>
+      ) : null }
+
+      { error && !isLoading ? (
+        <h3>Um erro inesperado ocorreu...</h3>
+      ) : null }
+
+      { recipeData && !inProgress && !isLoading ? (
+        <h3>Essa receita ainda não foi iniciada.</h3>
+      ) : null }
+
+      { recipeData && inProgress && !isLoading ? (
         <section className="recipesIngProgressSection">
           <ShareFavoriteButtons
             id={ id }
-            recipeType={ location.split('/')[1] }
+            recipeType={ route.split('/')[1] }
             recipeData={ recipeData }
           />
           <button
             data-testid="finish-recipe-btn"
-            disabled={ isDisable }
+            disabled={ false }
             onClick={ () => {
-              finishRecipe(location.split('/')[1], recipeData);
+
               navigate('/done-recipes');
             } }
           >
@@ -109,18 +130,13 @@ export default function RecipeInProgress() {
           {ingredients.map((ingredient, index) => (
             <label
               data-testid={ `${index}-ingredient-step` }
-              key={ index }
-              className={
-                usedIngredients.includes(ingredient)
-                  ? (style.ingredientUsed)
-                  : (style.ingredientUnused)
-              }
+              key={ index }             
             >
               <input
                 type="checkbox"
                 value={ ingredient }
-                onChange={ handleChange }
-                checked={ usedIngredients.includes(ingredient) }
+                // onChange={ handleChange }
+                checked={ inProgress?.markedIngredients[`strIngredient${index + 1}`] }
               />
               {ingredient}
             </label>
@@ -129,7 +145,7 @@ export default function RecipeInProgress() {
           <p data-testid="instructions">{ recipeData.strInstructions }</p>
 
         </section>
-      )} */}
+      ) : null}
     </div>
   );
 }
