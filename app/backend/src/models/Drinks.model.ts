@@ -106,4 +106,16 @@ export default class DrinksModel implements IDrinkModel {
     const { dataValues } = await this.inProgressModel.create(recipeInProgress);
     return dataValues;
   }
+
+  async findDrinkInProgress(recipeInProgress: Omit<IProgressDrinkRecipe, 'id'|'markedIngredients'>): Promise<IProgressDrinkRecipe | null> {
+    const { userId, drinkId } = recipeInProgress;
+    const foundRecipe = await this.inProgressModel.findOne({
+      where: {
+        userId,
+        drinkId,
+      }
+    });
+    
+    return foundRecipe
+  }
 }

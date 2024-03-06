@@ -58,7 +58,13 @@ drinksRouter.post(
   '/inprogress',
   Authorization.auth,
   (req: Request, res: Response) => drinkController.addDrinkInProgress(req, res)
-)
+);
+
+drinksRouter.get(
+  '/inprogress/:id',
+  Authorization.auth,
+  (req: Request, res: Response) => drinkController.findRecipeInProgressById(req, res)
+);
 
 
 export default drinksRouter;

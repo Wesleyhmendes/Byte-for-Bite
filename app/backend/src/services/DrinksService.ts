@@ -92,4 +92,25 @@ export default class MatchesService {
     const recipe = await this.drinkModel.addDrinkInProgress({ ...recipeInProgress, markedIngredients: defaultIngredients })   
     return { status: 'SUCCESSFUL', data: recipe }
   }
+
+  async findRecipeInProgressById(recipeInProgress: Omit<IProgressDrinkRecipe, 'id' | 'markedIngredients'>): Promise<ServiceResponse<IProgressDrinkRecipe>>  {
+    const { userId, drinkId } = recipeInProgress;
+    if (!userId) {
+      return {status: 'INVALID_DATA', data: { message: 'Must provide a userId' } }
+    };
+    if (!drinkId) {
+      return {status: 'INVALID_DATA', data: { message: 'Must provide a mealId' } }
+    };
+
+    const inProgress = await this.drinkModel.findDrinkInProgress({
+      userId,
+      drinkId,
+    })
+
+    if (!inProgress) {
+      return { status: 'NOT_FOUND', data: { message: 'Recipe not found!' } };
+    }
+
+    return { status: 'SUCCESSFUL', data: inProgress };
+  }
 }

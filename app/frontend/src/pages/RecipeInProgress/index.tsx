@@ -8,65 +8,65 @@ import ShareFavoriteButtons from '../../components/ShareFavoriteButtons';
 import { finishRecipe } from '../../utils/functions/finish';
 
 export default function RecipeInProgress() {
-  const [recipeData, setRecipeData] = useState<MealType | DrinkType>();
-  const [usedIngredients, setUsedIngredients] = useState<string[]>([]);
-  const [ingredients, setIngredients] = useState<string[]>([]);
-  const [isDisable, setIsDisable] = useState(true);
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const location = useLocation().pathname;
-  const typeRecipe = location.includes('meals') ? 'Meal' : 'Drink';
+  // const [recipeData, setRecipeData] = useState<MealType | DrinkType>();
+  // const [usedIngredients, setUsedIngredients] = useState<string[]>([]);
+  // const [ingredients, setIngredients] = useState<string[]>([]);
+  // const [isDisable, setIsDisable] = useState(true);
+  // const { id } = useParams();
+  // const navigate = useNavigate();
+  // const location = useLocation().pathname;
+  // const typeRecipe = location.includes('meals') ? 'Meal' : 'Drink';
 
-  useEffect(() => {
-    const getData = async () => {
-      if (id) {
-        const data = (await fetchRecipeById(location.split('/')[1], id));
-        setRecipeData(data);
-        setIngredients((getIngredients(data)));
-      }
-    };
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     if (id) {
+  //       const data = (await fetchRecipeById(location.split('/')[1], id));
+  //       setRecipeData(data);
+  //       setIngredients((getIngredients(data)));
+  //     }
+  //   };
 
-    const getIngredients = (recipe: MealType | DrinkType) => {
-      return Object.entries(recipe).filter((content: [string, unknown]) => content[0]
-        .includes('strIngredient') && content[1]).flat()
-        .filter((ingredient: any) => !(
-          ingredient.includes('strIngredient'))) as string[];
-    };
+  //   const getIngredients = (recipe: MealType | DrinkType) => {
+  //     return Object.entries(recipe).filter((content: [string, unknown]) => content[0]
+  //       .includes('strIngredient') && content[1]).flat()
+  //       .filter((ingredient: any) => !(
+  //         ingredient.includes('strIngredient'))) as string[];
+  //   };
 
-    const checkInProgressRecipes = () => {
-      const storeData = JSON.parse(localStorage.getItem('inProgressRecipes') as string);
-      if (id && storeData[location.split('/')[1]][id]) {
-        setUsedIngredients(storeData[location.split('/')[1]][id]);
-      }
-    };
+  //   const checkInProgressRecipes = () => {
+  //     const storeData = JSON.parse(localStorage.getItem('inProgressRecipes') as string);
+  //     if (id && storeData[location.split('/')[1]][id]) {
+  //       setUsedIngredients(storeData[location.split('/')[1]][id]);
+  //     }
+  //   };
 
-    getData();
-    verifyLocalStorageKeys('inProgressRecipes', 'favoriteRecipes');
-    checkInProgressRecipes();
-  }, [id]);
+  //   getData();
+  //   verifyLocalStorageKeys('inProgressRecipes', 'favoriteRecipes');
+  //   checkInProgressRecipes();
+  // }, [id]);
 
-  const handleChange = ({
-    target: { value } }: ChangeEvent<HTMLInputElement>) => {
-    const storeData = JSON.parse(localStorage.getItem('inProgressRecipes') as string);
-    if (id && !usedIngredients.includes(value)) {
-      const newUsedIngredients = [...usedIngredients, value];
-      setUsedIngredients(newUsedIngredients);
-      storeData[location.split('/')[1]] = { [id]: newUsedIngredients };
-      localStorage.setItem('inProgressRecipes', JSON.stringify(storeData));
-      if (newUsedIngredients.length === ingredients.length) setIsDisable(false);
-    } else {
-      const removedIngredient = usedIngredients
-        .filter((ingredient) => ingredient !== value);
-      setUsedIngredients(removedIngredient);
-      if (id) storeData[location.split('/')[1]] = { [id]: removedIngredient };
-      localStorage.setItem('inProgressRecipes', JSON.stringify(storeData));
-      setIsDisable(true);
-    }
-  };
+  // const handleChange = ({
+  //   target: { value } }: ChangeEvent<HTMLInputElement>) => {
+  //   const storeData = JSON.parse(localStorage.getItem('inProgressRecipes') as string);
+  //   if (id && !usedIngredients.includes(value)) {
+  //     const newUsedIngredients = [...usedIngredients, value];
+  //     setUsedIngredients(newUsedIngredients);
+  //     storeData[location.split('/')[1]] = { [id]: newUsedIngredients };
+  //     localStorage.setItem('inProgressRecipes', JSON.stringify(storeData));
+  //     if (newUsedIngredients.length === ingredients.length) setIsDisable(false);
+  //   } else {
+  //     const removedIngredient = usedIngredients
+  //       .filter((ingredient) => ingredient !== value);
+  //     setUsedIngredients(removedIngredient);
+  //     if (id) storeData[location.split('/')[1]] = { [id]: removedIngredient };
+  //     localStorage.setItem('inProgressRecipes', JSON.stringify(storeData));
+  //     setIsDisable(true);
+  //   }
+  // };
 
   return (
     <div>
-      { recipeData && (
+      {/* { recipeData && (
         <section className="recipesIngProgressSection">
           <ShareFavoriteButtons
             id={ id }
@@ -116,7 +116,7 @@ export default function RecipeInProgress() {
 
           <p data-testid="instructions">{ recipeData.strInstructions }</p>
 
-        </section>
+        </section> */}
       )}
     </div>
   );
