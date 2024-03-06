@@ -60,12 +60,23 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
 
     try {
       const response = await fetch(URL, request);
-      const result = await response.json();
+            
+      if (!response.ok) {
+        console.log(response.status)
+        if (response.status === 401){
+          dispatch({type: "reset"});
+          return
+        }
+        throw new Error(`Erro na requisição: ${response.status}`)
+      }
+      const result = await response.json();      
 
       dispatch({ type: 'fetched', payload: result });      
 
-    } catch (err) {
-      dispatch({ type: 'error', payload: err })
+    } catch (err: any) {
+      if (err.message !== 'Erro na requisição: 401') {
+        dispatch({ type: 'error', payload: err })
+      }
     }    
   }; 
    

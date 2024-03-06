@@ -8,7 +8,7 @@ import {
   fetchMealsCategories,
   fetchMealsFilterByCategory,
 } from '../../services/fetchApi';
-import useFetch from '../hooks/useFetch';
+import useFetch from '../../hooks/useFetch';
 
 type MealsProviderProps = {
   children: React.ReactNode;

@@ -6,7 +6,7 @@ import { fetchRecipeById } from '../../services/fetchApi';
 import { verifyLocalStorageKeys } from '../../utils/functions/localStorage';
 import ShareFavoriteButtons from '../../components/ShareFavoriteButtons';
 import { finishRecipe } from '../../utils/functions/finish';
-import useFetch from '../../context/hooks/useFetch';
+import useFetch from '../../hooks/useFetch';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import Context from '../../context/Context';
 

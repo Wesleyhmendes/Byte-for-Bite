@@ -8,7 +8,7 @@ import ShareFavoriteButtons from '../../components/ShareFavoriteButtons';
 import Carousel from '../../components/Carousel';
 import Context from '../../context/Context';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
-import useFetch from '../../context/hooks/useFetch';
+import useFetch from '../../hooks/useFetch';
 
 export default function RecipeDetails() {  
   const navigate = useNavigate();
