@@ -21,7 +21,7 @@ export default function RecipeInProgress() {
   // GET UNMARKED INGREDIENT LIST OF RECIPE IN PROGRESS FROM DB
   const inProgressURL = `http://localhost:3001${route}/inprogress/${id}?user=${userId}`;
   const {data: inProgress} = useFetch(inProgressURL);
-
+  console.log(inProgress)
   // GET RECIPE
   const recipeURL = `http://localhost:3001${route}/${id}`;
   const { data, isLoading, error } =useFetch(recipeURL);
@@ -29,6 +29,7 @@ export default function RecipeInProgress() {
     return undefined
   }
   const recipeData = data
+  console.log(recipeData)
   const typeRecipe = route === '/meals' ? 'Meal' : 'Drink';  
   
   // SEPARATES INGREDIENT LIST FROM RECIPE DATA AND RETURN A ARRAY OF INGREDIENTS
@@ -84,6 +85,7 @@ export default function RecipeInProgress() {
   //     setIsDisable(true);
   //   }
   // };
+  
 
   return (
     <div>
