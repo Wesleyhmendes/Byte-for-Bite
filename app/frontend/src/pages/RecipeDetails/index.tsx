@@ -14,11 +14,14 @@ export default function RecipeDetails() {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { getRecipeById, route, setSelectedId } = useContext(Context);
+  const { route } = useContext(Context);
   const { profile } = useContext(UserInfoContext);
-  
+
   // GET THE RECIPE DATA BY ID
-  const recipe = getRecipeById();
+  const recipeDetailsURL = `http://localhost:3001${route}/${id}`
+  
+  const { data, isLoading, error } = useFetch(recipeDetailsURL);   
+  const recipe = data;
 
   // CHECK IF THE RECIPE IS DONE OR INPROGRESS
   const isInProgress = isRecipeInProgress(route, id as string);
@@ -27,37 +30,39 @@ export default function RecipeDetails() {
   const buttonText = isInProgress ? 'Continue recipe' : 'Start recipe'; 
 
   // SEND REQUISITION TO BACKEND AND START THE RECIPE, CHANGING TO "IN PROGRESS"
-  const URL = `http://localhost:3001${route}/inprogress`; 
+  const inProgressURL = `http://localhost:3001${route}/inprogress`; 
   const reqBody =
     route === '/meals'
       ? { userId: profile?.data?.id, mealId: Number(id) }
       : { userId: profile?.data?.id, drinkId: Number(id) };
 
-  const { handleFetch } = useFetch(URL, {method: "POST", body: reqBody });
+  const { handleFetch } = useFetch(inProgressURL, {method: "POST", body: reqBody });
 
   const handleClick = () => {
     handleFetch()   
     navigate(`${route}/${id}/in-progress`);
   }
 
-  useEffect(() => {
-    if (id) {
-      setSelectedId(id);
-    }
-  }, [id])  
-  
   return (
-    <main>
+    <main>      
       <ShareFavoriteButtons
         id={ id }
         recipeType={ route }
         recipeData={ recipe }
       />
 
-      {recipe ? (
+      { recipe && !isLoading ? (
         route === '/meals'
           ? (<MealCard recipeData={ recipe } />)
           : (<DrinkCard recipeData={ recipe } />)
+      ) : null }
+
+      { error && !isLoading ? (
+        <h3>Um erro inesperado ocorreu...</h3>
+      ) : null }
+
+      { isLoading ? (
+        <h3>Carrregando...</h3>
       ) : null }
 
       {/* <Carousel /> */}

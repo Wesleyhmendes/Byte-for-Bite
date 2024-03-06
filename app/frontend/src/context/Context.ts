@@ -13,14 +13,12 @@ export type ContextType = {
   filter: FilterRadioType,
   getCategories: () => CategoryType[],
   filterDispatch: React.Dispatch<SearchActionType>,
-  setRecipesFilter: (selectedFilter: FilterRadioType) => void,
-  setSelectedId: (id: string) => void,
+  setRecipesFilter: (selectedFilter: FilterRadioType) => void,  
   setByFilterURL: (value: React.SetStateAction<string>) => void,
   getRecipesByFilter: () => MealType[] | DrinkType[],  
   getSelectedCategory: (category: string) => void,
   getAllRecipes: () => MealType[] | DrinkType[],
-  getByCategory: () => MealType[] | DrinkType[],
-  getRecipeById: () => MealType | DrinkType | undefined,
+  getByCategory: () => MealType[] | DrinkType[],  
 };
 
 const Context = createContext({} as ContextType);

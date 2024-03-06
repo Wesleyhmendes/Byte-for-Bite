@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import style from './style.module.css';
 import { DrinkType, MealType } from '../../type';
@@ -6,8 +6,20 @@ import { fetchRecipeById } from '../../services/fetchApi';
 import { verifyLocalStorageKeys } from '../../utils/functions/localStorage';
 import ShareFavoriteButtons from '../../components/ShareFavoriteButtons';
 import { finishRecipe } from '../../utils/functions/finish';
+import useFetch from '../../context/hooks/useFetch';
+import UserInfoContext from '../../context/UserInfo/UserInfoContext';
+import Context from '../../context/Context';
 
 export default function RecipeInProgress() {
+  const { route } = useContext(Context);
+  const { profile } = useContext(UserInfoContext);
+  const { id } = useParams();
+  const reqBody = {
+    userId: profile?.data?.id
+  }
+  const URL = `http://localhost:3001${route}/inprogress/${id}`;
+  const { data, isLoading, error } = useFetch(URL, { body: reqBody });
+  console.log(data);
   // const [recipeData, setRecipeData] = useState<MealType | DrinkType>();
   // const [usedIngredients, setUsedIngredients] = useState<string[]>([]);
   // const [ingredients, setIngredients] = useState<string[]>([]);

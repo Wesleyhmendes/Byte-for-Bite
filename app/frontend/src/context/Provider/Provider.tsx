@@ -15,13 +15,11 @@ export default function Provider({ children }: ProviderProps) {
     getCategories,   
     filterDispatch,
     setRecipesFilter,
-    setByFilterURL,
-    setSelectedId,
+    setByFilterURL,    
     getRecipesByFilter,
     getSelectedCategory,
     getByCategory,
-    getAllRecipes,
-    getRecipeById,
+    getAllRecipes,    
   } = useRecipesProvider(route); 
 
   const value = { 
@@ -31,13 +29,11 @@ export default function Provider({ children }: ProviderProps) {
     getCategories,  
     filterDispatch,
     setRecipesFilter,
-    setByFilterURL,
-    setSelectedId,
+    setByFilterURL,   
     getRecipesByFilter, 
     getSelectedCategory,
     getByCategory,
-    getAllRecipes,
-    getRecipeById,
+    getAllRecipes,    
   };
 
   return (

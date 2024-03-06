@@ -1,5 +1,5 @@
 import { useReducer, useEffect } from 'react';
-import { FetchAction } from '../type';
+import { FetchAction } from '../../type';
 
 type RequestMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 

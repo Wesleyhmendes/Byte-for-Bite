@@ -3,13 +3,13 @@ import useFetch from './useFetch';
 import { useState } from 'react';
 import useSearchBar from './useSearchBar';
 import { useNavigate } from 'react-router-dom';
+import { createURLFilter } from '../../utils/functions/createURLFilter';
 
 const useRecipesProvider = (path: string) => { 
   const navigate = useNavigate();
   
   // URL's CATEGORY PARAMETERS
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [id, setId] = useState<string | undefined>(undefined);  
+  const [selectedCategory, setSelectedCategory] = useState('');  
   
   // SEARCH BAR FILTER
   const { filter, filterDispatch } = useSearchBar();  
@@ -18,10 +18,7 @@ const useRecipesProvider = (path: string) => {
   const allCategoriesURL = `http://localhost:3001${path}/categories`;
 
   // ALL RECIPES URL
-  const allRecipesURL = `http://localhost:3001${path}/name`;
-
-  // RECIPES BY ID URL
-  const recipeByIdURL = `http://localhost:3001${path}/${id}`;
+  const allRecipesURL = `http://localhost:3001${path}/name`;  
 
   // MEALS OR DRINKS BY CATEGORIES URL
   const byCategoryURL = `http://localhost:3001${path}/category?q=${selectedCategory}`;
@@ -33,10 +30,7 @@ const useRecipesProvider = (path: string) => {
   const allCategories: FetchedData = useFetch(allCategoriesURL); 
 
   // ALL RECIPES FETCHS
-  const allRecipes: FetchedData = useFetch(allRecipesURL);
-
-  // BY ID FETCH
-  const recipeById: FetchedData = useFetch(recipeByIdURL);
+  const allRecipes: FetchedData = useFetch(allRecipesURL);  
 
   // BY CATEGORY FETCH
   const byCategory: FetchedData = useFetch(byCategoryURL);
@@ -61,22 +55,6 @@ const useRecipesProvider = (path: string) => {
     return [];
   };
 
-  const checkDataById = (fetchedData: FetchedData) => {
-    const { data, isLoading, error } = fetchedData;
-    if (path === '/meals' && !isLoading) {
-      const meals: MealType = data;
-      return meals;
-    }
-    if (path === '/drinks' && !isLoading) {
-      const drinks: DrinkType = data;
-      return drinks;
-    }
-    if (!isLoading && error) {
-      console.log(error.message);
-    }
-    return undefined;
-  };
-
   const getCategories = () => {
     const { data, isLoading } = allCategories;
     if (!isLoading) {
@@ -90,18 +68,6 @@ const useRecipesProvider = (path: string) => {
     const recipes = checkData(allRecipes);
     return recipes?.slice(0, 12);
   }
-
-  const setSelectedId = (id: string) => {
-    setId(id);
-  }
-
-  const getRecipeById = () => {    
-    const recipe = checkDataById(recipeById);
-    if (recipe) {
-      return recipe;
-    }
-    return undefined
-  };
 
   const getSelectedCategory = (category: string) => {
     setSelectedCategory(category);    
@@ -143,14 +109,12 @@ const useRecipesProvider = (path: string) => {
     filter,
     getCategories,
     filterDispatch,
-    setByFilterURL,
-    setSelectedId, 
+    setByFilterURL,   
     setRecipesFilter,
     getRecipesByFilter,    
     getSelectedCategory,
     getByCategory,
-    getAllRecipes,
-    getRecipeById,
+    getAllRecipes,   
   }
 }
 
