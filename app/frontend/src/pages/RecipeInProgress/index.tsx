@@ -1,11 +1,7 @@
-import { ChangeEvent, useContext } from 'react';
+import { ChangeEvent, useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import style from './style.module.css';
-import { DrinkType, IngredientListType, MealType } from '../../type';
-import { fetchRecipeById } from '../../services/fetchApi';
-import { verifyLocalStorageKeys } from '../../utils/functions/localStorage';
+import { IngredientListType } from '../../type';
 import ShareFavoriteButtons from '../../components/ShareFavoriteButtons';
-import { finishRecipe } from '../../utils/functions/finish';
 import useFetch from '../../hooks/useFetch';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import Context from '../../context/Context';
@@ -20,15 +16,22 @@ export default function RecipeInProgress() {
   const userId = profile?.data?.id
 
   // HOOK THAT CONTROLS STATE OF INGREDIENTS CHECKBOX AND USES FETCHED DATA FROM DB AS INITIAL STATE
-  const {stateIngredients, isInprogress, checkIngredientsDispatch} = useCheckIngredients(userId, id as string, route);
+  const {
+    stateIngredients,
+    isInprogress,    
+    CHANGE,
+    checkIngredientsDispatch,
+    handleFetch,
+  } = useCheckIngredients(userId, id as string, route);
   
   // GET RECIPE
   const recipeURL = `http://localhost:3001${route}/${id}`;
-  const { data, isLoading, error } =useFetch(recipeURL);
+  const { data, isLoading, error } =useFetch(recipeURL); 
+  
   if (!data) {
     return undefined;
   }
-  const recipeData = data  
+  const recipeData = data 
   const typeRecipe = route === '/meals' ? 'Meal' : 'Drink';  
   
   // SEPARATES INGREDIENT LIST FROM RECIPE DATA AND RETURN A ARRAY OF INGREDIENTS
@@ -36,10 +39,9 @@ export default function RecipeInProgress() {
 
   // HANDLECHANGE
   const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
-    const {name, checked} = target
-
-    checkIngredientsDispatch({type: 'CHANGE', name, value: checked});
-  };
+    const {name, checked} = target;
+    checkIngredientsDispatch({type: CHANGE, name, value: checked});    
+  };  
   
   return (
     <div>
@@ -85,20 +87,20 @@ export default function RecipeInProgress() {
               style={
                 stateIngredients[`strIngredient${index + 1}` as keyof IngredientListType] 
                 ?
-                {textDecoration: 'line-through'}
+                { textDecoration: 'line-through' }
                 :
-                {textDecoration: 'none'} 
+                { textDecoration: 'none' } 
               }
             >
               <input
                 type="checkbox"
                 name={`strIngredient${index + 1}`}
                 onChange={handleChange}
-                checked={
-                  stateIngredients[`strIngredient${index + 1}` as keyof IngredientListType]
-                    ? 
-                  stateIngredients[`strIngredient${index + 1}` as keyof IngredientListType]
-                    : 
+                checked={                 
+                  stateIngredients[`strIngredient${index + 1}` as keyof IngredientListType] 
+                  ?
+                  stateIngredients[`strIngredient${index + 1}` as keyof IngredientListType] 
+                  :
                   false
                 }
               />

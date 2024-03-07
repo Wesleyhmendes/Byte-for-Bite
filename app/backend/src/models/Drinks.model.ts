@@ -5,6 +5,7 @@ import { IDrinkModel, iDrinkCategories, iDrinkRecipe } from '../Interfaces/drink
 import DrinksCategories from '../database/models/01Drinks-Categories.model';
 import InProgressDrinksModel from '../database/models/07In-Progress-Drinks';
 import { IProgressDrinkRecipe } from '../Interfaces/IProgress';
+import { startDrinkRecipeInProgress } from '../utils/startRecipeInProgress';
 
 export default class DrinksModel implements IDrinkModel {
   private Drinkmodel = SequelizeDrinks;
@@ -102,8 +103,11 @@ export default class DrinksModel implements IDrinkModel {
     return recipesFiltred;
   }
 
-  async addDrinkInProgress(recipeInProgress: Omit<IProgressDrinkRecipe, 'id'>): Promise<IProgressDrinkRecipe> {
-    const { dataValues } = await this.inProgressModel.create(recipeInProgress);
+  async addDrinkInProgress(recipeInProgress: Omit<IProgressDrinkRecipe, 'id'| 'markedIngredients'>): Promise<IProgressDrinkRecipe> {
+    const defaultIngredients = startDrinkRecipeInProgress();
+
+    const { dataValues } = await this.inProgressModel.create({...recipeInProgress, markedIngredients: defaultIngredients});
+
     return dataValues;
   }
 
@@ -117,5 +121,19 @@ export default class DrinksModel implements IDrinkModel {
     });
     
     return foundRecipe
+  }
+
+  async updateMarkedIngredients(recipeInProgress: Omit<IProgressDrinkRecipe, 'id'>): Promise<number | null> {
+    const { userId, drinkId, markedIngredients } = recipeInProgress;
+    const rowCount = await this.inProgressModel.update({markedIngredients}, {
+      where: {
+        userId,
+        drinkId,
+      }
+    })
+
+    if (rowCount[0] === 0) return null;
+
+    return rowCount[0];
   }
 }

@@ -99,7 +99,7 @@ export default class MealsService {
         data: { message: 'Must provide a mealId' },
       };
     }
-
+    // IF NEEDS TO CHECK IF RECIPE IS ALREADY IN PROGRESS, INVOKE 'findRecipeInProgressById' HERE:   
     const recipe = await this.mealsModel.addMealInProgress(recipeInProgress);
     return { status: 'SUCCESSFUL', data: recipe };
   }
@@ -128,8 +128,17 @@ export default class MealsService {
 
     if (!inProgress) {
       return { status: 'NOT_FOUND', data: { message: 'Recipe not found!' } };
-    }
+    };
 
     return { status: 'SUCCESSFUL', data: inProgress };
+  }
+
+  async updateRecipeInProgressById(inProgress: Omit<IProgressMealRecipe, 'id'>) {
+    const response = await this.mealsModel.updateMarkedIngredients(inProgress);
+
+    if (response !== 1) {
+      return { status: 'NOT_FOUND', data: { message: 'Recipe not found' } };
+    };
+    return { status: 'SUCCESSFUL', data: { message: `Marked ingredients updated!` } };
   }
 }

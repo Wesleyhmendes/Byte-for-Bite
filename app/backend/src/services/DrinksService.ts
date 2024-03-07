@@ -2,7 +2,6 @@ import { ServiceResponse } from '../Interfaces/serviceReponse';
 import { iDrinkRecipe } from '../Interfaces/drinks/iDrinks';
 import DrinksModel from '../models/Drinks.model';
 import { IProgressDrinkRecipe } from '../Interfaces/IProgress';
-import { startDrinkRecipeInProgress } from '../utils/startRecipeInProgress';
 
 export default class MatchesService {
   constructor(
@@ -82,14 +81,16 @@ export default class MatchesService {
 
   async addDrinkInProgress(recipeInProgress: Omit<IProgressDrinkRecipe, 'id'>): Promise<ServiceResponse<IProgressDrinkRecipe>> {
     const { userId, drinkId } = recipeInProgress;
+
     if (!userId) {
       return {status: 'INVALID_DATA', data: { message: 'Must have a userId' } }
     }
+
     if (!drinkId) {
       return {status: 'INVALID_DATA', data: { message: 'Must have a drinkId' } }
     }
-    const defaultIngredients = startDrinkRecipeInProgress();
-    const recipe = await this.drinkModel.addDrinkInProgress({ ...recipeInProgress, markedIngredients: defaultIngredients })   
+    // IF NEEDS TO CHECK IF RECIPE IS ALREADY IN PROGRESS, INVOKE 'findRecipeInProgressById' HERE:    
+    const recipe = await this.drinkModel.addDrinkInProgress(recipeInProgress)   
     return { status: 'SUCCESSFUL', data: recipe }
   }
 
@@ -112,5 +113,14 @@ export default class MatchesService {
     }
 
     return { status: 'SUCCESSFUL', data: inProgress };
+  }
+
+  async updateRecipeInProgressById(inProgress: Omit<IProgressDrinkRecipe, 'id'>) {
+    const response = await this.drinkModel.updateMarkedIngredients(inProgress);
+
+    if (response !== 1) {
+      return { status: 'NOT_FOUND', data: { message: 'Recipe not found' } };
+    };
+    return { status: 'SUCCESSFUL', data: { message: `Marked ingredients updated!` } };
   }
 }
