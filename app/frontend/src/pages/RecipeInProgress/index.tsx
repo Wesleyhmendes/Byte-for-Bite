@@ -19,19 +19,14 @@ export default function RecipeInProgress() {
   const { id } = useParams();
   const userId = profile?.data?.id
 
-  // GET UNMARKED INGREDIENT LIST OF RECIPE IN PROGRESS FROM DB
-  const inProgressURL = `http://localhost:3001${route}/inprogress/${id}?user=${userId}`;
-  const {data: inProgress} = useFetch(inProgressURL);
-  
-  // HOOK THAT CONTROLS STATE OF INGREDIENTS CHECKBOX AND USES DATA FROM DB AS INITIAL STATE
-  const initialState = inProgress ? inProgress.markedIngredients : undefined;
-  const {stateIngredients, checkIngredientsDispatch} = useCheckIngredients();  
+  // HOOK THAT CONTROLS STATE OF INGREDIENTS CHECKBOX AND USES FETCHED DATA FROM DB AS INITIAL STATE
+  const {stateIngredients, isInprogress, checkIngredientsDispatch} = useCheckIngredients(userId, id as string, route);
   
   // GET RECIPE
   const recipeURL = `http://localhost:3001${route}/${id}`;
   const { data, isLoading, error } =useFetch(recipeURL);
   if (!data) {
-    return undefined
+    return undefined;
   }
   const recipeData = data  
   const typeRecipe = route === '/meals' ? 'Meal' : 'Drink';  
@@ -40,73 +35,78 @@ export default function RecipeInProgress() {
   const ingredients = getIngredients(recipeData);  
 
   // HANDLECHANGE
-
   const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const {name, checked} = target
 
     checkIngredientsDispatch({type: 'CHANGE', name, value: checked});
-  }
-  console.log(stateIngredients)
+  };
   
   return (
     <div>
-      { isLoading ? (
-        <h3>Carregando...</h3>
-      ) : null }
+      {isLoading ? <h3>Carregando...</h3> : null}
 
-      { error && !isLoading ? (
-        <h3>Um erro inesperado ocorreu...</h3>
-      ) : null }
+      {error && !isLoading ? <h3>Um erro inesperado ocorreu...</h3> : null}
 
-      { recipeData && !inProgress && !isLoading ? (
+      {recipeData && !isInprogress && !isLoading ? (
         <h3>Essa receita ainda não foi iniciada.</h3>
-      ) : null }
+      ) : null}
 
-      { recipeData && inProgress && !isLoading ? (
+      {recipeData && isInprogress && !isLoading ? (
         <section className="recipesIngProgressSection">
           <ShareFavoriteButtons
-            id={ id }
-            recipeType={ route.split('/')[1] }
-            recipeData={ recipeData }
+            id={id}
+            recipeType={route.split('/')[1]}
+            recipeData={recipeData}
           />
           <button
             data-testid="finish-recipe-btn"
-            disabled={ false }
-            onClick={ () => {
-
+            disabled={false}
+            onClick={() => {
               navigate('/done-recipes');
-            } }
+            }}
           >
             Finalizar
           </button>
 
           <img
             data-testid="recipe-photo"
-            src={ recipeData[`str${typeRecipe}Thumb`] }
-            alt={ recipeData[`str${typeRecipe}`] }
+            src={recipeData[`str${typeRecipe}Thumb`]}
+            alt={recipeData[`str${typeRecipe}`]}
           />
 
-          <h2 data-testid="recipe-title">{ recipeData[`str${typeRecipe}`] }</h2>
+          <h2 data-testid="recipe-title">{recipeData[`str${typeRecipe}`]}</h2>
 
-          <p data-testid="recipe-category">{ recipeData.strCategory }</p>
+          <p data-testid="recipe-category">{recipeData.strCategory}</p>
 
           {ingredients.map((ingredient, index) => (
-            <label
-              data-testid={ `${index}-ingredient-step` }
-              key={ index }             
+            <label 
+              data-testid={`${index}-ingredient-step`} 
+              key={index}
+              style={
+                stateIngredients[`strIngredient${index + 1}` as keyof IngredientListType] 
+                ?
+                {textDecoration: 'line-through'}
+                :
+                {textDecoration: 'none'} 
+              }
             >
               <input
                 type="checkbox"
-                name={`strIngredient${index + 1}`}                
-                onChange={ handleChange }
-                checked={ initialState[`strIngredient${index + 1}`] }
+                name={`strIngredient${index + 1}`}
+                onChange={handleChange}
+                checked={
+                  stateIngredients[`strIngredient${index + 1}` as keyof IngredientListType]
+                    ? 
+                  stateIngredients[`strIngredient${index + 1}` as keyof IngredientListType]
+                    : 
+                  false
+                }
               />
               {ingredient}
             </label>
           ))}
 
-          <p data-testid="instructions">{ recipeData.strInstructions }</p>
-
+          <p data-testid="instructions">{recipeData.strInstructions}</p>
         </section>
       ) : null}
     </div>

@@ -16,8 +16,7 @@ export default function RecipeDetails() {
   const [loadingNextPage, setIsLoadingNextPage] = useState(false);
 
   const { route } = useContext(Context);
-  const { profile } = useContext(UserInfoContext);
-  console.log(profile)
+  const { profile } = useContext(UserInfoContext);  
   const userId = profile?.data?.id
 
   // GET THE RECIPE DATA BY ID
@@ -32,7 +31,7 @@ export default function RecipeDetails() {
   
   const buttonText = inProgress?.data ? 'Continue recipe' : 'Start recipe'; 
 
-  // SEND REQUISITION TO BACKEND AND START THE RECIPE, CHANGING TO "IN PROGRESS"
+  // SEND REQUISITION TO BACKEND AND STARTS THE RECIPE, CHANGING IT TO "IN PROGRESS"
   const startInProgressURL = `http://localhost:3001${route}/inprogress`; 
   const reqBody =
     route === '/meals'
@@ -41,6 +40,8 @@ export default function RecipeDetails() {
 
   const { handleFetch } = useFetch(startInProgressURL, {method: "POST", body: reqBody });
 
+  // IF THE RECIPE HAS NEVER BEEN INITIATED, SENDS DATA VIA 'POST' REQUEST.
+  // ELSE JUST NAVIGATE TO 'IN PROGRESS' PAGE. HAD TO PUT A TIMEOUT FUNCTION SO 'IN PROGRESS' COMPONENT HAS TIME TO LOAD DATA FROM DB.
   const handleClick = () => {
     if (!inProgress?.data) {
       handleFetch();

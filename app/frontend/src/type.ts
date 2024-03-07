@@ -99,7 +99,6 @@ export type FavoriteRecipeType = {
 };
 
 // INGREDIENT LIST TYPE
-
 export type IngredientListType = {
     strIngredient1: boolean,
     strIngredient2: boolean,
