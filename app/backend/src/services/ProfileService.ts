@@ -9,8 +9,7 @@ class ProfileService {
     private userModel = new UserModel(),
   ) { }
 
-  async getProfile(email: string): Promise<ServiceResponse<Omit<IUsers, 'password'>>> {
-    console.log(email)
+  async getProfile(email: string): Promise<ServiceResponse<Omit<IUsers, 'password'>>> {    
     const result = await this.userModel.findByEmail(email);
     if (!result) return this.serviceResponse(notFound);
     const { password, ...rest } = result;

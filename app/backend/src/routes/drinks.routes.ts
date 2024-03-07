@@ -1,6 +1,7 @@
 import { Request, Router, Response } from 'express';
 import DrinkController from '../controllers/DrinksController';
 import Authorization from '../middlewares/auth.middlware';
+import DrinksController from '../controllers/DrinksController';
 
 const drinkController = new DrinkController();
 
@@ -58,7 +59,18 @@ drinksRouter.post(
   '/inprogress',
   Authorization.auth,
   (req: Request, res: Response) => drinkController.addDrinkInProgress(req, res)
-)
+);
+
+drinksRouter.get(
+  '/inprogress/:id',
+  Authorization.auth,
+  (req: Request, res: Response) => drinkController.findRecipeInProgressById(req, res)
+);
+drinksRouter.patch(
+  '/inprogress/:id',
+  Authorization.auth,
+  (req: Request, res: Response) => drinkController.updateRecipeInProgressById(req, res)
+);
 
 
 export default drinksRouter;

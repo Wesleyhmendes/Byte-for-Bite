@@ -1,5 +1,5 @@
 import { useReducer, useEffect } from 'react';
-import { FetchAction } from '../type';
+import { FetchAction } from '../../type';
 
 type RequestMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
@@ -9,13 +9,14 @@ interface FetchOptions {
 }
 
 const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
-  
+  // INITIAL STATE IS PREPARED TO ACCEPT ALL KINDS OF DATA
   const initialState = {
     data: undefined,
     isLoading: true,
     error: undefined,
   }
 
+  // CASE FETCHED DATA HAS ARRIVED, SETS LOADING TO FALSE. CASE SOMETHING WRONG HAPPENS DURING FETCH, SETS LOADING TO FALSE AND DISPLAYS IT IN ERROR STATE
   const fetchReducer = (state = initialState, action: FetchAction) => {
     switch (action.type) {
       case 'loading': 
@@ -44,6 +45,7 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
 
   const [ state, dispatch ] = useReducer(fetchReducer, initialState);
 
+  // LOADS TOKEN FROM LOCALSTORAGE FOR AUTHENTICATION. SINCE "GET" METHOD DOESN'T ACCEPT BODY, SETS IT TO 'UNDEFINED' IF IT IS THE CASE. 
   const handleFetch = async () => {    
     const { method, body } = options;
     const token = JSON.parse(localStorage.getItem('token') as string);   
@@ -55,23 +57,40 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
       },      
       body: body ? JSON.stringify(body) : undefined,
     }
-    
+
+   // STARTS SETTING LOADING 'TRUE'
     dispatch({type: 'loading'});
-
+   
+    // TRY / CATCH
     try {
-      const response = await fetch(URL, request);
-      const result = await response.json();
+      const response = await fetch(URL, request);    
+    
+      // IF RESPONSE IS "NOT AUTHORIZED", RESET TO INITIALSTATE AND THROW AN ERROR
+      if (!response.ok) {        
+        if (response.status === 401) {
 
-      dispatch({ type: 'fetched', payload: result });
-      // setTimeout(() => {
-       
-      // }, 1000); 
+          dispatch({type: "reset"});
+          return
+        }
+        throw new Error(`Erro na requisição: ${response.status}`)
+      }
 
-    } catch (err) {
-      dispatch({ type: 'error', payload: err })
+      // IF ALL GOES WELL, DISPATCHES 'FETCHED' ACTION AND DATA PAYLOAD
+      const result = await response.json();      
+
+      dispatch({ type: 'fetched', payload: result });         
+
+    } catch (err: any) {
+
+      // IF THERE'S AN ERROR DIFFERENT THAN 'NOT AUTHORIZED', DISPATCHES 'ERROR' ACTION AND ERROR DATA PAYLOAD
+      if (err.message !== 'Erro na requisição: 401') {
+
+        dispatch({ type: 'error', payload: err })
+      }
     }    
   }; 
-   
+
+   // USEEFFECT HANDLING "GET" METHOD AUTOMATICALLY. ALL OTHER METHODS HAVE TO INVOKE HANDLEFETCH TO REFRESH DATA ON DB. CLEANUP SETS FETCHED DATA TO INITIALSTATE, PREVENTING UNDESIRED OUTCOMES. 
   useEffect(() => {    
     if (options.method === 'GET') {      
       handleFetch();           
@@ -79,7 +98,7 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
     return () => {     
       dispatch({type: 'reset'})
     }
-  }, [URL])
+  }, [URL]);
 
   return {
     data: state.data,

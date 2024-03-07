@@ -2,9 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import SearchBar from '../SearchBar';
 import profileIcon from '../../images/profileIcon.svg';
-import useFetch from '../../hooks/useFetch';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
-
 
 function Header() {
   const [searchVisible, setSearchVisible] = useState(false);  

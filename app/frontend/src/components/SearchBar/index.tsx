@@ -69,8 +69,7 @@ function SearchBar() {
         </label>
 
         <button
-          data-testid="exec-search-btn"
-          type="submit"
+          data-testid="exec-search-btn"          
         >
           Search
         </button>

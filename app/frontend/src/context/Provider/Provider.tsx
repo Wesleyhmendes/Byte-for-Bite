@@ -1,7 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import Context from '../Context';
 import useRecipesProvider from '../../hooks/useRecipesProvider';
-import useUserProvider from '../../hooks/useUserProvider';
 
 type ProviderProps = {
   children: React.ReactNode;  
@@ -16,13 +15,11 @@ export default function Provider({ children }: ProviderProps) {
     getCategories,   
     filterDispatch,
     setRecipesFilter,
-    setByFilterURL,
-    setSelectedId,
+    setByFilterURL,    
     getRecipesByFilter,
     getSelectedCategory,
     getByCategory,
-    getAllRecipes,
-    getRecipeById,
+    getAllRecipes,    
   } = useRecipesProvider(route); 
 
   const value = { 
@@ -32,13 +29,11 @@ export default function Provider({ children }: ProviderProps) {
     getCategories,  
     filterDispatch,
     setRecipesFilter,
-    setByFilterURL,
-    setSelectedId,
+    setByFilterURL,   
     getRecipesByFilter, 
     getSelectedCategory,
     getByCategory,
-    getAllRecipes,
-    getRecipeById,
+    getAllRecipes,    
   };
 
   return (

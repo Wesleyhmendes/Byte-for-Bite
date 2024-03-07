@@ -1,4 +1,4 @@
-import { FetchedData } from '../type';
+import { FetchedData } from '../../type';
 import useFetch from './useFetch';
 import useSignUp from './useSignUp';
 
