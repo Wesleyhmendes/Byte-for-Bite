@@ -10,7 +10,7 @@ const useCheckIngredients = (userId: number, recipeId: string, route: string) =>
   const inProgressURL = `http://localhost:3001${route}/inprogress/${recipeId}?user=${userId}`;
   const inProgress = useFetch(inProgressURL);
 
-  // FUNCTION HANDLES FETCHED DATA AND RETURNS A COPY TO SERVE AS INITIAL STATE TO REDUCER
+  // FUNCTION HANDLES FETCHED DATA AND RETURNS A COPY TO SERVE AS INITIAL STATE OF REDUCER
   const initialStateUpdater = (inProgressFromAPI: FetchedData): IngredientListType => {
     const { data } = inProgressFromAPI;    
     
@@ -52,15 +52,15 @@ const useCheckIngredients = (userId: number, recipeId: string, route: string) =>
   const updateMarkedIngredientsURL = `http://localhost:3001${route}/inprogress/${recipeId}?user=${userId}`;
   const { handleFetch } = useFetch(updateMarkedIngredientsURL, { method: 'PATCH', body: { markedIngredients: stateIngredients } }); 
 
-  // USEEFFECT THAT SINCRONIZES THE HOOK'S INITIAL STATE WITH THE DATA FETCHED IN DB. 
-
+  // USEEFFECT THAT SINCRONIZES THE HOOK'S INITIAL STATE WITH THE DATA FETCHED IN DB.
+  // UNTIL DATA COMES FROM DB, THE OBJECT STARTS EMPTY. THAT'S WHY OBJECT.KEYS APPLIES HERE.
   useEffect(() => {    
     if (Object.keys(initialState).length !== 0 && Object.keys(stateIngredients).length === 0) {      
       checkIngredientsDispatch({type: UPDATE});      
     }    
   }, [initialState]);
 
-  // USEEFFECT THAT SENDS DATA TO DB IF stateIngredients CHANGES
+  // USEEFFECT THAT SENDS DATA TO DB IF stateIngredients CHANGES.
   useEffect(() => {
     if (Object.keys(stateIngredients).length !== 0) {
       handleFetch();

@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useEffect } from 'react';
+import { ChangeEvent, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { IngredientListType } from '../../type';
 import ShareFavoriteButtons from '../../components/ShareFavoriteButtons';
@@ -20,8 +20,7 @@ export default function RecipeInProgress() {
     stateIngredients,
     isInprogress,    
     CHANGE,
-    checkIngredientsDispatch,
-    handleFetch,
+    checkIngredientsDispatch,    
   } = useCheckIngredients(userId, id as string, route);
   
   // GET RECIPE
