@@ -8,11 +8,13 @@ import IAreaType from "../Interfaces/IAreaType";
 import { IProgressMealRecipe } from '../Interfaces/IProgress';
 import InProgressMealsModel from '../database/models/08In-Progress-Meals';
 import { startMealRecipeInProgress } from '../utils/startRecipeInProgress';
+import FavoriteMealsModel from '../database/models/06Favorite-Meals';
 
 export default class MealsModel implements IMealsRecipesModel {
   private mealsModel = MealsRecipe;
   private inProgressModel = InProgressMealsModel;
   private mealsCategoryModel = MealsCategories;
+  private favoriteRecipesModel = FavoriteMealsModel
   
   async findAll(): Promise<IMealRecipes[]> {
     const recipes = await this.mealsModel.findAll({
@@ -159,7 +161,7 @@ export default class MealsModel implements IMealsRecipesModel {
       where: {
         userId,
         mealId,
-      }
+      },
     });
     
     return foundRecipe
@@ -171,11 +173,54 @@ export default class MealsModel implements IMealsRecipesModel {
       where: {
         userId,
         mealId,
-      }
-    })
+      },
+    });
 
     if (rowCount[0] === 0) return null;
 
     return rowCount[0];
+  }
+
+  async createFavoriteMeals(userId: number) {   
+    const createFavorite = {
+      userId,
+      favoriteRecipes: []
+    }
+    const { dataValues } = await this.favoriteRecipesModel.create(createFavorite);
+
+    return dataValues;
+  }
+
+  async findFavorite(userId: number) {
+    const foundFavorite = await this.favoriteRecipesModel.findOne({
+      where: {
+        userId
+      }
+    });
+
+    return foundFavorite;
+  }
+
+  async addRecipeInFavorite(userId: number, mealId: number) {
+    const foundFavorite = await this.findFavorite(userId);
+    if (!foundFavorite) {
+      await this.createFavoriteMeals(userId);
+      const newFavorite = [{mealId}];      
+      const rowCount = await this.favoriteRecipesModel.update({favoriteRecipes: newFavorite}, {
+        where: {
+          userId
+        },
+      })
+      return rowCount;                 
+    }
+    
+    const updatedFavorites = [...foundFavorite.favoriteRecipes, {mealId}];
+    const rowCount = await this.favoriteRecipesModel.update({favoriteRecipes: updatedFavorites}, {
+      where: {
+        userId
+      },
+    });
+
+    return rowCount;
   }
 }

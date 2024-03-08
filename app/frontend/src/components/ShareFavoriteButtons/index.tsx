@@ -46,7 +46,7 @@ export default function ShareFavoriteButtons({
         data-testid="share-btn"
         onClick={ copyText }
       >
-        <img src={ shareIcon } alt="ícone do botão compartilhar" />
+        <img src={ shareIcon } alt="Share button icon" />
       </button>
 
       <button
@@ -56,7 +56,7 @@ export default function ShareFavoriteButtons({
         <img
           data-testid="favorite-btn"
           src={ isFavorite ? blackHeart : whiteHeart }
-          alt="imagem de coração"
+          alt="Heart image"
         />
       </button>
 

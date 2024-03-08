@@ -71,6 +71,10 @@ drinksRouter.patch(
   Authorization.auth,
   (req: Request, res: Response) => drinkController.updateRecipeInProgressById(req, res)
 );
+drinksRouter.post(
+  '/favorites/:id',
+  (req: Request, res: Response) => drinkController.favoriteDrinkRecipe(req, res)
+);
 
 
 export default drinksRouter;

@@ -123,4 +123,18 @@ export default class MatchesService {
     };
     return { status: 'SUCCESSFUL', data: { message: `Marked ingredients updated!` } };
   }
+
+  async favoriteDrinkRecipe(userId: number, id: number) {
+    const favoriteExists = await this.drinkModel.findFavorite(userId);
+    if (favoriteExists) {
+      const isFavoriteRecipe = favoriteExists
+        .favoriteRecipes.some((recipe) => recipe.drinkId === id );
+
+      if(isFavoriteRecipe) {
+        return {status: 'CONFLICT', data: { message: 'Recipe already on favorites!' }}
+      }   
+    }
+    await this.drinkModel.addRecipeInFavorite(userId, id);
+    return {status: 'SUCCESSFUL', data: { message: 'Recipe added on favorites!' } };  
+  }
 }

@@ -1,9 +1,9 @@
 import { Model, QueryInterface, DataTypes } from 'sequelize';
-import { IRecipeStatus } from '../../Interfaces/IRecipeStatus';
+import { IFinished } from '../../Interfaces/IFinished';
 
 export default {
   up(queryInterface: QueryInterface) {
-    return queryInterface.createTable<Model<IRecipeStatus>>('finished_drinks', {
+    return queryInterface.createTable<Model<IFinished>>('finished_drinks', {
       id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -13,8 +13,9 @@ export default {
       userId: {
         type: DataTypes.INTEGER,
       },
-      recipeId: {
-        type: DataTypes.INTEGER,
+      finishedRecipes: {
+        type: DataTypes.JSON,
+        allowNull: false,
       },
     });
   },

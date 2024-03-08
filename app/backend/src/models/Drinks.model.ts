@@ -6,11 +6,13 @@ import DrinksCategories from '../database/models/01Drinks-Categories.model';
 import InProgressDrinksModel from '../database/models/07In-Progress-Drinks';
 import { IProgressDrinkRecipe } from '../Interfaces/IProgress';
 import { startDrinkRecipeInProgress } from '../utils/startRecipeInProgress';
+import FavoriteDrinksModel from '../database/models/05Favorite-Drinks';
 
 export default class DrinksModel implements IDrinkModel {
   private Drinkmodel = SequelizeDrinks;
   private inProgressModel = InProgressDrinksModel;
   private CategoryModel = DrinkCategories;
+  private FavoriteDrinksModel = FavoriteDrinksModel
 
   async findAll(): Promise<iDrinkRecipe[]> {
     const recipes = await this.Drinkmodel.findAll({
@@ -135,5 +137,48 @@ export default class DrinksModel implements IDrinkModel {
     if (rowCount[0] === 0) return null;
 
     return rowCount[0];
+  }
+
+  async createFavoriteDrinks(userId: number) {   
+    const createFavorite = {
+      userId,
+      favoriteRecipes: []
+    }
+    const { dataValues } = await this.FavoriteDrinksModel.create(createFavorite);
+
+    return dataValues;
+  }
+
+  async findFavorite(userId: number) {
+    const foundFavorite = await this.FavoriteDrinksModel.findOne({
+      where: {
+        userId
+      }
+    });
+
+    return foundFavorite;
+  }
+
+  async addRecipeInFavorite(userId: number, drinkId: number) {
+    const foundFavorite = await this.findFavorite(userId);
+    if (!foundFavorite) {
+      await this.createFavoriteDrinks(userId);
+      const newFavorite = [{drinkId}];      
+      const rowCount = await this.FavoriteDrinksModel.update({favoriteRecipes: newFavorite}, {
+        where: {
+          userId
+        },
+      })
+      return rowCount;                 
+    }
+    
+    const updatedFavorites = [...foundFavorite.favoriteRecipes, {drinkId}];
+    const rowCount = await this.FavoriteDrinksModel.update({favoriteRecipes: updatedFavorites}, {
+      where: {
+        userId
+      },
+    });
+
+    return rowCount;
   }
 }

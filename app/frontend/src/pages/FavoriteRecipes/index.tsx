@@ -1,20 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FavoriteRecipeType } from '../../type';
 
 export default function FavoriteRecipes() {
   const [shareMessage, setShareMessage] = useState<boolean>(false);
   const [_favoriteRecipes, setFavoriteRecipes] = useState<FavoriteRecipeType[]>([]);
-  const [filter, setFilter] = useState('all');
-
-  // useEffect(() => {
-  //   const getLocalStorageData = JSON.parse(
-  //     localStorage.getItem('favoriteRecipes') as string,
-  //   );
-  //   if (getLocalStorageData) {
-  //     setFavoriteRecipes(getLocalStorageData);
-  //   }
-  // }, []);
+  const [filter, setFilter] = useState('all'); 
 
   const getLocalStorageData: FavoriteRecipeType[] = JSON.parse(
     localStorage.getItem('favoriteRecipes') ?? '[]');

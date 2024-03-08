@@ -9,7 +9,6 @@ import db from '.';
 
 export default class DrinksRecipes extends Model <InferAttributes<DrinksRecipes>,
 InferCreationAttributes<DrinksRecipes>> {
-
   declare idDrink: CreationOptional<number>
   declare strDrink: string
   declare strDrinkAlternate: boolean
@@ -61,8 +60,6 @@ InferCreationAttributes<DrinksRecipes>> {
   declare strImageAttribution: string
   declare strCreativeCommonsConfirmed: string
   declare dateModified: string
-
-
 }
 
 DrinksRecipes.init ({

@@ -86,4 +86,12 @@ export default class DrinksController {
     })
     return res.status(mapStatusHTTP(status)).json(data);
   }
+
+  async favoriteDrinkRecipe(req: Request, res: Response) {
+    const { id } = req.params;
+    const { userId } = req.body
+    const { status, data } = await this.drinkService.favoriteDrinkRecipe(userId, Number(id));
+    
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
 }

@@ -8,12 +8,13 @@ import {
 import db from '.';
 import SequelizeUsers from './00UserModel';
 import MealsRecipe from './04Meals-Recipes';
+import { IMealID } from '../../Interfaces/meals/IMealID';
 
 export default class FinishedMealsModel extends Model<InferAttributes<FinishedMealsModel>,
   InferCreationAttributes<FinishedMealsModel>> {
   declare id: CreationOptional<number>;
-  declare userId: string;
-  declare mealId: number;
+  declare userId: number;
+  declare finishedRecipes: IMealID[];
 }
 
 FinishedMealsModel.init({
@@ -30,12 +31,9 @@ FinishedMealsModel.init({
       key: 'id'
     }
   },
-  mealId: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: 'meals_recipes',
-      key: 'idMeal'
-    }
+  finishedRecipes: {
+    type: DataTypes.JSON,
+    allowNull: false,
   },
 }, {
   sequelize: db,
