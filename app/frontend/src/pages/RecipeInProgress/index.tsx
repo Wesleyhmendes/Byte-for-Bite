@@ -45,7 +45,7 @@ export default function RecipeInProgress() {
 
   // CHECK IF RECIPE IS DONE. IF IT IS, ENABLES 'End recipe' BUTTON.
   const isDone = isRecipeDone(ingredients, stateIngredients);
-
+    
   return (
     <div>
       {isLoading ? <h3>Loading...</h3> : null}
