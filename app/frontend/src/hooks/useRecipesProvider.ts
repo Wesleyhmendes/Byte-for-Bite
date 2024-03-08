@@ -3,7 +3,7 @@ import useFetch from './useFetch';
 import { useState } from 'react';
 import useSearchBar from './useSearchBar';
 import { useNavigate } from 'react-router-dom';
-import { createURLFilter } from '../utils/functions/createURLFilter';
+import { createURLFilter } from '../utils/createURLFilter';
 
 const useRecipesProvider = (path: string) => { 
   const navigate = useNavigate();

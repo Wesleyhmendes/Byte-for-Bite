@@ -1,4 +1,4 @@
-import { DrinkType, MealType } from '../../type';
+import { DrinkType, MealType } from '../type';
 
 export const finishRecipe = (typeRecipe: string, recipe: MealType | DrinkType) => {
   const finishedRecipe = {

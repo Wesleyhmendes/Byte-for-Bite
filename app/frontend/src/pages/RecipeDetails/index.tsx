@@ -65,10 +65,10 @@ export default function RecipeDetails() {
       ) : null}
 
       {error && !isLoading && !loadingNextPage ? (
-        <h3>Um erro inesperado ocorreu...</h3>
+        <h3>An unexpected error occurred...</h3>
       ) : null}
 
-      {isLoading ? <h3>Carrregando...</h3> : null}
+      {isLoading ? <h3>Loading...</h3> : null}
 
       {/* <Carousel /> */}
       {recipe && !isLoading && !loadingNextPage ? (

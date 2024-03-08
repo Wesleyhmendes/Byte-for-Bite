@@ -1,4 +1,4 @@
-import { DrinkType, FavoriteRecipeType, MealType } from '../../type';
+import { DrinkType, FavoriteRecipeType, MealType } from '../type';
 
 export const addFavoriteRecipe = (
   storageData: FavoriteRecipeType[],

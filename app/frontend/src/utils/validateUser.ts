@@ -1,4 +1,4 @@
-import { User } from '../../type'
+import { User } from '../type'
 
 const validateUser = (user: User) => {
   const validateRegexEmail =  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

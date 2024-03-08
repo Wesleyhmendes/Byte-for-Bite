@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeart from '../../images/whiteHeartIcon.svg';
 import blackHeart from '../../images/blackHeartIcon.svg';
-import { addFavoriteRecipe, removeFavoriteRecipe } from '../../utils/functions/favorite';
-import { verifyLocalStorageKeys } from '../../utils/functions/localStorage';
+import { addFavoriteRecipe, removeFavoriteRecipe } from '../../utils/favorite';
+// import { verifyLocalStorageKeys } from '../../utils/functions/localStorage';
 import { DrinkType, FavoriteRecipeType, MealType } from '../../type';
 
 type ShareFavoriteButtonsProps = {
@@ -23,7 +23,7 @@ export default function ShareFavoriteButtons({
       setIsFavorite(JSON.parse(localStorage.getItem('favoriteRecipes') as string)
         .some((recipe: FavoriteRecipeType) => recipe.id === id));
     };
-    verifyLocalStorageKeys('favoriteRecipes');
+    // verifyLocalStorageKeys('favoriteRecipes');
     isFavoriteRecipe();
   }, [id]);
 
