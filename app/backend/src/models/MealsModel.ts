@@ -223,4 +223,19 @@ export default class MealsModel implements IMealsRecipesModel {
 
     return rowCount;
   }
+
+  async removeRecipeFromFavorites(userId: number, mealId: number) {
+    const foundFavorite = await this.findFavorite(userId);
+    if (!foundFavorite) {
+      return foundFavorite
+    }
+    const updatedFavorites = foundFavorite.favoriteRecipes.filter((recipe) => recipe.mealId !== mealId);
+    const rowCount = await this.favoriteRecipesModel.update({favoriteRecipes: updatedFavorites}, {
+      where: {
+        userId
+      },
+    });
+
+    return rowCount;
+  }
 }

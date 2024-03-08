@@ -131,7 +131,9 @@ export default class MatchesService {
         .favoriteRecipes.some((recipe) => recipe.drinkId === id );
 
       if(isFavoriteRecipe) {
-        return {status: 'CONFLICT', data: { message: 'Recipe already on favorites!' }}
+        await this.drinkModel.removeRecipeFromFavorites(userId, id);
+        
+        return {status: 'SUCCESSFUL', data: { message: 'Recipe removed from favorites!' }}
       }   
     }
     await this.drinkModel.addRecipeInFavorite(userId, id);

@@ -149,7 +149,8 @@ export default class MealsService {
         .favoriteRecipes.some((recipe) => recipe.mealId === id );
 
       if(isFavoriteRecipe) {
-        return {status: 'CONFLICT', data: { message: 'Recipe already on favorites!' }}
+        await this.mealsModel.removeRecipeFromFavorites(userId, id);
+        return {status: 'SUCCESSFUL', data: { message: 'Recipe removed from favorites!' }}
       }   
     }
     await this.mealsModel.addRecipeInFavorite(userId, id);

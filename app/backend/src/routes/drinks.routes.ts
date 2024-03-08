@@ -73,6 +73,7 @@ drinksRouter.patch(
 );
 drinksRouter.post(
   '/favorites/:id',
+  Authorization.auth,
   (req: Request, res: Response) => drinkController.favoriteDrinkRecipe(req, res)
 );
 

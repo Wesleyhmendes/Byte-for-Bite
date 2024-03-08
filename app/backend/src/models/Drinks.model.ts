@@ -181,4 +181,19 @@ export default class DrinksModel implements IDrinkModel {
 
     return rowCount;
   }
+
+  async removeRecipeFromFavorites(userId: number, drinkId: number) {
+    const foundFavorite = await this.findFavorite(userId);
+    if (!foundFavorite) {
+      return foundFavorite
+    }
+    const updatedFavorites = foundFavorite.favoriteRecipes.filter((recipe) => recipe.drinkId !== drinkId);
+    const rowCount = await this.FavoriteDrinksModel.update({favoriteRecipes: updatedFavorites}, {
+      where: {
+        userId
+      },
+    });
+
+    return rowCount;
+  }
 }
