@@ -16,7 +16,7 @@ export default function ShareFavoriteButtons({
   id, recipeType
 }: ShareFavoriteButtonsProps) { 
   const [shareMessage, setShareMessage] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);  
 
   // GETS PROFILE FROM CONTEXT
   const { profile } = useContext(UserInfoContext);

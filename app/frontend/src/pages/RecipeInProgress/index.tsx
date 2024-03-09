@@ -60,8 +60,7 @@ export default function RecipeInProgress() {
         <section className="recipesIngProgressSection">
           <ShareFavoriteButtons
             id={id}
-            recipeType={route.split('/')[1]}
-            recipeData={recipeData}
+            recipeType={ route }
           />
           <button
             data-testid="finish-recipe-btn"
