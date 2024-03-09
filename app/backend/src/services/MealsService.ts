@@ -143,17 +143,19 @@ export default class MealsService {
   }
 
   async favoriteMealRecipe(userId: number, id: number) {
-    const favoriteExists = await this.mealsModel.findFavorite(userId);
-    if (favoriteExists) {
-      const isFavoriteRecipe = favoriteExists
-        .favoriteRecipes.some((recipe) => recipe.mealId === id );
+   const favorite = await this.mealsModel.createFavoriteMeals(userId, id);
+   if(favorite) {
+    return {status: 'SUCCESSFUL', data: { message: 'Recipe stored in favorites' }}    
+   } 
+   return {status: 'SUCCESSFUL', data: { message: 'Recipe removed from favorites' }};
+  }
 
-      if(isFavoriteRecipe) {
-        await this.mealsModel.removeRecipeFromFavorites(userId, id);
-        return {status: 'SUCCESSFUL', data: { message: 'Recipe removed from favorites!' }}
-      }   
+  async getFavoriteRecipes(userId: number) {
+    const favoriteRecipes = await this.mealsModel.getFavoriteRecipes(userId);
+    if (!favoriteRecipes) {
+      return {status: 'NOT_FOUND', data: { message: 'No favorite recipes stored!' }};
     }
-    await this.mealsModel.addRecipeInFavorite(userId, id);
-    return {status: 'SUCCESSFUL', data: { message: 'Recipe added on favorites!' } };  
+
+    return { status: 'SUCCESSFUL', data: favoriteRecipes };
   }
 }

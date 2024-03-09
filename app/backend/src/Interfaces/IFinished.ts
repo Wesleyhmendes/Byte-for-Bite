@@ -1,8 +1,9 @@
-import { IDrinkID } from './drinks/IDrinkID';
-import { IMealID } from './meals/IMealID';
-
-export interface IFinished {
-  id: number,
+export interface IFinishedMeal {  
   userId: number,
-  finishedRecipes: IMealID[] | IDrinkID[]
+  mealId: number,
+};
+
+export interface IFinishedDrink {  
+  userId: number,
+  drinkId: number,
 };

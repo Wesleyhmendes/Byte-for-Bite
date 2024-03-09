@@ -94,4 +94,10 @@ export default class DrinksController {
     
     return res.status(mapStatusHTTP(status)).json(data);
   }
+
+  async getFavoriteRecipes(req: Request, res: Response) {
+    const { user } = req.query
+    const { status, data } = await this.drinkService.getFavoriteRecipes(Number(user));
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
 }

@@ -2,44 +2,41 @@ import {
   DataTypes,
   Model,
   InferAttributes,
-  InferCreationAttributes,
-  CreationOptional,
+  InferCreationAttributes, 
 } from 'sequelize';
 import db from '.';
 import MealsRecipe from './04Meals-Recipes';
 import SequelizeUsers from './00UserModel';
-import { IMealID } from '../../Interfaces/meals/IMealID';
 
 export default class FavoriteMealsModel extends Model<InferAttributes<FavoriteMealsModel>,
   InferCreationAttributes<FavoriteMealsModel>> {
-  declare id: CreationOptional<number>;
-  declare userId: number;
-  declare favoriteRecipes: IMealID[];
+  declare mealId: number;
+  declare userId: number;  
 }
-
 FavoriteMealsModel.init({
-  id: {
+  mealId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
     autoIncrement: true,
+    references:{
+      model: 'meals_recipes',
+      key: 'idMeal'
+    }
   },
   userId: {
     type: DataTypes.INTEGER,
+    primaryKey: true,
     references: {
       model: 'users',
       key: 'id'
     }
-  },
-  favoriteRecipes: {
-    type: DataTypes.JSON,
-    allowNull: false,
-  },
+  }, 
 }, {
   sequelize: db,
   modelName: 'favorite_meals',
   timestamps: false,
 })
-
-SequelizeUsers.belongsTo(FavoriteMealsModel, { foreignKey: 'id' })
-MealsRecipe.belongsTo(FavoriteMealsModel, { foreignKey: 'idMeal' })
+FavoriteMealsModel.belongsTo(MealsRecipe, { as: 'favoriteRecipes', foreignKey: 'mealId' })
+ // SequelizeUsers.belongsToMany(FavoriteMealsModel, { foreignKey: 'id' })
+// MealsRecipe.hasMany(FavoriteMealsModel, { as: 'favoriteRecipes', foreignKey: 'idMeal' })

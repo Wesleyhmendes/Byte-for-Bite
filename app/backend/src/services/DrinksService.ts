@@ -123,20 +123,20 @@ export default class MatchesService {
     };
     return { status: 'SUCCESSFUL', data: { message: `Marked ingredients updated!` } };
   }
-
   async favoriteDrinkRecipe(userId: number, id: number) {
-    const favoriteExists = await this.drinkModel.findFavorite(userId);
-    if (favoriteExists) {
-      const isFavoriteRecipe = favoriteExists
-        .favoriteRecipes.some((recipe) => recipe.drinkId === id );
+    const favorite = await this.drinkModel.createFavoriteDrinks(userId, id);
+    if(favorite) {
+     return {status: 'SUCCESSFUL', data: { message: 'Recipe stored in favorites' }}    
+    } 
+    return {status: 'SUCCESSFUL', data: { message: 'Recipe removed from favorites' }};
+   }
 
-      if(isFavoriteRecipe) {
-        await this.drinkModel.removeRecipeFromFavorites(userId, id);
-        
-        return {status: 'SUCCESSFUL', data: { message: 'Recipe removed from favorites!' }}
-      }   
+  async getFavoriteRecipes(userId: number) {
+    const favoriteRecipes = await this.drinkModel.getFavoriteRecipes(userId);
+    if (!favoriteRecipes) {
+      return {status: 'NOT_FOUND', data: { message: 'No favorite recipes stored!' }};
     }
-    await this.drinkModel.addRecipeInFavorite(userId, id);
-    return {status: 'SUCCESSFUL', data: { message: 'Recipe added on favorites!' } };  
+
+    return { status: 'SUCCESSFUL', data: favoriteRecipes };
   }
 }

@@ -1,21 +1,26 @@
 import { Model, QueryInterface, DataTypes } from 'sequelize';
-import { IFinished } from '../../Interfaces/IFinished';
+import { IFinishedMeal } from '../../Interfaces/IFinished';
 
 export default {
   up(queryInterface: QueryInterface) {
-    return queryInterface.createTable<Model<IFinished>>('finished_meals', {
-      id: {
+    return queryInterface.createTable<Model<IFinishedMeal>>('finished_meals', {
+      mealId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true,
         autoIncrement: true,
-        primaryKey: true
+        references:{
+          model: 'meals_recipes',
+          key: 'idMeal'
+        }
       },
       userId: {
         type: DataTypes.INTEGER,
-      },
-      finishedRecipes: {
-        type: DataTypes.JSON,
-        allowNull: false,
+        primaryKey: true,
+        references: {
+          model: 'users',
+          key: 'id'
+        }
       },
     });
   },

@@ -3,38 +3,36 @@ import {
   Model,
   InferAttributes,
   InferCreationAttributes,
-  CreationOptional,
 } from 'sequelize';
 import db from '.';
 import SequelizeUsers from './00UserModel';
 import MealsRecipe from './04Meals-Recipes';
-import { IMealID } from '../../Interfaces/meals/IMealID';
 
 export default class FinishedMealsModel extends Model<InferAttributes<FinishedMealsModel>,
   InferCreationAttributes<FinishedMealsModel>> {
-  declare id: CreationOptional<number>;
-  declare userId: number;
-  declare finishedRecipes: IMealID[];
+    declare mealId: number;
+    declare userId: number;  
 }
 
 FinishedMealsModel.init({
-  id: {
+  mealId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
     autoIncrement: true,
+    references:{
+      model: 'meals_recipes',
+      key: 'idMeal'
+    }
   },
   userId: {
     type: DataTypes.INTEGER,
+    primaryKey: true,
     references: {
       model: 'users',
       key: 'id'
     }
-  },
-  finishedRecipes: {
-    type: DataTypes.JSON,
-    allowNull: false,
-  },
+  }, 
 }, {
   sequelize: db,
   modelName: 'finished_meals',

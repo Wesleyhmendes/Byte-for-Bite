@@ -80,6 +80,10 @@ mealsRouter.patch(
   Authorization.auth,
   (req: Request, res: Response) => mealsController.updateRecipeInProgressById(req, res)
 );
+mealsRouter.get(
+  '/favorites/search',
+  (req: Request, res: Response) => mealsController.getFavoriteRecipes(req, res)
+)
 mealsRouter.post(
   '/favorites/:id',
   Authorization.auth,

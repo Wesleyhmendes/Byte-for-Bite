@@ -181,61 +181,38 @@ export default class MealsModel implements IMealsRecipesModel {
     return rowCount[0];
   }
 
-  async createFavoriteMeals(userId: number) {   
-    const createFavorite = {
-      userId,
-      favoriteRecipes: []
+  async createFavoriteMeals(userId: number, mealId: number) {   
+    const findFavorite = await this.findFavorite(userId, mealId);
+    if (!findFavorite) {
+      const { dataValues } = await this.favoriteRecipesModel.create({userId, mealId});
+      return dataValues;
     }
-    const { dataValues } = await this.favoriteRecipesModel.create(createFavorite);
-
-    return dataValues;
+    await this.favoriteRecipesModel.destroy({where: {userId, mealId}});
   }
 
-  async findFavorite(userId: number) {
+  async findFavorite(userId: number, mealId: number) {
     const foundFavorite = await this.favoriteRecipesModel.findOne({
       where: {
-        userId
+        userId,
+        mealId
       }
     });
 
     return foundFavorite;
-  }
+  } 
 
-  async addRecipeInFavorite(userId: number, mealId: number) {
-    const foundFavorite = await this.findFavorite(userId);
-    if (!foundFavorite) {
-      await this.createFavoriteMeals(userId);
-      const newFavorite = [{mealId}];      
-      const rowCount = await this.favoriteRecipesModel.update({favoriteRecipes: newFavorite}, {
-        where: {
-          userId
-        },
-      })
-      return rowCount;                 
-    }
-    
-    const updatedFavorites = [...foundFavorite.favoriteRecipes, {mealId}];
-    const rowCount = await this.favoriteRecipesModel.update({favoriteRecipes: updatedFavorites}, {
-      where: {
-        userId
-      },
+  async getFavoriteRecipes(userId: number) {
+    const favorites = await this.favoriteRecipesModel.findAll({
+      where: {userId},
+      include: [{
+        model: MealsRecipe,
+        as: 'favoriteRecipes',
+        attributes: ['idMeal', 'strMeal', 'strMealThumb', 'strArea']
+      }],           
+      attributes: {exclude: ['mealId']},      
     });
+    // const mapped = favorites.map((obj) => obj.dataValues.favoriteRecipes)
 
-    return rowCount;
-  }
-
-  async removeRecipeFromFavorites(userId: number, mealId: number) {
-    const foundFavorite = await this.findFavorite(userId);
-    if (!foundFavorite) {
-      return foundFavorite
-    }
-    const updatedFavorites = foundFavorite.favoriteRecipes.filter((recipe) => recipe.mealId !== mealId);
-    const rowCount = await this.favoriteRecipesModel.update({favoriteRecipes: updatedFavorites}, {
-      where: {
-        userId
-      },
-    });
-
-    return rowCount;
+    return favorites;
   }
 }

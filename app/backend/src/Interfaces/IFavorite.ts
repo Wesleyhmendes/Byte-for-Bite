@@ -1,8 +1,11 @@
-import { IDrinkID } from './drinks/IDrinkID';
-import { IMealID } from './meals/IMealID';
-
-export interface IFavorite {
-  id: number,
+export interface IFavoriteMeal {  
   userId: number,
-  favoriteRecipes: IMealID[] | IDrinkID[]
+  mealId: number,
+  favoriteRecipes?: string[];
 };
+
+export interface IFavoriteDrink {
+  userId: number,
+  drinkId: number,
+  favoriteRecipes?: string[];
+}
