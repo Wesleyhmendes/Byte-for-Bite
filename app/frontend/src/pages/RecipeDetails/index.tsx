@@ -54,7 +54,7 @@ export default function RecipeDetails() {
 
   return (
     <main>
-      <ShareFavoriteButtons id={id} recipeType={route} recipeData={recipe} />
+      <ShareFavoriteButtons id={id} recipeType={route} />
 
       {recipe && !isLoading && !loadingNextPage ? (
         route === '/meals' ? (

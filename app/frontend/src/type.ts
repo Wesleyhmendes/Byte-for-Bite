@@ -88,6 +88,8 @@ export type DoneRecipeType = {
   tags: string[]
 };
 
+// FAVORITES
+
 export type FavoriteRecipeType = {
   id: string;
   type: string;
@@ -97,6 +99,50 @@ export type FavoriteRecipeType = {
   name: string;
   image: string;
 };
+
+export type FavoriteMealType = {
+  userId: number;
+  favoriteRecipes: {
+    idMeal: string;
+    strMeal: string;
+    strMealThumb: string;
+    strArea: string;
+  }
+};
+
+export type FavoriteMeals = {
+  idMeal: string;
+  strMeal: string;
+  strMealThumb: string;
+  strArea: string;
+};
+
+export type FavoriteDrinkType = {
+  userId: number;
+  favoriteRecipes: {
+    idDrink: string;
+    strDrink: string;
+    strDrinkThumb: string;
+    strAlcoholic: string;
+  }
+};
+
+export type FavoriteDrinks = {
+  idDrink: string;
+  strDrink: string;
+  strDrinkThumb: string;
+  strAlcoholic: string;
+}
+
+export type FavoriteMealReduceType = {
+  userId: number;
+  favoriteRecipes: FavoriteMeals[]
+}
+
+export type FavoriteDrinkReduceType = {
+  userId: number;
+  favoriteRecipes: FavoriteDrinks[]
+}
 
 // INGREDIENT LIST TYPE
 export type IngredientListType = {

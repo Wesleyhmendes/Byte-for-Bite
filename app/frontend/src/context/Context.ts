@@ -2,6 +2,8 @@ import { createContext } from 'react';
 import {
   CategoryType,
   DrinkType,  
+  FavoriteDrinkReduceType,  
+  FavoriteMealReduceType,  
   FilterRadioType,
   MealType,
   SearchActionType,
@@ -11,6 +13,7 @@ export type ContextType = {
   route: string,  
   selectedCategory: string,  
   filter: FilterRadioType,
+  formattedFavorites: FavoriteMealReduceType | FavoriteDrinkReduceType | undefined,
   getCategories: () => CategoryType[],
   filterDispatch: React.Dispatch<SearchActionType>,
   setRecipesFilter: (selectedFilter: FilterRadioType) => void,  
