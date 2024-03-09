@@ -5,7 +5,6 @@ import {
   InferCreationAttributes,
 } from 'sequelize';
 import db from '.';
-import SequelizeUsers from './00UserModel';
 import DrinksRecipes from './03Drinks-Recipes.model';
 
 export default class FinishedDrinksModel extends Model<InferAttributes<FinishedDrinksModel>,
@@ -39,5 +38,6 @@ FinishedDrinksModel.init({
   timestamps: false,
 })
 
-SequelizeUsers.belongsTo(FinishedDrinksModel, { foreignKey: 'id'})
-DrinksRecipes.belongsTo(FinishedDrinksModel, { foreignKey: 'idDrink'})
+FinishedDrinksModel.belongsTo(DrinksRecipes, { as: 'finishedRecipes', foreignKey: 'drinkId' })
+// SequelizeUsers.belongsTo(FinishedDrinksModel, { foreignKey: 'id'})
+// DrinksRecipes.belongsTo(FinishedDrinksModel, { foreignKey: 'idDrink'})

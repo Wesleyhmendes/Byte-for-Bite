@@ -152,10 +152,27 @@ export default class MealsService {
 
   async getFavoriteRecipes(userId: number) {
     const favoriteRecipes = await this.mealsModel.getFavoriteRecipes(userId);
-    if (!favoriteRecipes) {
+    if (favoriteRecipes.length === 0) {
       return {status: 'NOT_FOUND', data: { message: 'No favorite recipes stored!' }};
     }
 
     return { status: 'SUCCESSFUL', data: favoriteRecipes };
+  }
+
+  async addDoneMeal(userId: number, id: number) {
+    const doneRecipe = await this.mealsModel.createDoneMeals(userId, id);
+    if(doneRecipe) {
+      return {status: 'SUCCESSFUL', data: { message: 'Recipe is done!' }}    
+    } 
+    return {status: 'SUCCESSFUL', data: { message: 'Recipe removed from done recipes list.' }};
+  }
+
+  async getDoneRecipes(userId: number) {
+    const doneRecipes = await this.mealsModel.getDoneRecipes(userId);
+    if (doneRecipes.length === 0) {
+      return {status: 'NOT_FOUND', data: { message: 'No done recipes stored!' }};
+    }
+
+    return { status: 'SUCCESSFUL', data: doneRecipes };
   }
 }

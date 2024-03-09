@@ -123,6 +123,7 @@ export default class MatchesService {
     };
     return { status: 'SUCCESSFUL', data: { message: `Marked ingredients updated!` } };
   }
+
   async favoriteDrinkRecipe(userId: number, id: number) {
     const favorite = await this.drinkModel.createFavoriteDrinks(userId, id);
     if(favorite) {
@@ -133,10 +134,28 @@ export default class MatchesService {
 
   async getFavoriteRecipes(userId: number) {
     const favoriteRecipes = await this.drinkModel.getFavoriteRecipes(userId);
-    if (!favoriteRecipes) {
+    if (favoriteRecipes.length === 0) {
       return {status: 'NOT_FOUND', data: { message: 'No favorite recipes stored!' }};
     }
 
     return { status: 'SUCCESSFUL', data: favoriteRecipes };
+  }
+
+  async addDoneDrink(userId: number, id: number) {
+    const doneRecipe = await this.drinkModel.createDoneDrinks(userId, id);
+    
+    if(doneRecipe) {
+      return { status: 'SUCCESSFUL', data: { message: 'Recipe is done!' } }
+    }
+    return {status: 'SUCCESSFUL', data: { message: 'Recipe removed from done recipes list.' }};
+  }
+
+  async getDoneRecipes(userId: number) {
+    const doneRecipes = await this.drinkModel.getDoneRecipes(userId);    
+    if (doneRecipes.length === 0) {
+      return {status: 'NOT_FOUND', data: { message: 'No done recipes stored!' }};
+    }
+
+    return { status: 'SUCCESSFUL', data: doneRecipes };
   }
 }

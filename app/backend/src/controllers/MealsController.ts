@@ -108,4 +108,18 @@ export default class MealsController {
     const { status, data } = await this.mealsService.getFavoriteRecipes(Number(user));
     return res.status(mapStatusHTTP(status)).json(data);
   }
+
+  async addDoneMeal(req: Request, res: Response) {
+    const { id } = req.params;
+    const { userId } = req.body;
+    const { status, data } = await this.mealsService.addDoneMeal(userId, Number(id));
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  async getDoneRecipes(req: Request, res: Response) {
+    const { user } = req.query;
+    const { status, data } = await this.mealsService.getDoneRecipes(Number(user));
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+  
 }

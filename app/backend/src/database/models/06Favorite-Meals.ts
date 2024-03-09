@@ -6,7 +6,6 @@ import {
 } from 'sequelize';
 import db from '.';
 import MealsRecipe from './04Meals-Recipes';
-import SequelizeUsers from './00UserModel';
 
 export default class FavoriteMealsModel extends Model<InferAttributes<FavoriteMealsModel>,
   InferCreationAttributes<FavoriteMealsModel>> {

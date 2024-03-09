@@ -39,5 +39,6 @@ FinishedMealsModel.init({
   timestamps: false,
 })
 
-SequelizeUsers.belongsTo(FinishedMealsModel, { foreignKey: 'id'})
-MealsRecipe.belongsTo(FinishedMealsModel, { foreignKey: 'idMeal'})
+FinishedMealsModel.belongsTo(MealsRecipe, { as: 'finishedRecipes', foreignKey: 'drinkId' })
+// SequelizeUsers.belongsTo(FinishedMealsModel, { foreignKey: 'id'})
+// MealsRecipe.belongsTo(FinishedMealsModel, { foreignKey: 'idMeal'})

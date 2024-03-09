@@ -82,6 +82,7 @@ mealsRouter.patch(
 );
 mealsRouter.get(
   '/favorites/search',
+  Authorization.auth,
   (req: Request, res: Response) => mealsController.getFavoriteRecipes(req, res)
 )
 mealsRouter.post(
@@ -89,5 +90,14 @@ mealsRouter.post(
   Authorization.auth,
   (req: Request, res: Response) => mealsController.favoriteMealRecipe(req, res)
 );
+mealsRouter.post(
+  '/donerecipes/:id',
+  
+  (req: Request, res: Response) => mealsController.addDoneMeal(req, res)
+);
+mealsRouter.get(
+  '/donerecipes/search',
+  (req: Request, res: Response) => mealsController.getDoneRecipes(req, res)
+)
 
 export default mealsRouter;

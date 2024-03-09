@@ -24,7 +24,7 @@ export default function RecipeDetails() {
   
   const { data, isLoading, error } = useFetch(recipeDetailsURL);   
   const recipe = data;
-
+    
   // CHECK IF THE RECIPE IS IN PROGRESS
   const inProgressURL = `http://localhost:3001${route}/inprogress/${id}?user=${userId}`
   const inProgress = useFetch(inProgressURL);
