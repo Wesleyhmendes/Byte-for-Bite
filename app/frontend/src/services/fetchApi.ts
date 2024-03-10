@@ -4,7 +4,7 @@ import { createUrlMealsFilter } from '../utils/functions/createUrlMealsFilter';
 export const fetchMeals = async (token: string) => {
   const URL_API = 'http://localhost:3001/meals/name';
   const response = await fetch(URL_API, { headers: {
-    Authorization: `bearer ${ token }`
+    Authorization: `bearer ${token}`,
   } });
   const data = await response.json();
   return data;
@@ -27,7 +27,6 @@ export const fetchMealsCategories = async () => {
 };
 
 export const fetchMealsFilterByCategory = async (category: string) => {
-
   const URL_API = `http://localhost:3001/meals/category?q=${category}`;
   const response = await fetch(URL_API);
   const data = await response.json();

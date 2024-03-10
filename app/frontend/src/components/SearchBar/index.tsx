@@ -1,22 +1,22 @@
-import { ChangeEvent, FormEvent, useContext} from 'react';
+import { ChangeEvent, FormEvent, useContext } from 'react';
 import Context from '../../context/Context';
 
 function SearchBar() {
   const RESET_SEARCH = 'RESET_SEARCH';
   const SET_SEARCH = 'SET_SEARCH';
-  const { filter, setRecipesFilter, filterDispatch} = useContext(Context);
+  const { filter, setRecipesFilter, filterDispatch } = useContext(Context);
 
   const handleFilterChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = target;
-    filterDispatch({type: SET_SEARCH, key: name, value})
-  }
+    filterDispatch({ type: SET_SEARCH, key: name, value });
+  };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setRecipesFilter(filter);
-    filterDispatch({ type: RESET_SEARCH })
+    filterDispatch({ type: RESET_SEARCH });
   };
-  
+
   return (
     <div>
       <form onSubmit={ handleSubmit }>
@@ -70,7 +70,6 @@ function SearchBar() {
 
         <button
           data-testid="exec-search-btn"
-          type="submit"
         >
           Search
         </button>

@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import UserInfoContext from './UserInfoContext';
-import { UserInfoType } from '../../type';
 import useUserProvider from '../../hooks/useUserProvider';
 
 type UserInfoProviderProps = {
@@ -8,22 +6,22 @@ type UserInfoProviderProps = {
 };
 
 export default function UserInfoProvider({ children }: UserInfoProviderProps) {
-  const { 
+  const {
     user,
     UPDATE_USER,
     RESET_USER,
-    profile,    
-    signUpDispatch, 
-    handleChange 
-  } = useUserProvider()
+    profile,
+    signUpDispatch,
+    handleChange,
+  } = useUserProvider();
 
-  const value = {   
-    user, 
+  const value = {
+    user,
     UPDATE_USER,
     RESET_USER,
-    profile,  
-    signUpDispatch, 
-    handleChange 
+    profile,
+    signUpDispatch,
+    handleChange,
   };
 
   return (

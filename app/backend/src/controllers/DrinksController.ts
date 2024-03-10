@@ -7,7 +7,7 @@ export default class DrinksController {
     private drinkService = new DrinkService(),
   ) { }
 
-  public async getAllDrinks(req: Request, res: Response) {
+  async getAllDrinks(req: Request, res: Response) {
     const { q } = req.query;
     if (!q) {
       const { status, data } = await this.drinkService.getDrinks();
@@ -18,43 +18,43 @@ export default class DrinksController {
     return res.status(mapStatusHTTP(status)).json(data);
   } 
 
-  public async getById(req: Request, res: Response) {
+  async getById(req: Request, res: Response) {
     const { id } = req.params;
     const { status, data } = await this.drinkService.getById(Number(id));
 
     return res.status(mapStatusHTTP(status)).json(data);
   }
 
-  public async getDrinksByFirstLetter(req: Request, res: Response) {
+  async getDrinksByFirstLetter(req: Request, res: Response) {
     const { q } = req.query;
     const { status, data } = await this.drinkService.getDrinksByFirstLetter(q as string);
 
     return res.status(mapStatusHTTP(status)).json(data);
   }
 
-  public async getAllCategories(_req: Request, res: Response) {
+  async getAllCategories(_req: Request, res: Response) {
     const { status, data } = await this.drinkService.getAllCategories();
     return res.status(mapStatusHTTP(status)).json(data);
   }
 
-  public async getDrinkByCategory(req: Request, res: Response) {
+  async getDrinkByCategory(req: Request, res: Response) {
     const { q } = req.query;
     const { status, data } = await this.drinkService.getDrinkByCategory(q as string);
     return res.status(mapStatusHTTP(status)).json(data);
   }
 
-  public async getRandomDrink(req: Request, res: Response) {
+  async getRandomDrink(req: Request, res: Response) {
     const { status, data } = await this.drinkService.getRandomDrink();
     return res.status(mapStatusHTTP(status)).json(data);
   }
 
-  public async getByIngredient(req: Request, res: Response) {
+  async getByIngredient(req: Request, res: Response) {
     const { q } = req.query;    
       const { status, data } = await this.drinkService.getByIngredients(q as string);
       return res.status(mapStatusHTTP(status)).json(data);    
   }
   
-  public async getAllIngredients(_req: Request, res: Response) {    
+  async getAllIngredients(_req: Request, res: Response) {    
     const { status, data } = await this.drinkService.getAllIngredients();
     return res.status(mapStatusHTTP(status)).json(data);
   }
@@ -62,6 +62,55 @@ export default class DrinksController {
   async addDrinkInProgress(req: Request, res: Response) {
     const inProgress = req.body;
     const { status, data } = await this.drinkService.addDrinkInProgress(inProgress);
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  async findRecipeInProgressById(req: Request, res: Response) {
+    const { id } = req.params;
+    const { user } = req.query;
+    const { status, data } = await this.drinkService.findRecipeInProgressById({
+      userId: Number(user as string),
+      drinkId: Number(id),
+    });
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  async updateRecipeInProgressById(req: Request, res: Response) {
+    const { id } = req.params;
+    const { user } = req.query;
+    const { markedIngredients } = req.body;
+    const { status, data } = await this.drinkService.updateRecipeInProgressById({
+      userId: Number(user as string),
+      drinkId: Number(id),
+      markedIngredients,
+    })
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  async favoriteDrinkRecipe(req: Request, res: Response) {
+    const { id } = req.params;
+    const { userId } = req.body
+    const { status, data } = await this.drinkService.favoriteDrinkRecipe(userId, Number(id));
+    
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  async getFavoriteRecipes(req: Request, res: Response) {
+    const { user } = req.query
+    const { status, data } = await this.drinkService.getFavoriteRecipes(Number(user));
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  async addDoneDrink(req: Request, res: Response) {
+    const { id } = req.params;
+    const { userId } = req.body;   
+    const { status, data } = await this.drinkService.addDoneDrink(userId, Number(id));
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  async getDoneRecipes(req: Request, res: Response) {
+    const { user } = req.query;    
+    const { status, data } = await this.drinkService.getDoneRecipes(Number(user));
     return res.status(mapStatusHTTP(status)).json(data);
   }
 }

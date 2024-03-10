@@ -1,43 +1,56 @@
-import { useEffect, useState } from 'react';
+/* eslint-disable max-len */
+import { useContext, useEffect, useState } from 'react';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeart from '../../images/whiteHeartIcon.svg';
 import blackHeart from '../../images/blackHeartIcon.svg';
-import { addFavoriteRecipe, removeFavoriteRecipe } from '../../utils/functions/favorite';
-import { verifyLocalStorageKeys } from '../../utils/functions/localStorage';
-import { DrinkType, FavoriteRecipeType, MealType } from '../../type';
+import useFetch from '../../hooks/useFetch';
+import UserInfoContext from '../../context/UserInfo/UserInfoContext';
+import checkFavoritesFromDB from '../../utils/checkFavoritesFromDB';
+import Context from '../../context/Context';
 
 type ShareFavoriteButtonsProps = {
   id: string | undefined;
   recipeType: string;
-  recipeData?: MealType | DrinkType | null
 };
 
 export default function ShareFavoriteButtons({
-  id, recipeType, recipeData = null,
+  id, recipeType,
 }: ShareFavoriteButtonsProps) {
   const [shareMessage, setShareMessage] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
-  useEffect(() => {
-    const isFavoriteRecipe = () => {
-      setIsFavorite(JSON.parse(localStorage.getItem('favoriteRecipes') as string)
-        .some((recipe: FavoriteRecipeType) => recipe.id === id));
-    };
-    verifyLocalStorageKeys('favoriteRecipes');
-    isFavoriteRecipe();
-  }, [id]);
+  // GETS PROFILE FROM CONTEXT
+  const { profile } = useContext(UserInfoContext);
+  const { formattedFavorites } = useContext(Context);
 
+  // SENDS INFORMATION TO DB THROUGH BODY VIA 'POST'
+  const user = profile?.data;
+  const addFavoriteURL = `http://localhost:3001${recipeType}/favorites/${id}`;
+  const {
+    handleFetch,
+  } = useFetch(addFavoriteURL, { method: 'POST', body: { userId: user?.id } });
+
+  // CHECKS IF IT IS A FAVORITE RECIPE ON DB
+  const isRecipeFavorite = checkFavoritesFromDB(recipeType, id as string, formattedFavorites);
+
+  // COPY URL TO SHARE RECIPE
   const copyText = async () => {
     await navigator.clipboard.writeText(`${window.location.origin}/${recipeType}/${id}`);
     setShareMessage(true);
   };
 
+  // SETS FAVORITE STATE AND SETS RECIPE AS FAVORITE ON DB VIA handleFetch()
   const favoriteRecipe = () => {
-    setIsFavorite(!isFavorite);
-    const storageData = JSON.parse(localStorage.getItem('favoriteRecipes') as string);
-    if (isFavorite && id) removeFavoriteRecipe(id, storageData);
-    else addFavoriteRecipe(storageData, recipeType, recipeData);
+    setIsFavorite((prev) => !prev);
+    handleFetch();
   };
+
+  // SYNCHRONIZES STATE WITH DB
+  useEffect(() => {
+    if (isRecipeFavorite) {
+      setIsFavorite(isRecipeFavorite);
+    }
+  }, [isRecipeFavorite]);
 
   return (
     <>
@@ -46,7 +59,7 @@ export default function ShareFavoriteButtons({
         data-testid="share-btn"
         onClick={ copyText }
       >
-        <img src={ shareIcon } alt="ícone do botão compartilhar" />
+        <img src={ shareIcon } alt="Share button icon" />
       </button>
 
       <button
@@ -56,11 +69,11 @@ export default function ShareFavoriteButtons({
         <img
           data-testid="favorite-btn"
           src={ isFavorite ? blackHeart : whiteHeart }
-          alt="imagem de coração"
+          alt="Heart"
         />
       </button>
 
-      {shareMessage && <h4>Link copied!</h4>}
+      {shareMessage ? <h4>Link copied!</h4> : null}
     </>
   );
 }

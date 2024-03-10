@@ -27,16 +27,16 @@ export const Main = styled.main`
 export const Section = styled.section`
   
   
-  min-height: 85%;
+  border: 1px solid transparent;
   border-radius: 0 0 50px 50px;
   background: #ffffff;
 
   @media (min-width: 320px) {
-
+    min-height: 85%;
   }
 
   @media (min-width: 768px) {
-    
+    min-height: 55%;
   }
 
   @media (min-width: 1024px) {
@@ -44,7 +44,8 @@ export const Section = styled.section`
   }
 
   @media (min-width: 1280px) {
-    
+    width: 40%;
+    margin: 0 auto;
   }
 
 `;
@@ -153,7 +154,7 @@ export const Button = styled.button`
   margin-top: 1.5rem;
   border: none;
   background-color: #FFCE01;
-  width: 85%;
+  width: 325px;
 
   border-radius: 100px;
   font-weight: 600;

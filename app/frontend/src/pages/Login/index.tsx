@@ -5,7 +5,6 @@ import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import useFetch from '../../hooks/useFetch';
 import LoginModal from '../../components/Modals/LoginModal';
 import Loading from '../../components/Loading/Loading';
-
 import bgImgMobile from '../../assets/Images/bgImgMobile.png';
 import bgImgDesktop from '../../assets/Images/bgImgDesktop.png';
 import logo from '../../assets/Images/BfB_Logo.png';
@@ -28,6 +27,7 @@ function Login() {
   const { user, RESET_USER, handleChange, signUpDispatch } = useContext(UserInfoContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // GETS USER OBJECT FROM CONTEXT AND FILLED WITH FORM INFORMATION BELLOW AND SENDS AS REQUEST BODY TO BACKEND
   const url = 'http://localhost:3001/user/login';
 
   const requestBody = user;
@@ -44,6 +44,7 @@ function Login() {
     return isValid;
   };
 
+  // SUBMITS DATA INVOKING handleFetch, SAVES USER E-MAIL IN LOCALSTORAGE FOR FURTHER USAGE, RESETS CONTEXT USER INFO AND SET MODAL OPEN FOR BACKEND AUTH.
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await handleFetch();
@@ -85,7 +86,7 @@ function Login() {
               data-testid="login-submit-btn"
               disabled={ !isDisabled }
             >
-              Entrar
+              Login
             </Button>
           </Form>
           <NoAccountDiv>

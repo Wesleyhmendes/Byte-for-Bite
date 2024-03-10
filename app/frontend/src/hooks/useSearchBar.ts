@@ -8,29 +8,28 @@ const useSearchBar = () => {
   const initialFilter: FilterRadioType = {
     radioSelected: 'i',
     search: '',
-  }
+  };
 
   const searchReducer = (state = initialFilter, action: SearchActionType) => {
     switch (action.type) {
       case SET_SEARCH:
         return {
           ...state,
-          [action.key as string]: action.value
-        }
+          [action.key as string]: action.value,
+        };
       case RESET_SEARCH:
-        return initialFilter
+        return initialFilter;
       default:
-        return state
+        return state;
     }
-  }
-  
-  const [filter, filterDispatch] = useReducer(searchReducer, initialFilter); 
+  };
+
+  const [filter, filterDispatch] = useReducer(searchReducer, initialFilter);
 
   return {
-    filter,    
-    filterDispatch,    
-  }
-
-}
+    filter,
+    filterDispatch,
+  };
+};
 
 export default useSearchBar;

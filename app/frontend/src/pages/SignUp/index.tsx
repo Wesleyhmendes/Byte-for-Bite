@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
-import validateUser from '../../utils/functions/validateUser';
+import validateUser from '../../utils/validateUser';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import Loading from '../../components/Loading/Loading';
 import Modal from '../../components/Modals/SignUpModal';
@@ -22,6 +22,7 @@ function SignUp() {
   const { confirmPassword, ...rest } = user;
   const requestBody = rest;
 
+  // SEND USER DATA TO DB
   const signUpURL = 'http://localhost:3001/user';
   const {
     handleFetch, data, isLoading, error,
@@ -29,13 +30,13 @@ function SignUp() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // SUBMITS DATA INVOKING handleFetch, SAVES USER E-MAIL IN LOCALSTORAGE FOR FURTHER USAGE, RESETS CONTEXT USER INFO AND SET MODAL OPEN FOR BACKEND AUTH.
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     await handleFetch();
 
     localStorage.setItem('user', JSON.stringify(user.email));
-
     signUpDispatch({ type: RESET_USER });
 
     setIsModalOpen(true);

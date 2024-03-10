@@ -10,8 +10,8 @@ const useSignUp = () => {
     username: '',
     password: '',
     confirmPassword: '',
-    profileImage: '',  
-  }
+    profileImage: '',
+  };
 
   const signUpReducer = (state = initialState, action: UserAction) => {
     switch (action.type) {
@@ -19,29 +19,29 @@ const useSignUp = () => {
         return {
           ...state,
           [action.key as string]: action.value,
-        }
+        };
       case RESET_USER:
-        return initialState
+        return initialState;
       default:
-        return state
+        return state;
     }
-  }
+  };
 
   const [user, signUpDispatch] = useReducer(signUpReducer, initialState);
 
   const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = target;
 
-    signUpDispatch({ type: UPDATE_USER, key: name, value }); 
-  } 
+    signUpDispatch({ type: UPDATE_USER, key: name, value });
+  };
 
   return {
     user,
     UPDATE_USER,
-    RESET_USER,    
+    RESET_USER,
     handleChange,
     signUpDispatch,
-  }
-}
+  };
+};
 
 export default useSignUp;

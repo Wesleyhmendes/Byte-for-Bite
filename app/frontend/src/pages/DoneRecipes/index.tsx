@@ -1,23 +1,22 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { DoneRecipeType } from '../../type';
-import shareIcon from '../../images/shareIcon.svg';
+import { useContext, useState } from 'react';
+import UserInfoContext from '../../context/UserInfo/UserInfoContext';
+import useFetch from '../../hooks/useFetch';
+import formatDoneRecipes from '../../utils/formatDoneRecipes';
+import DoneOrFavoriteCard from '../../components/DoneOrFavoriteCard/DoneOrFavoriteCard';
 
-export default function DoneRecipes() {  
+export default function DoneRecipes() {
   const [filter, setFilter] = useState('all');
-  const [shareMessage, setShareMessage] = useState<boolean>(false);
+  const { profile } = useContext(UserInfoContext);
+  const userId = profile?.data?.id;
 
-  const doneRecipes: DoneRecipeType[] = JSON.parse(localStorage.getItem('doneRecipes') ?? '[]');  
+  const doneMealsURL = `http://localhost:3001/meals/donerecipes/search?user=${userId}`;
+  const doneDrinksURL = `http://localhost:3001/drinks/donerecipes/search?user=${userId}`;
 
-  const filteredRecipes = filter === 'all'
-    ? doneRecipes
-    : doneRecipes.filter((recipe) => recipe.type === filter);
+  const doneMeals = useFetch(doneMealsURL);
+  const doneDrinks = useFetch(doneDrinksURL);
 
-  const copyText = async (recipe: DoneRecipeType) => {
-    const recipeUrl = `${window.location.origin}/${recipe.type}s/${recipe.id}`;
-    await navigator.clipboard.writeText(recipeUrl);
-    setShareMessage(true);
-  };
+  const formattedDoneMeals = formatDoneRecipes('/meals', doneMeals);
+  const formattedDoneDrinks = formatDoneRecipes('/drinks', doneDrinks);
 
   return (
     <div>
@@ -42,44 +41,41 @@ export default function DoneRecipes() {
         Drinks
 
       </button>
-      <ul>
-        {filteredRecipes.map((recipe, index) => (
-          <li key={ index }>
-            <Link to={ `/${recipe.type}s/${recipe.id}` }>
-              <img
-                width="200px"
-                src={ recipe.image }
-                alt={ recipe.name }
-                data-testid={ `${index}-horizontal-image` }
-              />
-              <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
-            </Link>
-            <p data-testid={ `${index}-horizontal-top-text` }>
-              {recipe.type === 'meal'
-                ? `${recipe.nationality} - ${recipe.category}`
-                : recipe.alcoholicOrNot}
-            </p>
-            <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
-            <div>
-              {recipe.tags.slice(0, 2).map((tag, tagIndex) => (
-                <span key={ tagIndex } data-testid={ `${index}-${tag}-horizontal-tag` }>
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <button
-              onClick={ () => copyText(recipe) }
-            >
-              <img
-                data-testid={ `${index}-horizontal-share-btn` }
-                src={ shareIcon }
-                alt="ícone do botão compartilhar"
-              />
-            </button>
-            {shareMessage && <h4>Link copied!</h4>}
-          </li>
-        ))}
-      </ul>
+      {formattedDoneMeals && filter === 'all' ? (
+        formattedDoneMeals.finishedRecipes
+          .map((recipe, i) => (<DoneOrFavoriteCard
+            key={ `AllDoneMeals[${i}]` }
+            recipeType="meals"
+            recipe={ recipe }
+          />))
+      ) : null}
+      {formattedDoneDrinks && filter === 'all' ? (
+        formattedDoneDrinks.finishedRecipes
+          .map((recipe, i) => (<DoneOrFavoriteCard
+            key={ `AllDoneDrinks[${i}]` }
+            recipeType="drinks"
+            recipe={ recipe }
+          />))
+      ) : null}
+
+      {formattedDoneMeals && filter === 'meals' ? (
+        formattedDoneMeals.finishedRecipes
+          .map((recipe, i) => (<DoneOrFavoriteCard
+            key={ `doneMeals[${i}]` }
+            recipeType="meals"
+            recipe={ recipe }
+          />))
+      ) : null}
+
+      {formattedDoneDrinks && filter === 'drinks' ? (
+        formattedDoneDrinks.finishedRecipes
+          .map((recipe, i) => (<DoneOrFavoriteCard
+            key={ `doneDrinks[${i}]` }
+            recipeType="drinks"
+            recipe={ recipe }
+          />))
+      ) : null}
+
     </div>
   );
 }

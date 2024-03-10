@@ -5,14 +5,14 @@ export type User = {
   password: string;
   confirmPassword?: string;
   profileImage?: string;
-}
+};
 
 // ACTIONS
 export type UserAction = {
   type: string,
   key?: string,
   value?: string,
-}
+};
 
 export type FetchAction =
 | { type: 'loading' }
@@ -24,6 +24,12 @@ export type SearchActionType = {
   type: string,
   key?: string,
   value?: string,
+};
+
+export type CheckIngredientActionType = {
+  type: string,
+  name?: string,
+  value?: boolean,
 };
 
 // FETCHED DATA
@@ -61,33 +67,83 @@ export type DrinkType = {
   [strIngredient: string]: string;
 };
 
-export type InProgressRecipeType = {
-  drinks: {
-    [key: string]: string[];
-  };
-  meals: {
-    [key: string]: string[];
-  };
+// FAVORITE RECIPE TYPES
+
+export type MealInfoType = {
+  idMeal: string;
+  strMeal: string;
+  strMealThumb: string;
+  strArea: string;
 };
 
-export type DoneRecipeType = {
-  id: string;
-  type: string;
-  nationality: string;
-  category: string;
-  alcoholicOrNot: string;
-  name: string;
-  image: string;
-  doneDate: string;
-  tags: string[]
+export type FavoriteMealType = {
+  userId: number;
+  favoriteRecipes: MealInfoType;
 };
 
-export type FavoriteRecipeType = {
-  id: string;
-  type: string;
-  nationality: string;
-  category: string;
-  alcoholicOrNot: string;
-  name: string;
-  image: string;
+export type DrinkInfoType = {
+  idDrink: string;
+  strDrink: string;
+  strDrinkThumb: string;
+  strAlcoholic: string;
+};
+
+export type FavoriteDrinkType = {
+  userId: number;
+  favoriteRecipes: DrinkInfoType;
+};
+
+export type FavoriteMealReduceType = {
+  userId: number;
+  favoriteRecipes: MealInfoType[];
+};
+
+export type FavoriteDrinkReduceType = {
+  userId: number;
+  favoriteRecipes: DrinkInfoType[];
+};
+
+// DONE RECIPE TYPES
+export type DoneMealType = {
+  userId: number;
+  finishedRecipes: MealInfoType;
+};
+
+export type DoneDrinkType = {
+  userId: number;
+  finishedRecipes: DrinkInfoType;
+};
+
+export type DoneMealReduceType = {
+  userId: number;
+  finishedRecipes: MealInfoType[];
+};
+
+export type DoneDrinkReduceType = {
+  userId: number;
+  finishedRecipes: DrinkInfoType[];
+};
+
+// INGREDIENT LIST TYPE
+export type IngredientListType = {
+  strIngredient1: boolean,
+  strIngredient2: boolean,
+  strIngredient3: boolean,
+  strIngredient4: boolean,
+  strIngredient5: boolean,
+  strIngredient6: boolean,
+  strIngredient7: boolean,
+  strIngredient8: boolean,
+  strIngredient9: boolean,
+  strIngredient10: boolean,
+  strIngredient11: boolean,
+  strIngredient12: boolean,
+  strIngredient13: boolean,
+  strIngredient14: boolean,
+  strIngredient15: boolean,
+  strIngredient16: boolean,
+  strIngredient17: boolean,
+  strIngredient18: boolean,
+  strIngredient19: boolean,
+  strIngredient20: boolean,
 };

@@ -1,87 +1,86 @@
-import { ChangeEvent, useEffect, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import style from './style.module.css';
-import { DrinkType, MealType } from '../../type';
-import { fetchRecipeById } from '../../services/fetchApi';
-import { verifyLocalStorageKeys } from '../../utils/functions/localStorage';
+/* eslint-disable max-len */
+import { ChangeEvent, useContext } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { IngredientListType } from '../../type';
 import ShareFavoriteButtons from '../../components/ShareFavoriteButtons';
-import { finishRecipe } from '../../utils/functions/finish';
+import useFetch from '../../hooks/useFetch';
+import UserInfoContext from '../../context/UserInfo/UserInfoContext';
+import Context from '../../context/Context';
+import getIngredients from '../../utils/getIngredients';
+import useCheckIngredients from '../../hooks/useCheckIngredients';
+import isRecipeDone from '../../utils/isRecipeDone';
 
 export default function RecipeInProgress() {
-  const [recipeData, setRecipeData] = useState<MealType | DrinkType>();
-  const [usedIngredients, setUsedIngredients] = useState<string[]>([]);
-  const [ingredients, setIngredients] = useState<string[]>([]);
-  const [isDisable, setIsDisable] = useState(true);
-  const { id } = useParams();
   const navigate = useNavigate();
-  const location = useLocation().pathname;
-  const typeRecipe = location.includes('meals') ? 'Meal' : 'Drink';
+  const { route } = useContext(Context);
+  const { profile } = useContext(UserInfoContext);
+  const { id } = useParams();
+  const userId = profile?.data?.id;
 
-  useEffect(() => {
-    const getData = async () => {
-      if (id) {
-        const data = (await fetchRecipeById(location.split('/')[1], id));
-        setRecipeData(data);
-        setIngredients((getIngredients(data)));
-      }
-    };
+  // HOOK THAT CONTROLS STATE OF INGREDIENT CHECKBOX AND USES FETCHED DATA FROM DB AS INITIAL STATE
+  const {
+    stateIngredients,
+    isInprogress,
+    CHANGE,
+    checkIngredientsDispatch,
+  } = useCheckIngredients(userId, id as string, route);
 
-    const getIngredients = (recipe: MealType | DrinkType) => {
-      return Object.entries(recipe).filter((content: [string, unknown]) => content[0]
-        .includes('strIngredient') && content[1]).flat()
-        .filter((ingredient: any) => !(
-          ingredient.includes('strIngredient'))) as string[];
-    };
+  // GET RECIPE
+  const recipeURL = `http://localhost:3001${route}/${id}`;
+  const { data, isLoading, error } = useFetch(recipeURL);
 
-    const checkInProgressRecipes = () => {
-      const storeData = JSON.parse(localStorage.getItem('inProgressRecipes') as string);
-      if (id && storeData[location.split('/')[1]][id]) {
-        setUsedIngredients(storeData[location.split('/')[1]][id]);
-      }
-    };
+  // ADD DONE RECIPE
+  const addDoneRecipeURL = `http://localhost:3001${route}/donerecipes/${id}`;
+  const {
+    handleFetch,
+  } = useFetch(addDoneRecipeURL, { method: 'POST', body: { userId } });
 
-    getData();
-    verifyLocalStorageKeys('inProgressRecipes', 'favoriteRecipes');
-    checkInProgressRecipes();
-  }, [id]);
+  if (!data) {
+    return undefined;
+  }
+  const recipeData = data;
+  const typeRecipe = route === '/meals' ? 'Meal' : 'Drink';
 
-  const handleChange = ({
-    target: { value } }: ChangeEvent<HTMLInputElement>) => {
-    const storeData = JSON.parse(localStorage.getItem('inProgressRecipes') as string);
-    if (id && !usedIngredients.includes(value)) {
-      const newUsedIngredients = [...usedIngredients, value];
-      setUsedIngredients(newUsedIngredients);
-      storeData[location.split('/')[1]] = { [id]: newUsedIngredients };
-      localStorage.setItem('inProgressRecipes', JSON.stringify(storeData));
-      if (newUsedIngredients.length === ingredients.length) setIsDisable(false);
-    } else {
-      const removedIngredient = usedIngredients
-        .filter((ingredient) => ingredient !== value);
-      setUsedIngredients(removedIngredient);
-      if (id) storeData[location.split('/')[1]] = { [id]: removedIngredient };
-      localStorage.setItem('inProgressRecipes', JSON.stringify(storeData));
-      setIsDisable(true);
-    }
+  // SEPARATES INGREDIENT LIST FROM RECIPE DATA AND RETURN A ARRAY OF INGREDIENTS
+  const ingredients = getIngredients(recipeData);
+
+  // HANDLECHANGE
+  const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = target;
+    checkIngredientsDispatch({ type: CHANGE, name, value: checked });
+  };
+
+  // CHECK IF RECIPE IS DONE. IF IT IS, ENABLES 'End recipe' BUTTON.
+  const isDone = isRecipeDone(ingredients, stateIngredients);
+
+  // FUNCTION THAT ADD A RECIPE TO DONE RECIPES LIST IN DB
+  const handleDone = () => {
+    handleFetch();
+    navigate('/done-recipes');
   };
 
   return (
     <div>
-      { recipeData && (
+      {isLoading ? <h3>Loading...</h3> : null}
+
+      {error && !isLoading ? <h3>An unexpected error occurred...</h3> : null}
+
+      {recipeData && !isInprogress && !isLoading ? (
+        <h3>This recipe has not been started.</h3>
+      ) : null}
+
+      {recipeData && isInprogress && !isLoading ? (
         <section className="recipesIngProgressSection">
           <ShareFavoriteButtons
             id={ id }
-            recipeType={ location.split('/')[1] }
-            recipeData={ recipeData }
+            recipeType={ route }
           />
           <button
             data-testid="finish-recipe-btn"
-            disabled={ isDisable }
-            onClick={ () => {
-              finishRecipe(location.split('/')[1], recipeData);
-              navigate('/done-recipes');
-            } }
+            disabled={ !isDone }
+            onClick={ handleDone }
           >
-            Finalizar
+            End Recipe
           </button>
 
           <img
@@ -90,34 +89,37 @@ export default function RecipeInProgress() {
             alt={ recipeData[`str${typeRecipe}`] }
           />
 
-          <h2 data-testid="recipe-title">{ recipeData[`str${typeRecipe}`] }</h2>
+          <h2 data-testid="recipe-title">{recipeData[`str${typeRecipe}`]}</h2>
 
-          <p data-testid="recipe-category">{ recipeData.strCategory }</p>
+          <p data-testid="recipe-category">{recipeData.strCategory}</p>
 
           {ingredients.map((ingredient, index) => (
             <label
               data-testid={ `${index}-ingredient-step` }
               key={ index }
-              className={
-                usedIngredients.includes(ingredient)
-                  ? (style.ingredientUsed)
-                  : (style.ingredientUnused)
+              style={
+                stateIngredients[`strIngredient${index + 1}` as keyof IngredientListType]
+                  ? { textDecoration: 'line-through' }
+                  : { textDecoration: 'none' }
               }
             >
               <input
                 type="checkbox"
-                value={ ingredient }
+                name={ `strIngredient${index + 1}` }
                 onChange={ handleChange }
-                checked={ usedIngredients.includes(ingredient) }
+                checked={
+                  stateIngredients[`strIngredient${index + 1}` as keyof IngredientListType]
+                    ? stateIngredients[`strIngredient${index + 1}` as keyof IngredientListType]
+                    : false
+                }
               />
               {ingredient}
             </label>
           ))}
 
-          <p data-testid="instructions">{ recipeData.strInstructions }</p>
-
+          <p data-testid="instructions">{recipeData.strInstructions}</p>
         </section>
-      )}
+      ) : null}
     </div>
   );
 }
