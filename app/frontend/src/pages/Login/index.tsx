@@ -1,6 +1,6 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useContext, useState } from 'react';
 import { User } from '../../type';
-import { Link } from 'react-router-dom';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import useFetch from '../../hooks/useFetch';
 import LoginModal from '../../components/Modals/LoginModal';
@@ -20,14 +20,16 @@ import {
   Button,
   LogoDiv,
   Logo,
+  StyledLink,
   NoAccountDiv,
 } from './Login.styles';
 
-function Login() {  
+function Login() {
   const { user, RESET_USER, handleChange, signUpDispatch } = useContext(UserInfoContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const url = 'http://localhost:3001/user/login';
+
   const requestBody = user;
 
   const { handleFetch, data, isLoading } = useFetch(url, {
@@ -35,8 +37,8 @@ function Login() {
     body: requestBody,
   });
 
-  const validateFields = (user: User) => {
-    const { email, password } = user;
+  const validateFields = (userInfo: User) => {
+    const { email, password } = userInfo;
     const validateRegexEmail = /\S+@\S+\.\S+/;
     const isValid = validateRegexEmail.test(email) && password.length >= 6;
     return isValid;
@@ -47,7 +49,7 @@ function Login() {
     await handleFetch();
     setIsModalOpen(true);
     localStorage.setItem('user', JSON.stringify(user.email));
-    signUpDispatch({type: RESET_USER})
+    signUpDispatch({ type: RESET_USER });
   };
 
   const isDisabled = validateFields(user);
@@ -59,7 +61,7 @@ function Login() {
       <LogoDiv>
         <Logo src={ logo } alt="logo" />
       </LogoDiv>
-      {!isModalOpen ? (
+      { !isModalOpen ? (
         <FormMainDiv>
           <Form onSubmit={ handleSubmit }>
             <Inputs
@@ -90,7 +92,7 @@ function Login() {
             <Phrase>
               Don't have an account? Sign up
               { ' ' }
-              <Link to="/signup">here</Link>
+              <StyledLink to="/signup">here</StyledLink>
             </Phrase>
           </NoAccountDiv>
         </FormMainDiv>
@@ -101,7 +103,7 @@ function Login() {
 
         <Loading />
 
-      ) : null}
+      ) : null }
 
       { isModalOpen && !isLoading ? (
 
