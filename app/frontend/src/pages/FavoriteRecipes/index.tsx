@@ -1,7 +1,4 @@
 import { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { FavoriteRecipeType } from '../../type';
-import Context from '../../context/Context';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import useFetch from '../../hooks/useFetch';
 import formatFavorites from '../../utils/formatFavorites';
