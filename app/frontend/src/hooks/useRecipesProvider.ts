@@ -122,7 +122,7 @@ const useRecipesProvider = (path: string) => {
 
   // FORMAT FAVORITE RECIPES DATA
   const formattedFavorites = formatFavorites(path, favorites);
- 
+  console.log()
   return {      
     selectedCategory,   
     filter,

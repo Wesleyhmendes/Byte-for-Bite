@@ -20,7 +20,7 @@ export default function ShareFavoriteButtons({
 
   // GETS PROFILE FROM CONTEXT
   const { profile } = useContext(UserInfoContext);
-  const { formattedFavorites } = useContext(Context)
+  const { formattedFavorites } = useContext(Context);
   
   // SENDS INFORMATION TO DB THROUGH BODY VIA 'POST'
   const user = profile?.data;

@@ -1,31 +1,24 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FavoriteRecipeType } from '../../type';
+import Context from '../../context/Context';
+import UserInfoContext from '../../context/UserInfo/UserInfoContext';
+import useFetch from '../../hooks/useFetch';
+import formatFavorites from '../../utils/formatFavorites';
+import FavoriteCard from '../../components/FavoriteCard/FavoriteCard';
 
-export default function FavoriteRecipes() {
-  const [shareMessage, setShareMessage] = useState<boolean>(false);
-  const [_favoriteRecipes, setFavoriteRecipes] = useState<FavoriteRecipeType[]>([]);
-  const [filter, setFilter] = useState('all'); 
+export default function FavoriteRecipes() {  
+  const [filter, setFilter] = useState('all');
+  const { profile } = useContext(UserInfoContext);
+  const userId = profile?.data?.id
 
-  const getLocalStorageData: FavoriteRecipeType[] = JSON.parse(
-    localStorage.getItem('favoriteRecipes') ?? '[]');
+  const favoriteMeals = `http://localhost:3001/meals/favorites/search?user=${userId}`
+  const favoriteDrinksURL = `http://localhost:3001/drinks/favorites/search?user=${userId}`
 
-  const filteredRecipes = filter === 'all'
-    ? getLocalStorageData
-    : getLocalStorageData.filter((recipe) => recipe.type === filter);
-
-  const copyText = async (recipe: FavoriteRecipeType) => {
-    const recipeUrl = `${window.location.origin}/${recipe.type}s/${recipe.id}`;
-    await navigator.clipboard.writeText(recipeUrl);
-    setShareMessage(true);
-  }; 
-
-  const handleRemoveFavorites = (recipeId: string) => {
-    const updateFavorites = getLocalStorageData
-      .filter((recipe: FavoriteRecipeType) => recipe.id !== recipeId);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(updateFavorites));
-    setFavoriteRecipes(updateFavorites);
-  };
+  const meals = useFetch(favoriteMeals);
+  const drinks = useFetch(favoriteDrinksURL);
+  const formattedMeals = formatFavorites('/meals', meals);
+  const formattedDrinks = formatFavorites('/drinks', drinks);
 
   return (
     <section>
@@ -46,53 +39,20 @@ export default function FavoriteRecipes() {
         data-testid="filter-by-drink-btn"
       >
         Drinks
-      </button>
-      { filteredRecipes
-        && filteredRecipes.map((recipe, index) => (
-          <div key={ recipe.id }>
-            <Link to={ `/${recipe.type}s/${recipe.id}` }>
-              <img
-                width="200"
-                data-testid={ `${index}-horizontal-image` }
-                src={ recipe.image }
-                alt={ recipe.name }
-              />
-              <p data-testid={ `${index}-horizontal-name` }>{ recipe.name }</p>
-            </Link>
-            <button
-              onClick={ () => copyText(recipe) }
-            >
-              <img
-                data-testid={ `${index}-horizontal-share-btn` }
-                src="src/images/shareIcon.svg"
-                alt="compartilhar"
-              />
-            </button>
-            <button
-              onClick={ () => handleRemoveFavorites(recipe.id) }
-            >
-              <img
-                data-testid={ `${index}-horizontal-favorite-btn` }
-                src="src/images/blackHeartIcon.svg"
-                alt="favoritar"
-              />
-            </button>
-            <p data-testid={ `${index}-horizontal-top-text` }>{ recipe.category }</p>
-            <p data-testid={ `${index}-horizontal-top-text` }>
-              { `${recipe.nationality} - ${recipe.category}` }
-            </p>
-            { recipe.alcoholicOrNot ? (
-              <p
-                data-testid={ `${index}-horizontal-top-text` }
-              >
-                { recipe.alcoholicOrNot }
-              </p>
-            ) : null }
-            { shareMessage && (
-              <h4>Link copied!</h4>
-            ) }
-          </div>
-        )) }
+      </button>     
+      {formattedMeals && filter === 'all' ? (
+        formattedMeals.favoriteRecipes.map((recipe) => <FavoriteCard key='allMeals' favoriteRecipe={recipe} recipeType='meals' />)
+      ) : null}
+      {formattedDrinks && filter === 'all' ? (
+        formattedDrinks.favoriteRecipes.map((recipe) => <FavoriteCard key='allDrinks' favoriteRecipe={recipe} recipeType='drinks' />)
+      ) : null} 
+      {favoriteMeals && filter === 'meal' ? (
+        formattedMeals?.favoriteRecipes.map((recipes) => <FavoriteCard key='meals' favoriteRecipe={recipes} recipeType='meals' />)
+      ) : null}
+      {formattedDrinks && filter === 'drink' ? (
+        formattedDrinks.favoriteRecipes.map((recipes) => <FavoriteCard key='drinks' favoriteRecipe={recipes} recipeType='drinks' />)
+      ) : null}
+     
     </section>
   );
 }
