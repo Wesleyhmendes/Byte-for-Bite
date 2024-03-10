@@ -8,11 +8,15 @@ import IAreaType from "../Interfaces/IAreaType";
 import { IProgressMealRecipe } from '../Interfaces/IProgress';
 import InProgressMealsModel from '../database/models/08In-Progress-Meals';
 import { startMealRecipeInProgress } from '../utils/startRecipeInProgress';
+import FavoriteMealsModel from '../database/models/06Favorite-Meals';
+import FinishedMealsModel from '../database/models/10Finished-Meals';
 
 export default class MealsModel implements IMealsRecipesModel {
   private mealsModel = MealsRecipe;
   private inProgressModel = InProgressMealsModel;
   private mealsCategoryModel = MealsCategories;
+  private favoriteRecipesModel = FavoriteMealsModel;
+  private doneMealsModel = FinishedMealsModel;
   
   async findAll(): Promise<IMealRecipes[]> {
     const recipes = await this.mealsModel.findAll({
@@ -159,7 +163,7 @@ export default class MealsModel implements IMealsRecipesModel {
       where: {
         userId,
         mealId,
-      }
+      },
     });
     
     return foundRecipe
@@ -171,11 +175,80 @@ export default class MealsModel implements IMealsRecipesModel {
       where: {
         userId,
         mealId,
-      }
-    })
+      },
+    });
 
     if (rowCount[0] === 0) return null;
 
     return rowCount[0];
+  }
+
+  async createFavoriteMeals(userId: number, mealId: number) {   
+    const findFavorite = await this.findFavorite(userId, mealId);
+    if (!findFavorite) {
+      const { dataValues } = await this.favoriteRecipesModel.create({userId, mealId});
+      return dataValues;
+    }
+    await this.favoriteRecipesModel.destroy({where: {userId, mealId}});
+  }
+
+  async findFavorite(userId: number, mealId: number) {    
+    const foundFavorite = await this.favoriteRecipesModel.findOne({
+      where: {
+        userId,
+        mealId,
+      }
+    });
+    
+    return foundFavorite;
+  } 
+
+  async getFavoriteRecipes(userId: number) {
+    const favorites = await this.favoriteRecipesModel.findAll({
+      where: {userId},
+      include: [{
+        model: MealsRecipe,
+        as: 'favoriteRecipes',
+        attributes: ['idMeal', 'strMeal', 'strMealThumb', 'strArea']
+      }],           
+      attributes: {exclude: ['mealId']},      
+    });
+    
+    return favorites;
+  }
+
+  async findDone(userId: number, mealId: number) {
+    // console.log('USERID', userId, 'MEALID', mealId);
+    const foundDone = await this.doneMealsModel.findOne({
+      where: {
+        userId,
+        mealId,
+      }
+    });
+    
+    return foundDone;
+  } 
+
+  async createDoneMeals(userId: number, mealId: number) {   
+    const findDone = await this.findDone(userId, mealId);    
+    if (!findDone) {
+      const { dataValues } = await this.doneMealsModel.create({userId, mealId});
+      return dataValues;
+    }
+    await this.doneMealsModel.destroy({where: {userId, mealId}});
+  }
+
+  async getDoneRecipes(userId: number) {
+    const doneRecipes = await this.doneMealsModel.findAll({
+      where: {userId},
+      include: [{
+        model: MealsRecipe,
+        as: 'finishedRecipes',
+        attributes: ['idMeal', 'strMeal', 'strMealThumb', 'strArea']
+      }],           
+      attributes: {exclude: ['mealId']},      
+    });   
+
+    return doneRecipes;
   }
 }

@@ -3,45 +3,41 @@ import {
   Model,
   InferAttributes,
   InferCreationAttributes,
-  CreationOptional,
 } from 'sequelize';
 import db from '.';
-import SequelizeUsers from './00UserModel';
 import DrinksRecipes from './03Drinks-Recipes.model';
 
 export default class FinishedDrinksModel extends Model<InferAttributes<FinishedDrinksModel>,
   InferCreationAttributes<FinishedDrinksModel>> {
-  declare id: CreationOptional<number>;
-  declare userId: string;
-  declare drinkId: number;
+    declare drinkId: number;
+    declare userId: number;
 }
 
 FinishedDrinksModel.init({
-  id: {
+  drinkId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
     autoIncrement: true,
+    references:{
+      model: 'drinks_recipes',
+      key: 'idDrink'
+    }
   },
   userId: {
     type: DataTypes.INTEGER,
+    primaryKey: true,
     references: {
       model: 'users',
       key: 'id'
     }
-  },
-  drinkId: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: 'drinks_recipes',
-      key: 'idMeal'
-    }
-  },
+  }, 
 }, {
   sequelize: db,
   modelName: 'finished_drinks',
   timestamps: false,
 })
 
-SequelizeUsers.belongsTo(FinishedDrinksModel, { foreignKey: 'id'})
-DrinksRecipes.belongsTo(FinishedDrinksModel, { foreignKey: 'idDrink'})
+FinishedDrinksModel.belongsTo(DrinksRecipes, { as: 'finishedRecipes', foreignKey: 'drinkId' })
+// SequelizeUsers.belongsTo(FinishedDrinksModel, { foreignKey: 'id'})
+// DrinksRecipes.belongsTo(FinishedDrinksModel, { foreignKey: 'idDrink'})

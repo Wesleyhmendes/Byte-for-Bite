@@ -141,4 +141,38 @@ export default class MealsService {
     };
     return { status: 'SUCCESSFUL', data: { message: `Marked ingredients updated!` } };
   }
+
+  async favoriteMealRecipe(userId: number, id: number) {
+   const favorite = await this.mealsModel.createFavoriteMeals(userId, id);
+   if(favorite) {
+    return {status: 'SUCCESSFUL', data: { message: 'Recipe stored in favorites' }}    
+   } 
+   return {status: 'SUCCESSFUL', data: { message: 'Recipe removed from favorites' }};
+  }
+
+  async getFavoriteRecipes(userId: number) {
+    const favoriteRecipes = await this.mealsModel.getFavoriteRecipes(userId);
+    if (favoriteRecipes.length === 0) {
+      return {status: 'NOT_FOUND', data: { message: 'No favorite recipes stored!' }};
+    }
+
+    return { status: 'SUCCESSFUL', data: favoriteRecipes };
+  }
+
+  async addDoneMeal(userId: number, mealId: number) {
+    const doneRecipe = await this.mealsModel.createDoneMeals(userId, mealId);
+    if(doneRecipe) {
+      return {status: 'SUCCESSFUL', data: { message: 'Recipe is done!' }}    
+    } 
+    return {status: 'SUCCESSFUL', data: { message: 'Recipe removed from done recipes list.' }};
+  }
+
+  async getDoneRecipes(userId: number) {
+    const doneRecipes = await this.mealsModel.getDoneRecipes(userId);
+    if (doneRecipes.length === 0) {
+      return {status: 'NOT_FOUND', data: { message: 'No done recipes stored!' }};
+    }
+
+    return { status: 'SUCCESSFUL', data: doneRecipes };
+  }
 }

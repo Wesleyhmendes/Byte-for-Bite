@@ -80,5 +80,24 @@ mealsRouter.patch(
   Authorization.auth,
   (req: Request, res: Response) => mealsController.updateRecipeInProgressById(req, res)
 );
+mealsRouter.get(
+  '/favorites/search',
+  Authorization.auth,
+  (req: Request, res: Response) => mealsController.getFavoriteRecipes(req, res)
+)
+mealsRouter.post(
+  '/favorites/:id',
+  Authorization.auth,
+  (req: Request, res: Response) => mealsController.favoriteMealRecipe(req, res)
+);
+mealsRouter.get(
+  '/donerecipes/search',
+  (req: Request, res: Response) => mealsController.getDoneRecipes(req, res)
+)
+mealsRouter.post(
+  '/donerecipes/:id',
+  
+  (req: Request, res: Response) => mealsController.addDoneMeal(req, res)
+);
 
 export default mealsRouter;

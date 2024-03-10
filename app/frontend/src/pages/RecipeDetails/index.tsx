@@ -24,7 +24,7 @@ export default function RecipeDetails() {
   
   const { data, isLoading, error } = useFetch(recipeDetailsURL);   
   const recipe = data;
-
+    
   // CHECK IF THE RECIPE IS IN PROGRESS
   const inProgressURL = `http://localhost:3001${route}/inprogress/${id}?user=${userId}`
   const inProgress = useFetch(inProgressURL);
@@ -54,7 +54,7 @@ export default function RecipeDetails() {
 
   return (
     <main>
-      <ShareFavoriteButtons id={id} recipeType={route} recipeData={recipe} />
+      <ShareFavoriteButtons id={id} recipeType={route} />
 
       {recipe && !isLoading && !loadingNextPage ? (
         route === '/meals' ? (
@@ -65,10 +65,10 @@ export default function RecipeDetails() {
       ) : null}
 
       {error && !isLoading && !loadingNextPage ? (
-        <h3>Um erro inesperado ocorreu...</h3>
+        <h3>An unexpected error occurred...</h3>
       ) : null}
 
-      {isLoading ? <h3>Carrregando...</h3> : null}
+      {isLoading ? <h3>Loading...</h3> : null}
 
       {/* <Carousel /> */}
       {recipe && !isLoading && !loadingNextPage ? (

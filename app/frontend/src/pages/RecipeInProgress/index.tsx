@@ -5,8 +5,9 @@ import ShareFavoriteButtons from '../../components/ShareFavoriteButtons';
 import useFetch from '../../hooks/useFetch';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import Context from '../../context/Context';
-import getIngredients from '../../utils/functions/getIngredients';
+import getIngredients from '../../utils/getIngredients';
 import useCheckIngredients from '../../hooks/useCheckIngredients';
+import isRecipeDone from '../../utils/isRecipeDone';
 
 export default function RecipeInProgress() {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ export default function RecipeInProgress() {
   const { id } = useParams();
   const userId = profile?.data?.id
 
-  // HOOK THAT CONTROLS STATE OF INGREDIENTS CHECKBOX AND USES FETCHED DATA FROM DB AS INITIAL STATE
+  // HOOK THAT CONTROLS STATE OF INGREDIENT CHECKBOX AND USES FETCHED DATA FROM DB AS INITIAL STATE
   const {
     stateIngredients,
     isInprogress,    
@@ -26,6 +27,10 @@ export default function RecipeInProgress() {
   // GET RECIPE
   const recipeURL = `http://localhost:3001${route}/${id}`;
   const { data, isLoading, error } =useFetch(recipeURL); 
+
+  // ADD DONE RECIPE
+  const addDoneRecipeURL = `http://localhost:3001${route}/donerecipes/${id}`;
+  const { handleFetch } = useFetch(addDoneRecipeURL, {method: 'POST', body: {userId}});
   
   if (!data) {
     return undefined;
@@ -40,33 +45,39 @@ export default function RecipeInProgress() {
   const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const {name, checked} = target;
     checkIngredientsDispatch({type: CHANGE, name, value: checked});    
-  };  
-  
+  };
+
+  // CHECK IF RECIPE IS DONE. IF IT IS, ENABLES 'End recipe' BUTTON.
+  const isDone = isRecipeDone(ingredients, stateIngredients);
+
+  // FUNCTION THAT ADD A RECIPE TO DONE RECIPES LIST IN DB  
+  const handleDone = () => {
+    handleFetch();
+    navigate('/done-recipes');
+  }
+    
   return (
     <div>
-      {isLoading ? <h3>Carregando...</h3> : null}
+      {isLoading ? <h3>Loading...</h3> : null}
 
-      {error && !isLoading ? <h3>Um erro inesperado ocorreu...</h3> : null}
+      {error && !isLoading ? <h3>An unexpected error occurred...</h3> : null}
 
       {recipeData && !isInprogress && !isLoading ? (
-        <h3>Essa receita ainda não foi iniciada.</h3>
+        <h3>This recipe has not been started.</h3>
       ) : null}
 
       {recipeData && isInprogress && !isLoading ? (
         <section className="recipesIngProgressSection">
           <ShareFavoriteButtons
             id={id}
-            recipeType={route.split('/')[1]}
-            recipeData={recipeData}
+            recipeType={ route }
           />
           <button
             data-testid="finish-recipe-btn"
-            disabled={false}
-            onClick={() => {
-              navigate('/done-recipes');
-            }}
+            disabled={ !isDone }
+            onClick={ handleDone }
           >
-            Finalizar
+            End Recipe
           </button>
 
           <img

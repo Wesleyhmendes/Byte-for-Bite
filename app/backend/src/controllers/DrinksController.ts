@@ -86,4 +86,31 @@ export default class DrinksController {
     })
     return res.status(mapStatusHTTP(status)).json(data);
   }
+
+  async favoriteDrinkRecipe(req: Request, res: Response) {
+    const { id } = req.params;
+    const { userId } = req.body
+    const { status, data } = await this.drinkService.favoriteDrinkRecipe(userId, Number(id));
+    
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  async getFavoriteRecipes(req: Request, res: Response) {
+    const { user } = req.query
+    const { status, data } = await this.drinkService.getFavoriteRecipes(Number(user));
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  async addDoneDrink(req: Request, res: Response) {
+    const { id } = req.params;
+    const { userId } = req.body;   
+    const { status, data } = await this.drinkService.addDoneDrink(userId, Number(id));
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  async getDoneRecipes(req: Request, res: Response) {
+    const { user } = req.query;    
+    const { status, data } = await this.drinkService.getDoneRecipes(Number(user));
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
 }

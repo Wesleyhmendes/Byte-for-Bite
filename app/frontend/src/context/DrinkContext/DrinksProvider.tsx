@@ -8,7 +8,7 @@ import {
   fetchDrinksCategories,
   fetchDrinksFilterByCategory,
 } from '../../services/fetchApi';
-import mapCategories from '../../utils/mapCategories';
+// import mapCategories from '../../utils/mapCategories';
 
 type DrinksProviderProps = {
   children: React.ReactNode;

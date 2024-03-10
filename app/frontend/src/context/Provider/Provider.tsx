@@ -11,7 +11,8 @@ export default function Provider({ children }: ProviderProps) {
   const route = path.includes('meals') ? '/meals' : '/drinks';
   const {    
     selectedCategory,    
-    filter, 
+    filter,
+    formattedFavorites,
     getCategories,   
     filterDispatch,
     setRecipesFilter,
@@ -26,6 +27,7 @@ export default function Provider({ children }: ProviderProps) {
     route,   
     selectedCategory,    
     filter,
+    formattedFavorites,
     getCategories,  
     filterDispatch,
     setRecipesFilter,

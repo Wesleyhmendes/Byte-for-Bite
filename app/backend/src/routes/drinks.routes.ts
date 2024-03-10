@@ -71,6 +71,25 @@ drinksRouter.patch(
   Authorization.auth,
   (req: Request, res: Response) => drinkController.updateRecipeInProgressById(req, res)
 );
-
+drinksRouter.get(
+  '/favorites/search',
+  
+  (req: Request, res: Response) => drinkController.getFavoriteRecipes(req, res)
+);
+drinksRouter.post(
+  '/favorites/:id',
+  Authorization.auth,
+  (req: Request, res: Response) => drinkController.favoriteDrinkRecipe(req, res)
+);
+drinksRouter.post(
+  '/donerecipes/:id',
+ 
+  (req: Request, res: Response) => drinkController.addDoneDrink(req, res)
+);
+drinksRouter.get(
+  '/donerecipes/search',
+  
+  (req: Request, res: Response) => drinkController.getDoneRecipes(req, res)
+);
 
 export default drinksRouter;

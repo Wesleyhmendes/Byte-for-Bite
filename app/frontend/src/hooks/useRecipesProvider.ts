@@ -1,19 +1,24 @@
 import { CategoryType, DrinkType, FetchedData, FilterRadioType, MealType } from '../type';
 import useFetch from './useFetch';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import useSearchBar from './useSearchBar';
 import { useNavigate } from 'react-router-dom';
-import { createURLFilter } from '../utils/functions/createURLFilter';
+import { createURLFilter } from '../utils/createURLFilter';
+import UserInfoContext from '../context/UserInfo/UserInfoContext';
+import formatFavorites from '../utils/formatFavorites';
 
 const useRecipesProvider = (path: string) => { 
   const navigate = useNavigate();
-  
+  const { profile } = useContext(UserInfoContext)
+  const userId = profile?.data?.id
+
   // URL's CATEGORY PARAMETERS
   const [selectedCategory, setSelectedCategory] = useState('');  
   
   // SEARCH BAR FILTER
-  const { filter, filterDispatch } = useSearchBar();  
+  const { filter, filterDispatch } = useSearchBar(); 
 
+  // URLS //
   // CATEGORIES URL  
   const allCategoriesURL = `http://localhost:3001${path}/categories`;
 
@@ -22,6 +27,9 @@ const useRecipesProvider = (path: string) => {
 
   // MEALS OR DRINKS BY CATEGORIES URL
   const byCategoryURL = `http://localhost:3001${path}/category?q=${selectedCategory}`;
+  
+  // FAVORITE RECIPES URL
+  const favoritesURL = `http://localhost:3001${path}/favorites/search?user=${userId}`;  
 
   // MEALS OR DRINKS WITH FILTER URL
   const [byFilterURL, setByFilterURL] = useState('');
@@ -38,7 +46,11 @@ const useRecipesProvider = (path: string) => {
   // BY FILTER FETCH
   const byFilter = useFetch(byFilterURL);
 
-  // GETTER FUNCTIONS 
+  // FAVORITE RECIPES FETCH
+  const favorites = useFetch(favoritesURL);
+
+  // GETTER FUNCTIONS //  
+  // CHECK DATA IF IT IS DRINKS OR MEALS
   const checkData = (fetchedData: FetchedData) => {
     const { data, isLoading, error } = fetchedData;
     if (path === '/meals' && !isLoading) {
@@ -55,6 +67,7 @@ const useRecipesProvider = (path: string) => {
     return [];
   };
 
+  // GET CATEGORIES
   const getCategories = () => {
     const { data, isLoading } = allCategories;
     if (!isLoading) {
@@ -64,6 +77,7 @@ const useRecipesProvider = (path: string) => {
     return [];
   }
 
+  // ALL RECIPES
   const getAllRecipes = () => {    
     const recipes = checkData(allRecipes);
     return recipes?.slice(0, 12);
@@ -73,11 +87,13 @@ const useRecipesProvider = (path: string) => {
     setSelectedCategory(category);    
   };
 
+  // RECIPES BY CATEGORY
   const getByCategory = () => {
     const recipesByCategory = checkData(byCategory);
     return recipesByCategory?.slice(0, 12);
   }
 
+  // RECIPES BY FILTER
   const setRecipesFilter = (selectedFilter: FilterRadioType) => {    
     if (selectedFilter.radioSelected === 'f' && selectedFilter.search.length > 1) {
       window.alert('Your search must have only 1 (one) character');
@@ -103,10 +119,14 @@ const useRecipesProvider = (path: string) => {
     }
     return [];       
   } 
- 
+
+  // FORMAT FAVORITE RECIPES DATA
+  const formattedFavorites = formatFavorites(path, favorites);
+  console.log()
   return {      
     selectedCategory,   
     filter,
+    formattedFavorites,
     getCategories,
     filterDispatch,
     setByFilterURL,   

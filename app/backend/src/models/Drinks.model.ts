@@ -6,11 +6,15 @@ import DrinksCategories from '../database/models/01Drinks-Categories.model';
 import InProgressDrinksModel from '../database/models/07In-Progress-Drinks';
 import { IProgressDrinkRecipe } from '../Interfaces/IProgress';
 import { startDrinkRecipeInProgress } from '../utils/startRecipeInProgress';
+import FavoriteDrinksModel from '../database/models/05Favorite-Drinks';
+import FinishedDrinksModel from '../database/models/09Finished-Drinks';
 
 export default class DrinksModel implements IDrinkModel {
   private Drinkmodel = SequelizeDrinks;
   private inProgressModel = InProgressDrinksModel;
   private CategoryModel = DrinkCategories;
+  private FavoriteDrinksModel = FavoriteDrinksModel;
+  private DoneDrinksModel = FinishedDrinksModel;
 
   async findAll(): Promise<iDrinkRecipe[]> {
     const recipes = await this.Drinkmodel.findAll({
@@ -135,5 +139,75 @@ export default class DrinksModel implements IDrinkModel {
     if (rowCount[0] === 0) return null;
 
     return rowCount[0];
+  }
+  
+  async createFavoriteDrinks(userId: number, drinkId: number) {   
+    const findFavorite = await this.findFavorite(userId, drinkId);
+    if (!findFavorite) {
+      const { dataValues } = await this.FavoriteDrinksModel.create({userId, drinkId});
+      return dataValues;
+    }
+    await this.FavoriteDrinksModel.destroy({where: {userId, drinkId}});
+  }
+
+  async findFavorite(userId: number, drinkId: number) {
+    const foundFavorite = await this.FavoriteDrinksModel.findOne({
+      where: {
+        userId,
+        drinkId
+      }
+    });
+
+    return foundFavorite;
+  }
+  
+  async getFavoriteRecipes(userId: number) {
+    const favorites = await this.FavoriteDrinksModel.findAll({
+      where: {userId},
+      include: [{
+        model: SequelizeDrinks,
+        as: 'favoriteRecipes',
+        attributes: ['idDrink', 'strDrink', 'strDrinkThumb', 'strAlcoholic']
+      }],           
+      attributes: {exclude: ['drinkId']},      
+    });
+    // const mapped = favorites.map((obj) => obj.dataValues.favoriteRecipes)
+
+    return favorites;
+  }
+
+  async findDone(userId: number, drinkId: number) {
+    const foundDone = await this.DoneDrinksModel.findOne({
+      where: {
+        userId,
+        drinkId
+      }
+    });
+
+    return foundDone;
+  }
+
+  async createDoneDrinks(userId: number, drinkId: number) {   
+    const findDone = await this.findDone(userId, drinkId);
+    if (!findDone) {
+      const { dataValues } = await this.DoneDrinksModel.create({userId, drinkId});
+      return dataValues;
+    }
+    await this.DoneDrinksModel.destroy({where: {userId, drinkId}});
+  }
+
+  async getDoneRecipes(userId: number) {
+    const doneRecipes = await this.DoneDrinksModel.findAll({
+      where: {userId},
+      include: [{
+        model: SequelizeDrinks,
+        as: 'finishedRecipes',
+        attributes: ['idDrink', 'strDrink', 'strDrinkThumb', 'strAlcoholic']
+      }],           
+      attributes: {exclude: ['drinkId']},      
+    });
+    // const mapped = favorites.map((obj) => obj.dataValues.favoriteRecipes)
+
+    return doneRecipes;
   }
 }
