@@ -27,7 +27,7 @@ export const Main = styled.main`
   @media (min-width: 1280px) {
     
   }
-  color: red;
+
 `;
 
 export const BackgroundImgMobile = styled.img`
@@ -53,7 +53,7 @@ export const BackgroundImgMobile = styled.img`
   @media (min-width: 1280px) {
     display: none;
   }
-  color: red;
+
 `;
 
 export const BackgroundImgDesktop = styled.img`
@@ -80,7 +80,7 @@ export const BackgroundImgDesktop = styled.img`
     width: 100%;
     filter: blur(4px) brightness(0.6);
   }
-  color: red;
+
 `;
 
 export const Logo = styled.img`
@@ -103,7 +103,7 @@ export const Logo = styled.img`
   @media (min-width: 1280px) {
     width: 25%;
   }
-  color: red;
+
 `;
 
 export const LogoDiv = styled.div`
@@ -127,7 +127,7 @@ export const LogoDiv = styled.div`
   @media (min-width: 1280px) {
 
   }
-  color: red;
+
 `;
 
 export const FormMainDiv = styled.div`
@@ -153,7 +153,7 @@ export const FormMainDiv = styled.div`
   @media (min-width: 1280px) {
     
   }
-  color: red;
+
 `;
 
 export const Form = styled.form`
@@ -247,6 +247,28 @@ export const NoAccountDiv = styled.div`
   height: 37px;
   width: fit-content;
   margin-bottom: 25px;
+
+  @media (min-width: 320px) {
+
+  }
+
+  @media (min-width: 768px) {
+    font-size: 21px;
+  }
+
+  @media (min-width: 1024px) {
+    
+  }
+
+  @media (min-width: 1280px) {
+    
+  }
+`;
+
+export const StyledLink = styled(Link)`
+
+  color: #3131ff;
+  text-decoration: underline;
 
   @media (min-width: 320px) {
 

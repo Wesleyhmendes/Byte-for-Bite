@@ -1,4 +1,10 @@
-import { DoneDrinkType, DoneMealType, DoneMealReduceType, FetchedData, DoneDrinkReduceType } from '../type';
+import {
+  DoneDrinkType,
+  DoneMealType,
+  DoneMealReduceType,
+  FetchedData,
+  DoneDrinkReduceType,
+} from '../type';
 
 const doneMealReducer = (doneRecipe: DoneMealType[]) => {
   const reduceDone = doneRecipe.reduce((acc, done) => {
@@ -6,16 +12,16 @@ const doneMealReducer = (doneRecipe: DoneMealType[]) => {
       acc = {
         userId: done.userId,
         finishedRecipes: [],
-      }
+      };
     }
 
-    acc.finishedRecipes.push(done.finishedRecipes)
+    acc.finishedRecipes.push(done.finishedRecipes);
 
     return acc;
   }, {} as DoneMealReduceType);
 
-  return reduceDone
-}
+  return reduceDone;
+};
 
 const doneDrinkReducer = (doneRecipes: DoneDrinkType[]) => {
   const reduceDone = doneRecipes.reduce((acc, done) => {
@@ -23,32 +29,32 @@ const doneDrinkReducer = (doneRecipes: DoneDrinkType[]) => {
       acc = {
         userId: done.userId,
         finishedRecipes: [],
-      }
+      };
     }
 
-    acc.finishedRecipes.push(done.finishedRecipes)
+    acc.finishedRecipes.push(done.finishedRecipes);
 
     return acc;
   }, {} as DoneDrinkReduceType);
 
-  return reduceDone
-}
+  return reduceDone;
+};
 
 const formatDoneRecipes = (recipeType: string, doneRecipes: FetchedData) => {
-  const { data } = doneRecipes
+  const { data } = doneRecipes;
   if (data && recipeType === '/meals') {
-    const done: DoneMealType[] = data;    
+    const done: DoneMealType[] = data;
     const formattedFinished = doneMealReducer(done);
 
-    return formattedFinished;    
+    return formattedFinished;
   }
   if (data && recipeType === '/drinks') {
     const done: DoneDrinkType[] = data;
     const formattedFinished = doneDrinkReducer(done);
-    
+
     return formattedFinished;
   }
-  return undefined; 
-}
+  return undefined;
+};
 
 export default formatDoneRecipes;

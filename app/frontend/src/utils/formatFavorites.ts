@@ -1,4 +1,10 @@
-import { FavoriteDrinkType, FavoriteMealType, FavoriteMealReduceType, FetchedData, FavoriteDrinkReduceType } from '../type';
+import {
+  FavoriteDrinkType,
+  FavoriteMealType,
+  FavoriteMealReduceType,
+  FetchedData,
+  FavoriteDrinkReduceType,
+} from '../type';
 
 const favoriteMealReducer = (favorites: FavoriteMealType[]) => {
   const reduceFavorite = favorites.reduce((acc, favorite) => {
@@ -6,16 +12,16 @@ const favoriteMealReducer = (favorites: FavoriteMealType[]) => {
       acc = {
         userId: favorite.userId,
         favoriteRecipes: [],
-      }
+      };
     }
 
-    acc.favoriteRecipes.push(favorite.favoriteRecipes)
+    acc.favoriteRecipes.push(favorite.favoriteRecipes);
 
     return acc;
   }, {} as FavoriteMealReduceType);
 
-  return reduceFavorite
-}
+  return reduceFavorite;
+};
 
 const favoriteDrinkReducer = (favorites: FavoriteDrinkType[]) => {
   const reduceFavorite = favorites.reduce((acc, favorite) => {
@@ -23,32 +29,32 @@ const favoriteDrinkReducer = (favorites: FavoriteDrinkType[]) => {
       acc = {
         userId: favorite.userId,
         favoriteRecipes: [],
-      }
+      };
     }
 
-    acc.favoriteRecipes.push(favorite.favoriteRecipes)
+    acc.favoriteRecipes.push(favorite.favoriteRecipes);
 
     return acc;
   }, {} as FavoriteDrinkReduceType);
 
-  return reduceFavorite
-}
+  return reduceFavorite;
+};
 
 const formatFavorites = (recipeType: string, favorites: FetchedData) => {
-  const { data } = favorites
+  const { data } = favorites;
   if (data && recipeType === '/meals') {
-    const favorite: FavoriteMealType[] = data;    
+    const favorite: FavoriteMealType[] = data;
     const formattedFavorite = favoriteMealReducer(favorite);
 
-    return formattedFavorite;    
+    return formattedFavorite;
   }
   if (data && recipeType === '/drinks') {
     const favorite: FavoriteDrinkType[] = data;
     const formattedFavorite = favoriteDrinkReducer(favorite);
-    
+
     return formattedFavorite;
   }
-  return undefined; 
-}
+  return undefined;
+};
 
 export default formatFavorites;

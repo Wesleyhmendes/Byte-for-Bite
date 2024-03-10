@@ -1,5 +1,5 @@
 import { useReducer, useEffect } from 'react';
-import { FetchAction } from '../../type';
+import { FetchAction } from '../type';
 
 type RequestMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
@@ -14,12 +14,12 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
     data: undefined,
     isLoading: true,
     error: undefined,
-  }
+  };
 
   // CASE FETCHED DATA HAS ARRIVED, SETS LOADING TO FALSE. CASE SOMETHING WRONG HAPPENS DURING FETCH, SETS LOADING TO FALSE AND DISPLAYS IT IN ERROR STATE
   const fetchReducer = (state = initialState, action: FetchAction) => {
     switch (action.type) {
-      case 'loading': 
+      case 'loading':
         return {
           ...state,
           isLoading: true,
@@ -30,74 +30,70 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
           isLoading: false,
           error: action.payload,
         };
-      case 'fetched':        
+      case 'fetched':
         return {
           ...state,
           isLoading: false,
           data: action.payload,
-        }
+        };
       case 'reset':
         return initialState;
       default:
         return state;
     }
-  }
+  };
 
-  const [ state, dispatch ] = useReducer(fetchReducer, initialState);
+  const [state, dispatch] = useReducer(fetchReducer, initialState);
 
-  // LOADS TOKEN FROM LOCALSTORAGE FOR AUTHENTICATION. SINCE "GET" METHOD DOESN'T ACCEPT BODY, SETS IT TO 'UNDEFINED' IF IT IS THE CASE. 
-  const handleFetch = async () => {    
+  // LOADS TOKEN FROM LOCALSTORAGE FOR AUTHENTICATION. SINCE "GET" METHOD DOESN'T ACCEPT BODY, SETS IT TO 'UNDEFINED' IF IT IS THE CASE.
+  const handleFetch = async () => {
     const { method, body } = options;
-    const token = JSON.parse(localStorage.getItem('token') as string);   
+    const token = JSON.parse(localStorage.getItem('token') as string);
     const request = {
       method,
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
-      },      
+      },
       body: body ? JSON.stringify(body) : undefined,
-    }
+    };
 
-   // STARTS SETTING LOADING 'TRUE'
-    dispatch({type: 'loading'});
-   
+    // STARTS SETTING LOADING 'TRUE'
+    dispatch({ type: 'loading' });
+
     // TRY / CATCH
     try {
-      const response = await fetch(URL, request);    
-    
-      // IF RESPONSE IS "NOT AUTHORIZED", RESET TO INITIALSTATE AND THROW AN ERROR
-      if (!response.ok) {        
-        if (response.status === 401) {
+      const response = await fetch(URL, request);
 
-          dispatch({type: "reset"});
-          return
+      // IF RESPONSE IS "NOT AUTHORIZED", RESET TO INITIALSTATE AND THROW AN ERROR
+      if (!response.ok) {
+        if (response.status === 401) {
+          dispatch({ type: 'reset' });
+          return;
         }
-        throw new Error(`Erro na requisição: ${response.status}`)
+        throw new Error(`Erro na requisição: ${response.status}`);
       }
 
       // IF ALL GOES WELL, DISPATCHES 'FETCHED' ACTION AND DATA PAYLOAD
-      const result = await response.json();      
+      const result = await response.json();
 
-      dispatch({ type: 'fetched', payload: result });         
-
+      dispatch({ type: 'fetched', payload: result });
     } catch (err: any) {
-
       // IF THERE'S AN ERROR DIFFERENT THAN 'NOT AUTHORIZED', DISPATCHES 'ERROR' ACTION AND ERROR DATA PAYLOAD
       if (err.message !== 'Erro na requisição: 401') {
-
-        dispatch({ type: 'error', payload: err })
+        dispatch({ type: 'error', payload: err });
       }
-    }    
-  }; 
+    }
+  };
 
-   // USEEFFECT HANDLING "GET" METHOD AUTOMATICALLY. ALL OTHER METHODS HAVE TO INVOKE HANDLEFETCH TO REFRESH DATA ON DB. CLEANUP SETS FETCHED DATA TO INITIALSTATE, PREVENTING UNDESIRED OUTCOMES. 
-  useEffect(() => {    
-    if (options.method === 'GET') {      
-      handleFetch();           
+  // USEEFFECT HANDLING "GET" METHOD AUTOMATICALLY. ALL OTHER METHODS HAVE TO INVOKE HANDLEFETCH TO REFRESH DATA ON DB. CLEANUP SETS FETCHED DATA TO INITIALSTATE, PREVENTING UNDESIRED OUTCOMES.
+  useEffect(() => {
+    if (options.method === 'GET') {
+      handleFetch();
     }
-    return () => {     
-      dispatch({type: 'reset'})
-    }
+    return () => {
+      dispatch({ type: 'reset' });
+    };
   }, [URL]);
 
   return {
@@ -106,7 +102,7 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
     error: state.error,
     handleFetch,
     dispatch,
-  }
-}
+  };
+};
 
 export default useFetch;

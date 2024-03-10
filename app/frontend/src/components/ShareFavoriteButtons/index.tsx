@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { useContext, useEffect, useState } from 'react';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeart from '../../images/whiteHeartIcon.svg';
@@ -9,26 +10,28 @@ import Context from '../../context/Context';
 
 type ShareFavoriteButtonsProps = {
   id: string | undefined;
-  recipeType: string;  
+  recipeType: string;
 };
 
 export default function ShareFavoriteButtons({
-  id, recipeType
-}: ShareFavoriteButtonsProps) { 
+  id, recipeType,
+}: ShareFavoriteButtonsProps) {
   const [shareMessage, setShareMessage] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);  
+  const [isFavorite, setIsFavorite] = useState(false);
 
   // GETS PROFILE FROM CONTEXT
   const { profile } = useContext(UserInfoContext);
   const { formattedFavorites } = useContext(Context);
-  
+
   // SENDS INFORMATION TO DB THROUGH BODY VIA 'POST'
   const user = profile?.data;
-  const addFavoriteURL = `http://localhost:3001${recipeType}/favorites/${id}`
-  const { handleFetch } = useFetch(addFavoriteURL, {method: 'POST', body: {userId: user?.id}}); 
-  
+  const addFavoriteURL = `http://localhost:3001${recipeType}/favorites/${id}`;
+  const {
+    handleFetch,
+  } = useFetch(addFavoriteURL, { method: 'POST', body: { userId: user?.id } });
+
   // CHECKS IF IT IS A FAVORITE RECIPE ON DB
-  const isRecipeFavorite = checkFavoritesFromDB(recipeType, id as string, formattedFavorites);  
+  const isRecipeFavorite = checkFavoritesFromDB(recipeType, id as string, formattedFavorites);
 
   // COPY URL TO SHARE RECIPE
   const copyText = async () => {
@@ -36,10 +39,10 @@ export default function ShareFavoriteButtons({
     setShareMessage(true);
   };
 
-   // SETS FAVORITE STATE AND SETS RECIPE AS FAVORITE ON DB VIA handleFetch()
-   const favoriteRecipe = () => {
+  // SETS FAVORITE STATE AND SETS RECIPE AS FAVORITE ON DB VIA handleFetch()
+  const favoriteRecipe = () => {
     setIsFavorite((prev) => !prev);
-    handleFetch();    
+    handleFetch();
   };
 
   // SYNCHRONIZES STATE WITH DB
@@ -66,7 +69,7 @@ export default function ShareFavoriteButtons({
         <img
           data-testid="favorite-btn"
           src={ isFavorite ? blackHeart : whiteHeart }
-          alt="Heart image"
+          alt="Heart"
         />
       </button>
 

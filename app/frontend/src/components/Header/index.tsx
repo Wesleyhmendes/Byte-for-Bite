@@ -5,11 +5,11 @@ import profileIcon from '../../images/profileIcon.svg';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 
 function Header() {
-  const [searchVisible, setSearchVisible] = useState(false);  
-  const { user, profile } = useContext(UserInfoContext);  
-  const { data, handleFetch } = profile; 
- 
-  const profileIMG = data ? data.profileImage : undefined;  
+  const [searchVisible, setSearchVisible] = useState(false);
+  const { user, profile } = useContext(UserInfoContext);
+  const { data, handleFetch } = profile;
+
+  const profileIMG = data ? data.profileImage : undefined;
 
   const pathName = useLocation().pathname;
   const pageTitle = useLocation().pathname
@@ -23,17 +23,17 @@ function Header() {
 
   const toggleSearch = () => {
     setSearchVisible(!searchVisible);
-  };   
-  
-  useEffect(() => { handleFetch() }, [user]);  
+  };
+
+  useEffect(() => { handleFetch(); }, [user]);
   return (
     <header>
       <div>
         <h1 data-testid="page-title">{ pageTitle }</h1>
         <Link to="/profile">
           <img
-            style={ {width: '180px', height: '150px'} }
-            src={ profileIMG ? profileIMG : profileIcon }
+            style={ { width: '180px', height: '150px' } }
+            src={ profileIMG || profileIcon }
             alt="Profile"
             data-testid="profile-top-btn"
           />

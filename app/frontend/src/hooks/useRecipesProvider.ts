@@ -1,44 +1,45 @@
+/* eslint-disable max-len */
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CategoryType, DrinkType, FetchedData, FilterRadioType, MealType } from '../type';
 import useFetch from './useFetch';
-import { useContext, useState } from 'react';
 import useSearchBar from './useSearchBar';
-import { useNavigate } from 'react-router-dom';
 import { createURLFilter } from '../utils/createURLFilter';
 import UserInfoContext from '../context/UserInfo/UserInfoContext';
 import formatFavorites from '../utils/formatFavorites';
 
-const useRecipesProvider = (path: string) => { 
+const useRecipesProvider = (path: string) => {
   const navigate = useNavigate();
-  const { profile } = useContext(UserInfoContext)
-  const userId = profile?.data?.id
+  const { profile } = useContext(UserInfoContext);
+  const userId = profile?.data?.id;
 
   // URL's CATEGORY PARAMETERS
-  const [selectedCategory, setSelectedCategory] = useState('');  
-  
+  const [selectedCategory, setSelectedCategory] = useState('');
+
   // SEARCH BAR FILTER
-  const { filter, filterDispatch } = useSearchBar(); 
+  const { filter, filterDispatch } = useSearchBar();
 
   // URLS //
-  // CATEGORIES URL  
+  // CATEGORIES URL
   const allCategoriesURL = `http://localhost:3001${path}/categories`;
 
   // ALL RECIPES URL
-  const allRecipesURL = `http://localhost:3001${path}/name`;  
+  const allRecipesURL = `http://localhost:3001${path}/name`;
 
   // MEALS OR DRINKS BY CATEGORIES URL
   const byCategoryURL = `http://localhost:3001${path}/category?q=${selectedCategory}`;
-  
+
   // FAVORITE RECIPES URL
-  const favoritesURL = `http://localhost:3001${path}/favorites/search?user=${userId}`;  
+  const favoritesURL = `http://localhost:3001${path}/favorites/search?user=${userId}`;
 
   // MEALS OR DRINKS WITH FILTER URL
   const [byFilterURL, setByFilterURL] = useState('');
 
-  // CATEGORIES FETCH  
-  const allCategories: FetchedData = useFetch(allCategoriesURL); 
+  // CATEGORIES FETCH
+  const allCategories: FetchedData = useFetch(allCategoriesURL);
 
   // ALL RECIPES FETCHS
-  const allRecipes: FetchedData = useFetch(allRecipesURL);  
+  const allRecipes: FetchedData = useFetch(allRecipesURL);
 
   // BY CATEGORY FETCH
   const byCategory: FetchedData = useFetch(byCategoryURL);
@@ -49,7 +50,7 @@ const useRecipesProvider = (path: string) => {
   // FAVORITE RECIPES FETCH
   const favorites = useFetch(favoritesURL);
 
-  // GETTER FUNCTIONS //  
+  // GETTER FUNCTIONS //
   // CHECK DATA IF IT IS DRINKS OR MEALS
   const checkData = (fetchedData: FetchedData) => {
     const { data, isLoading, error } = fetchedData;
@@ -75,35 +76,35 @@ const useRecipesProvider = (path: string) => {
       return categories?.slice(0, 5);
     }
     return [];
-  }
+  };
 
   // ALL RECIPES
-  const getAllRecipes = () => {    
+  const getAllRecipes = () => {
     const recipes = checkData(allRecipes);
     return recipes?.slice(0, 12);
-  }
+  };
 
   const getSelectedCategory = (category: string) => {
-    setSelectedCategory(category);    
+    setSelectedCategory(category);
   };
 
   // RECIPES BY CATEGORY
   const getByCategory = () => {
     const recipesByCategory = checkData(byCategory);
     return recipesByCategory?.slice(0, 12);
-  }
+  };
 
   // RECIPES BY FILTER
-  const setRecipesFilter = (selectedFilter: FilterRadioType) => {    
+  const setRecipesFilter = (selectedFilter: FilterRadioType) => {
     if (selectedFilter.radioSelected === 'f' && selectedFilter.search.length > 1) {
       window.alert('Your search must have only 1 (one) character');
     } else {
       const url = createURLFilter(path, filter.radioSelected, filter.search);
       setByFilterURL(url);
     }
-  }
+  };
 
-  const getRecipesByFilter = () => {   
+  const getRecipesByFilter = () => {
     const recipesByFilter = checkData(byFilter);
     if (!recipesByFilter) {
       return [];
@@ -114,28 +115,28 @@ const useRecipesProvider = (path: string) => {
     if (recipesByFilter.length === 1 && byFilterURL !== '') {
       const id = recipesByFilter[0].idMeal ? recipesByFilter[0].idMeal : recipesByFilter[0].idDrink;
       navigate(`${path}/${id}`);
-      setByFilterURL('');     
+      setByFilterURL('');
       return [];
     }
-    return [];       
-  } 
+    return [];
+  };
 
   // FORMAT FAVORITE RECIPES DATA
   const formattedFavorites = formatFavorites(path, favorites);
-  console.log()
-  return {      
-    selectedCategory,   
+  console.log();
+  return {
+    selectedCategory,
     filter,
     formattedFavorites,
     getCategories,
     filterDispatch,
-    setByFilterURL,   
+    setByFilterURL,
     setRecipesFilter,
-    getRecipesByFilter,    
+    getRecipesByFilter,
     getSelectedCategory,
     getByCategory,
-    getAllRecipes,   
-  }
-}
+    getAllRecipes,
+  };
+};
 
 export default useRecipesProvider;
