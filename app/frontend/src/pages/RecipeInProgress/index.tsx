@@ -27,6 +27,10 @@ export default function RecipeInProgress() {
   // GET RECIPE
   const recipeURL = `http://localhost:3001${route}/${id}`;
   const { data, isLoading, error } =useFetch(recipeURL); 
+
+  // ADD DONE RECIPE
+  const addDoneRecipeURL = `http://localhost:3001${route}/donerecipes/${id}`;
+  const { handleFetch } = useFetch(addDoneRecipeURL);
   
   if (!data) {
     return undefined;
@@ -45,6 +49,12 @@ export default function RecipeInProgress() {
 
   // CHECK IF RECIPE IS DONE. IF IT IS, ENABLES 'End recipe' BUTTON.
   const isDone = isRecipeDone(ingredients, stateIngredients);
+
+  // FUNCTION THAT ADD A RECIPE TO DONE RECIPES LIST IN DB  
+  const handleDone = () => {
+    handleFetch();
+    navigate('/done-recipes');
+  }
     
   return (
     <div>
@@ -65,9 +75,7 @@ export default function RecipeInProgress() {
           <button
             data-testid="finish-recipe-btn"
             disabled={ !isDone }
-            onClick={() => {
-              navigate('/done-recipes');
-            }}
+            onClick={ handleDone }
           >
             End Recipe
           </button>

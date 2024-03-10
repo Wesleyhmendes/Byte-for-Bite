@@ -192,14 +192,14 @@ export default class MealsModel implements IMealsRecipesModel {
     await this.favoriteRecipesModel.destroy({where: {userId, mealId}});
   }
 
-  async findFavorite(userId: number, mealId: number) {
+  async findFavorite(userId: number, mealId: number) {    
     const foundFavorite = await this.favoriteRecipesModel.findOne({
       where: {
         userId,
-        mealId
+        mealId,
       }
     });
-
+    
     return foundFavorite;
   } 
 
@@ -213,24 +213,24 @@ export default class MealsModel implements IMealsRecipesModel {
       }],           
       attributes: {exclude: ['mealId']},      
     });
-    // const mapped = favorites.map((obj) => obj.dataValues.favoriteRecipes)
-
+    
     return favorites;
   }
 
   async findDone(userId: number, mealId: number) {
+    // console.log('USERID', userId, 'MEALID', mealId);
     const foundDone = await this.doneMealsModel.findOne({
       where: {
         userId,
-        mealId
+        mealId,
       }
     });
-
+    
     return foundDone;
   } 
 
   async createDoneMeals(userId: number, mealId: number) {   
-    const findDone = await this.findDone(userId, mealId);
+    const findDone = await this.findDone(userId, mealId);    
     if (!findDone) {
       const { dataValues } = await this.doneMealsModel.create({userId, mealId});
       return dataValues;
@@ -247,8 +247,7 @@ export default class MealsModel implements IMealsRecipesModel {
         attributes: ['idMeal', 'strMeal', 'strMealThumb', 'strArea']
       }],           
       attributes: {exclude: ['mealId']},      
-    });
-    // const mapped = favorites.map((obj) => obj.dataValues.favoriteRecipes)
+    });   
 
     return doneRecipes;
   }

@@ -9,10 +9,10 @@ export default function FavoriteRecipes() {
   const { profile } = useContext(UserInfoContext);
   const userId = profile?.data?.id
 
-  const favoriteMeals = `http://localhost:3001/meals/favorites/search?user=${userId}`
+  const favoriteMealsURL = `http://localhost:3001/meals/favorites/search?user=${userId}`
   const favoriteDrinksURL = `http://localhost:3001/drinks/favorites/search?user=${userId}`
 
-  const meals = useFetch(favoriteMeals);
+  const meals = useFetch(favoriteMealsURL);
   const drinks = useFetch(favoriteDrinksURL);
   const formattedMeals = formatFavorites('/meals', meals);
   const formattedDrinks = formatFavorites('/drinks', drinks);
@@ -43,7 +43,7 @@ export default function FavoriteRecipes() {
       {formattedDrinks && filter === 'all' ? (
         formattedDrinks.favoriteRecipes.map((recipe) => <FavoriteCard key='allDrinks' favoriteRecipe={recipe} recipeType='drinks' />)
       ) : null} 
-      {favoriteMeals && filter === 'meal' ? (
+      {formattedMeals && filter === 'meal' ? (
         formattedMeals?.favoriteRecipes.map((recipes) => <FavoriteCard key='meals' favoriteRecipe={recipes} recipeType='meals' />)
       ) : null}
       {formattedDrinks && filter === 'drink' ? (

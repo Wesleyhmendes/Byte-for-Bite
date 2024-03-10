@@ -111,14 +111,14 @@ export default class MealsController {
 
   async addDoneMeal(req: Request, res: Response) {
     const { id } = req.params;
-    const { userId } = req.body;
+    const { userId } = req.body;    
     const { status, data } = await this.mealsService.addDoneMeal(userId, Number(id));
     return res.status(mapStatusHTTP(status)).json(data);
   }
 
   async getDoneRecipes(req: Request, res: Response) {
-    const { user } = req.query;
-    const { status, data } = await this.mealsService.getDoneRecipes(Number(user));
+    const { user } = req.query;    
+    const { status, data } = await this.mealsService.getDoneRecipes(Number(user as string));
     return res.status(mapStatusHTTP(status)).json(data);
   }
   

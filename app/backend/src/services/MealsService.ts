@@ -159,8 +159,8 @@ export default class MealsService {
     return { status: 'SUCCESSFUL', data: favoriteRecipes };
   }
 
-  async addDoneMeal(userId: number, id: number) {
-    const doneRecipe = await this.mealsModel.createDoneMeals(userId, id);
+  async addDoneMeal(userId: number, mealId: number) {
+    const doneRecipe = await this.mealsModel.createDoneMeals(userId, mealId);
     if(doneRecipe) {
       return {status: 'SUCCESSFUL', data: { message: 'Recipe is done!' }}    
     } 
