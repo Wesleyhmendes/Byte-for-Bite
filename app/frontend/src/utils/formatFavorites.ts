@@ -1,4 +1,4 @@
-import { FavoriteDrinkType, FavoriteMealType, FavoriteMeals, FavoriteMealReduceType, FetchedData, FavoriteDrinkReduceType } from '../type';
+import { FavoriteDrinkType, FavoriteMealType, FavoriteMealReduceType, FetchedData, FavoriteDrinkReduceType } from '../type';
 
 const favoriteMealReducer = (favorites: FavoriteMealType[]) => {
   const reduceFavorite = favorites.reduce((acc, favorite) => {
@@ -34,15 +34,15 @@ const favoriteDrinkReducer = (favorites: FavoriteDrinkType[]) => {
   return reduceFavorite
 }
 
-const formatFavorites = (recypeType: string, favorites: FetchedData) => {
+const formatFavorites = (recipeType: string, favorites: FetchedData) => {
   const { data } = favorites
-  if (data && recypeType === '/meals') {
+  if (data && recipeType === '/meals') {
     const favorite: FavoriteMealType[] = data;    
     const formattedFavorite = favoriteMealReducer(favorite);
 
     return formattedFavorite;    
   }
-  if (data && recypeType === '/drinks') {
+  if (data && recipeType === '/drinks') {
     const favorite: FavoriteDrinkType[] = data;
     const formattedFavorite = favoriteDrinkReducer(favorite);
     

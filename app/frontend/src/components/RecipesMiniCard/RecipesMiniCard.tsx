@@ -4,7 +4,7 @@ import { DrinkType, MealType } from '../../type';
 type RecipesMiniCardProps = {
   recipe: MealType | DrinkType
   path: string,
-  index: number, 
+  index: number,  
 }
 
 function RecipesMiniCard ({ recipe, path, index }: RecipesMiniCardProps) {  

@@ -1,6 +1,8 @@
 import { useContext, useState } from 'react';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import useFetch from '../../hooks/useFetch';
+import formatDoneRecipes from '../../utils/formatDoneRecipes';
+import DoneOrFavoriteCard from '../../components/DoneOrFavoriteCard/DoneOrFavoriteCard';
 
 export default function DoneRecipes() {  
   const [filter, setFilter] = useState('all');
@@ -13,7 +15,8 @@ export default function DoneRecipes() {
   const doneMeals = useFetch(doneMealsURL);
   const doneDrinks = useFetch(doneDrinksURL);
 
-  console.log(doneMeals)
+  const formattedDoneMeals = formatDoneRecipes('/meals', doneMeals);
+  const formattedDoneDrinks = formatDoneRecipes('/drinks', doneDrinks); 
 
   return (
     <div>
@@ -38,6 +41,20 @@ export default function DoneRecipes() {
         Drinks
 
       </button>
+      {formattedDoneMeals && filter === 'all' ? (
+        formattedDoneMeals.finishedRecipes.map((recipe, i) => <DoneOrFavoriteCard key={`AllDoneMeals[${i}]`} recipeType='meals' recipe={recipe} />)
+      ) : null}
+      {formattedDoneDrinks && filter === 'all' ? (
+        formattedDoneDrinks.finishedRecipes.map((recipe, i) => <DoneOrFavoriteCard key={`AllDoneDrinks[${i}]`} recipeType='drinks' recipe={recipe} />)
+      ) : null}
+
+      {formattedDoneMeals && filter === 'meals' ? (
+        formattedDoneMeals.finishedRecipes.map((recipe, i) => <DoneOrFavoriteCard key={`doneMeals[${i}]`} recipeType='meals' recipe={recipe} />)
+      ) : null}
+
+      {formattedDoneDrinks && filter === 'drinks' ? (
+        formattedDoneDrinks.finishedRecipes.map((recipe, i) => <DoneOrFavoriteCard key={`doneDrinks[${i}]`} recipeType='drinks' recipe={recipe} />)
+      ) : null}
       
     </div>
   );

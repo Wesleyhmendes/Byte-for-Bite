@@ -30,7 +30,7 @@ export default function RecipeInProgress() {
 
   // ADD DONE RECIPE
   const addDoneRecipeURL = `http://localhost:3001${route}/donerecipes/${id}`;
-  const { handleFetch } = useFetch(addDoneRecipeURL);
+  const { handleFetch } = useFetch(addDoneRecipeURL, {method: 'POST', body: {userId}});
   
   if (!data) {
     return undefined;

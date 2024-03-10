@@ -67,81 +67,61 @@ export type DrinkType = {
   [strIngredient: string]: string;
 };
 
-export type InProgressRecipeType = {
-  drinks: {
-    [key: string]: string[];
-  };
-  meals: {
-    [key: string]: string[];
-  };
-};
+// FAVORITE RECIPE TYPES
 
-export type DoneRecipeType = {
-  id: string;
-  type: string;
-  nationality: string;
-  category: string;
-  alcoholicOrNot: string;
-  name: string;
-  image: string;
-  doneDate: string;
-  tags: string[]
-};
-
-// FAVORITES
-
-export type FavoriteRecipeType = {
-  id: string;
-  type: string;
-  nationality: string;
-  category: string;
-  alcoholicOrNot: string;
-  name: string;
-  image: string;
-};
-
-export type FavoriteMealType = {
-  userId: number;
-  favoriteRecipes: {
-    idMeal: string;
-    strMeal: string;
-    strMealThumb: string;
-    strArea: string;
-  }
-};
-
-export type FavoriteMeals = {
+export type MealInfoType = {
   idMeal: string;
   strMeal: string;
   strMealThumb: string;
   strArea: string;
 };
 
-export type FavoriteDrinkType = {
+export type FavoriteMealType = {
   userId: number;
-  favoriteRecipes: {
-    idDrink: string;
-    strDrink: string;
-    strDrinkThumb: string;
-    strAlcoholic: string;
-  }
+  favoriteRecipes: MealInfoType;
 };
 
-export type FavoriteDrinks = {
+export type DrinkInfoType = {
   idDrink: string;
   strDrink: string;
   strDrinkThumb: string;
   strAlcoholic: string;
 }
 
+export type FavoriteDrinkType = {
+  userId: number;
+  favoriteRecipes: DrinkInfoType;
+};
+
 export type FavoriteMealReduceType = {
   userId: number;
-  favoriteRecipes: FavoriteMeals[]
+  favoriteRecipes: MealInfoType[];
 }
 
 export type FavoriteDrinkReduceType = {
   userId: number;
-  favoriteRecipes: FavoriteDrinks[]
+  favoriteRecipes: DrinkInfoType[];
+}
+
+// DONE RECIPE TYPES
+export type DoneMealType = {
+  userId: number;
+  finishedRecipes: MealInfoType;
+};
+
+export type DoneDrinkType = {
+  userId: number;
+  finishedRecipes: DrinkInfoType;
+};
+
+export type DoneMealReduceType = {
+  userId: number;
+  finishedRecipes: MealInfoType[];
+}
+
+export type DoneDrinkReduceType = {
+  userId: number;
+  finishedRecipes: DrinkInfoType[];
 }
 
 // INGREDIENT LIST TYPE
