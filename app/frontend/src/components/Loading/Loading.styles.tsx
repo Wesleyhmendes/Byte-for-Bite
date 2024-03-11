@@ -43,23 +43,3 @@ export const Img = styled.img`
     
   }
 `;
-
-export const H3 = styled.h3`
-  
-  
-  @media (min-width: 320px) {
-    
-  }
-
-  @media (min-width: 768px) {
-    
-  }
-
-  @media (min-width: 1024px) {
-    
-  }
-
-  @media (min-width: 1280px) {
-    
-  }
-`;
