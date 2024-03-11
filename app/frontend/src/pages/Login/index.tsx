@@ -5,21 +5,19 @@ import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import useFetch from '../../hooks/useFetch';
 import LoginModal from '../../components/Modals/LoginModal';
 import Loading from '../../components/Loading/Loading';
-import bgImgMobile from '../../assets/Images/bgImgMobile.png';
-import bgImgDesktop from '../../assets/Images/bgImgDesktop.png';
 import logo from '../../assets/Images/BfB_Logo.png';
 import {
-  BackgroundImgMobile,
-  BackgroundImgDesktop,
   Form,
   Inputs,
   Main,
   FormMainDiv,
+  Section,
   Phrase,
   Button,
   LogoDiv,
   Logo,
   StyledLink,
+  PhraseLink,
   NoAccountDiv,
 } from './Login.styles';
 
@@ -57,64 +55,68 @@ function Login() {
 
   return (
     <Main>
-      <BackgroundImgDesktop src={ bgImgDesktop } alt="background" />
-      <BackgroundImgMobile src={ bgImgMobile } alt="background" />
-      <LogoDiv>
-        <Logo src={ logo } alt="logo" />
-      </LogoDiv>
-      { !isModalOpen ? (
-        <FormMainDiv>
-          <Form onSubmit={ handleSubmit }>
-            <Inputs
-              name="email"
-              type="email"
-              placeholder="Email"
-              value={ user.email }
-              onChange={ handleChange }
-              data-testid="email-input"
-            />
-            <Inputs
-              name="password"
-              type="password"
-              placeholder="Senha"
-              value={ user.password }
-              onChange={ handleChange }
-              data-testid="password-input"
-            />
-            <Button
-              type="submit"
-              data-testid="login-submit-btn"
-              disabled={ !isDisabled }
-            >
-              Login
-            </Button>
-          </Form>
-          <NoAccountDiv>
-            <Phrase>
-              Don't have an account? Sign up
-              { ' ' }
-              <StyledLink to="/signup">here</StyledLink>
-            </Phrase>
-          </NoAccountDiv>
-        </FormMainDiv>
+      <Section>
+        <LogoDiv>
+          <Logo src={ logo } alt="logo" />
+        </LogoDiv>
+        { !isModalOpen ? (
+          <FormMainDiv>
+            <Form onSubmit={ handleSubmit }>
+              <Inputs
+                name="email"
+                type="email"
+                placeholder="Email"
+                value={ user.email }
+                onChange={ handleChange }
+                data-testid="email-input"
+              />
+              <Inputs
+                name="password"
+                type="password"
+                placeholder="Senha"
+                value={ user.password }
+                onChange={ handleChange }
+                data-testid="password-input"
+              />
+              <Button
+                type="submit"
+                data-testid="login-submit-btn"
+                disabled={ !isDisabled }
+              >
+                Login
+              </Button>
+            </Form>
+            <NoAccountDiv>
+              <Phrase>
+                Don't have an account?
+                { ' ' }
+              </Phrase>
+              <Phrase>
+                SignUp
+                { ' ' }
+                <PhraseLink to="/signup">here</PhraseLink>
+              </Phrase>
+            </NoAccountDiv>
+          </FormMainDiv>
 
-      ) : null }
+        ) : null }
 
-      { isLoading && isModalOpen ? (
+        { isLoading && isModalOpen ? (
 
-        <Loading />
+          <Loading />
 
-      ) : null }
+        ) : null }
 
-      { isModalOpen && !isLoading ? (
+        { isModalOpen && !isLoading ? (
 
-        <LoginModal
-          setIsModalOpen={ setIsModalOpen }
-          token={ data.token }
-          message={ data.message }
-        />
+          <LoginModal
+            setIsModalOpen={ setIsModalOpen }
+            token={ data.token }
+            message={ data.message }
+          />
 
-      ) : null }
+        ) : null }
+      </Section>
     </Main>
   );
 }
