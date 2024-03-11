@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import SearchBar from '../SearchBar';
 import profileIcon from '../../images/profileIcon.svg';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
@@ -12,25 +12,21 @@ import {
   ProfileImg,
 } from './Header.styles';
 import AsideMenu from '../AsideMenu/Aside.Menu';
+import Context from '../../context/Context';
 
 function Header() {
   const { user, profile } = useContext(UserInfoContext);
-  const { data, handleFetch } = profile;
-  const [pageName, setPageName] = useState('Meals');
+  const { route } = useContext(Context);
+  const { data, handleFetch } = profile; 
 
   const profileIMG = data ? data.profileImage : undefined;
 
-  const pageTitle = useLocation().pathname
-    .split('/')[1]
-    .replace(/(^\w{1})|(-\w{1})/g, (match) => match.toUpperCase())
-    .replace(/-/g, ' ');
-
-  useEffect(() => { setPageName(pageTitle); }, [pageTitle]);
+  const pageTitle = route === '/meals' ? 'Meals' : 'Drinks'; 
 
   useEffect(() => { handleFetch(); }, [user]);
   return (
     <HeaderStyle>
-      <HeaderMainDiv className={ pageName }>
+      <HeaderMainDiv className={ pageTitle }>
         <TopIconsDiv>
           <AsideMenu />
           <H1 data-testid="page-title">{ pageTitle }</H1>

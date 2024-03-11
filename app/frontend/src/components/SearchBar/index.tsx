@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useContext, useState } from 'react';
+import { ChangeEvent, FormEvent, useContext } from 'react';
 import lupe from '../../assets/Icons/search-bar-lupe.svg';
 import Context from '../../context/Context';
 import {
@@ -19,20 +19,11 @@ import {
 function SearchBar() {
   const RESET_SEARCH = 'RESET_SEARCH';
   const SET_SEARCH = 'SET_SEARCH';
-  const { filter, setRecipesFilter, filterDispatch } = useContext(Context);
+  const { filter, setRecipesFilter, filterDispatch } = useContext(Context);  
 
-  const [usingFilter, setUsingFilter] = useState({
-    ingredient: false, name: false, firstLetter: false,
-  });
-
+  // FILTER AND FILTER DISPATCH LOGIC CAN BE FOUND IN HOOK useSearchBar
   const handleFilterChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = target;
-    setUsingFilter({
-      ingredient: value === 'i',
-      name: value === 's',
-      firstLetter: value === 'f',
-    });
-
     filterDispatch({ type: SET_SEARCH, key: name, value });
   };
 
@@ -71,7 +62,7 @@ function SearchBar() {
               type="radio"
               required
             />
-            <FilterP className={ usingFilter.ingredient ? 'active' : '' }>
+            <FilterP className={ filter.radioSelected === 'i' ? 'active' : '' }>
               Ingredient
             </FilterP>
           </Label>
@@ -85,7 +76,7 @@ function SearchBar() {
               type="radio"
               required
             />
-            <FilterP className={ usingFilter.name ? 'active' : '' }>
+            <FilterP className={ filter.radioSelected === 's' ? 'active' : '' }>
               Name
             </FilterP>
           </Label>
@@ -99,7 +90,7 @@ function SearchBar() {
               type="radio"
               required
             />
-            <FilterP className={ usingFilter.firstLetter ? 'active' : '' }>
+            <FilterP className={ filter.radioSelected === 'f' ? 'active' : '' }>
               First Letter
             </FilterP>
           </Label>
