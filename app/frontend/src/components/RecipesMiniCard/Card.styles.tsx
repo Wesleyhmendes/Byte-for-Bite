@@ -1,10 +1,37 @@
-/* eslint-disable max-lines */
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const Div = styled.div`
+  
+  box-shadow: 0px 6px 9px -2px rgba(144, 144, 144, 0.75);
+  padding: 1rem;
+  border-radius: 10px;
+  width: 95%;
+  margin: 0 auto;
 
   @media (min-width: 320px) {
-    margin-bottom: 1rem;
+
+  }
+
+  @media (min-width: 768px) {
+    width: 47%;
+  }
+
+  @media (min-width: 1024px) {
+    
+  }
+
+  @media (min-width: 1280px) {
+    width: 32%;
+  }
+
+`;
+
+export const ContentDiv = styled.div`
+  
+  display: flex;
+
+  @media (min-width: 320px) {
+
   }
 
   @media (min-width: 768px) {
@@ -21,40 +48,16 @@ export const Div = styled.div`
 
 `;
 
-export const Form = styled.form`
- 
+export const TextContent = styled.div`
+  
   
   display: flex;
   flex-direction: column;
-  align-items: center;
-
-  @media (min-width: 320px) {
-
-  }
-
-  @media (min-width: 768px) {
-    
-  }
-
-  @media (min-width: 1024px) {
-    
-  }
-
-  @media (min-width: 1280px) {
-    
-  }
-
-`;
-
-export const Filters = styled.div`
-  background-color: rgb(255, 255, 255, 0.95);
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 3rem;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  margin-top: 1rem;
+  justify-content: space-between;
+  align-items: flex-start;
+  text-align: left;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   width: 100%;
 
   @media (min-width: 320px) {
@@ -75,55 +78,14 @@ export const Filters = styled.div`
 
 `;
 
-export const Label = styled.label`
- 
+export const RecipeInfo = styled.div`
   
-
-  @media (min-width: 320px) {
-
-  }
-
-  @media (min-width: 768px) {
-    
-  }
-
-  @media (min-width: 1024px) {
-    
-  }
-
-  @media (min-width: 1280px) {
-    
-  }
-
-`;
-
-export const LabelSearch = styled.label`
+  
   display: flex;
-  justify-content: center;
+  flex-direction: column;
 
   @media (min-width: 320px) {
-    
-  }
 
-  @media (min-width: 768px) {
-    
-  }
-
-  @media (min-width: 1024px) {
-    
-  }
-
-  @media (min-width: 1280px) {
-    
-  }
-`;
-
-export const InputSearch = styled.input`
-
-  @media (min-width: 320px) {
-    height: 30px;
-    border-radius: 10px 0 0 10px;
-    width: 70%;
   }
 
   @media (min-width: 768px) {
@@ -140,15 +102,61 @@ export const InputSearch = styled.input`
 
 `;
 
-export const Lupe = styled.img`
- 
+export const NameFavorite = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+
+  @media (min-width: 320px) {
+
+  }
+
+  @media (min-width: 768px) {
+    
+  }
+
+  @media (min-width: 1024px) {
+    
+  }
+
+  @media (min-width: 1280px) {
+    
+  }
+
+`;
+
+export const RecipeCategories = styled.div`
+  align-items: self-start;
+  display: flex;
+  justify-content: space-between;
+  width: fit-content;
+  gap: 7px;
+
+  @media (min-width: 320px) {
+
+  }
+
+  @media (min-width: 768px) {
+    
+  }
+
+  @media (min-width: 1024px) {
+    
+  }
+
+  @media (min-width: 1280px) {
+    
+  }
+
+`;
+
+export const PCategory = styled.p`
   
+  font-size: 1rem;
 
   @media (min-width: 320px) {
-    height: 30px;
-    background-color: #ffffff;
-    border-radius: 0 10px 10px 0;
-    border-left: 2px solid #c0c0c0;
+
   }
 
   @media (min-width: 768px) {
@@ -165,10 +173,15 @@ export const Lupe = styled.img`
 
 `;
 
-export const Button = styled.button`
- 
+export const Details = styled.button`
+  
   border: none;
-  background: transparent;
+  color: white;
+  font-weight: bold;
+  background: rgba(255, 77, 0, 0.912);
+  border-radius: 7px;
+  height: 30px;
+  width: 160px;
 
   @media (min-width: 320px) {
 
@@ -188,15 +201,9 @@ export const Button = styled.button`
 
 `;
 
-export const FilterP = styled.p`
-
-  font-weight: 600;
-  text-align: center;
- 
- ${(props) => props.className === 'active' && css`
-    color: rgb(255,75,0);
-    border-bottom: 2px solid rgb(255,75,0);
-  `}
+export const H1 = styled.p`
+  font-weight: bold;
+  font-size: 1.2rem;
 
   @media (min-width: 320px) {
 
@@ -216,53 +223,11 @@ export const FilterP = styled.p`
 
 `;
 
-export const InputIngredient = styled.input`
- 
-  display: none;
-
-  @media (min-width: 320px) {
-
-  }
-
-  @media (min-width: 768px) {
-    
-  }
-
-  @media (min-width: 1024px) {
-    
-  }
-
-  @media (min-width: 1280px) {
-    
-  }
-
-`;
-
-export const InputName = styled.input`
- 
- display: none;
-
-  @media (min-width: 320px) {
-
-  }
-
-  @media (min-width: 768px) {
-    
-  }
-
-  @media (min-width: 1024px) {
-    
-  }
-
-  @media (min-width: 1280px) {
-    
-  }
-
-`;
-
-export const InputFirstLetter = styled.input`
- 
- display: none;
+export const Img = styled.img`
+  
+  border-radius: 10px;
+  width: 8rem;
+  max-height: 8rem;
 
   @media (min-width: 320px) {
 
