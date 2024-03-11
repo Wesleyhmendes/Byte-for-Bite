@@ -2,6 +2,10 @@ import { useContext } from 'react';
 import { CategoryType } from '../../type';
 import CategoryButton from '../CategoryButton/CategoryButton';
 import Context from '../../context/Context';
+import {
+  Button,
+  Section,
+} from './Category.styles';
 
 export default function Category() {
   const { getCategories, getSelectedCategory } = useContext(Context);
@@ -9,7 +13,7 @@ export default function Category() {
   const allCategories = getCategories();
 
   return (
-    <section>
+    <Section>
       {!allCategories ? <p>Carregando...</p> : null}
 
       {allCategories ? allCategories?.map(({ strCategory }: CategoryType) => (
@@ -21,13 +25,13 @@ export default function Category() {
       ))
         : null}
       {allCategories ? (
-        <button
+        <Button
           onClick={ () => getSelectedCategory('') }
           data-testid="All-category-filter"
         >
           All
-        </button>
+        </Button>
       ) : null}
-    </section>
+    </Section>
   );
 }

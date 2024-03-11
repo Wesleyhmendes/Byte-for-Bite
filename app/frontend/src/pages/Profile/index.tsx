@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import useFetch from '../../hooks/useFetch';
 import Loading from '../../components/Loading/Loading';
+import {
+  Main,
+} from './Profile.styles';
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -51,7 +54,7 @@ export default function Profile() {
   }
 
   return (
-    <main>
+    <Main>
       { !isLoading && data.username ? (
 
         <>
@@ -130,6 +133,6 @@ export default function Profile() {
 
       ) : null }
 
-    </main>
+    </Main>
   );
 }

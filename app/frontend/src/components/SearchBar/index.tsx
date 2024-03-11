@@ -1,13 +1,38 @@
-import { ChangeEvent, FormEvent, useContext } from 'react';
+import { ChangeEvent, FormEvent, useContext, useState } from 'react';
+import lupe from '../../assets/Icons/search-bar-lupe.svg';
 import Context from '../../context/Context';
+import {
+  Div,
+  Form,
+  Label,
+  LabelSearch,
+  Filters,
+  InputIngredient,
+  InputName,
+  Lupe,
+  InputFirstLetter,
+  InputSearch,
+  FilterP,
+  Button,
+} from './SearchBar.styles';
 
 function SearchBar() {
   const RESET_SEARCH = 'RESET_SEARCH';
   const SET_SEARCH = 'SET_SEARCH';
   const { filter, setRecipesFilter, filterDispatch } = useContext(Context);
 
+  const [usingFilter, setUsingFilter] = useState({
+    ingredient: false, name: false, firstLetter: false,
+  });
+
   const handleFilterChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = target;
+    setUsingFilter({
+      ingredient: value === 'i',
+      name: value === 's',
+      firstLetter: value === 'f',
+    });
+
     filterDispatch({ type: SET_SEARCH, key: name, value });
   };
 
@@ -18,10 +43,10 @@ function SearchBar() {
   };
 
   return (
-    <div>
-      <form onSubmit={ handleSubmit }>
-        <label>
-          <input
+    <Div>
+      <Form onSubmit={ handleSubmit }>
+        <LabelSearch>
+          <InputSearch
             data-testid="search-input"
             name="search"
             value={ filter.search }
@@ -29,52 +54,58 @@ function SearchBar() {
             type="text"
             required
           />
-        </label>
+          <Button
+            data-testid="exec-search-btn"
+          >
+            <Lupe src={ lupe } alt="pesquisar" />
+          </Button>
+        </LabelSearch>
+        <Filters>
+          <Label>
+            <InputIngredient
+              name="radioSelected"
+              value="i"
+              onChange={ handleFilterChange }
+              defaultChecked
+              data-testid="ingredient-search-radio"
+              type="radio"
+              required
+            />
+            <FilterP className={ usingFilter.ingredient ? 'active' : '' }>
+              Ingredient
+            </FilterP>
+          </Label>
 
-        <label>
-          <input
-            name="radioSelected"
-            value="i"
-            onChange={ handleFilterChange }
-            defaultChecked
-            data-testid="ingredient-search-radio"
-            type="radio"
-            required
-          />
-          Ingredient
-        </label>
+          <Label>
+            <InputName
+              name="radioSelected"
+              value="s"
+              onChange={ handleFilterChange }
+              data-testid="name-search-radio"
+              type="radio"
+              required
+            />
+            <FilterP className={ usingFilter.name ? 'active' : '' }>
+              Name
+            </FilterP>
+          </Label>
 
-        <label>
-          <input
-            name="radioSelected"
-            value="s"
-            onChange={ handleFilterChange }
-            data-testid="name-search-radio"
-            type="radio"
-            required
-          />
-          Name
-        </label>
-
-        <label>
-          <input
-            name="radioSelected"
-            value="f"
-            onChange={ handleFilterChange }
-            data-testid="first-letter-search-radio"
-            type="radio"
-            required
-          />
-          First Letter
-        </label>
-
-        <button
-          data-testid="exec-search-btn"
-        >
-          Search
-        </button>
-      </form>
-    </div>
+          <Label>
+            <InputFirstLetter
+              name="radioSelected"
+              value="f"
+              onChange={ handleFilterChange }
+              data-testid="first-letter-search-radio"
+              type="radio"
+              required
+            />
+            <FilterP className={ usingFilter.firstLetter ? 'active' : '' }>
+              First Letter
+            </FilterP>
+          </Label>
+        </Filters>
+      </Form>
+    </Div>
   );
 }
 
