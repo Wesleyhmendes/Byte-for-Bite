@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Main = styled.main`
-  position: relative;
+  margin-bottom: -7rem;
+  background-color: #FF4B00;
   width: 100%;
-  height: 100vh; 
+  height: 100vh;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  align-items: flex-end;
-  background: linear-gradient(to bottom, transparent 70%, rgba(0, 0, 0, 0.9));
+  align-items: center;
 
   @media (min-width: 320px) {
 
@@ -30,70 +30,45 @@ export const Main = styled.main`
 
 `;
 
-export const BackgroundImgMobile = styled.img`
+export const Section = styled.section`
+  background-color: #ffffff;
+  box-shadow: 0px 0px 14px -2px rgba(0,0,0,0.75);
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 60vh;
+  width: 70%;
 
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-  filter: blur(3px);
-  z-index: -1;
 
   @media (min-width: 320px) {
 
   }
 
   @media (min-width: 768px) {
+    height: 68vh;
+  }
+
+  @media (min-width: 1024px) {
     
   }
 
-  @media (min-width: 1024px) {
-    display: none;
-  }
-
   @media (min-width: 1280px) {
-    display: none;
-  }
-
-`;
-
-export const BackgroundImgDesktop = styled.img`
-
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-  filter: blur(3px);
-  z-index: -1;
-
-  @media (min-width: 320px) {
-
-  }
-
-  @media (min-width: 768px) {
-
-  }
-
-  @media (min-width: 1024px) {
-    filter: blur(4px) brightness(0.6);
-  }
-
-  @media (min-width: 1280px) {
-    width: 100%;
-    filter: blur(4px) brightness(0.6);
+    height: 80vh;
   }
 
 `;
 
 export const Logo = styled.img`
-
   width: 55%;
-  margin-bottom: -100px;
+  margin-left: 2rem;
 
   @media (min-width: 320px) {
 
   }
 
   @media (min-width: 768px) {
-    width: 45%;
+    width: 70%;
   }
 
   @media (min-width: 1024px) {
@@ -107,7 +82,6 @@ export const Logo = styled.img`
 `;
 
 export const LogoDiv = styled.div`
-  
   display: flex;
   justify-content: center;
   width: 100%;
@@ -131,6 +105,7 @@ export const LogoDiv = styled.div`
 `;
 
 export const FormMainDiv = styled.div`
+
   display: flex;
   flex-direction: column;
   gap: 3.5rem;
@@ -142,7 +117,6 @@ export const FormMainDiv = styled.div`
   }
 
   @media (min-width: 768px) {
-    
     width: 55%;
   }
 
@@ -160,6 +134,7 @@ export const Form = styled.form`
   margin-bottom: -15px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   flex-wrap: wrap;
   gap: 0.5rem;
 
@@ -187,11 +162,12 @@ export const Inputs = styled.input`
   border: none;
   border-radius: 7px;
   height: 37px;
-  background-color: #C0C0C0;
+  background-color: #eeeeee;
   padding-left: 20px;
+  width: 90%;
 
   &::placeholder {
-    color: #FFFFFF;
+    color: #828282;
   }
 
   @media (min-width: 320px) {
@@ -217,13 +193,16 @@ export const Inputs = styled.input`
 `;
 
 export const Phrase = styled.p`
-
-  color: #FFFFFF;
+  display: inline-block;
+  line-height: 0;
+  color: #484848;
   font-weight: 500;
   text-align: center;
-  line-height: 0px;
-  margin-bottom: 35px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-weight: 600;
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+
 
   @media (min-width: 320px) {
 
@@ -242,11 +221,19 @@ export const Phrase = styled.p`
   }
 `;
 
+export const PhraseLink = styled(Link)`
+  line-height: 0;
+  color: #0026ff;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: underline;
+  width: 100%;
+
+`;
+
 export const NoAccountDiv = styled.div`
-  margin: 0 auto;
-  height: 37px;
-  width: fit-content;
-  margin-bottom: 25px;
+  margin-bottom: 1rem;
+  text-align: center;
 
   @media (min-width: 320px) {
 
@@ -289,17 +276,18 @@ export const StyledLink = styled(Link)`
 
 export const Button = styled.button`
 
-  background-color: #FFCE01;
-  border: none;
-  border-radius: 50px;
+  background-color: #FF4B00;
+  border-radius: 7px;
   color: #FFFFFF;
   font-size: 20px;
   font-weight: 700; 
   height: 37px;
+  width: 90%;
 
   &:hover {
-    background-color: #DBB209;
+    background-color: #c3c3c3;
     cursor: pointer;
+    color: black;
   }
 
   @media (min-width: 320px) {
