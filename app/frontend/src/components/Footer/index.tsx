@@ -1,9 +1,17 @@
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import drinkIcon from '../../images/drinkIcon.svg';
-import mealIcon from '../../images/mealIcon.svg';
-import style from './style.module.css';
+import { Link, useNavigate } from 'react-router-dom';
+import drinkIcon from '../../assets/Icons/glass-wine.svg';
+import goBackIcon from '../../assets/Icons/go-back-icon.svg';
+import homeIcon from '../../assets/Icons/home-icon.svg';
+import mealIcon from '../../assets/Icons/plate-icon.png';
 import Context from '../../context/Context';
+import {
+  FooterStyled,
+  Icon,
+  IconMeal,
+  IconDrinks,
+  Button,
+} from './Footer.styles';
 
 export default function Footer() {
   const { getSelectedCategory, setByFilterURL } = useContext(Context);
@@ -11,19 +19,30 @@ export default function Footer() {
     getSelectedCategory('');
     setByFilterURL('');
   };
+
+  const { route } = useContext(Context);
+  const navigate = useNavigate();
+
   return (
-    <footer
-      className={ style.footer }
+    <FooterStyled
       data-testid="footer"
     >
+      <Button onClick={ () => navigate(-1) }>
+        <Icon src={ goBackIcon } alt="ícone de drink" />
+      </Button>
+
       <Link onClick={ handleReset } to="/drinks">
-        <img src={ drinkIcon } alt="ícone de drink" data-testid="drinks-bottom-btn" />
+        <IconDrinks src={ drinkIcon } alt="ícone de drink" className={ route } />
       </Link>
 
       <Link onClick={ handleReset } to="/meals">
-        <img src={ mealIcon } alt="ícone do drink" data-testid="meals-bottom-btn" />
+        <IconMeal src={ mealIcon } alt="ícone do drink" className={ route } />
       </Link>
 
-    </footer>
+      <Link to="/meals">
+        <Icon src={ homeIcon } alt="ícone de drink" />
+      </Link>
+
+    </FooterStyled>
   );
 }

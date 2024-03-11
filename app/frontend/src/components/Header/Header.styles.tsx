@@ -27,22 +27,10 @@ export const HeaderStyle = styled.header`
 
 export const HeaderMainDiv = styled.div`
 
-  ${(props) => props.className === 'Meals' && css`
-    background-image: url(${fruits});
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  `}
-
-  ${(props) => props.className === 'Drinks' && css`
-    background-image: url(${drinks});
-    background-size: cover;
-    background-position: bottom;
-    background-repeat: no-repeat;
-  `}
+  background: rgba(255, 77, 0, 0.912);
 
   @media (min-width: 320px) {
-
+    
   }
 
   @media (min-width: 768px) {
@@ -84,10 +72,10 @@ export const TopIconsDiv = styled.div`
 
 `;
 
-export const H1 = styled.h1`
-
-  font-size: 25px;
-  font-weight: 600;
+export const Title = styled.img`
+  width: 140px;
+  height: 50px;
+  object-fit: cover;
 
   @media (min-width: 320px) {
 

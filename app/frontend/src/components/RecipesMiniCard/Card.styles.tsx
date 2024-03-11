@@ -176,7 +176,9 @@ export const PCategory = styled.p`
 export const Details = styled.button`
   
   border: none;
-  background-color: #FFCE01;
+  color: white;
+  font-weight: bold;
+  background: rgba(255, 77, 0, 0.912);
   border-radius: 7px;
   height: 30px;
   width: 160px;

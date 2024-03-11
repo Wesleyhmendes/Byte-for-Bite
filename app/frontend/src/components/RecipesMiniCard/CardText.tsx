@@ -20,7 +20,7 @@ type RecipesMiniCardProps = {
 
 function CardText({ recipe, path, index }: RecipesMiniCardProps) {
   const title = path === '/meals' ? recipe.strMeal : recipe.strDrink;
-  const shorterTitle = title.length > 25 ? `${title.slice(0, 25)}...` : title;
+  const shorterTitle = title?.length > 25 ? `${title.slice(0, 25)}...` : title;
   const id = path === '/meals' ? recipe.idMeal : recipe.idDrink;
   const url = `${path}/${id}`;
 

@@ -47,7 +47,7 @@ export const Form = styled.form`
 `;
 
 export const Filters = styled.div`
-  background-color: rgb(255, 255, 255, 0.85);
+  background-color: rgb(255, 255, 255, 0.95);
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -194,8 +194,8 @@ export const FilterP = styled.p`
   text-align: center;
  
  ${(props) => props.className === 'active' && css`
-    color: #EB7F03;
-    border-bottom: 2px solid #EB7F03;
+    color: rgb(255,75,0);
+    border-bottom: 2px solid rgb(255,75,0);
   `}
 
   @media (min-width: 320px) {

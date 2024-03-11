@@ -4,11 +4,13 @@ import { Link } from 'react-router-dom';
 import SearchBar from '../SearchBar';
 import profileIcon from '../../images/profileIcon.svg';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
+import mealTitle from '../../assets/Images/Meals-title.png';
+import drinkTitle from '../../assets/Images/Drinks-title.png';
 import {
   HeaderStyle,
   HeaderMainDiv,
   TopIconsDiv,
-  H1,
+  Title,
   ProfileImg,
 } from './Header.styles';
 import AsideMenu from '../AsideMenu/Aside.Menu';
@@ -17,11 +19,11 @@ import Context from '../../context/Context';
 function Header() {
   const { user, profile } = useContext(UserInfoContext);
   const { route } = useContext(Context);
-  const { data, handleFetch } = profile; 
+  const { data, handleFetch } = profile;
 
   const profileIMG = data ? data.profileImage : undefined;
 
-  const pageTitle = route === '/meals' ? 'Meals' : 'Drinks'; 
+  const pageTitle = route === '/meals' ? 'Meals' : 'Drinks';
 
   useEffect(() => { handleFetch(); }, [user]);
   return (
@@ -29,7 +31,7 @@ function Header() {
       <HeaderMainDiv className={ pageTitle }>
         <TopIconsDiv>
           <AsideMenu />
-          <H1 data-testid="page-title">{ pageTitle }</H1>
+          <Title src={ route === '/meals' ? mealTitle : drinkTitle } />
           <Link to="/profile">
             <ProfileImg
               src={ profileIMG || profileIcon }

@@ -9,6 +9,7 @@ import Context from '../../context/Context';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import useFetch from '../../hooks/useFetch';
 import Loading from '../../components/Loading/Loading';
+import Footer from '../../components/Footer';
 
 export default function RecipeDetails() {
   const navigate = useNavigate();
@@ -82,6 +83,7 @@ export default function RecipeDetails() {
       ) : null}
 
       { loadingNextPage ? <Loading /> : null }
+      <Footer />
     </main>
   );
 }
