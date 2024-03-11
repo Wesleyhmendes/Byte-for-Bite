@@ -1,4 +1,4 @@
-import loadingGIF from '../../assets/Images/loading.gif';
+import loadingGIF from '../../assets/Images/Byte_for_Bite_1.gif';
 import {
   Div,
   Img,
@@ -8,7 +8,7 @@ import {
 function Loading() {
   return (
     <Div>
-      <Img src={ loadingGIF } alt="Loading frying pan" />
+      <Img src={ loadingGIF } alt="Byte for bite logo" />
       <H3>Loading...</H3>
     </Div>
   );

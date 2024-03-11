@@ -28,7 +28,8 @@ export const HeaderStyle = styled.header`
 export const HeaderMainDiv = styled.div`
 
   ${(props) => props.className === 'Meals' && css`
-    background-image: url(${fruits});
+    /* background-image: url(${fruits}); */
+    background-color: orange;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
