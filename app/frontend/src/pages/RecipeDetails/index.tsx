@@ -4,7 +4,6 @@ import MealCard from '../../components/MealCard';
 import DrinkCard from '../../components/DrinkCard';
 import style from './style.module.css';
 import ShareFavoriteButtons from '../../components/ShareFavoriteButtons';
-import Carousel from '../../components/Carousel';
 import Context from '../../context/Context';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import useFetch from '../../hooks/useFetch';
@@ -53,23 +52,24 @@ export default function RecipeDetails() {
 
   return (
     <main>
-      <ShareFavoriteButtons id={ id } recipeType={ route } />
-
-      {recipe && !isLoading && !loadingNextPage ? (
-        route === '/meals' ? (
-          <MealCard recipeData={ recipe } />
-        ) : (
-          <DrinkCard recipeData={ recipe } />
-        )
+      {!loadingNextPage ? (
+        <ShareFavoriteButtons id={ id } recipeType={ route } />
       ) : null}
 
-      {error && !isLoading && !loadingNextPage ? (
+      {recipe && !loadingNextPage && route === '/meals' ? (
+        <MealCard recipeData={ recipe } />       
+      ) : null}
+
+      {recipe && !loadingNextPage && route === '/drinks' ? (
+         <DrinkCard recipeData={ recipe } />
+      ) : null}
+
+      {error && !loadingNextPage ? (
         <h3>An unexpected error occurred...</h3>
       ) : null}
 
       {isLoading ? <h3>Loading...</h3> : null}
-
-      {/* <Carousel /> */}
+     
       {recipe && !isLoading && !loadingNextPage ? (
         <button
           className={ style.btnStartRecipe }

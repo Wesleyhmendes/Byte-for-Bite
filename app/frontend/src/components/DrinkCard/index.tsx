@@ -31,8 +31,7 @@ export default function DrinkCard({ recipeData }: DrinkCardProps) {
               </li>
             )
           ))}
-      </ul>
-      <p data-testid="instructions">{recipeData.strInstructions}</p>
+      </ul>      
     </section>
   );
 }
