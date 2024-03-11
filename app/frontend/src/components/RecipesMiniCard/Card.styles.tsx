@@ -13,7 +13,7 @@ export const Div = styled.div`
   }
 
   @media (min-width: 768px) {
-    width: 50%;
+    width: 47%;
   }
 
   @media (min-width: 1024px) {
@@ -21,7 +21,7 @@ export const Div = styled.div`
   }
 
   @media (min-width: 1280px) {
-    width: 35%;
+    width: 32%;
   }
 
 `;
