@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 import { useContext, useEffect, useState } from 'react';
-import shareIcon from '../../images/shareIcon.svg';
 import whiteHeart from '../../images/whiteHeartIcon.svg';
 import blackHeart from '../../images/blackHeartIcon.svg';
 import useFetch from '../../hooks/useFetch';
@@ -54,14 +53,6 @@ export default function ShareFavoriteButtons({
 
   return (
     <>
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ copyText }
-      >
-        <img src={ shareIcon } alt="Share button icon" />
-      </button>
-
       <button
         type="button"
         onClick={ favoriteRecipe }
