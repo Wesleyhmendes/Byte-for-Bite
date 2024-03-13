@@ -4,15 +4,8 @@ import validateUser from '../../utils/validateUser';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import Loading from '../../components/Loading/Loading';
 import Modal from '../../components/Modals/SignUpModal';
-import {
-  Main,
-  Section,
-  H2,
-  Form,
-  Label,
-  Input,
-  Button,
-} from './SignUp.styles';
+import logo from '../../assets/Images/BfB_Logo.png';
+import * as S from './SignUp.styles'
 
 function SignUp() {
   const { user, RESET_USER, handleChange, signUpDispatch } = useContext(UserInfoContext);
@@ -43,57 +36,58 @@ function SignUp() {
   };
 
   return (
-    <Main>
-      <Section>
+    <S.Main>
+      <S.Section>
+        <S.LogoDiv>
+          <S.Logo src={ logo } alt="App Logo" />
+        </S.LogoDiv>
         { !isModalOpen ? (
-          <>
-            <H2>
-              SignUp
-            </H2>
-            <Form onSubmit={ handleSubmit }>
-              <Label>
+          <>            
+            <S.Form onSubmit={ handleSubmit }>
+              <S.Label>
                 Email
-                <Input
+                <S.Inputs
                   type="email"
                   name="email"
                   value={ user.email }
                   onChange={ handleChange }
-                  placeholder="Ex.: email@email.com"
+                  placeholder="Ex.: email@email.com"                                   
                 />
-              </Label>
-              <Label>
+              </S.Label>
+              <S.Label>
                 Username
-                <Input
+                <S.Inputs
                   type="text"
                   name="username"
                   value={ user.username }
                   onChange={ handleChange }
                 />
-              </Label>
-              <Label>
+              </S.Label>
+              <S.Label>
                 Password
-                <Input
+                <S.Inputs
                   name="password"
                   type="password"
+                  placeholder='At least 6 characters'
                   value={ user.password }
                   onChange={ handleChange }
                 />
-              </Label>
-              <Label>
+              </S.Label>
+              <S.Label>
                 Confirm your password
-                <Input
+                <S.Inputs
                   name="confirmPassword"
                   type="password"
                   value={ user.confirmPassword }
                   onChange={ handleChange }
                 />
-              </Label>
-              <Button
+              </S.Label>
+              <S.Button
                 disabled={ isInvalid }
               >
                 Sign up
-              </Button>
-            </Form>
+              </S.Button>
+            </S.Form>
           </>
 
         ) : null }
@@ -115,8 +109,8 @@ function SignUp() {
           <h4>Unexpected error... Please try again.</h4>
 
         ) : null }
-      </Section>
-    </Main>
+      </S.Section>
+    </S.Main>
   );
 }
 

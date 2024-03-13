@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-export const Main = styled.main`
-  
+export const Main = styled.main`  
   
   height: 100vh;
-  background-color: #FFCE01;
+  background-color: #FF4B00;
+  margin-bottom: -7rem;
 
   @media (min-width: 320px) {
 
@@ -50,27 +50,47 @@ export const Section = styled.section`
 
 `;
 
-export const H2 = styled.h2`
-  
-  margin-top: 2rem;
-  text-align: center;
-  font-weight: bold;
-  color: #FFCE01;
+export const LogoDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
 
   @media (min-width: 320px) {
-    font-size: 30px;
+
   }
 
   @media (min-width: 768px) {
-    
+
   }
 
   @media (min-width: 1024px) {
-    
+
   }
 
   @media (min-width: 1280px) {
-    
+
+  }
+
+`;
+
+export const Logo = styled.img`
+  width: 55%;
+  margin-left: 2rem;
+
+  @media (min-width: 320px) {
+
+  }
+
+  @media (min-width: 768px) {
+    width: 70%;
+  }
+
+  @media (min-width: 1024px) {
+    width: 40%;
+  }
+
+  @media (min-width: 1280px) {
+    width: 25%;
   }
 
 `;
@@ -124,7 +144,7 @@ export const Label = styled.label`
 
 `;
 
-export const Input = styled.input`
+export const Inputs = styled.input`
   
   background: #e2e2e2;
   padding-left: 1rem;
@@ -153,16 +173,24 @@ export const Button = styled.button`
   
   margin-top: 1.5rem;
   border: none;
-  background-color: #FFCE01;
+  background-color: #FF4B00;
   width: 325px;
-
-  border-radius: 100px;
+  color: #FFF;
+  border-radius: 7px;
   font-weight: 600;
+  transition: 0.3s ease;
 
   &:hover {
-    background-color: #d9b214;
+    background-color: #a73504;
+    color: #000;
+    cursor: pointer;
   }
-  
+
+  &:disabled {
+    cursor: default;
+    background-color: #828282;
+    color: #FFF; 
+  }  
 
   @media (min-width: 320px) {
     min-height: 50px;

@@ -4,28 +4,14 @@ import { User } from '../../type';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import useFetch from '../../hooks/useFetch';
 import LoginModal from '../../components/Modals/LoginModal';
-import Loading from '../../components/Loading/Loading';
 import logo from '../../assets/Images/BfB_Logo.png';
-import {
-  Form,
-  Inputs,
-  Main,
-  FormMainDiv,
-  Section,
-  Phrase,
-  Button,
-  LogoDiv,
-  Logo,
-  StyledLink,
-  PhraseLink,
-  NoAccountDiv,
-} from './Login.styles';
+import * as Styled from './Login.styles';
 
 function Login() {
   const { user, RESET_USER, handleChange, signUpDispatch } = useContext(UserInfoContext);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);  
 
-  // GETS USER OBJECT FROM CONTEXT AND FILLED WITH FORM INFORMATION BELLOW AND SENDS AS REQUEST BODY TO BACKEND
+  // GETS USER INITIAL STATE FROM CONTEXT, FILLS WITH INFORMATION FROM FORM BELLOW AND SENDS TO DB 
   const url = 'http://localhost:3001/user/login';
 
   const requestBody = user;
@@ -51,18 +37,18 @@ function Login() {
     signUpDispatch({ type: RESET_USER });
   };
 
-  const isDisabled = validateFields(user);
+  const isDisabled = validateFields(user);  
 
-  return (
-    <Main>
-      <Section>
-        <LogoDiv>
-          <Logo src={ logo } alt="logo" />
-        </LogoDiv>
+  return (    
+    <Styled.Main>      
+      <Styled.Section>
+        <Styled.LogoDiv>
+          <Styled.Logo src={ logo } alt="logo" />
+        </Styled.LogoDiv>
         { !isModalOpen ? (
-          <FormMainDiv>
-            <Form onSubmit={ handleSubmit }>
-              <Inputs
+          <Styled.FormMainDiv>
+            <Styled.Form onSubmit={ handleSubmit }>
+              <Styled.Inputs
                 name="email"
                 type="email"
                 placeholder="Email"
@@ -70,7 +56,7 @@ function Login() {
                 onChange={ handleChange }
                 data-testid="email-input"
               />
-              <Inputs
+              <Styled.Inputs
                 name="password"
                 type="password"
                 placeholder="Senha"
@@ -78,34 +64,28 @@ function Login() {
                 onChange={ handleChange }
                 data-testid="password-input"
               />
-              <Button
+              <Styled.Button
                 type="submit"
                 data-testid="login-submit-btn"
                 disabled={ !isDisabled }
               >
                 Login
-              </Button>
-            </Form>
-            <NoAccountDiv>
-              <Phrase>
+              </Styled.Button>
+            </Styled.Form>
+            <Styled.NoAccountDiv>
+              <Styled.Phrase>
                 Don't have an account?
                 { ' ' }
-              </Phrase>
-              <Phrase>
+              </Styled.Phrase>
+              <Styled.Phrase>
                 SignUp
                 { ' ' }
-                <PhraseLink to="/signup">here</PhraseLink>
-              </Phrase>
-            </NoAccountDiv>
-          </FormMainDiv>
+                <Styled.PhraseLink to="/signup">here</Styled.PhraseLink>
+              </Styled.Phrase>
+            </Styled.NoAccountDiv>
+          </Styled.FormMainDiv>
 
-        ) : null }
-
-        { isLoading && isModalOpen ? (
-
-          <Loading />
-
-        ) : null }
+        ) : null }        
 
         { isModalOpen && !isLoading ? (
 
@@ -116,8 +96,8 @@ function Login() {
           />
 
         ) : null }
-      </Section>
-    </Main>
+      </Styled.Section>
+    </Styled.Main>
   );
 }
 

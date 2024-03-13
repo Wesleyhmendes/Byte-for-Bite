@@ -2,36 +2,37 @@ import { useContext } from 'react';
 import { CategoryType } from '../../type';
 import CategoryButton from '../CategoryButton/CategoryButton';
 import Context from '../../context/Context';
-import {
-  Button,
-  Section,
-} from './Category.styles';
+import * as S from './Category.styles';
 
 export default function Category() {
   const { getCategories, getSelectedCategory } = useContext(Context);
 
-  const allCategories = getCategories();
+  const allCategories = getCategories();  
 
   return (
-    <Section>
+    <S.Section>
       {!allCategories ? <p>Carregando...</p> : null}
 
-      {allCategories ? allCategories?.map(({ strCategory }: CategoryType) => (
-        <CategoryButton
-          key={ strCategory }
-          strCategory={ strCategory }
-          getSelectedCategory={ getSelectedCategory }
-        />
-      ))
+      {allCategories
+        ? allCategories?.map(
+            ({ strCategory, strCategoryThumb }: CategoryType) => (
+              <CategoryButton
+                key={strCategory}
+                strCategoryThumb={strCategoryThumb}
+                strCategory={strCategory}
+                getSelectedCategory={getSelectedCategory}
+              />
+            )
+          )
         : null}
       {allCategories ? (
-        <Button
-          onClick={ () => getSelectedCategory('') }
+        <S.Button
+          onClick={() => getSelectedCategory('')}
           data-testid="All-category-filter"
         >
           All
-        </Button>
+        </S.Button>
       ) : null}
-    </Section>
+    </S.Section>
   );
 }
