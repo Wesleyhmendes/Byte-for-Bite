@@ -12,7 +12,7 @@ export default function FavoriteRecipes() {
   const favoriteMealsURL = `http://localhost:3001/meals/favorites/search?user=${userId}`;
   const favoriteDrinksURL = `http://localhost:3001/drinks/favorites/search?user=${userId}`;
 
-  const meals = useFetch(favoriteMealsURL);
+  const meals = useFetch(favoriteMealsURL);  
   const drinks = useFetch(favoriteDrinksURL);
   const formattedMeals = formatFavorites('/meals', meals);
   const formattedDrinks = formatFavorites('/drinks', drinks);

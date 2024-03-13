@@ -7,6 +7,9 @@ import {
 } from '../type';
 
 const favoriteMealReducer = (favorites: FavoriteMealType[]) => {
+  if (!Array.isArray(favorites)) {
+    return { userId: undefined, favoriteRecipes: [] };
+  }
   const reduceFavorite = favorites.reduce((acc, favorite) => {
     if (!acc.userId) {
       acc = {
@@ -24,6 +27,9 @@ const favoriteMealReducer = (favorites: FavoriteMealType[]) => {
 };
 
 const favoriteDrinkReducer = (favorites: FavoriteDrinkType[]) => {
+  if (!Array.isArray(favorites)) {
+    return { userId: undefined, favoriteRecipes: [] };
+  }
   const reduceFavorite = favorites.reduce((acc, favorite) => {
     if (!acc.userId) {
       acc = {
@@ -42,17 +48,19 @@ const favoriteDrinkReducer = (favorites: FavoriteDrinkType[]) => {
 
 const formatFavorites = (recipeType: string, favorites: FetchedData) => {
   const { data } = favorites;
-  if (data && recipeType === '/meals') {
-    const favorite: FavoriteMealType[] = data;
-    const formattedFavorite = favoriteMealReducer(favorite);
-
-    return formattedFavorite;
-  }
-  if (data && recipeType === '/drinks') {
-    const favorite: FavoriteDrinkType[] = data;
-    const formattedFavorite = favoriteDrinkReducer(favorite);
-
-    return formattedFavorite;
+  if (data) {
+    if (recipeType === '/meals') {
+      const favorite: FavoriteMealType[] = data;
+      const formattedFavorite = favoriteMealReducer(favorite);
+  
+      return formattedFavorite;
+    }
+    if (recipeType === '/drinks') {
+      const favorite: FavoriteDrinkType[] = data;
+      const formattedFavorite = favoriteDrinkReducer(favorite);
+  
+      return formattedFavorite;
+    }
   }
   return undefined;
 };

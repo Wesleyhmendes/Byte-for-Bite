@@ -65,24 +65,15 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
     try {
       const response = await fetch(URL, request);
 
-      // IF RESPONSE IS "NOT AUTHORIZED", RESET TO INITIALSTATE AND THROW AN ERROR
-      if (!response.ok) {
-        if (response.status === 401) {
-          dispatch({ type: 'reset' });
-          return;
-        }
-        throw new Error(`Erro na requisição: ${response.status}`);
-      }
-
       // IF ALL GOES WELL, DISPATCHES 'FETCHED' ACTION AND DATA PAYLOAD
       const result = await response.json();
-
       dispatch({ type: 'fetched', payload: result });
+
     } catch (err: any) {
-      // IF THERE'S AN ERROR DIFFERENT THAN 'NOT AUTHORIZED', DISPATCHES 'ERROR' ACTION AND ERROR DATA PAYLOAD
-      if (err.message !== 'Erro na requisição: 401') {
+      
+      // IF THERE'S AN ERROR, DISPATCHES 'ERROR' ACTION AND ERROR DATA PAYLOAD      
         dispatch({ type: 'error', payload: err });
-      }
+    
     }
   };
 

@@ -12,7 +12,7 @@ export const Main = styled.main`
     display: flex;
     flex-wrap: wrap;
     padding: 1rem;
-    gap: 1rem;
+    gap: 1rem;    
   }
 
   @media (min-width: 1024px) {

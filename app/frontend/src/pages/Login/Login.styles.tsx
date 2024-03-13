@@ -278,16 +278,23 @@ export const Button = styled.button`
 
   background-color: #FF4B00;
   border-radius: 7px;
-  color: #FFFFFF;
+  color: #FFF;
   font-size: 20px;
   font-weight: 700; 
   height: 37px;
   width: 90%;
+  transition: 0.3s ease;
 
   &:hover {
-    background-color: #c3c3c3;
+    background-color: #a73504;
     cursor: pointer;
     color: black;
+  }
+
+  &:disabled {
+    cursor: default;
+    background-color: #828282;
+    color: #FFF; 
   }
 
   @media (min-width: 320px) {
