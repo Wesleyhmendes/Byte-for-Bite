@@ -78,9 +78,7 @@ export const TextContent = styled.div`
 
 `;
 
-export const RecipeInfo = styled.div`
-  
-  
+export const RecipeInfo = styled.div`  
   display: flex;
   flex-direction: column;
 
@@ -182,6 +180,13 @@ export const Details = styled.button`
   border-radius: 7px;
   height: 30px;
   width: 160px;
+  transition: 0.3s ease;
+
+  &:hover {
+    background-color: #a73504;
+    color: #000;
+    cursor: pointer;
+  }
 
   @media (min-width: 320px) {
 

@@ -7,6 +7,7 @@ import ShareFavoriteButtons from '../../components/ShareFavoriteButtons';
 import Loading from '../../components/Loading/Loading';
 import Footer from '../../components/Footer';
 import style from './style.module.css';
+import * as S from './RecipeDetails.styles';
 
 import Context from '../../context/Context';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
@@ -27,9 +28,9 @@ export default function RecipeDetails() {
   const recipe = data;
 
   const inProgressURL = `http://localhost:3001${route}/inprogress/${id}?user=${userId}`;
-  const inProgress = useFetch(inProgressURL);
+  const inProgress = useFetch(inProgressURL);  
 
-  const buttonText = inProgress?.data ? 'Continue recipe' : 'Start recipe';
+  const buttonText = inProgress?.data?.message ? 'Start recipe' : 'Continue recipe';
   
   const startInProgressURL = `http://localhost:3001${route}/inprogress`;
   const reqBody = route === '/meals'
@@ -40,7 +41,7 @@ export default function RecipeDetails() {
 
   // HAD TO PUT A TIMEOUT FUNCTION SO 'IN PROGRESS' COMPONENT HAS TIME TO LOAD DATA FROM DB.
   const handleInProgress = () => {
-    if (!inProgress?.data) {
+    if (inProgress?.data?.message) {
       handleFetch();
     }
     setIsLoadingNextPage(true);
@@ -50,17 +51,21 @@ export default function RecipeDetails() {
   };
 
   return (
-    <main>
-      {!loadingNextPage ? (
-        <ShareFavoriteButtons id={ id } recipeType={ route } />
-      ) : null}
-
+    <S.Main>
       {recipe && !loadingNextPage && route === '/meals' ? (
-        <MealCard recipeData={ recipe } />       
+        <MealCard
+          recipeData={recipe}
+          handleInProgress={handleInProgress}
+          buttonText={buttonText}
+        />
       ) : null}
 
       {recipe && !loadingNextPage && route === '/drinks' ? (
-         <DrinkCard recipeData={ recipe } />
+        <DrinkCard
+          recipeData={recipe}
+          handleInProgress={handleInProgress}
+          buttonText={buttonText}
+        />
       ) : null}
 
       {error && !loadingNextPage ? (
@@ -68,20 +73,9 @@ export default function RecipeDetails() {
       ) : null}
 
       {isLoading ? <h3>Loading...</h3> : null}
-     
-      {recipe && !isLoading && !loadingNextPage ? (
-        <button
-          className={ style.btnStartRecipe }
-          data-testid="start-recipe-btn"
-          type="button"
-          onClick={ handleInProgress }
-        >
-          {buttonText}
-        </button>
-      ) : null}
 
-      { loadingNextPage ? <Loading /> : null }
+      {loadingNextPage ? <Loading /> : null}
       <Footer />
-    </main>
+    </S.Main>
   );
 }
