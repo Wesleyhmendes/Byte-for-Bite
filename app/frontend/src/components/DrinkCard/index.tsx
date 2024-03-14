@@ -13,26 +13,29 @@ export default function DrinkCard({ recipeData, handleInProgress, buttonText }: 
   const { strDrink, strDrinkThumb, strAlcoholic, idDrink } = recipeData;
   const drinkIngredients = getIngredients(recipeData);
   return (
-    <section>
-      <img data-testid="recipe-photo" src={strDrinkThumb} alt={strDrink} />
-      <div>
-        <h2 data-testid="recipe-title">{strDrink}</h2>
-        <h3 data-testid="recipe-category">{strAlcoholic}</h3>
+    <S.RecipeCard>
+      <S.RecipeImage data-testid="recipe-photo" src={strDrinkThumb} alt={strDrink} />
+      <S.TitleAndButtonContainer>
+        <div>
+          <h2 data-testid="recipe-title">{strDrink}</h2>
+          <h3 data-testid="recipe-category">{strAlcoholic}</h3>
+        </div>
 
         <ShareFavoriteButtons id={idDrink} recipeType="/drinks" />
-      </div>
-      <ul>
+      </S.TitleAndButtonContainer>
+      <S.IngredientsContainer>
         {drinkIngredients.map((ingredient, index) => (
           <li key={index}>
             <p data-testid={`${index}-ingredient-name-and-measure`}>
               {ingredient}
             </p>
+            <hr />
             <p data-testid={`${index}-ingredient-name-and-measure`}>
               {`${recipeData[`strMeasure${index + 1}`]}`}
             </p>
           </li>
         ))}
-      </ul>
+      </S.IngredientsContainer>
 
       <S.Button
         data-testid="start-recipe-btn"
@@ -41,6 +44,6 @@ export default function DrinkCard({ recipeData, handleInProgress, buttonText }: 
       >
         {buttonText}
       </S.Button>
-    </section>
+    </S.RecipeCard>
   );
 }
