@@ -1,37 +1,34 @@
 import { DrinkType, MealType } from '../../type';
+import getIngredients from '../../utils/getIngredients';
 
 type DrinkCardProps = {
   recipeData: DrinkType | MealType;
 };
 
 export default function DrinkCard({ recipeData }: DrinkCardProps) {
+  const { strDrink, strDrinkThumb, strAlcoholic } = recipeData;
+  const drinkIngredients = getIngredients(recipeData);
   return (
     <section>
       <img
         data-testid="recipe-photo"
-        src={ recipeData.strDrinkThumb }
-        alt="imagem da receita"
+        src={ strDrinkThumb }
+        alt={ strDrink }
       />
-      <h2 data-testid="recipe-title">{recipeData.strDrink}</h2>
-      <h3 data-testid="recipe-category">{recipeData.strAlcoholic}</h3>
+      <h2 data-testid="recipe-title">{strDrink}</h2>
+      <h3 data-testid="recipe-category">{strAlcoholic}</h3>
       <ul>
-        {Object.keys(recipeData)
-          .filter((key) => key.includes('strIngredient'))
-          .map((ingredient: string, index: number) => (
-            recipeData[ingredient] !== null
-            && recipeData[ingredient] !== ''
-            && (
-              <li key={ index }>
-                <p data-testid={ `${index}-ingredient-name-and-measure` }>
-                  {`${recipeData[ingredient]}`}
-                </p>
-                <p data-testid={ `${index}-ingredient-name-and-measure` }>
-                  {`${recipeData[`strMeasure${Number(index) + 1}`]}`}
-                </p>
-              </li>
-            )
-          ))}
-      </ul>      
+        {drinkIngredients.map((ingredient, index) => (
+          <li key={index}>
+            <p data-testid={`${index}-ingredient-name-and-measure`}>
+              {ingredient}
+            </p>
+            <p data-testid={`${index}-ingredient-name-and-measure`}>
+              {`${recipeData[`strMeasure${index + 1}`]}`}
+            </p>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

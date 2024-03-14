@@ -1,12 +1,5 @@
 import { useReducer, useEffect } from 'react';
-import { FetchAction } from '../type';
-
-type RequestMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
-
-interface FetchOptions {
-  method?: RequestMethod,
-  body?: any;
-}
+import { FetchAction, FetchOptions } from '../type';
 
 const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
   // INITIAL STATE IS PREPARED TO ACCEPT ALL KINDS OF DATA

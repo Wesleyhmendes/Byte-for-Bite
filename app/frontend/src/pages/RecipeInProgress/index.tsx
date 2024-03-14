@@ -1,14 +1,18 @@
 /* eslint-disable max-len */
 import { ChangeEvent, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { IngredientListType } from '../../type';
-import ShareFavoriteButtons from '../../components/ShareFavoriteButtons';
-import useFetch from '../../hooks/useFetch';
-import UserInfoContext from '../../context/UserInfo/UserInfoContext';
-import Context from '../../context/Context';
+
 import getIngredients from '../../utils/getIngredients';
 import useCheckIngredients from '../../hooks/useCheckIngredients';
 import isRecipeDone from '../../utils/isRecipeDone';
+import UserInfoContext from '../../context/UserInfo/UserInfoContext';
+import Context from '../../context/Context';
+import useFetch from '../../hooks/useFetch';
+
+import ShareFavoriteButtons from '../../components/ShareFavoriteButtons';
+import RecipeInfo from './RecipeInfo';
+import RecipeIngredients from './RecipeIngredients';
+import RecipeVideo from './RecipeVideo';
 
 export default function RecipeInProgress() {
   const navigate = useNavigate();
@@ -24,12 +28,10 @@ export default function RecipeInProgress() {
     CHANGE,
     checkIngredientsDispatch,
   } = useCheckIngredients(userId, id as string, route);
-
-  // GET RECIPE
+  
   const recipeURL = `http://localhost:3001${route}/${id}`;
   const { data, isLoading, error } = useFetch(recipeURL);
 
-  // ADD DONE RECIPE
   const addDoneRecipeURL = `http://localhost:3001${route}/donerecipes/${id}`;
   const {
     handleFetch,
@@ -39,21 +41,18 @@ export default function RecipeInProgress() {
     return undefined;
   }
   const recipeData = data;
-  const typeRecipe = route === '/meals' ? 'Meal' : 'Drink';
+  const recipeType = route === '/meals' ? 'Meal' : 'Drink';
 
   // SEPARATES INGREDIENT LIST FROM RECIPE DATA AND RETURN A ARRAY OF INGREDIENTS
   const ingredients = getIngredients(recipeData);
 
-  // HANDLECHANGE
   const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = target;
     checkIngredientsDispatch({ type: CHANGE, name, value: checked });
   };
 
-  // CHECK IF RECIPE IS DONE. IF IT IS, ENABLES 'End recipe' BUTTON.
   const isDone = isRecipeDone(ingredients, stateIngredients);
 
-  // FUNCTION THAT ADD A RECIPE TO DONE RECIPES LIST IN DB
   const handleDone = () => {
     handleFetch();
     navigate('/done-recipes');
@@ -71,10 +70,9 @@ export default function RecipeInProgress() {
 
       {recipeData && isInprogress && !isLoading ? (
         <section className="recipesIngProgressSection">
-          <ShareFavoriteButtons
-            id={ id }
-            recipeType={ route }
-          />
+
+          <ShareFavoriteButtons id={ id } recipeType={ route } />
+
           <button
             data-testid="finish-recipe-btn"
             disabled={ !isDone }
@@ -83,58 +81,22 @@ export default function RecipeInProgress() {
             End Recipe
           </button>
 
-          <img
-            data-testid="recipe-photo"
-            src={ recipeData[`str${typeRecipe}Thumb`] }
-            alt={ recipeData[`str${typeRecipe}`] }
+          <RecipeInfo recipeData={recipeData} recipeType={recipeType} />
+
+          <RecipeIngredients
+            ingredients={ ingredients }
+            handleChange={ handleChange }
+            stateIngredients={ stateIngredients }
           />
 
-          <h2 data-testid="recipe-title">{recipeData[`str${typeRecipe}`]}</h2>
+          <p data-testid="instructions">{ recipeData.strInstructions }</p>
 
-          <p data-testid="recipe-category">{recipeData.strCategory}</p>
-
-          {ingredients.map((ingredient, index) => (
-            <label
-              data-testid={ `${index}-ingredient-step` }
-              key={ index }
-              style={
-                stateIngredients[`strIngredient${index + 1}` as keyof IngredientListType]
-                  ? { textDecoration: 'line-through' }
-                  : { textDecoration: 'none' }
-              }
-            >
-              <input
-                type="checkbox"
-                name={ `strIngredient${index + 1}` }
-                onChange={ handleChange }
-                checked={
-                  stateIngredients[`strIngredient${index + 1}` as keyof IngredientListType]
-                    ? stateIngredients[`strIngredient${index + 1}` as keyof IngredientListType]
-                    : false
-                }
-              />
-              {ingredient}
-            </label>
-          ))}
-
-          <p data-testid="instructions">{recipeData.strInstructions}</p>
           {recipeData.strYoutube ? (
-            <iframe
-            data-testid="video"
-            width="560"
-            height="315"
-            src={ `${recipeData.strYoutube}`.replace('watch?v=', '/embed/') }
-            title="YouTube video player"
-            allow="accelerometer;
-            autoplay;
-            clipboard-write;
-            encrypted-media;
-            gyroscope;
-            picture-in-picture;
-            web-share"
-            allowFullScreen
-          />
+
+            <RecipeVideo recipeData={ recipeData } />
+
           ) : null}
+
         </section>
       ) : null}
     </div>
