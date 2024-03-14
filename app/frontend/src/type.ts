@@ -32,7 +32,14 @@ export type CheckIngredientActionType = {
   value?: boolean,
 };
 
-// FETCHED DATA
+// FETCH TYPES
+type RequestMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+
+export interface FetchOptions {
+  method?: RequestMethod,
+  body?: any;
+}
+
 export type FetchedData = {
   data: any;
   isLoading: boolean;

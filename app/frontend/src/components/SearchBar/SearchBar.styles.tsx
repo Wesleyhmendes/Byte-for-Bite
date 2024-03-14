@@ -140,9 +140,7 @@ export const InputSearch = styled.input`
 
 `;
 
-export const Lupe = styled.img`
- 
-  
+export const Lupe = styled.img` 
 
   @media (min-width: 320px) {
     height: 30px;
@@ -193,10 +191,14 @@ export const FilterP = styled.p`
   font-weight: 600;
   text-align: center;
  
- ${(props) => props.className === 'active' && css`
+ ${(props: { className: string }) => props.className === 'active' && css`
     color: rgb(255,75,0);
     border-bottom: 2px solid rgb(255,75,0);
   `}
+
+  &:hover {
+    cursor: pointer;
+  }
 
   @media (min-width: 320px) {
 

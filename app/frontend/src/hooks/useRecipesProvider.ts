@@ -19,39 +19,21 @@ const useRecipesProvider = (path: string) => {
   // SEARCH BAR FILTER
   const { filter, filterDispatch } = useSearchBar();
 
-  // URLS //
-  // CATEGORIES URL
-  const allCategoriesURL = `http://localhost:3001${path}/categories`;
-
-  // ALL RECIPES URL
-  const allRecipesURL = `http://localhost:3001${path}/name`;
-
-  // MEALS OR DRINKS BY CATEGORIES URL
-  const byCategoryURL = `http://localhost:3001${path}/category?q=${selectedCategory}`;
-
-  // FAVORITE RECIPES URL
-  const favoritesURL = `http://localhost:3001${path}/favorites/search?user=${userId}`;
-
-  // MEALS OR DRINKS WITH FILTER URL
-  const [byFilterURL, setByFilterURL] = useState('');
-
-  // CATEGORIES FETCH
-  const allCategories: FetchedData = useFetch(allCategoriesURL);
-
-  // ALL RECIPES FETCHS
-  const allRecipes: FetchedData = useFetch(allRecipesURL);
-
-  // BY CATEGORY FETCH
-  const byCategory: FetchedData = useFetch(byCategoryURL);
-
-  // BY FILTER FETCH
-  const byFilter = useFetch(byFilterURL);
-
-  // FAVORITE RECIPES FETCH
+  // URLS //  
+  const allCategoriesURL = `http://localhost:3001${path}/categories`;  
+  const allRecipesURL = `http://localhost:3001${path}/name`;  
+  const byCategoryURL = `http://localhost:3001${path}/category?q=${selectedCategory}`; 
+  const favoritesURL = `http://localhost:3001${path}/favorites/search?user=${userId}`;  
+  const [byFilterURL, setByFilterURL] = useState('');  
+  
+  //FETCHS
+  const allCategories: FetchedData = useFetch(allCategoriesURL);  
+  const allRecipes: FetchedData = useFetch(allRecipesURL); 
+  const byCategory: FetchedData = useFetch(byCategoryURL);  
+  const byFilter = useFetch(byFilterURL); 
   const favorites = useFetch(favoritesURL);
 
   // GETTER FUNCTIONS //
-  // CHECK DATA IF IT IS DRINKS OR MEALS
   const checkData = (fetchedData: FetchedData) => {
     const { data, isLoading, error } = fetchedData;
     if (path === '/meals' && !isLoading) {
@@ -68,7 +50,6 @@ const useRecipesProvider = (path: string) => {
     return [];
   };
 
-  // GET CATEGORIES
   const getCategories = () => {
     const { data, isLoading } = allCategories;
     if (!isLoading) {
@@ -78,7 +59,6 @@ const useRecipesProvider = (path: string) => {
     return [];
   };
 
-  // ALL RECIPES
   const getAllRecipes = () => {
     const recipes = checkData(allRecipes);
     return recipes?.slice(0, 12);
@@ -88,13 +68,11 @@ const useRecipesProvider = (path: string) => {
     setSelectedCategory(category);
   };
 
-  // RECIPES BY CATEGORY
   const getByCategory = () => {
     const recipesByCategory = checkData(byCategory);
     return recipesByCategory?.slice(0, 12);
   };
 
-  // RECIPES BY FILTER
   const setRecipesFilter = (selectedFilter: FilterRadioType) => {
     if (selectedFilter.radioSelected === 'f' && selectedFilter.search.length > 1) {
       window.alert('Your search must have only 1 (one) character');
@@ -121,9 +99,8 @@ const useRecipesProvider = (path: string) => {
     return [];
   };
 
-  // FORMAT FAVORITE RECIPES DATA
   const formattedFavorites = formatFavorites(path, favorites);
-  console.log(favorites);
+
   return {
     selectedCategory,
     filter,

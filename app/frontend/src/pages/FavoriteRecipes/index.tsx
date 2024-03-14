@@ -2,7 +2,10 @@ import { useContext, useState } from 'react';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import useFetch from '../../hooks/useFetch';
 import formatFavorites from '../../utils/formatFavorites';
+
 import DoneOrFavoriteCard from '../../components/DoneOrFavoriteCard/DoneOrFavoriteCard';
+import FilterButtons from '../../components/FilterButtons/FilterButtons';
+
 
 export default function FavoriteRecipes() {
   const [filter, setFilter] = useState('all');
@@ -19,57 +22,45 @@ export default function FavoriteRecipes() {
 
   return (
     <section>
-      <button
-        onClick={ () => setFilter('all') }
-        data-testid="filter-by-all-btn"
-      >
-        All
-      </button>
-      <button
-        onClick={ () => setFilter('meal') }
-        data-testid="filter-by-meal-btn"
-      >
-        Meals
-      </button>
-      <button
-        onClick={ () => setFilter('drink') }
-        data-testid="filter-by-drink-btn"
-      >
-        Drinks
-      </button>
-      {formattedMeals && filter === 'all' ? (
-        formattedMeals.favoriteRecipes
-          .map((recipe, i) => (<DoneOrFavoriteCard
-            key={ `allMeals[${i}]` }
-            recipe={ recipe }
-            recipeType="meals"
-          />))
-      ) : null}
-      {formattedDrinks && filter === 'all' ? (
-        formattedDrinks.favoriteRecipes
-          .map((recipe, i) => (<DoneOrFavoriteCard
-            key={ `allDrinks[${i}]` }
-            recipe={ recipe }
-            recipeType="drinks"
-          />))
-      ) : null}
-      {formattedMeals && filter === 'meal' ? (
-        formattedMeals?.favoriteRecipes
-          .map((recipe, i) => (<DoneOrFavoriteCard
-            key={ `meals[${i}]` }
-            recipe={ recipe }
-            recipeType="meals"
-          />))
-      ) : null}
-      {formattedDrinks && filter === 'drink' ? (
-        formattedDrinks.favoriteRecipes
-          .map((recipe, i) => (<DoneOrFavoriteCard
-            key={ `drinks[${i}]` }
-            recipe={ recipe }
-            recipeType="drinks"
-          />))
-      ) : null}
-
+  
+      <FilterButtons setFilter={ setFilter } />
+  
+      {formattedMeals && filter === 'all'
+        ? formattedMeals.favoriteRecipes.map((recipe, i) => (
+            <DoneOrFavoriteCard
+              key={`allMeals[${i}]`}
+              recipe={recipe}
+              recipeType="meals"
+            />
+          ))
+        : null}
+      {formattedDrinks && filter === 'all'
+        ? formattedDrinks.favoriteRecipes.map((recipe, i) => (
+            <DoneOrFavoriteCard
+              key={`allDrinks[${i}]`}
+              recipe={recipe}
+              recipeType="drinks"
+            />
+          ))
+        : null}
+      {formattedMeals && filter === 'meals'
+        ? formattedMeals?.favoriteRecipes.map((recipe, i) => (
+            <DoneOrFavoriteCard
+              key={`meals[${i}]`}
+              recipe={recipe}
+              recipeType="meals"
+            />
+          ))
+        : null}
+      {formattedDrinks && filter === 'drinks'
+        ? formattedDrinks.favoriteRecipes.map((recipe, i) => (
+            <DoneOrFavoriteCard
+              key={`drinks[${i}]`}
+              recipe={recipe}
+              recipeType="drinks"
+            />
+          ))
+        : null}
     </section>
   );
 }

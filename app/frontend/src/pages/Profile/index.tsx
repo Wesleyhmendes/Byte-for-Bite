@@ -1,15 +1,16 @@
 import { ChangeEvent, useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import useFetch from '../../hooks/useFetch';
+
 import Loading from '../../components/Loading/Loading';
-import {
-  Main,
-} from './Profile.styles';
+import RedirectButtons from './RedirectButtons';
+import ChangeProfileImg from './ChangeProfileImg';
+
+import * as S from './Profile.styles';
+
+import { FetchOptions } from '../../type';
 
 export default function Profile() {
-  const navigate = useNavigate();
-
   const [profileImage, setProfileImage] = useState('');
   const [wantChange, setWantChange] = useState(false);
   const [imageUpdated, setImageUpdated] = useState(false);
@@ -19,27 +20,21 @@ export default function Profile() {
   const { data, isLoading, error } = profile;
 
   const updateImageURL = `http://localhost:3001/profile/${id}`;
-  const {
-    handleFetch,
-  } = useFetch(updateImageURL, { method: 'PATCH', body: { profileImage } });
+  const options: FetchOptions = { method: 'PATCH', body: { profileImage } }
+  const { handleFetch } = useFetch(updateImageURL, options);
 
   const handleWantChange = () => {
     setWantChange((prev) => !prev);
     setId(data.id);
   };
 
-  const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
-    const { value } = target;
-    setProfileImage(value);
-  };
-
-  const handleUpdate = async () => {
+  const handleUpdate = () => {
     if (profileImage === '') {
       window.alert('Please insert a image URL!');
       return;
     }
     if (id) {
-      await handleFetch();
+      handleFetch();
       signUpDispatch({ type: UPDATE_USER, key: 'profileImage', value: profileImage });
       setWantChange(false);
       setImageUpdated(true);
@@ -54,7 +49,7 @@ export default function Profile() {
   }
 
   return (
-    <Main>
+    <S.Main>
       { !isLoading && data.username ? (
 
         <>
@@ -74,22 +69,11 @@ export default function Profile() {
 
       { wantChange && !imageUpdated ? (
 
-        <div>
-          <label>
-            Profile Image URL
-            <br />
-            <input
-              value={ profileImage }
-              onChange={ handleChange }
-              type="text"
-            />
-          </label>
-          <button
-            onClick={ handleUpdate }
-          >
-            update
-          </button>
-        </div>
+        <ChangeProfileImg 
+          profileImage={ profileImage } 
+          setProfileImage={ setProfileImage }
+          handleUpdate={ handleUpdate }
+        />
 
       ) : null }
 
@@ -101,29 +85,7 @@ export default function Profile() {
 
       { !isLoading && data.username ? (
 
-        <>
-          <button
-            data-testid="profile-done-btn"
-            onClick={ () => navigate('/done-recipes') }
-          >
-            Done Recipes
-          </button>
-          <button
-            data-testid="profile-favorite-btn"
-            onClick={ () => navigate('/favorite-recipes') }
-          >
-            Favorite Recipes
-          </button>
-          <button
-            data-testid="profile-logout-btn"
-            onClick={ () => {
-              navigate('/');
-              localStorage.clear();
-            } }
-          >
-            Logout
-          </button>
-        </>
+        <RedirectButtons />
 
       ) : null }
 
@@ -133,6 +95,6 @@ export default function Profile() {
 
       ) : null }
 
-    </Main>
+    </S.Main>
   );
 }

@@ -3,6 +3,7 @@ import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import useFetch from '../../hooks/useFetch';
 import formatDoneRecipes from '../../utils/formatDoneRecipes';
 import DoneOrFavoriteCard from '../../components/DoneOrFavoriteCard/DoneOrFavoriteCard';
+import FilterButtons from '../../components/FilterButtons/FilterButtons';
 
 export default function DoneRecipes() {
   const [filter, setFilter] = useState('all');
@@ -20,27 +21,9 @@ export default function DoneRecipes() {
 
   return (
     <div>
-      <button
-        onClick={ () => setFilter('all') }
-        data-testid="filter-by-all-btn"
-      >
-        All
 
-      </button>
-      <button
-        onClick={ () => setFilter('meal') }
-        data-testid="filter-by-meal-btn"
-      >
-        Meals
+      <FilterButtons setFilter={ setFilter }/>
 
-      </button>
-      <button
-        onClick={ () => setFilter('drink') }
-        data-testid="filter-by-drink-btn"
-      >
-        Drinks
-
-      </button>
       {formattedDoneMeals && filter === 'all' ? (
         formattedDoneMeals.finishedRecipes
           .map((recipe, i) => (<DoneOrFavoriteCard
@@ -49,6 +32,7 @@ export default function DoneRecipes() {
             recipe={ recipe }
           />))
       ) : null}
+
       {formattedDoneDrinks && filter === 'all' ? (
         formattedDoneDrinks.finishedRecipes
           .map((recipe, i) => (<DoneOrFavoriteCard
