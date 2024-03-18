@@ -78,7 +78,7 @@ export const FinishRecipe = styled.button`
     width: fit-content;
 
     &:hover {
-      background-color: ${(props: {isDone: boolean}) => (props.isDone ? '#d14e16' : 'grey')} ;
+      background-color: ${(props: {isDone: boolean}) => (props.isDone ? '#d14e16' : 'grey')};
       color: #000;
       cursor: pointer;
     }

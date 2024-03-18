@@ -94,7 +94,6 @@ export default function RecipeInProgress() {
             <S.Instructions>
               {recipeData.strInstructions}
             </S.Instructions>
-
             <S.FinishRecipe isDone={ isDone }>
               <button
                 disabled={ !isDone }
