@@ -11,6 +11,7 @@ import profileIcon from '../../assets/Images/profileIcon.png'
 
 import { FetchOptions } from '../../type';
 import RecipesCounter from './RecipesCounter';
+import Footer from '../../components/Footer';
 
 export default function Profile() {
   const [profileImage, setProfileImage] = useState('');
@@ -81,6 +82,7 @@ export default function Profile() {
       {isLoading ? <Loading /> : null}
 
       {error ? <h3> Profile not found </h3> : null}
+      <Footer />
     </S.Main>
   );
 }

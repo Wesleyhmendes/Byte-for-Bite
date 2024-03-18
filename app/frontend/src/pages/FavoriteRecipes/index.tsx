@@ -7,6 +7,7 @@ import DoneOrFavoriteCard from '../../components/DoneOrFavoriteCard/DoneOrFavori
 import FilterButtons from '../../components/FilterButtons/FilterButtons';
 
 import * as S from './Favorites.styles'
+import Footer from '../../components/Footer';
 
 
 export default function FavoriteRecipes() {
@@ -63,6 +64,7 @@ export default function FavoriteRecipes() {
             ))
           : null}
       </S.CardContainer>
+      <Footer />
     </S.Favorites>
   );
 }
