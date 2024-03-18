@@ -18,7 +18,6 @@ import Loading from '../../components/Loading/Loading';
 
 import * as S from './RecipeInProgress.styles';
 
-
 export default function RecipeInProgress() {
   const navigate = useNavigate();
   const { route } = useContext(Context);
@@ -79,23 +78,22 @@ export default function RecipeInProgress() {
         {recipeData && isInprogress && !finishing ? (
           <S.RecipeSection>
             <RecipeInfo
-              id={id as string}
-              recipeData={recipeData}
-              recipeType={recipeType}
+              id={ id as string }
+              recipeData={ recipeData }
+              recipeType={ recipeType }
             />
 
             <S.IngredientsDiv>
               <RecipeIngredients
-                ingredients={ingredients}
-                handleChange={handleChange}
-                stateIngredients={stateIngredients}
+                ingredients={ ingredients }
+                handleChange={ handleChange }
+                stateIngredients={ stateIngredients }
               />
             </S.IngredientsDiv>
 
             <S.Instructions>
               {recipeData.strInstructions}
             </S.Instructions>
-
             <S.FinishRecipe isDone={isDone}>
               <button                
                 disabled={!isDone}
@@ -108,7 +106,7 @@ export default function RecipeInProgress() {
         ) : null}
 
         {recipeData.strYoutube && !finishing ? (
-          <RecipeVideo recipeData={recipeData} />
+          <RecipeVideo recipeData={ recipeData } />
         ) : null}
 
         {finishing ? <Loading /> : null}

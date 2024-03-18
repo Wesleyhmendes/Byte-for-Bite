@@ -13,13 +13,13 @@ import LoginForm from './LoginForm';
 
 function Login() {
   const { user, RESET_USER, handleChange, signUpDispatch } = useContext(UserInfoContext);
-  const [isModalOpen, setIsModalOpen] = useState(false);  
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // GETS USER INITIAL STATE FROM CONTEXT, FILLS WITH INFORMATION FROM FORM BELLOW AND SENDS TO DB 
+  // GETS USER INITIAL STATE FROM CONTEXT, FILLS WITH INFORMATION FROM FORM BELLOW AND SENDS TO DB
   const url = 'http://localhost:3001/user/login';
 
   const requestBody = user;
-  const options: FetchOptions = { method: 'POST', body: requestBody }
+  const options: FetchOptions = { method: 'POST', body: requestBody };
 
   const { handleFetch, data, isLoading } = useFetch(url, options);
 
@@ -30,14 +30,14 @@ function Login() {
     setIsModalOpen(true);
     localStorage.setItem('user', JSON.stringify(user.email));
     signUpDispatch({ type: RESET_USER });
-  }; 
+  };
 
   return (
     <S.Main>
-      <S.Section>
-        <S.LogoDiv>
-          <S.Logo src={logo} alt="logo" />
-        </S.LogoDiv>
+      <section>
+        <div>
+          <img src={ logo } alt="logo" />
+        </div>
 
         {!isModalOpen ? (
           <LoginForm
@@ -54,7 +54,7 @@ function Login() {
             message={ data.message }
           />
         ) : null}
-      </S.Section>
+      </section>
     </S.Main>
   );
 }
