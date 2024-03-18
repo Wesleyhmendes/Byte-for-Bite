@@ -9,10 +9,11 @@ import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import Context from '../../context/Context';
 import useFetch from '../../hooks/useFetch';
 
-import ShareFavoriteButtons from '../../components/ShareFavoriteButtons';
 import RecipeInfo from './RecipeInfo';
 import RecipeIngredients from './RecipeIngredients';
 import RecipeVideo from './RecipeVideo';
+import * as S from './RecipeInProgress.styles';
+import Footer from '../../components/Footer';
 
 export default function RecipeInProgress() {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ export default function RecipeInProgress() {
     CHANGE,
     checkIngredientsDispatch,
   } = useCheckIngredients(userId, id as string, route);
-  
+
   const recipeURL = `http://localhost:3001${route}/${id}`;
   const { data, isLoading, error } = useFetch(recipeURL);
 
@@ -59,46 +60,50 @@ export default function RecipeInProgress() {
   };
 
   return (
-    <div>
-      {isLoading ? <h3>Loading...</h3> : null}
+    <>
+      <S.Main>
+        { isLoading ? <h3>Loading...</h3> : null }
 
-      {error && !isLoading ? <h3>An unexpected error occurred...</h3> : null}
+        { error && !isLoading ? <h3>An unexpected error occurred...</h3> : null }
 
-      {recipeData && !isInprogress && !isLoading ? (
-        <h3>This recipe has not been started.</h3>
-      ) : null}
+        { recipeData && !isInprogress && !isLoading ? (
+          <h3>This recipe has not been started.</h3>
+        ) : null }
 
-      {recipeData && isInprogress && !isLoading ? (
-        <section className="recipesIngProgressSection">
+        { recipeData && isInprogress && !isLoading ? (
+          <section className="recipesIngProgressSection">
 
-          <ShareFavoriteButtons id={ id } recipeType={ route } />
+            <RecipeInfo id={ id as string } recipeData={ recipeData } recipeType={ recipeType } />
 
-          <button
-            data-testid="finish-recipe-btn"
-            disabled={ !isDone }
-            onClick={ handleDone }
-          >
-            End Recipe
-          </button>
+            <S.IngredientsDiv>
+              <RecipeIngredients
+                ingredients={ ingredients }
+                handleChange={ handleChange }
+                stateIngredients={ stateIngredients }
+              />
+            </S.IngredientsDiv>
 
-          <RecipeInfo recipeData={recipeData} recipeType={recipeType} />
+            <S.Instructions data-testid="instructions">
+              { recipeData.strInstructions }
+            </S.Instructions>
 
-          <RecipeIngredients
-            ingredients={ ingredients }
-            handleChange={ handleChange }
-            stateIngredients={ stateIngredients }
-          />
+            { recipeData.strYoutube ? (
+              <RecipeVideo recipeData={ recipeData } />
+            ) : null }
 
-          <p data-testid="instructions">{ recipeData.strInstructions }</p>
-
-          {recipeData.strYoutube ? (
-
-            <RecipeVideo recipeData={ recipeData } />
-
-          ) : null}
-
-        </section>
-      ) : null}
-    </div>
+            <S.FinishRecipe isDone={ isDone }>
+              <button
+                data-testid="finish-recipe-btn"
+                disabled={ !isDone }
+                onClick={ handleDone }
+              >
+                End Recipe
+              </button>
+            </S.FinishRecipe>
+          </section>
+        ) : null }
+      </S.Main>
+      <Footer />
+    </>
   );
 }
