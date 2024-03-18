@@ -70,45 +70,44 @@ export default function RecipeInProgress() {
   return (
     <>
       <S.Main>
-        { isLoading ? <h3>Loading...</h3> : null }
+        {error ? <h3>An unexpected error occurred...</h3> : null}
 
-        { error && !isLoading ? <h3>An unexpected error occurred...</h3> : null }
-
-        { recipeData && !isInprogress && !isLoading ? (
+        {recipeData && !isInprogress ? (
           <h3>This recipe has not been started.</h3>
-        ) : null }
+        ) : null}
 
-        { recipeData && isInprogress && !isLoading ? (
+        {recipeData && isInprogress ? (
           <section className="recipesIngProgressSection">
-
-            <RecipeInfo id={ id as string } recipeData={ recipeData } recipeType={ recipeType } />
+            <RecipeInfo
+              id={id as string}
+              recipeData={recipeData}
+              recipeType={recipeType}
+            />
 
             <S.IngredientsDiv>
               <RecipeIngredients
-                ingredients={ ingredients }
-                handleChange={ handleChange }
-                stateIngredients={ stateIngredients }
+                ingredients={ingredients}
+                handleChange={handleChange}
+                stateIngredients={stateIngredients}
               />
             </S.IngredientsDiv>
 
             <S.Instructions data-testid="instructions">
-              { recipeData.strInstructions }
-            </S.Instructions>            
+              {recipeData.strInstructions}
+            </S.Instructions>
 
-            <S.FinishRecipe isDone={ isDone }>
+            <S.FinishRecipe isDone={isDone}>
               <button
                 data-testid="finish-recipe-btn"
-                disabled={ !isDone }
-                onClick={ handleDone }
+                disabled={!isDone}
+                onClick={handleDone}
               >
                 End Recipe
               </button>
             </S.FinishRecipe>
           </section>
-          { recipeData.strYoutube ? (
-              <RecipeVideo recipeData={ recipeData } />
-            ) : null }
-        ) : null }
+        ) : null}
+        {recipeData.strYoutube ? <RecipeVideo recipeData={recipeData} /> : null}
         {finishing ? <Loading /> : null}
       </S.Main>
       <Footer />
