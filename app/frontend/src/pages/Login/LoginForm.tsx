@@ -8,44 +8,44 @@ type LoginFormProps = {
   user: User
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   handleChange: ({ target }: React.ChangeEvent<HTMLInputElement>) => void
-}
+};
 
-function LoginForm({user, handleChange, handleSubmit}: LoginFormProps) {
-  const { email, password } = user
+function LoginForm({ user, handleChange, handleSubmit }: LoginFormProps) {
+  const { email, password } = user;
 
-  const isDisabled = validateLogin(user);  
+  const isDisabled = validateLogin(user);
   return (
     <S.FormMainDiv>
-      <S.Form onSubmit={handleSubmit}>
-        <S.Inputs
+      <form onSubmit={ handleSubmit }>
+        <input
           name="email"
           type="email"
           placeholder="Email"
-          value={email}
-          onChange={handleChange}
+          value={ email }
+          onChange={ handleChange }
           data-testid="email-input"
         />
-        <S.Inputs
+        <input
           name="password"
           type="password"
           placeholder="Senha"
-          value={password}
-          onChange={handleChange}
+          value={ password }
+          onChange={ handleChange }
           data-testid="password-input"
         />
-        <S.Button
+        <button
           type="submit"
           data-testid="login-submit-btn"
-          disabled={!isDisabled}
+          disabled={ !isDisabled }
         >
           Login
-        </S.Button>
-      </S.Form>
+        </button>
+      </form>
 
       <DontHaveAccount />
-  
+
     </S.FormMainDiv>
   );
-};
+}
 
 export default LoginForm;

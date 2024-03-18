@@ -139,7 +139,7 @@ export const Button = styled.button`
   width: fit-content;
 
   &:hover {
-    background-color: #a73504;
+    background-color: #d14e16;
     color: #000;
     cursor: pointer;
   }

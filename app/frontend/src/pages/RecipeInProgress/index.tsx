@@ -18,7 +18,6 @@ import Loading from '../../components/Loading/Loading';
 import * as S from './RecipeInProgress.styles';
 import Footer from '../../components/Footer';
 
-
 export default function RecipeInProgress() {
   const navigate = useNavigate();
   const { route } = useContext(Context);
@@ -79,16 +78,16 @@ export default function RecipeInProgress() {
         {recipeData && isInprogress && !finishing ? (
           <section className="recipesIngProgressSection">
             <RecipeInfo
-              id={id as string}
-              recipeData={recipeData}
-              recipeType={recipeType}
+              id={ id as string }
+              recipeData={ recipeData }
+              recipeType={ recipeType }
             />
 
             <S.IngredientsDiv>
               <RecipeIngredients
-                ingredients={ingredients}
-                handleChange={handleChange}
-                stateIngredients={stateIngredients}
+                ingredients={ ingredients }
+                handleChange={ handleChange }
+                stateIngredients={ stateIngredients }
               />
             </S.IngredientsDiv>
 
@@ -96,11 +95,11 @@ export default function RecipeInProgress() {
               {recipeData.strInstructions}
             </S.Instructions>
 
-            <S.FinishRecipe isDone={isDone}>
+            <S.FinishRecipe isDone={ isDone }>
               <button
                 data-testid="finish-recipe-btn"
-                disabled={!isDone}
-                onClick={handleDone}
+                disabled={ !isDone }
+                onClick={ handleDone }
               >
                 End Recipe
               </button>
@@ -109,7 +108,7 @@ export default function RecipeInProgress() {
         ) : null}
 
         {recipeData.strYoutube && !finishing ? (
-          <RecipeVideo recipeData={recipeData} />
+          <RecipeVideo recipeData={ recipeData } />
         ) : null}
 
         {finishing ? <Loading /> : null}

@@ -179,7 +179,7 @@ export const Button = styled.button`
   transition: 0.3s ease;
 
   &:hover {
-    background-color: #a73504;
+    background-color: #d14e16;
     color: #000;
     cursor: pointer;
   }

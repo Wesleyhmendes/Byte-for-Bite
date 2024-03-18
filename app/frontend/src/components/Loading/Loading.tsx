@@ -7,7 +7,7 @@ import {
 function Loading() {
   return (
     <Div>
-      <Img src={ loadingGIF } alt="Byte for bite logo" />      
+      <Img src={ loadingGIF } alt="Byte for bite logo" />
     </Div>
   );
 }
