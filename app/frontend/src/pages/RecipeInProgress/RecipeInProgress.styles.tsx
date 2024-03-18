@@ -19,9 +19,9 @@ export const RecipeSection = styled.section`
   width: 70%;
 `;
 
-export const RecipeInfo = styled.div`
+export const RecipeInfo = styled.div<{ imgSrc: string }>`
   align-items: end;
-  background-image: url(${(props: {imgSrc: string}) => props.imgSrc});
+  background-image: url(${(props) => props.imgSrc});
   background-size: cover;
   background-position: center;
   border-radius: 0 0 40px 40px;
@@ -63,13 +63,13 @@ export const Video = styled.iframe`
   margin-top: 2rem;  
 `;
 
-export const FinishRecipe = styled.button`
+export const FinishRecipe = styled.button<{ isDone: boolean }>`
   display: flex;
   justify-content: center;
   width: 100%;
 
   button {
-    background-color: ${(props: {isDone: boolean}) => (props.isDone ? '#ff4b00' : 'grey')};
+    background-color: ${(props) => (props.isDone ? '#ff4b00' : 'grey')};
     border-radius: 7px;
     color: #fff;
     font-weight: 600;
@@ -77,10 +77,16 @@ export const FinishRecipe = styled.button`
     transition: 0.3s ease;
     width: fit-content;
 
+
     &:hover {
-      background-color: ${(props: {isDone: boolean}) => (props.isDone ? '#d14e16' : 'grey')};
+      background-color: #d14e16;
       color: #000;
       cursor: pointer;
+    }
+
+    &:disabled {
+      background-color: grey;
+      color: #fff;
     }
   }
 `;

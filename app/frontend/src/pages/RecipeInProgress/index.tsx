@@ -69,13 +69,13 @@ export default function RecipeInProgress() {
   return (
     <>
       <S.Main>
-        {error ? <h3>An unexpected error occurred...</h3> : null}
+        { error ? <h3>An unexpected error occurred...</h3> : null }
 
-        {recipeData && !isInprogress ? (
+        { recipeData && !isInprogress ? (
           <h3>This recipe has not been started.</h3>
-        ) : null}
+        ) : null }
 
-        {recipeData && isInprogress && !finishing ? (
+        { recipeData && isInprogress && !finishing ? (
           <S.RecipeSection>
             <RecipeInfo
               id={ id as string }
@@ -92,7 +92,7 @@ export default function RecipeInProgress() {
             </S.IngredientsDiv>
 
             <S.Instructions>
-              {recipeData.strInstructions}
+              { recipeData.strInstructions }
             </S.Instructions>
             <S.FinishRecipe isDone={ isDone }>
               <button
@@ -103,13 +103,13 @@ export default function RecipeInProgress() {
               </button>
             </S.FinishRecipe>
           </S.RecipeSection>
-        ) : null}
+        ) : null }
 
-        {recipeData.strYoutube && !finishing ? (
+        { recipeData.strYoutube && !finishing ? (
           <RecipeVideo recipeData={ recipeData } />
-        ) : null}
+        ) : null }
 
-        {finishing ? <Loading /> : null}
+        { finishing ? <Loading /> : null }
       </S.Main>
       <Footer />
     </>

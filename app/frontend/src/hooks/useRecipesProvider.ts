@@ -25,19 +25,19 @@ const useRecipesProvider = (path: string) => {
   // SEARCH BAR FILTER
   const { filter, filterDispatch } = useSearchBar();
 
-  // URLS //  
-  const allCategoriesURL = `http://localhost:3001${path}/categories`;  
-  const allRecipesURL = `http://localhost:3001${path}/name`;  
-  const byCategoryURL = `http://localhost:3001${path}/category?q=${selectedCategory}`; 
-  const favoritesURL = `http://localhost:3001${path}/favorites/search?user=${userId}`;  
-  const [byFilterURL, setByFilterURL] = useState('');  
-  
-  //FETCHS
-  const allCategories: FetchedData = useFetch(allCategoriesURL);  
-  const allRecipes: FetchedData = useFetch(allRecipesURL); 
-  const byCategory: FetchedData = useFetch(byCategoryURL);  
-  const byFilter = useFetch(byFilterURL); 
-  const favorites = useFetch(favoritesURL); 
+  // URLS //
+  const allCategoriesURL = `http://localhost:3001${path}/categories`;
+  const allRecipesURL = `http://localhost:3001${path}/name`;
+  const byCategoryURL = `http://localhost:3001${path}/category?q=${selectedCategory}`;
+  const favoritesURL = `http://localhost:3001${path}/favorites/search?user=${userId}`;
+  const [byFilterURL, setByFilterURL] = useState('');
+
+  // FETCHS
+  const allCategories: FetchedData = useFetch(allCategoriesURL);
+  const allRecipes: FetchedData = useFetch(allRecipesURL);
+  const byCategory: FetchedData = useFetch(byCategoryURL);
+  const byFilter = useFetch(byFilterURL);
+  const favorites = useFetch(favoritesURL);
 
   // GETTER FUNCTIONS //
   const checkData = (fetchedData: FetchedData) => {
@@ -106,12 +106,11 @@ const useRecipesProvider = (path: string) => {
   };
 
   const formattedFavorites = formatFavorites(path, favorites);
-  
 
   return {
     selectedCategory,
     filter,
-    formattedFavorites,   
+    formattedFavorites,
     getCategories,
     filterDispatch,
     setByFilterURL,

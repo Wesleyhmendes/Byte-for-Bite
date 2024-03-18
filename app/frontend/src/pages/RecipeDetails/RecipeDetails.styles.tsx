@@ -1,9 +1,5 @@
 import styled from 'styled-components';
 
-interface BackgroundDivProps {
-  imageUrl: string;
-}
-
 export const Main = styled.main`
   @media (min-width: 320px) {
     display: flex;
@@ -63,7 +59,7 @@ export const TitleAndButtonContainer = styled.div`
   }
 `;
 
-export const RecipeImageDiv = styled.div<BackgroundDivProps>`
+export const RecipeImageDiv = styled.div<{ imageUrl: string; }>`
   align-items: end;
   background-image: url(${(props) => props.imageUrl});
   background-size: cover;
