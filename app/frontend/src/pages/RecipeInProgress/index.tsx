@@ -107,8 +107,11 @@ export default function RecipeInProgress() {
             </S.FinishRecipe>
           </section>
         ) : null}
+
         {recipeData.strYoutube ? <RecipeVideo recipeData={recipeData} /> : null}
+
         {finishing ? <Loading /> : null}
+
       </S.Main>
       <Footer />
     </>
