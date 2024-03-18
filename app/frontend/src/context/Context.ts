@@ -13,7 +13,7 @@ export type ContextType = {
   route: string,
   selectedCategory: string,
   filter: FilterRadioType,
-  formattedFavorites: FavoriteMealReduceType | FavoriteDrinkReduceType | undefined,
+  formattedFavorites: FavoriteMealReduceType | FavoriteDrinkReduceType | undefined,  
   getCategories: () => CategoryType[],
   filterDispatch: React.Dispatch<SearchActionType>,
   setRecipesFilter: (selectedFilter: FilterRadioType) => void,

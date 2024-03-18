@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
+import * as S from './Profile.styles'
+
 function RedirectButtons() {
   const navigate = useNavigate();
 
@@ -16,7 +18,7 @@ function RedirectButtons() {
     localStorage.clear();
   }
   return (
-    <>
+    <S.ButtonsContainer>
       <button
         data-testid="profile-done-btn"
         onClick={ handleNavDone }
@@ -26,6 +28,7 @@ function RedirectButtons() {
       <button
         data-testid="profile-favorite-btn"
         onClick={ handleNavFav }
+        className='favoriteBtn'
       >
         Favorite Recipes
       </button>
@@ -35,7 +38,7 @@ function RedirectButtons() {
       >
         Logout
       </button>
-    </>
+    </S.ButtonsContainer>
   );
 }
 
