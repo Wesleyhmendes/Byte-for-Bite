@@ -1,17 +1,20 @@
 import { ChangeEvent } from 'react';
 import { IngredientListType } from '../../type';
+import * as S from './RecipeInProgress.styles';
 
 type RecipeIngredientsProps = {
   ingredients: string[];
   stateIngredients: IngredientListType;
   handleChange: ({ target }: ChangeEvent<HTMLInputElement>) => void;
-}
+};
 
-function RecipeIngredients({ingredients, stateIngredients, handleChange}: RecipeIngredientsProps) {
+function RecipeIngredients(
+  { ingredients, stateIngredients, handleChange }: RecipeIngredientsProps,
+) {
   return ingredients.map((ingredient, index) => (
     <label
-      data-testid={`${index}-ingredient-step`}
-      key={index}
+      data-testid={ `${index}-ingredient-step` }
+      key={ index }
       style={
         stateIngredients[
           `strIngredient${index + 1}` as keyof IngredientListType
@@ -22,21 +25,21 @@ function RecipeIngredients({ingredients, stateIngredients, handleChange}: Recipe
     >
       <input
         type="checkbox"
-        name={`strIngredient${index + 1}`}
+        name={ `strIngredient${index + 1}` }
         onChange={ handleChange }
         checked={
           stateIngredients[
             `strIngredient${index + 1}` as keyof IngredientListType
           ]
             ? stateIngredients[
-                `strIngredient${index + 1}` as keyof IngredientListType
-              ]
+              `strIngredient${index + 1}` as keyof IngredientListType
+            ]
             : false
         }
       />
       {ingredient}
     </label>
   ));
-};
+}
 
-export default RecipeIngredients
+export default RecipeIngredients;

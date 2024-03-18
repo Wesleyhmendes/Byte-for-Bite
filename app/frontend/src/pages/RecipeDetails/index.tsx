@@ -25,10 +25,10 @@ export default function RecipeDetails() {
   const recipe = data;
 
   const inProgressURL = `http://localhost:3001${route}/inprogress/${id}?user=${userId}`;
-  const inProgress = useFetch(inProgressURL);  
+  const inProgress = useFetch(inProgressURL);
 
   const buttonText = inProgress?.data?.message ? 'Start recipe' : 'Continue recipe';
-  
+
   const startInProgressURL = `http://localhost:3001${route}/inprogress`;
   const reqBody = route === '/meals'
     ? { userId: profile?.data?.id, mealId: Number(id) }
@@ -52,17 +52,17 @@ export default function RecipeDetails() {
     <S.Main>
       {recipe && !loadingNextPage && route === '/meals' ? (
         <MealCard
-          recipeData={recipe}
-          handleInProgress={handleInProgress}
-          buttonText={buttonText}
+          recipeData={ recipe }
+          handleInProgress={ handleInProgress }
+          buttonText={ buttonText }
         />
       ) : null}
 
       {recipe && !loadingNextPage && route === '/drinks' ? (
         <DrinkCard
-          recipeData={recipe}
-          handleInProgress={handleInProgress}
-          buttonText={buttonText}
+          recipeData={ recipe }
+          handleInProgress={ handleInProgress }
+          buttonText={ buttonText }
         />
       ) : null}
 

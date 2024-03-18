@@ -1,20 +1,21 @@
 /* eslint-disable max-len */
 import { useContext, useEffect, useState } from 'react';
-import whiteHeart from '../../images/whiteHeartIcon.svg';
-import blackHeart from '../../images/blackHeartIcon.svg';
+import fullHeart from '../../assets/Icons/favorite_full.png';
+import emptyHeart from '../../assets/Icons/favorite_empty.png';
 import useFetch from '../../hooks/useFetch';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import checkFavoritesFromDB from '../../utils/checkFavoritesFromDB';
 import Context from '../../context/Context';
+import { Button } from './Favorite.styles';
 
-type ShareFavoriteButtonsProps = {
+type FavoriteButtonProps = {
   id: string | undefined;
   recipeType: string;
 };
 
-export default function ShareFavoriteButtons({
+export default function FavoriteButton({
   id, recipeType,
-}: ShareFavoriteButtonsProps) {
+}: FavoriteButtonProps) {
   const [shareMessage, setShareMessage] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -53,16 +54,16 @@ export default function ShareFavoriteButtons({
 
   return (
     <>
-      <button
+      <Button
         type="button"
         onClick={ favoriteRecipe }
       >
         <img
           data-testid="favorite-btn"
-          src={ isFavorite ? blackHeart : whiteHeart }
+          src={ isFavorite ? fullHeart : emptyHeart }
           alt="Heart"
         />
-      </button>
+      </Button>
 
       {shareMessage ? <h4>Link copied!</h4> : null}
     </>
