@@ -7,6 +7,7 @@ import DoneOrFavoriteCard from '../../components/DoneOrFavoriteCard/DoneOrFavori
 import FilterButtons from '../../components/FilterButtons/FilterButtons';
 
 import * as S from './DoneRecipes.styles'
+import Footer from '../../components/Footer';
 
 export default function DoneRecipes() {
   const [filter, setFilter] = useState('all');
@@ -67,6 +68,7 @@ export default function DoneRecipes() {
           ))
         : null}
       </S.CardContainer>
+      <Footer />
     </S.Done>
   );
 }

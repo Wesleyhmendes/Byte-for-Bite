@@ -76,7 +76,7 @@ export default function RecipeInProgress() {
           <h3>This recipe has not been started.</h3>
         ) : null}
 
-        {recipeData && isInprogress ? (
+        {recipeData && isInprogress && !finishing ? (
           <section className="recipesIngProgressSection">
             <RecipeInfo
               id={id as string}
@@ -108,10 +108,11 @@ export default function RecipeInProgress() {
           </section>
         ) : null}
 
-        {recipeData.strYoutube ? <RecipeVideo recipeData={recipeData} /> : null}
+        {recipeData.strYoutube && !finishing ? (
+          <RecipeVideo recipeData={recipeData} />
+        ) : null}
 
         {finishing ? <Loading /> : null}
-
       </S.Main>
       <Footer />
     </>
