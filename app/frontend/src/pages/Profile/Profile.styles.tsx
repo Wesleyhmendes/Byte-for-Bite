@@ -127,6 +127,31 @@ export const CounterContainer = styled.section`
   }
 `;
 
+export const ChangeImage = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  input {
+    border-radius: 7px;
+    color: #000;
+  }
+
+  button {
+    border: 1px solid #fff;
+    border-radius: 7px;
+    width: 8rem;
+    height: 2rem;
+    transition: 0.3s ease;
+    font-weight: bold;
+  }
+
+  button:hover{
+    background-color: green;
+  }
+`
+
 // export const Div = styled.div`
 
 //   @media (min-width: 320px) {
