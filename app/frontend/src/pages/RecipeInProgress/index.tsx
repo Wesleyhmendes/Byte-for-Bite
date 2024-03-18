@@ -12,11 +12,11 @@ import useFetch from '../../hooks/useFetch';
 import RecipeInfo from './RecipeInfo';
 import RecipeIngredients from './RecipeIngredients';
 import RecipeVideo from './RecipeVideo';
+import Footer from '../../components/Footer';
 
 import Loading from '../../components/Loading/Loading';
 
 import * as S from './RecipeInProgress.styles';
-import Footer from '../../components/Footer';
 
 
 export default function RecipeInProgress() {
@@ -77,7 +77,7 @@ export default function RecipeInProgress() {
         ) : null}
 
         {recipeData && isInprogress && !finishing ? (
-          <section className="recipesIngProgressSection">
+          <S.RecipeSection>
             <RecipeInfo
               id={id as string}
               recipeData={recipeData}
@@ -92,20 +92,19 @@ export default function RecipeInProgress() {
               />
             </S.IngredientsDiv>
 
-            <S.Instructions data-testid="instructions">
+            <S.Instructions>
               {recipeData.strInstructions}
             </S.Instructions>
 
             <S.FinishRecipe isDone={isDone}>
-              <button
-                data-testid="finish-recipe-btn"
+              <button                
                 disabled={!isDone}
                 onClick={handleDone}
               >
                 End Recipe
               </button>
             </S.FinishRecipe>
-          </section>
+          </S.RecipeSection>
         ) : null}
 
         {recipeData.strYoutube && !finishing ? (

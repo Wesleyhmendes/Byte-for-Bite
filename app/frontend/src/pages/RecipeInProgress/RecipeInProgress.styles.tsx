@@ -1,26 +1,27 @@
 import styled from 'styled-components';
 
-type RecipeInfoProps = {
-  imgSrc: string,
-};
-
-type FinishButtonProps = {
-  isDone: boolean,
-};
-
 export const Main = styled.main`
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
-
+  justify-content: center;
+  align-items: center;  
+  width: 100%;
   @media (min-width: 768px) {
-    width: 60%;
+   
   }
 `;
 
-export const RecipeInfo = styled.div<RecipeInfoProps>`
+export const RecipeSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+`
+
+export const RecipeInfo = styled.div`
   align-items: end;
-  background-image: url(${(props) => props.imgSrc});
+  background-image: url(${(props: {imgSrc: string}) => props.imgSrc});
   background-size: cover;
   background-position: center;
   border-radius: 0 0 40px 40px;
@@ -40,8 +41,9 @@ export const IngredientsDiv = styled.div`
   flex-wrap: wrap;
   gap: 0.5rem;
   justify-content: space-around;
-  margin: 2rem 1rem 2rem 1rem;
+  margin: 2rem 1rem;
   padding: 1rem;
+  width: 100%;
 
   label {
     display: flex;
@@ -50,8 +52,7 @@ export const IngredientsDiv = styled.div`
 `;
 
 export const Instructions = styled.p`
-  margin: 0 auto;
-  width: 95%;
+  margin-bottom: 2rem;
 `;
 
 export const Video = styled.iframe`
@@ -59,17 +60,16 @@ export const Video = styled.iframe`
   border-radius: 10px;
   margin: 0 auto;
   margin-bottom: 1.5rem;
-  margin-top: 2rem;
-  width: 95%;
+  margin-top: 2rem;  
 `;
 
-export const FinishRecipe = styled.button<FinishButtonProps>`
+export const FinishRecipe = styled.button`
   display: flex;
   justify-content: center;
   width: 100%;
 
   button {
-    background-color: ${(props) => (props.isDone ? '#ff4b00' : 'grey')};
+    background-color: ${(props: {isDone: boolean}) => (props.isDone ? '#ff4b00' : 'grey')};
     border-radius: 7px;
     color: #fff;
     font-weight: 600;
@@ -78,7 +78,7 @@ export const FinishRecipe = styled.button<FinishButtonProps>`
     width: fit-content;
 
     &:hover {
-      background-color: ${(props) => (props.isDone ? '#a73504' : 'grey')} ;
+      background-color: ${(props: {isDone: boolean}) => (props.isDone ? '#a73504' : 'grey')} ;
       color: #000;
       cursor: pointer;
     }

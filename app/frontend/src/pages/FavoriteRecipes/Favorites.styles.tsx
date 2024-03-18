@@ -13,7 +13,7 @@ export const CardContainer = styled.section`
   flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: center;
   padding: 0 3rem;
   width: 100%;
 `
