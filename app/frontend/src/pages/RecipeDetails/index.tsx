@@ -1,17 +1,15 @@
 import { useContext, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-
-import MealCard from '../../components/MealCard';
-import DrinkCard from '../../components/DrinkCard';
-import ShareFavoriteButtons from '../../components/ShareFavoriteButtons';
-import Loading from '../../components/Loading/Loading';
-import Footer from '../../components/Footer';
-import style from './style.module.css';
-import * as S from './RecipeDetails.styles';
-
 import Context from '../../context/Context';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import useFetch from '../../hooks/useFetch';
+
+import MealCard from '../../components/MealCard';
+import DrinkCard from '../../components/DrinkCard';
+import Loading from '../../components/Loading/Loading';
+import Footer from '../../components/Footer';
+
+import * as S from './RecipeDetails.styles';
 
 export default function RecipeDetails() {
   const navigate = useNavigate();
@@ -38,6 +36,7 @@ export default function RecipeDetails() {
 
   const { handleFetch } = useFetch(startInProgressURL, { method: 'POST', body: reqBody });
 
+  // IF inProgress.data RETURNS WITH A MESSAGE, IT MEANS THAT THE RECIPE IS NOT IN PROGRESS
   // HAD TO PUT A TIMEOUT FUNCTION SO 'IN PROGRESS' COMPONENT HAS TIME TO LOAD DATA FROM DB.
   const handleInProgress = () => {
     if (inProgress?.data?.message) {

@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { ChangeEvent, useContext } from 'react';
+import { ChangeEvent, useContext, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import getIngredients from '../../utils/getIngredients';
@@ -12,13 +12,18 @@ import useFetch from '../../hooks/useFetch';
 import RecipeInfo from './RecipeInfo';
 import RecipeIngredients from './RecipeIngredients';
 import RecipeVideo from './RecipeVideo';
+
+import Loading from '../../components/Loading/Loading';
+
 import * as S from './RecipeInProgress.styles';
 import Footer from '../../components/Footer';
+
 
 export default function RecipeInProgress() {
   const navigate = useNavigate();
   const { route } = useContext(Context);
   const { profile } = useContext(UserInfoContext);
+  const [finishing, setFinishing] = useState(false);
   const { id } = useParams();
   const userId = profile?.data?.id;
 
@@ -31,7 +36,7 @@ export default function RecipeInProgress() {
   } = useCheckIngredients(userId, id as string, route);
 
   const recipeURL = `http://localhost:3001${route}/${id}`;
-  const { data, isLoading, error } = useFetch(recipeURL);
+  const { data, error } = useFetch(recipeURL);
 
   const addDoneRecipeURL = `http://localhost:3001${route}/donerecipes/${id}`;
   const {
@@ -56,7 +61,10 @@ export default function RecipeInProgress() {
 
   const handleDone = () => {
     handleFetch();
-    navigate('/done-recipes');
+    setFinishing(true);
+    setTimeout(() => {
+      navigate('/done-recipes');
+    }, 2000);
   };
 
   return (
@@ -85,11 +93,7 @@ export default function RecipeInProgress() {
 
             <S.Instructions data-testid="instructions">
               { recipeData.strInstructions }
-            </S.Instructions>
-
-            { recipeData.strYoutube ? (
-              <RecipeVideo recipeData={ recipeData } />
-            ) : null }
+            </S.Instructions>            
 
             <S.FinishRecipe isDone={ isDone }>
               <button
@@ -101,7 +105,11 @@ export default function RecipeInProgress() {
               </button>
             </S.FinishRecipe>
           </section>
+          { recipeData.strYoutube ? (
+              <RecipeVideo recipeData={ recipeData } />
+            ) : null }
         ) : null }
+        {finishing ? <Loading /> : null}
       </S.Main>
       <Footer />
     </>

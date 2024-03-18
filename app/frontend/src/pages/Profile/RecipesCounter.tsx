@@ -27,6 +27,7 @@ function RecipesCounter() {
         <h2>{favDrinks + favMeals}</h2>
         <p>Favorites</p>
       </div>
+      <hr/>
       <div>
         <h2>{dMeals + dDrinks}</h2>
         <p>Done</p>

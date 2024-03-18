@@ -7,7 +7,7 @@ import RedirectButtons from './RedirectButtons';
 import ChangeProfileImg from './ChangeProfileImg';
 
 import * as S from './Profile.styles';
-import profileIcon from '../../images/profileIcon.svg'
+import profileIcon from '../../assets/Images/profileIcon.png'
 
 import { FetchOptions } from '../../type';
 import RecipesCounter from './RecipesCounter';
