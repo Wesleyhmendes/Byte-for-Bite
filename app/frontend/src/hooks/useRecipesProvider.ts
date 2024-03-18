@@ -1,7 +1,13 @@
 /* eslint-disable max-len */
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CategoryType, DrinkType, FetchedData, FilterRadioType, MealType } from '../type';
+import {
+  CategoryType,
+  DrinkType,
+  FetchedData,
+  FilterRadioType,
+  MealType,
+} from '../type';
 import useFetch from './useFetch';
 import useSearchBar from './useSearchBar';
 import { createURLFilter } from '../utils/createURLFilter';
@@ -31,7 +37,7 @@ const useRecipesProvider = (path: string) => {
   const allRecipes: FetchedData = useFetch(allRecipesURL); 
   const byCategory: FetchedData = useFetch(byCategoryURL);  
   const byFilter = useFetch(byFilterURL); 
-  const favorites = useFetch(favoritesURL);
+  const favorites = useFetch(favoritesURL); 
 
   // GETTER FUNCTIONS //
   const checkData = (fetchedData: FetchedData) => {
@@ -100,11 +106,12 @@ const useRecipesProvider = (path: string) => {
   };
 
   const formattedFavorites = formatFavorites(path, favorites);
+  
 
   return {
     selectedCategory,
     filter,
-    formattedFavorites,
+    formattedFavorites,   
     getCategories,
     filterDispatch,
     setByFilterURL,

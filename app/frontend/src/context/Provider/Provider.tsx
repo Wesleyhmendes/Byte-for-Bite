@@ -12,7 +12,7 @@ export default function Provider({ children }: ProviderProps) {
   const {
     selectedCategory,
     filter,
-    formattedFavorites,
+    formattedFavorites,   
     getCategories,
     filterDispatch,
     setRecipesFilter,
@@ -27,7 +27,7 @@ export default function Provider({ children }: ProviderProps) {
     route,
     selectedCategory,
     filter,
-    formattedFavorites,
+    formattedFavorites,    
     getCategories,
     filterDispatch,
     setRecipesFilter,

@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import useFetch from '../../hooks/useFetch';
 
@@ -7,8 +7,10 @@ import RedirectButtons from './RedirectButtons';
 import ChangeProfileImg from './ChangeProfileImg';
 
 import * as S from './Profile.styles';
+import profileIcon from '../../images/profileIcon.svg'
 
 import { FetchOptions } from '../../type';
+import RecipesCounter from './RecipesCounter';
 
 export default function Profile() {
   const [profileImage, setProfileImage] = useState('');
@@ -18,6 +20,7 @@ export default function Profile() {
 
   const { UPDATE_USER, profile, signUpDispatch } = useContext(UserInfoContext);
   const { data, isLoading, error } = profile;
+  const profileIMG = data ? data.profileImage : undefined;
 
   const updateImageURL = `http://localhost:3001/profile/${id}`;
   const options: FetchOptions = { method: 'PATCH', body: { profileImage } }
@@ -50,51 +53,34 @@ export default function Profile() {
 
   return (
     <S.Main>
-      { !isLoading && data.username ? (
+      {!isLoading && data.username ? (
+        <S.UserInfoContainer>
+          <button onClick={handleWantChange}>
+            <img src={profileIMG || profileIcon} alt="Profile image" />
+          </button>
 
-        <>
-          <p>{ `Username: ${data.username}` }</p>
-          <p data-testid="profile-email">{ `E-mail: ${data.email}` }</p>
-          <p>{ `Role: ${data.role}` }</p>
-          <button onClick={ handleWantChange }>Change profile image</button>
-        </>
+          <ChangeProfileImg
+            profileImage={profileImage}
+            setProfileImage={setProfileImage}
+            handleUpdate={handleUpdate}
+            wantChange={wantChange}
+            imageUpdated={imageUpdated}
+          />
 
-      ) : null }
+          <h2>{data.username}</h2>
+          <p>{data.email}</p>
+        </S.UserInfoContainer>
+      ) : null}
 
-      { isLoading ? (
+      {!isLoading && data.username ? (
+        <RecipesCounter />
+      ): null}
 
-        <Loading />
+      {!isLoading && data.username ? <RedirectButtons /> : null}
 
-      ) : null }
+      {isLoading ? <Loading /> : null}
 
-      { wantChange && !imageUpdated ? (
-
-        <ChangeProfileImg 
-          profileImage={ profileImage } 
-          setProfileImage={ setProfileImage }
-          handleUpdate={ handleUpdate }
-        />
-
-      ) : null }
-
-      { !wantChange && imageUpdated ? (
-
-        <p>Image updated!</p>
-
-      ) : null }
-
-      { !isLoading && data.username ? (
-
-        <RedirectButtons />
-
-      ) : null }
-
-      { error ? (
-
-        <h3> Profile not found </h3>
-
-      ) : null }
-
+      {error ? <h3> Profile not found </h3> : null}
     </S.Main>
   );
 }

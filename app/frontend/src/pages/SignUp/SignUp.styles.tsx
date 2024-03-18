@@ -24,9 +24,7 @@ export const Main = styled.main`
 
 `;
 
-export const Section = styled.section`
-  
-  
+export const Section = styled.section`  
   border: 1px solid transparent;
   border-radius: 0 0 50px 50px;
   background: #ffffff;

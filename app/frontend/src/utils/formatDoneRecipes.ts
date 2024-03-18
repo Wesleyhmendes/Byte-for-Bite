@@ -7,6 +7,9 @@ import {
 } from '../type';
 
 const doneMealReducer = (doneRecipe: DoneMealType[]) => {
+  if (!Array.isArray(doneRecipe)) {
+    return { userId: undefined, finishedRecipes: [] };
+  }
   const reduceDone = doneRecipe.reduce((acc, done) => {
     if (!acc.userId) {
       acc = {
@@ -23,8 +26,11 @@ const doneMealReducer = (doneRecipe: DoneMealType[]) => {
   return reduceDone;
 };
 
-const doneDrinkReducer = (doneRecipes: DoneDrinkType[]) => {
-  const reduceDone = doneRecipes.reduce((acc, done) => {
+const doneDrinkReducer = (doneRecipe: DoneDrinkType[]) => {
+  if (!Array.isArray(doneRecipe)) {
+    return { userId: undefined, finishedRecipes: [] };
+  }
+  const reduceDone = doneRecipe.reduce((acc, done) => {
     if (!acc.userId) {
       acc = {
         userId: done.userId,

@@ -1,7 +1,5 @@
 /* eslint-disable max-len */
 import styled, { css } from 'styled-components';
-import fruits from '../../assets/Icons/header-background.png';
-import drinks from '../../assets/Images/bgImgDrink.png';
 
 export const HeaderStyle = styled.header`
  
@@ -96,10 +94,11 @@ export const Title = styled.img`
 `;
 
 export const ProfileImg = styled.img`
+  border-radius: 50%;  
 
   @media (min-width: 320px) {
     height: 30px;
-    width: 25px;
+    width: 30px;
   }
 
   @media (min-width: 768px) {
