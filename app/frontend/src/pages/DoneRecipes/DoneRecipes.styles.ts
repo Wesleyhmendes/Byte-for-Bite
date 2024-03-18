@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Favorites = styled.main`
+export const Done = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,5 +15,5 @@ export const CardContainer = styled.section`
   align-items: flex-start;
   justify-content: space-between;
   padding: 0 3rem;
-  width: 100%;
+  width: 100%;  
 `

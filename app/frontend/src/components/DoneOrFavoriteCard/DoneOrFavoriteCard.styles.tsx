@@ -9,6 +9,7 @@ export const DoneOrFavoriteCard = styled.section`
   border-radius: 10px;
   padding: 1rem;
   margin: 2rem;
+  width: 25rem;
   
   a {
     display: flex;

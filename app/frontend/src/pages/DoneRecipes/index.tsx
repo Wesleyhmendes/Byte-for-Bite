@@ -2,8 +2,11 @@ import { useContext, useState } from 'react';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import useFetch from '../../hooks/useFetch';
 import formatDoneRecipes from '../../utils/formatDoneRecipes';
+
 import DoneOrFavoriteCard from '../../components/DoneOrFavoriteCard/DoneOrFavoriteCard';
 import FilterButtons from '../../components/FilterButtons/FilterButtons';
+
+import * as S from './DoneRecipes.styles'
 
 export default function DoneRecipes() {
   const [filter, setFilter] = useState('all');
@@ -20,46 +23,50 @@ export default function DoneRecipes() {
   const formattedDoneDrinks = formatDoneRecipes('/drinks', doneDrinks);
 
   return (
-    <div>
+    <S.Done>
+      <FilterButtons setFilter={setFilter} />
 
-      <FilterButtons setFilter={ setFilter }/>
+      <S.CardContainer>
+      {formattedDoneMeals && filter === 'all'
+        ? formattedDoneMeals.finishedRecipes.map((recipe, i) => (
+            <DoneOrFavoriteCard
+              key={`AllDoneMeals[${i}]`}
+              recipeType="meals"
+              recipe={recipe}
+            />
+          ))
+        : null}
 
-      {formattedDoneMeals && filter === 'all' ? (
-        formattedDoneMeals.finishedRecipes
-          .map((recipe, i) => (<DoneOrFavoriteCard
-            key={ `AllDoneMeals[${i}]` }
-            recipeType="meals"
-            recipe={ recipe }
-          />))
-      ) : null}
+      {formattedDoneDrinks && filter === 'all'
+        ? formattedDoneDrinks.finishedRecipes.map((recipe, i) => (
+            <DoneOrFavoriteCard
+              key={`AllDoneDrinks[${i}]`}
+              recipeType="drinks"
+              recipe={recipe}
+            />
+          ))
+        : null}
 
-      {formattedDoneDrinks && filter === 'all' ? (
-        formattedDoneDrinks.finishedRecipes
-          .map((recipe, i) => (<DoneOrFavoriteCard
-            key={ `AllDoneDrinks[${i}]` }
-            recipeType="drinks"
-            recipe={ recipe }
-          />))
-      ) : null}
+      {formattedDoneMeals && filter === 'meals'
+        ? formattedDoneMeals.finishedRecipes.map((recipe, i) => (
+            <DoneOrFavoriteCard
+              key={`doneMeals[${i}]`}
+              recipeType="meals"
+              recipe={recipe}
+            />
+          ))
+        : null}
 
-      {formattedDoneMeals && filter === 'meals' ? (
-        formattedDoneMeals.finishedRecipes
-          .map((recipe, i) => (<DoneOrFavoriteCard
-            key={ `doneMeals[${i}]` }
-            recipeType="meals"
-            recipe={ recipe }
-          />))
-      ) : null}
-
-      {formattedDoneDrinks && filter === 'drinks' ? (
-        formattedDoneDrinks.finishedRecipes
-          .map((recipe, i) => (<DoneOrFavoriteCard
-            key={ `doneDrinks[${i}]` }
-            recipeType="drinks"
-            recipe={ recipe }
-          />))
-      ) : null}
-
-    </div>
+      {formattedDoneDrinks && filter === 'drinks'
+        ? formattedDoneDrinks.finishedRecipes.map((recipe, i) => (
+            <DoneOrFavoriteCard
+              key={`doneDrinks[${i}]`}
+              recipeType="drinks"
+              recipe={recipe}
+            />
+          ))
+        : null}
+      </S.CardContainer>
+    </S.Done>
   );
 }
