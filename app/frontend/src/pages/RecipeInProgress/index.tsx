@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { ChangeEvent, useContext } from 'react';
+import { ChangeEvent, useContext, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import getIngredients from '../../utils/getIngredients';
@@ -13,11 +13,13 @@ import ShareFavoriteButtons from '../../components/ShareFavoriteButtons';
 import RecipeInfo from './RecipeInfo';
 import RecipeIngredients from './RecipeIngredients';
 import RecipeVideo from './RecipeVideo';
+import Loading from '../../components/Loading/Loading';
 
 export default function RecipeInProgress() {
   const navigate = useNavigate();
   const { route } = useContext(Context);
   const { profile } = useContext(UserInfoContext);
+  const [finishing, setFinishing] = useState(false);
   const { id } = useParams();
   const userId = profile?.data?.id;
 
@@ -30,7 +32,7 @@ export default function RecipeInProgress() {
   } = useCheckIngredients(userId, id as string, route);
   
   const recipeURL = `http://localhost:3001${route}/${id}`;
-  const { data, isLoading, error } = useFetch(recipeURL);
+  const { data, error } = useFetch(recipeURL);
 
   const addDoneRecipeURL = `http://localhost:3001${route}/donerecipes/${id}`;
   const {
@@ -55,28 +57,29 @@ export default function RecipeInProgress() {
 
   const handleDone = () => {
     handleFetch();
-    navigate('/done-recipes');
+    setFinishing(true);
+    setTimeout(() => {
+      navigate('/done-recipes');
+    }, 2000);
   };
 
   return (
     <div>
-      {isLoading ? <h3>Loading...</h3> : null}
 
-      {error && !isLoading ? <h3>An unexpected error occurred...</h3> : null}
+      {error ? <h3>An unexpected error occurred...</h3> : null}
 
-      {recipeData && !isInprogress && !isLoading ? (
+      {recipeData && !isInprogress ? (
         <h3>This recipe has not been started.</h3>
       ) : null}
 
-      {recipeData && isInprogress && !isLoading ? (
+      {recipeData && isInprogress && !finishing ? (
         <section className="recipesIngProgressSection">
-
-          <ShareFavoriteButtons id={ id } recipeType={ route } />
+          <ShareFavoriteButtons id={id} recipeType={route} />
 
           <button
             data-testid="finish-recipe-btn"
-            disabled={ !isDone }
-            onClick={ handleDone }
+            disabled={!isDone}
+            onClick={handleDone}
           >
             End Recipe
           </button>
@@ -84,21 +87,20 @@ export default function RecipeInProgress() {
           <RecipeInfo recipeData={recipeData} recipeType={recipeType} />
 
           <RecipeIngredients
-            ingredients={ ingredients }
-            handleChange={ handleChange }
-            stateIngredients={ stateIngredients }
+            ingredients={ingredients}
+            handleChange={handleChange}
+            stateIngredients={stateIngredients}
           />
 
-          <p data-testid="instructions">{ recipeData.strInstructions }</p>
-
-          {recipeData.strYoutube ? (
-
-            <RecipeVideo recipeData={ recipeData } />
-
-          ) : null}
-
+          <p data-testid="instructions">{recipeData.strInstructions}</p>
         </section>
       ) : null}
+
+      {recipeData.strYoutube && !finishing ? (
+        <RecipeVideo recipeData={recipeData} />
+      ) : null}
+
+      {finishing ? <Loading /> : null}
     </div>
   );
 }
