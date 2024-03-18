@@ -1,21 +1,20 @@
 import styled from 'styled-components';
 
-export const Main = styled.main`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin-bottom: -7rem;
-  background-color: #ff4b00;
+interface BackgroundDivProps {
+  imageUrl: string;
+}
 
+export const Main = styled.main`
   @media (min-width: 320px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    margin-bottom: -7rem;
   }
 
   @media (min-width: 768px) {
-  }
-
-  @media (min-width: 1024px) {
   }
 
   @media (min-width: 1280px) {
@@ -23,77 +22,83 @@ export const Main = styled.main`
 `;
 
 export const RecipeCard = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 60%;
-  padding: 2rem 0;
-  background-color: #fff;
-  height: 100vh;
   @media (min-width: 320px) {
-  }
-
-  @media (min-width: 768px) {
+    align-items: center;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
   }
 
   @media (min-width: 1024px) {
-  }
-
-  @media (min-width: 1280px) {
+    width: 60%;
   }
 `;
 
 export const TitleAndButtonContainer = styled.div`
+  align-items: center;
+  border-radius: 7px;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  width: 60%;
+  gap: 1rem;
+  justify-content: space-between;
   margin: 1rem 0;
-  justify-content: space-between;  
-  border-radius: 7px;   
+  width: 95%;
+  z-index: 2;
 
-  @media (min-width: 320px) {
+  div {
+    margin-left: 1.5em;
+    h2 { color: #ffffff; font-size: 30px; font-weight: 500; }
+    p { color: #ffffff; }
   }
 
   @media (min-width: 768px) {
-  }
-
-  @media (min-width: 1024px) {
-  }
-
-  @media (min-width: 1280px) {
+    div { 
+      margin-left: 3rem;
+      margin-bottom: 1rem;
+      h2 { font-size: 35px; }
+      p { font-size: 20px; }
+    }
   }
 `;
 
-export const RecipeImage = styled.img`
-  width: 20rem;
-  height: 20%;
-  border-radius: 7px; 
+export const RecipeImageDiv = styled.div<BackgroundDivProps>`
+  align-items: end;
+  background-image: url(${(props) => props.imageUrl});
+  background-size: cover;
+  background-position: center;
+  border-radius: 0 0 40px 40px;
+  display: flex;
+  height: 350px;
+  max-height: fit-content;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+`;
 
-  @media (min-width: 320px) {
-  }
-
-  @media (min-width: 768px) {
-  }
-
-  @media (min-width: 1024px) {
-  }
-
-  @media (min-width: 1280px) {
-  }
+export const Gradient = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0 0 40px 40px;
+  background: linear-gradient(0deg, #000000 0%, rgba(255,255,255,0) 80%);
+  z-index: 1;
 `;
 
 export const IngredientsContainer = styled.ul`
-  display: flex;
-  flex-direction: column;
   border: 1px solid #BEBEBE;
   border-radius: 7px;
-  width: 60%;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  text-align: center; 
   margin-bottom: 2rem;
+  margin-top: 2rem;
   padding: 1rem;
+  text-align: center; 
+  width: 95%;
 
   li {
     display: flex;
@@ -112,9 +117,6 @@ export const IngredientsContainer = styled.ul`
     width: 2rem;    
   }
 
-  @media (min-width: 320px) {
-  }
-
   @media (min-width: 768px) {
   }
 
@@ -127,13 +129,14 @@ export const IngredientsContainer = styled.ul`
 
 export const Button = styled.button`
   background-color: #ff4b00;
-  color: #fff;
-  width: 20%;
-  height: 5%;
   border-radius: 7px;
+  color: #fff;
   font-weight: 600;
+  height: 5%;
+  margin-bottom: 6rem;
+  padding: 0.4rem 1rem 0.4rem 1rem;
   transition: 0.3s ease;
-  margin-bottom: 3rem;
+  width: fit-content;
 
   &:hover {
     background-color: #a73504;

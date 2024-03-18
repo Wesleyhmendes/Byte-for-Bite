@@ -10,7 +10,7 @@ export const FooterStyled = styled.footer`
   gap: 3rem;
   justify-content: center;
   margin-bottom: -0.5px;
-  padding-bottom: 1.4rem;
+  padding-bottom: 0.5rem;
   padding-top: 0.3rem;
   position: fixed;
   text-align: center;

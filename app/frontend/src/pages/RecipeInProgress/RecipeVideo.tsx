@@ -1,14 +1,16 @@
+import { Video } from './RecipeInProgress.styles';
+
 type RecipeVideoProps = {
   recipeData: any;
-}
+};
 
 function RecipeVideo({ recipeData }: RecipeVideoProps) {
   return (
-    <iframe
+    <Video
       data-testid="video"
       width="560"
       height="315"
-      src={`${recipeData.strYoutube}`.replace('watch?v=', '/embed/')}
+      src={ `${recipeData.strYoutube}`.replace('watch?v=', '/embed/') }
       title="YouTube video player"
       allow="accelerometer;
             autoplay;
@@ -20,6 +22,6 @@ function RecipeVideo({ recipeData }: RecipeVideoProps) {
       allowFullScreen
     />
   );
-};
+}
 
 export default RecipeVideo;
