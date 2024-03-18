@@ -95,7 +95,7 @@ export const CounterContainer = styled.section`
   align-items: center;
   background-color: #fff;
   border-radius: 7px;
-  width: 20%;
+  width: 15rem;
   padding: 1rem 2rem;
   margin-bottom: -2rem;
   box-shadow: 0px 7px 8px -1px rgba(0, 0, 0, 0.5);
