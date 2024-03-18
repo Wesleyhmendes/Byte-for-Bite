@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { MealInfoType, DrinkInfoType } from '../../type';
+import * as S from './DoneOrFavoriteCard.styles';
 
 type FavoriteCardProps = {
   recipe: MealInfoType | DrinkInfoType
@@ -10,22 +11,26 @@ export default function DoneOrFavoriteCard({ recipe, recipeType }: FavoriteCardP
   const mealRecipe = recipe as MealInfoType;
   const drinkRecipe = recipe as DrinkInfoType;
   return (
-    <div>
+    <S.DoneOrFavoriteCard>
       {recipeType === 'meals' ? (
         <Link to={ `/meals/${mealRecipe.idMeal}` }>
           <img width="150px" src={ mealRecipe.strMealThumb } alt={ mealRecipe.strMeal } />
-          <p>{mealRecipe.strMeal}</p>
-          <p>{mealRecipe.strArea}</p>
+          <div>
+            <h2>{mealRecipe.strMeal}</h2>
+            <p>{mealRecipe.strArea}</p>
+          </div>
         </Link>
       ) : null}
       {recipeType === 'drinks' ? (
         <Link to={ `/drinks/${drinkRecipe.idDrink}` }>
           <img src={ drinkRecipe.strDrinkThumb } alt={ drinkRecipe.strDrink } />
-          <p>{drinkRecipe.strDrink}</p>
-          <p>{drinkRecipe.strAlcoholic}</p>
+          <div>
+            <h2>{drinkRecipe.strDrink}</h2>
+            <p>{drinkRecipe.strAlcoholic}</p>
+          </div>
         </Link>
       ) : null}
 
-    </div>
+    </S.DoneOrFavoriteCard>
   );
 }

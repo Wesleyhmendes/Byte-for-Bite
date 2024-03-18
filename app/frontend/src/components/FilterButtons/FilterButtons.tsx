@@ -1,3 +1,5 @@
+import * as S from './FilterButtons.style'
+
 type FilterBtnProps = {
   setFilter: (value: React.SetStateAction<string>) => void
 }
@@ -15,25 +17,25 @@ function FilterButtons({ setFilter }: FilterBtnProps) {
     setFilter('drinks')
   }
   return(
-    <>
-      <button 
+    <S.ButtonContainer>
+      <S.FilterButton 
         onClick={ handleFilterAll } 
         data-testid="filter-by-all-btn">
         All
-      </button>
-      <button
+      </S.FilterButton>
+      <S.FilterButton
         onClick={ handleFilterMeals }
         data-testid="filter-by-meal-btn"
       >
         Meals
-      </button>
-      <button
+      </S.FilterButton>
+      <S.FilterButton
         onClick={ handleFilterDrinks }
         data-testid="filter-by-drink-btn"
       >
         Drinks
-      </button>
-    </>
+      </S.FilterButton>
+    </S.ButtonContainer>
   );
 };
 
