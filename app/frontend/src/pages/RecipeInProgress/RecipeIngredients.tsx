@@ -1,6 +1,5 @@
 import { ChangeEvent } from 'react';
 import { IngredientListType } from '../../type';
-import * as S from './RecipeInProgress.styles';
 
 type RecipeIngredientsProps = {
   ingredients: string[];
