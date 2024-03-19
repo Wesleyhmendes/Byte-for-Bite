@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import {
-  Div, H3, Button,
+  Div,
 } from './SignUpModal.styles';
 
 type ModalProps = {
@@ -26,14 +26,14 @@ function Modal(props: ModalProps) {
 
   return (
     <Div>
-      <H3>
+      <h3>
         { returnMessage }
-      </H3>
-      <Button
+      </h3>
+      <button
         onClick={ handleModal }
       >
         Ok
-      </Button>
+      </button>
     </Div>
   );
 }
