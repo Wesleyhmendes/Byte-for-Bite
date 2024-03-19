@@ -17,6 +17,8 @@ import Footer from '../../components/Footer';
 import Loading from '../../components/Loading/Loading';
 
 import * as S from './RecipeInProgress.styles';
+import formatInstructions from '../../utils/formatInstructions';
+import RecipeInstructions from './RecipeInstructions';
 
 export default function RecipeInProgress() {
   const navigate = useNavigate();
@@ -50,6 +52,7 @@ export default function RecipeInProgress() {
 
   // SEPARATES INGREDIENT LIST FROM RECIPE DATA AND RETURN A ARRAY OF INGREDIENTS
   const ingredients = getIngredients(recipeData);
+  const formattedInstructions = formatInstructions(recipeData.strInstructions);
 
   const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = target;
@@ -64,7 +67,7 @@ export default function RecipeInProgress() {
     setTimeout(() => {
       navigate('/done-recipes');
     }, 2000);
-  };
+  }; 
 
   return (
     <>
@@ -88,11 +91,12 @@ export default function RecipeInProgress() {
                 ingredients={ ingredients }
                 handleChange={ handleChange }
                 stateIngredients={ stateIngredients }
+                recipeData={recipeData}
               />
             </S.IngredientsDiv>
 
             <S.Instructions>
-              { recipeData.strInstructions }
+              <RecipeInstructions instructions={ formattedInstructions } />
             </S.Instructions>
             <S.FinishRecipe isDone={ isDone }>
               <button
@@ -111,7 +115,8 @@ export default function RecipeInProgress() {
 
         { finishing ? <Loading /> : null }
       </S.Main>
-      <Footer />
+      { !finishing ? <Footer /> : null }
+      
     </>
   );
 }
