@@ -67,7 +67,7 @@ export default function RecipeInProgress() {
     setTimeout(() => {
       navigate('/done-recipes');
     }, 2000);
-  }; 
+  };
 
   return (
     <>
@@ -91,14 +91,14 @@ export default function RecipeInProgress() {
                 ingredients={ ingredients }
                 handleChange={ handleChange }
                 stateIngredients={ stateIngredients }
-                recipeData={recipeData}
+                recipeData={ recipeData }
               />
             </S.IngredientsDiv>
 
             <S.Instructions>
               <RecipeInstructions instructions={ formattedInstructions } />
             </S.Instructions>
-            <S.FinishRecipe isDone={ isDone }>
+            <S.FinishRecipe>
               <button
                 disabled={ !isDone }
                 onClick={ handleDone }
@@ -116,7 +116,7 @@ export default function RecipeInProgress() {
         { finishing ? <Loading /> : null }
       </S.Main>
       { !finishing ? <Footer /> : null }
-      
+
     </>
   );
 }

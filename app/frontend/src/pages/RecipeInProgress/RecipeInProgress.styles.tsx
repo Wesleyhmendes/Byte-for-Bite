@@ -16,12 +16,20 @@ export const RecipeSection = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 70%;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    width: 70%;
+  }
+
+  @media (min-width: 1280px) {
+    width: 60%;
+  }
 `;
 
-export const RecipeInfo = styled.div`
+export const RecipeInfo = styled.div<{ imgSrc: string }>`
   align-items: end;
-  background-image: url(${(props: {imgSrc: string}) => props.imgSrc});
+  background-image: url(${(props) => props.imgSrc});
   background-size: cover;
   background-position: center;
   border-radius: 0 0 40px 40px;
@@ -43,21 +51,23 @@ export const IngredientsDiv = styled.div`
   justify-content: space-around;
   margin: 2rem 1rem;
   padding: 1rem;
-  width: 100%;
+  width: 95%;
 
   label {
+    align-items: center;
     display: flex;
     justify-content: center;
-    align-items: center;    
     height: 3rem;
-    gap: 0.7rem;
+    gap: 1.5rem;
+    width: 100%;
 
     & div {
+      align-items: center;
       display: flex;
       justify-content: flex-start;
       padding-left: 2rem;
-      width: 30%;
-      text-align: center;      
+      width: 100%;
+      text-align: start;      
     }
 
     & input {
@@ -73,6 +83,10 @@ export const IngredientsDiv = styled.div`
       text-align: center;      
     }
   }
+
+  @media (min-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const Instructions = styled.div`
@@ -80,7 +94,7 @@ export const Instructions = styled.div`
   border-radius: 10px;
   padding: 2rem;
   margin-bottom: 2rem;
-  width: 100%;
+  width: 95%;
 
   & h2 {
     font-size: 1.2rem;
@@ -90,6 +104,10 @@ export const Instructions = styled.div`
 
   & p {
     margin-bottom: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    width: 100%;
   }
 `;
 
