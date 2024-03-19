@@ -18,19 +18,13 @@ import AsideMenu from '../AsideMenu/Aside.Menu';
 import Context from '../../context/Context';
 
 function Header() {
-  const { user, profile } = useContext(UserInfoContext);
+  const { profile } = useContext(UserInfoContext);
   const { route } = useContext(Context);
-  const { data, handleFetch } = profile;
+  const { data } = profile;
 
   const profileIMG = data ? data.profileImage : undefined;
 
   const pageTitle = route === '/meals' ? 'Meals' : 'Drinks';
-
-  useEffect(() => {
-    setTimeout(() => {
-      handleFetch();
-    }, 1000);
-  }, [user]);
 
   return (
     <HeaderStyle>

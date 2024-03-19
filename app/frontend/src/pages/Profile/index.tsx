@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import useFetch from '../../hooks/useFetch';
 
@@ -20,7 +20,7 @@ export default function Profile() {
   const [id, setId] = useState<number | undefined>(undefined);
 
   const { UPDATE_USER, profile, signUpDispatch } = useContext(UserInfoContext);
-  const { data, isLoading, error } = profile;
+  const { data, isLoading, error, handleFetch: updateProfile } = profile;
   const profileIMG = data ? data.profileImage : undefined;
 
   const updateImageURL = `http://localhost:3001/profile/${id}`;
@@ -45,13 +45,16 @@ export default function Profile() {
     }
   };
 
-  if (imageUpdated) {
-    setTimeout(() => {
-      setImageUpdated(false);
-      setProfileImage('');
-    }, 1000);
-  }
-
+  useEffect(() => {
+    if (imageUpdated) {
+      setTimeout(() => {
+        updateProfile();
+        setImageUpdated(false);
+        setProfileImage('');
+      }, 1000);
+    }
+  }, [imageUpdated])
+  
   return (
     <S.Main>
       {!isLoading && data.username ? (
