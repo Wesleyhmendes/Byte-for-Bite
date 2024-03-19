@@ -41,7 +41,7 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
   // LOADS TOKEN FROM LOCALSTORAGE FOR AUTHENTICATION. SINCE "GET" METHOD DOESN'T ACCEPT BODY, SETS IT TO 'UNDEFINED' IF IT IS THE CASE.
   const handleFetch = async () => {
     const { method, body } = options;
-    const token = JSON.parse(localStorage.getItem('token') as string);
+    const token = JSON.parse(localStorage.getItem('token') as string);    
     const request = {
       method,
       headers: {

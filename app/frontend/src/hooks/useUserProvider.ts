@@ -12,7 +12,7 @@ const useUserProvider = () => {
 
   // PROFILE DATA
   const profile: FetchedData = useFetch(url);
-
+  
   return {
     user,
     UPDATE_USER,

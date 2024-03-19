@@ -32,7 +32,7 @@ function CardText({ recipe, path, index }: RecipesMiniCardProps) {
           <RecipeCategories>
             <PCategory>{ recipe.strCategory }</PCategory>
             { ' • ' }
-            <PCategory>{ path === '/meals' ? recipe.strArea : '' }</PCategory>
+            <PCategory>{ path === '/meals' ? recipe.strArea : recipe.strAlcoholic }</PCategory>
           </RecipeCategories>
         </RecipeInfo>
         <ShareFavoriteButtons id={ id } recipeType={ path } />
