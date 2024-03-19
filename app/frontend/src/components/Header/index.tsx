@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-depth */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -25,11 +26,12 @@ function Header() {
 
   const pageTitle = route === '/meals' ? 'Meals' : 'Drinks';
 
-  useEffect(() => { 
+  useEffect(() => {
     setTimeout(() => {
       handleFetch();
-    }, 1000)
+    }, 1000);
   }, [user]);
+
   return (
     <HeaderStyle>
       <HeaderMainDiv className={ pageTitle }>

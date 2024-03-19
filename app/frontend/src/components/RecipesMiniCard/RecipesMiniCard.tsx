@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-max-depth */
-import { Link } from 'react-router-dom';
 import { DrinkType, MealType } from '../../type';
 import {
   Div,

@@ -7,7 +7,7 @@ import RedirectButtons from './RedirectButtons';
 import ChangeProfileImg from './ChangeProfileImg';
 
 import * as S from './Profile.styles';
-import profileIcon from '../../assets/Images/profileIcon.png'
+import profileIcon from '../../assets/Images/profileIcon.png';
 
 import { FetchOptions } from '../../type';
 import RecipesCounter from './RecipesCounter';
@@ -24,7 +24,7 @@ export default function Profile() {
   const profileIMG = data ? data.profileImage : undefined;
 
   const updateImageURL = `http://localhost:3001/profile/${id}`;
-  const options: FetchOptions = { method: 'PATCH', body: { profileImage } }
+  const options: FetchOptions = { method: 'PATCH', body: { profileImage } };
   const { handleFetch } = useFetch(updateImageURL, options);
 
   const handleWantChange = () => {
@@ -56,16 +56,16 @@ export default function Profile() {
     <S.Main>
       {!isLoading && data.username ? (
         <S.UserInfoContainer>
-          <button onClick={handleWantChange}>
-            <img src={profileIMG || profileIcon} alt="Profile image" />
+          <button onClick={ handleWantChange }>
+            <img src={ profileIMG || profileIcon } alt="Profile image" />
           </button>
 
           <ChangeProfileImg
-            profileImage={profileImage}
-            setProfileImage={setProfileImage}
-            handleUpdate={handleUpdate}
-            wantChange={wantChange}
-            imageUpdated={imageUpdated}
+            profileImage={ profileImage }
+            setProfileImage={ setProfileImage }
+            handleUpdate={ handleUpdate }
+            wantChange={ wantChange }
+            imageUpdated={ imageUpdated }
           />
 
           <h2>{data.username}</h2>
@@ -75,7 +75,7 @@ export default function Profile() {
 
       {!isLoading && data.username ? (
         <RecipesCounter />
-      ): null}
+      ) : null}
 
       {!isLoading && data.username ? <RedirectButtons /> : null}
 

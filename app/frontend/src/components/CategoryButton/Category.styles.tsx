@@ -12,21 +12,6 @@ export const Button = styled.button`
 &:hover {
   background-color: #FF5C16;
   color: #fff;
+  border: none;
 }
-  @media (min-width: 320px) {
-
-  }
-
-  @media (min-width: 768px) {
-    
-  }
-
-  @media (min-width: 1024px) {
-    
-  }
-
-  @media (min-width: 1280px) {
-    
-  }
-
 `;
