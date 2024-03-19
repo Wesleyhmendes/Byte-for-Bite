@@ -9,12 +9,12 @@ type RecipeIngredientsProps = {
 };
 
 function RecipeIngredients(
-  { ingredients, stateIngredients, recipeData,handleChange }: RecipeIngredientsProps,
+  { ingredients, stateIngredients, recipeData, handleChange }: RecipeIngredientsProps,
 ) {
   return ingredients.map((ingredient, index) => (
     <label
-      data-testid={`${index}-ingredient-step`}
-      key={index}
+      data-testid={ `${index}-ingredient-step` }
+      key={ index }
       style={
         stateIngredients[
           `strIngredient${index + 1}` as keyof IngredientListType
@@ -26,15 +26,15 @@ function RecipeIngredients(
       <div>
         <input
           type="checkbox"
-          name={`strIngredient${index + 1}`}
-          onChange={handleChange}
+          name={ `strIngredient${index + 1}` }
+          onChange={ handleChange }
           checked={
             stateIngredients[
               `strIngredient${index + 1}` as keyof IngredientListType
             ]
               ? stateIngredients[
-                  `strIngredient${index + 1}` as keyof IngredientListType
-                ]
+                `strIngredient${index + 1}` as keyof IngredientListType
+              ]
               : false
           }
         />

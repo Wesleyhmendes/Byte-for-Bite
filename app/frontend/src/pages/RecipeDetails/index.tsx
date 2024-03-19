@@ -75,7 +75,7 @@ export default function RecipeDetails() {
       {loadingNextPage ? <Loading /> : null}
 
       {!loadingNextPage ? <Footer /> : null}
-      
+
     </S.Main>
   );
 }
