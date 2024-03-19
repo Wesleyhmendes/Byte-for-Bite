@@ -52,13 +52,13 @@ const formatFavorites = (recipeType: string, favorites: FetchedData) => {
     if (recipeType === '/meals') {
       const favorite: FavoriteMealType[] = data;
       const formattedFavorite = favoriteMealReducer(favorite);
-  
+
       return formattedFavorite;
     }
     if (recipeType === '/drinks') {
       const favorite: FavoriteDrinkType[] = data;
       const formattedFavorite = favoriteDrinkReducer(favorite);
-  
+
       return formattedFavorite;
     }
   }

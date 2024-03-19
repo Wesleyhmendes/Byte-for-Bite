@@ -6,7 +6,7 @@ import {
 } from './Modal.styles';
 
 type ModalProps = {
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>, 
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
   message: string,
   token: string,
 };
@@ -23,7 +23,7 @@ function LoginModal(props: ModalProps) {
   };
 
   if (token) {
-    localStorage.setItem('token', JSON.stringify(token));    
+    localStorage.setItem('token', JSON.stringify(token));
     setTimeout(() => {
       navigate('/meals');
       setIsModalOpen(false);

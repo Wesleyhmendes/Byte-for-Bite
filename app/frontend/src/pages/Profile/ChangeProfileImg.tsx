@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react';
-import * as S from './Profile.styles'
+import * as S from './Profile.styles';
 
 type ChangeProfileImgProps = {
   handleUpdate: () => void;
@@ -7,7 +7,7 @@ type ChangeProfileImgProps = {
   profileImage: string;
   wantChange: boolean;
   imageUpdated: boolean;
-}
+};
 
 function ChangeProfileImg({
   handleUpdate,
@@ -27,9 +27,9 @@ function ChangeProfileImg({
         <label>
           Image URL
           <br />
-          <input value={profileImage} onChange={handleChange} type="text" />
+          <input value={ profileImage } onChange={ handleChange } type="text" />
         </label>
-        <button onClick={handleUpdate}>Update</button>
+        <button onClick={ handleUpdate }>Update</button>
       </S.ChangeImage>
     ) : null
   );

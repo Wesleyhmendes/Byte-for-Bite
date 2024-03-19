@@ -1,19 +1,19 @@
 import { User } from '../../type';
 import validateUser from '../../utils/validateUser';
-import * as S from './SignUp.styles'
+import * as S from './SignUp.styles';
 
 type SignUpFormProps = {
   user: User;
   handleChange: ({ target }: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;  
-}
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+};
 
 function SignUpForm({ user, handleChange, handleSubmit }: SignUpFormProps) {
   const { email, username, password, confirmPassword } = user;
 
   const isInvalid = validateUser(user);
   return (
-    <S.Form onSubmit={handleSubmit}>
+    <S.Form onSubmit={ handleSubmit }>
       <S.Label>
         Email
         <S.Inputs
@@ -49,12 +49,12 @@ function SignUpForm({ user, handleChange, handleSubmit }: SignUpFormProps) {
           name="confirmPassword"
           type="password"
           value={ confirmPassword }
-          onChange={handleChange}
+          onChange={ handleChange }
         />
       </S.Label>
       <S.Button disabled={ isInvalid }>Sign up</S.Button>
     </S.Form>
   );
-};
+}
 
 export default SignUpForm;

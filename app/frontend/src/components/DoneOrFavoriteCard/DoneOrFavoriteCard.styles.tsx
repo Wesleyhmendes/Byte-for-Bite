@@ -30,4 +30,4 @@ export const DoneOrFavoriteCard = styled.section`
   div {
     padding: 1rem;
   }
-`
+`;

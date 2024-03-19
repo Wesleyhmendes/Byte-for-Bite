@@ -7,11 +7,11 @@ import Modal from '../../components/Modals/SignUpModal';
 import logo from '../../assets/Images/BfB_Logo.png';
 
 import { FetchOptions } from '../../type';
-import * as S from './SignUp.styles'
+import * as S from './SignUp.styles';
 import SignUpForm from './SignUpForm';
 
 function SignUp() {
-  const { user, RESET_USER, handleChange, signUpDispatch } = useContext(UserInfoContext);  
+  const { user, RESET_USER, handleChange, signUpDispatch } = useContext(UserInfoContext);
 
   const { confirmPassword, ...rest } = user;
   const requestBody = rest;
@@ -40,10 +40,10 @@ function SignUp() {
           <S.Logo src={ logo } alt="App Logo" />
         </S.LogoDiv>
         { !isModalOpen ? (
-          <SignUpForm 
-            user={ user } 
-            handleChange={ handleChange } 
-            handleSubmit={ handleSubmit } 
+          <SignUpForm
+            user={ user }
+            handleChange={ handleChange }
+            handleSubmit={ handleSubmit }
           />
 
         ) : null }

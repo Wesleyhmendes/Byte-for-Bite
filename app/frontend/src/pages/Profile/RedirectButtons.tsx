@@ -1,22 +1,22 @@
 import { useNavigate } from 'react-router-dom';
 
-import * as S from './Profile.styles'
+import * as S from './Profile.styles';
 
 function RedirectButtons() {
   const navigate = useNavigate();
 
   const handleNavDone = () => {
-    navigate('/done-recipes')
-  }
+    navigate('/done-recipes');
+  };
 
   const handleNavFav = () => {
-    navigate('/favorite-recipes')
-  }
+    navigate('/favorite-recipes');
+  };
 
   const handleLogout = () => {
     navigate('/');
     localStorage.clear();
-  }
+  };
   return (
     <S.ButtonsContainer>
       <button
@@ -28,7 +28,7 @@ function RedirectButtons() {
       <button
         data-testid="profile-favorite-btn"
         onClick={ handleNavFav }
-        className='favoriteBtn'
+        className="favoriteBtn"
       >
         Favorite Recipes
       </button>

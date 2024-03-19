@@ -6,7 +6,7 @@ export const Favorites = styled.main`
   justify-content: center;
   align-items: center;
   width: 100%;
-`
+`;
 
 export const CardContainer = styled.section`
   display: flex;
@@ -16,4 +16,4 @@ export const CardContainer = styled.section`
   justify-content: center;
   padding: 0 3rem;
   width: 100%;
-`
+`;

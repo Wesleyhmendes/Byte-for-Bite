@@ -1,26 +1,27 @@
-import * as S from './FilterButtons.style'
+import * as S from './FilterButtons.style';
 
 type FilterBtnProps = {
   setFilter: (value: React.SetStateAction<string>) => void
-}
+};
 
 function FilterButtons({ setFilter }: FilterBtnProps) {
   const handleFilterAll = () => {
-    setFilter('all')
-  }
+    setFilter('all');
+  };
 
   const handleFilterMeals = () => {
-    setFilter('meals')
-  }
+    setFilter('meals');
+  };
 
   const handleFilterDrinks = () => {
-    setFilter('drinks')
-  }
-  return(
+    setFilter('drinks');
+  };
+  return (
     <S.ButtonContainer>
-      <S.FilterButton 
-        onClick={ handleFilterAll } 
-        data-testid="filter-by-all-btn">
+      <S.FilterButton
+        onClick={ handleFilterAll }
+        data-testid="filter-by-all-btn"
+      >
         All
       </S.FilterButton>
       <S.FilterButton
@@ -37,6 +38,6 @@ function FilterButtons({ setFilter }: FilterBtnProps) {
       </S.FilterButton>
     </S.ButtonContainer>
   );
-};
+}
 
 export default FilterButtons;

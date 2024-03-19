@@ -186,12 +186,12 @@ export const Button = styled.button`
 
 `;
 
-export const FilterP = styled.p`
+export const FilterP = styled.p<{ className: string }>`
 
   font-weight: 600;
   text-align: center;
  
- ${(props: { className: string }) => props.className === 'active' && css`
+ ${(props) => props.className === 'active' && css`
     color: rgb(255,75,0);
     border-bottom: 2px solid rgb(255,75,0);
   `}
