@@ -5,34 +5,36 @@ import Context from '../../context/Context';
 import * as S from './Category.styles';
 
 export default function Category() {
-  const { getCategories, getSelectedCategory } = useContext(Context);
+  const { getCategories, getSelectedCategory, route } = useContext(Context);
 
-  const allCategories = getCategories();  
+  const allCategories = getCategories();
 
   return (
     <S.Section>
-      {!allCategories ? <p>Carregando...</p> : null}
+      { !allCategories ? <p>Carregando...</p> : null }
 
-      {allCategories
+      { allCategories
         ? allCategories?.map(
-            ({ strCategory, strCategoryThumb }: CategoryType) => (
-              <CategoryButton
-                key={strCategory}
-                strCategoryThumb={strCategoryThumb}
-                strCategory={strCategory}
-                getSelectedCategory={getSelectedCategory}
-              />
-            )
-          )
-        : null}
-      {allCategories ? (
-        <S.Button
-          onClick={() => getSelectedCategory('')}
-          data-testid="All-category-filter"
-        >
-          All
-        </S.Button>
-      ) : null}
+          ({ strCategory }: CategoryType) => (
+            <CategoryButton
+              key={ strCategory }
+              strCategory={ strCategory }
+              getSelectedCategory={ getSelectedCategory }
+            />
+          ),
+        )
+        : null }
+      { allCategories ? (
+        <div>
+          <button
+            onClick={ () => getSelectedCategory('') }
+            data-testid="All-category-filter"
+          >
+            All
+          </button>
+          <S.Div path={ route } />
+        </div>
+      ) : null }
     </S.Section>
   );
 }

@@ -25,11 +25,12 @@ function Header() {
 
   const pageTitle = route === '/meals' ? 'Meals' : 'Drinks';
 
-  useEffect(() => { 
+  useEffect(() => {
     setTimeout(() => {
       handleFetch();
-    }, 1000)
+    }, 1000);
   }, [user]);
+
   return (
     <HeaderStyle>
       <HeaderMainDiv className={ pageTitle }>

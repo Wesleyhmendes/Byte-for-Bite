@@ -1,58 +1,50 @@
 import styled from 'styled-components';
+import fruits from '../../assets/Images/header_fruits.jpg';
+import drinks from '../../assets/Images/bgImgDrink.png';
 
 export const Section = styled.section`
 
   display: flex;
   flex-direction: row;
-  justify-content: center;  
+  justify-content: center;
 
-  @media (min-width: 320px) {
+  div {
+    button {
+      border-radius: 20px;
+      color: #ffffff;
+      font-size: larger;
+      font-weight: bold;
+      height: 3rem;
+      margin: 0 0.5rem;
+      position: absolute;
+      transition: 0.3s ease;
+      width: 10rem;
+      z-index: 2;
 
-  }
-
-  @media (min-width: 768px) {
-    
-  }
-
-  @media (min-width: 1024px) {
-    
-  }
-
-  @media (min-width: 1280px) {
-    
+      &:hover {
+        background-color: #FF5C16;
+        color: #fff;
+        border: none;
+      }
+    }
   }
 
 `;
 
-export const Button = styled.button`
-
-  width: 10rem;
-  height: 3rem;
-  border: 1px solid #BEBEBE;
-  border-radius: 20px;
-  margin: 0 0.5rem;
-  font-weight: bold;
-  transition: 0.3s ease;
-
-  &:hover {
-    background-color: #FF5C16;
-    color: #fff;
-  }
-
-  @media (min-width: 320px) {
-
-  }
-
-  @media (min-width: 768px) {
-    
-  }
-
-  @media (min-width: 1024px) {
-    
-  }
-
-  @media (min-width: 1280px) {
-    
-  }
-
+export const Div = styled.div<{ path: string }>`
+    align-items: center;
+    background-image: url(${(props) => (props.path === '/meals' ? fruits : drinks)});
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    display: flex;
+    filter: brightness(70%);
+    font-weight: bold;
+    justify-content: center;
+    height: 3rem;
+    margin: 0 0.5rem;
+    position: relative;
+    width: 10rem;
+    z-index: 1;
 `;

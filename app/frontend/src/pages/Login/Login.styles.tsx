@@ -2,13 +2,14 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const Main = styled.main`
+export const Main = styled.div`
   align-items: center;
   background: #FF4B00;
   display: flex;
   height: 100vh;
   margin-bottom: -7rem;
   width: 100%;
+
 
   section {
     @media(min-width: 320px) {
@@ -51,7 +52,7 @@ export const FormMainDiv = styled.div`
     gap: 4px;
 
     input {
-      background: #b8b8b889;
+      background: #cccccc88;
       border-radius: 10px;
       border: none;
       color: #000000;
@@ -78,7 +79,7 @@ export const FormMainDiv = styled.div`
       }
 
       &:disabled {
-        cursor: default;
+        cursor: pointer;
         background-color: #828282;
         color: #FFF; 
       }
