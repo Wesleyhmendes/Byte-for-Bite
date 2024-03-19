@@ -35,10 +35,10 @@ function SignUp() {
 
   return (
     <S.Main>
-      <S.Section>
-        <S.LogoDiv>
-          <S.Logo src={ logo } alt="App Logo" />
-        </S.LogoDiv>
+      <section>
+        <div>
+          <img src={ logo } alt="App Logo" />
+        </div>
         { !isModalOpen ? (
           <SignUpForm
             user={ user }
@@ -65,7 +65,7 @@ function SignUp() {
           <h4>Unexpected error... Please try again.</h4>
 
         ) : null }
-      </S.Section>
+      </section>
     </S.Main>
   );
 }
