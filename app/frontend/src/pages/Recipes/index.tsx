@@ -2,11 +2,11 @@ import { useContext, useState } from 'react';
 import Category from '../../components/Category';
 import Context from '../../context/Context';
 import RecipesMiniCard from '../../components/RecipesMiniCard/RecipesMiniCard';
-import * as S from './Recipes.styles'
+import * as S from './Recipes.styles';
 import SelectPageButtons from './SelectPageButtons';
 
 export default function Recipes() {
-  const [pageNum, setPageNum] = useState(1)
+  const [pageNum, setPageNum] = useState(1);
   const {
     getAllRecipes,
     getByCategory,
@@ -22,8 +22,8 @@ export default function Recipes() {
 
   const handlePageNum = (page: number) => {
     setPageNum(page);
-  }
-  
+  };
+
   return (
     <>
       <Category />
@@ -56,9 +56,9 @@ export default function Recipes() {
             />))
           ) : null }
         </S.CardsContainer>
-        <SelectPageButtons 
-          pages={ pages } 
-          handlePageNum={ handlePageNum } 
+        <SelectPageButtons
+          pages={ pages }
+          handlePageNum={ handlePageNum }
         />
       </S.Main>
     </>

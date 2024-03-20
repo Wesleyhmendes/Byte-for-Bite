@@ -17,7 +17,7 @@ export default function DrinkCard(
   const drinkIngredients = getIngredients(recipeData);
   return (
     <S.RecipeCard>
-      <S.RecipeImageDiv data-testid="recipe-photo" imageUrl={ strDrinkThumb }>
+      <S.RecipeImageDiv data-testid="recipe-photo" imageurl={ strDrinkThumb }>
         <S.TitleAndButtonContainer>
           <div>
             <h2 data-testid="recipe-title">{ strDrink }</h2>

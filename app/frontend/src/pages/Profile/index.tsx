@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import useFetch from '../../hooks/useFetch';
 
@@ -45,7 +45,7 @@ export default function Profile() {
     }
   };
 
-  useEffect(() => {
+  const handleSynchronize = useCallback(() => {
     if (imageUpdated) {
       setTimeout(() => {
         updateProfile();
@@ -53,14 +53,18 @@ export default function Profile() {
         setProfileImage('');
       }, 1000);
     }
-  }, [imageUpdated])
-  
+  }, [imageUpdated, updateProfile]);
+
+  useEffect(() => {
+    handleSynchronize();
+  }, [handleSynchronize]);
+
   return (
     <S.Main>
       {!isLoading && data.username ? (
         <S.UserInfoContainer>
           <button onClick={ handleWantChange }>
-            <img src={ profileIMG || profileIcon } alt="Profile image" />
+            <img src={ profileIMG || profileIcon } alt="Profile" />
           </button>
 
           <ChangeProfileImg

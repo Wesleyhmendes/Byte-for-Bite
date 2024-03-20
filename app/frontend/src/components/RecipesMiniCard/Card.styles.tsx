@@ -32,7 +32,7 @@ export const TextContent = styled.div`
 export const RecipeInfo = styled.div`
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 60%;  
 `;
 
 export const NameFavorite = styled.div`
@@ -40,7 +40,7 @@ export const NameFavorite = styled.div`
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
-  width: 100%;
+  width: 100%;  
 `;
 
 export const RecipeCategories = styled.div`

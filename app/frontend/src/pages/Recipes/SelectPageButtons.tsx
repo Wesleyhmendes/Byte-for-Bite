@@ -1,22 +1,23 @@
-import * as S from './Recipes.styles'
+import * as S from './Recipes.styles';
 
 type SelectPagesButtonProps = {
   pages: number[];
   handlePageNum: (page: number) => void;
-}
+};
 
 function SelectPageButtons({ pages, handlePageNum }: SelectPagesButtonProps) {
-  return(
+  return (
     <S.PageButtonContainer>
       {pages.map((page) => (
-        <button 
-          onClick={() => handlePageNum(page)}
+        <button
+          key={ `page${page}` }
+          onClick={ () => handlePageNum(page) }
         >
           {page}
         </button>
       ))}
     </S.PageButtonContainer>
   );
-};
+}
 
 export default SelectPageButtons;
