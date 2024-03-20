@@ -60,8 +60,10 @@ export const PageButtonContainer = styled.div`
   margin-bottom: 3rem;
 
   button {
-    width: 1.7rem;
+    width: 1.8rem;
+    height: 1.6rem;
     margin: 0.5rem;
+    font-weight: bold;
     background-color: #ff5c16;
     color: #fff;
     border-radius: 7px;

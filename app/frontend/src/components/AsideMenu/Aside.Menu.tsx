@@ -20,7 +20,7 @@ function AsideMenu() {
         <div />
       </StyledBurger>
       <Ul open={ open } onMouseLeave={ handleMenuLeave }>
-        <img src={ logo } alt="log bite for byte" />
+        <img src={ logo } alt="logo bite for byte" />
         <li>All</li>
         <li>Beef</li>
         <li>Chicken</li>

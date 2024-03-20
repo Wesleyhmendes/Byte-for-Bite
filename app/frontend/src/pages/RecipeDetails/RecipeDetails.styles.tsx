@@ -59,9 +59,9 @@ export const TitleAndButtonContainer = styled.div`
   }
 `;
 
-export const RecipeImageDiv = styled.div<{ imageUrl: string; }>`
+export const RecipeImageDiv = styled.div<{ imageurl: string; }>`
   align-items: end;
-  background-image: url(${(props) => props.imageUrl});
+  background-image: url(${(props) => props.imageurl});
   background-size: cover;
   background-position: center;
   border-radius: 0 0 40px 40px;

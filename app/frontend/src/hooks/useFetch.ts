@@ -41,7 +41,7 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
   // LOADS TOKEN FROM LOCALSTORAGE FOR AUTHENTICATION. SINCE "GET" METHOD DOESN'T ACCEPT BODY, SETS IT TO 'UNDEFINED' IF IT IS THE CASE.
   const handleFetch = async () => {
     const { method, body } = options;
-    const token = JSON.parse(localStorage.getItem('token') as string);    
+    const token = JSON.parse(localStorage.getItem('token') as string);
     const request = {
       method,
       headers: {
@@ -51,18 +51,14 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
       body: body ? JSON.stringify(body) : undefined,
     };
 
-    // STARTS SETTING LOADING 'TRUE'
     dispatch({ type: 'loading' });
 
-    // TRY / CATCH
     try {
       const response = await fetch(URL, request);
 
-      // IF ALL GOES WELL, DISPATCHES 'FETCHED' ACTION AND DATA PAYLOAD
       const result = await response.json();
       dispatch({ type: 'fetched', payload: result });
     } catch (err: any) {
-      // IF THERE'S AN ERROR, DISPATCHES 'ERROR' ACTION AND ERROR DATA PAYLOAD
       dispatch({ type: 'error', payload: err });
     }
   };
