@@ -1,20 +1,18 @@
 import styled from 'styled-components';
 
 export const Div = styled.div`
-  border-radius: 10px;
-  box-shadow: 3px 3px 5px 0px rgba(168,168,168,0.4);
-  margin: 0 auto;
-  margin-top: 1.5rem;
-  padding: 1rem;
-  width: 95%;
-
-  @media (min-width: 768px) { width: 47%; }
-
-  @media (min-width: 1280px) { width: 32%; }
-`;
-
-export const ContentDiv = styled.div`
   display: flex;
+  flex-direction: row;
+  border-radius: 10px;
+  box-shadow: 3px 3px 5px 0px rgba(168, 168, 168, 0.4);
+  margin: 1rem;
+  padding: 1rem;
+  width: 30rem;
+  height: 10rem;
+
+  /* @media (min-width: 768px) { width: 47%; }
+
+  @media (min-width: 1280px) { width: 32%; } */
 `;
 
 export const TextContent = styled.div`
@@ -23,24 +21,26 @@ export const TextContent = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   text-align: left;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  width: 100%;
+  padding: 0 0.5rem;
+  min-width: 65%;
 
-  @media (min-width: 1280px) { padding-left: 1.5rem; }
-
+  @media (min-width: 1280px) {
+    padding-left: 1.5rem;
+  }
 `;
 
-export const RecipeInfo = styled.div`  
+export const RecipeInfo = styled.div`
   display: flex;
   flex-direction: column;
+  width: 60%;  
 `;
 
 export const NameFavorite = styled.div`
   display: flex;
+  flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
-  width: 100%;
+  width: 100%;  
 `;
 
 export const RecipeCategories = styled.div`
@@ -75,6 +75,10 @@ export const Details = styled.button`
 export const H1 = styled.p`
   font-weight: bold;
   font-size: 1.2rem;
+
+  @media (min-width: 320px) {
+    font-size: 1.1rem;
+  }
 `;
 
 export const Img = styled.img`

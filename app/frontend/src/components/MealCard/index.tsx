@@ -17,7 +17,7 @@ export default function MealCard(
 
   return (
     <S.RecipeCard>
-      <S.RecipeImageDiv imageUrl={ strMealThumb }>
+      <S.RecipeImageDiv imageurl={ strMealThumb }>
         <S.TitleAndButtonContainer>
           <div>
             <h2 data-testid="recipe-title">{ strMeal }</h2>

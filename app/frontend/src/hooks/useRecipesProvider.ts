@@ -65,9 +65,18 @@ const useRecipesProvider = (path: string) => {
     return [];
   };
 
-  const getAllRecipes = () => {
+  const getPages = () => {
     const recipes = checkData(allRecipes);
-    return recipes?.slice(0, 12);
+    const pages = Math.ceil(recipes.length / 12);
+    const pagesArr = Array.from({length: pages}, (_, i) => i + 1)
+    return pagesArr;
+  }
+  
+  const getAllRecipes = (page: number = 1) => {
+    const recipes = checkData(allRecipes);
+    const initialIndex = (12 * page) - 12
+    const lastIndex = 12 * page;
+    return recipes?.slice(initialIndex, lastIndex);
   };
 
   const getSelectedCategory = (category: string) => {
@@ -119,6 +128,7 @@ const useRecipesProvider = (path: string) => {
     getSelectedCategory,
     getByCategory,
     getAllRecipes,
+    getPages,
   };
 };
 

@@ -20,7 +20,7 @@ type RecipesMiniCardProps = {
 
 function CardText({ recipe, path, index }: RecipesMiniCardProps) {
   const title = path === '/meals' ? recipe.strMeal : recipe.strDrink;
-  const shorterTitle = title?.length > 25 ? `${title.slice(0, 25)}...` : title;
+  const shorterTitle = title?.length > 20 ? `${title.slice(0, 20)}...` : title;
   const id = path === '/meals' ? recipe.idMeal : recipe.idDrink;
   const url = `${path}/${id}`;
 
@@ -32,7 +32,7 @@ function CardText({ recipe, path, index }: RecipesMiniCardProps) {
           <RecipeCategories>
             <PCategory>{ recipe.strCategory }</PCategory>
             { ' • ' }
-            <PCategory>{ path === '/meals' ? recipe.strArea : '' }</PCategory>
+            <PCategory>{ path === '/meals' ? recipe.strArea : recipe.strAlcoholic }</PCategory>
           </RecipeCategories>
         </RecipeInfo>
         <ShareFavoriteButtons id={ id } recipeType={ path } />

@@ -21,6 +21,7 @@ export default function Provider({ children }: ProviderProps) {
     getSelectedCategory,
     getByCategory,
     getAllRecipes,
+    getPages,
   } = useRecipesProvider(route);
 
   const value = {
@@ -36,6 +37,7 @@ export default function Provider({ children }: ProviderProps) {
     getSelectedCategory,
     getByCategory,
     getAllRecipes,
+    getPages,
   };
 
   return (

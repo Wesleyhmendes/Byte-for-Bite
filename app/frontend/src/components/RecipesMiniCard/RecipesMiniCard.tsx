@@ -17,15 +17,9 @@ function RecipesMiniCard({ recipe, path, index }: RecipesMiniCardProps) {
   const title = path === '/meals' ? recipe.strMeal : recipe.strDrink;
   const thumbnail = path === '/meals' ? recipe.strMealThumb : recipe.strDrinkThumb;
   return (
-    <Div data-testid={ `${index}-recipe-card` }>
-      <ContentDiv>
-        <Img
-          data-testid={ `${index}-card-img` }
-          src={ thumbnail }
-          alt={ title }
-        />
-        <CardText recipe={ recipe } path={ path } index={ index } />
-      </ContentDiv>
+    <Div data-testid={`${index}-recipe-card`}>
+      <Img data-testid={`${index}-card-img`} src={thumbnail} alt={title} />
+      <CardText recipe={recipe} path={path} index={index} />
     </Div>
   );
 }
