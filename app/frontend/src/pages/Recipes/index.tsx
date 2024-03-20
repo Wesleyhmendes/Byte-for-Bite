@@ -5,7 +5,6 @@ import RecipesMiniCard from '../../components/RecipesMiniCard/RecipesMiniCard';
 import * as S from './Recipes.styles';
 import SelectPageButtons from './SelectPageButtons';
 
-
 export default function Recipes() {
   const [pageNum, setPageNum] = useState(1);
   const {
@@ -62,6 +61,7 @@ export default function Recipes() {
         <SelectPageButtons
           pages={ pages }
           handlePageNum={ handlePageNum }
+          currentPage={ pageNum }
         />
       </S.Main>
     </>
