@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import Category from '../../components/Category';
 import Context from '../../context/Context';
 import RecipesMiniCard from '../../components/RecipesMiniCard/RecipesMiniCard';
 import { Main } from './Recipes.styles';
+import Category from '../../components/Category';
 
 export default function Recipes() {
   const {
@@ -11,6 +11,8 @@ export default function Recipes() {
   const allRecipes = getAllRecipes();
   const byCategory = getByCategory();
   const byFilter = getRecipesByFilter();
+
+  console.log(selectedCategory);
 
   return (
     <>

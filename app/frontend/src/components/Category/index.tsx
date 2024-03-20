@@ -1,40 +1,43 @@
-import { useContext } from 'react';
+/* eslint-disable max-len */
+import { useContext, useRef, useEffect, useState } from 'react';
 import { CategoryType } from '../../type';
 import CategoryButton from '../CategoryButton/CategoryButton';
 import Context from '../../context/Context';
-import * as S from './Category.styles';
+import { ItemButton, InnerCarousel, Carousel } from './Category.styles';
+import Loading from '../Loading/Loading';
 
-export default function Category() {
-  const { getCategories, getSelectedCategory, route } = useContext(Context);
+export default function Category2() {
+  const [width, setWidth] = useState(0);
+  const carousel = useRef<any>();
+
+  useEffect(() => {
+    setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
+  }, []);
+
+  const { getCategories, getSelectedCategory } = useContext(Context);
 
   const allCategories = getCategories();
 
   return (
-    <S.Section>
-      { !allCategories ? <p>Carregando...</p> : null }
-
-      { allCategories
-        ? allCategories?.map(
-          ({ strCategory }: CategoryType) => (
-            <CategoryButton
-              key={ strCategory }
-              strCategory={ strCategory }
-              getSelectedCategory={ getSelectedCategory }
-            />
-          ),
-        )
-        : null }
-      { allCategories ? (
-        <div>
-          <button
-            onClick={ () => getSelectedCategory('') }
-            data-testid="All-category-filter"
-          >
-            All
-          </button>
-          <S.Div path={ route } />
-        </div>
-      ) : null }
-    </S.Section>
+    <section>
+      { !allCategories ? <Loading /> : null }
+      <Carousel ref={ carousel } className="carousel" whileTap={ { cursor: 'grabbing' } }>
+        <InnerCarousel drag="x" dragConstraints={ { right: 0, left: -width - 20 } } className="inner-carousel">
+          { allCategories
+            ? allCategories?.map(
+              ({ strCategory }: CategoryType) => (
+                <ItemButton className="item" key={ strCategory }>
+                  <CategoryButton
+                    key={ strCategory }
+                    strCategory={ strCategory }
+                    getSelectedCategory={ getSelectedCategory }
+                  />
+                </ItemButton>
+              ),
+            )
+            : null }
+        </InnerCarousel>
+      </Carousel>
+    </section>
   );
 }
