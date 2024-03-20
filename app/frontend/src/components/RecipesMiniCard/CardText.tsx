@@ -29,16 +29,16 @@ function CardText({ recipe, path, index }: RecipesMiniCardProps) {
       <NameFavorite>
         <RecipeInfo>
           <H1 data-testid={ `${index}-card-name` }>{ shorterTitle }</H1>
-          <RecipeCategories>
-            <PCategory>{ recipe.strCategory }</PCategory>
-            { ' • ' }
-            <PCategory>
-              { path === '/meals' ? recipe.strArea : recipe.strAlcoholic }
-            </PCategory>
-          </RecipeCategories>
         </RecipeInfo>
         <ShareFavoriteButtons id={ id } recipeType={ path } />
       </NameFavorite>
+      <RecipeCategories>
+        <PCategory>{ recipe.strCategory }</PCategory>
+        { ' • ' }
+        <PCategory>
+          { path === '/meals' ? recipe.strArea : recipe.strAlcoholic }
+        </PCategory>
+      </RecipeCategories>
       <Link to={ url } key={ id }>
         <Details>Detalhes</Details>
       </Link>
