@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-import { Button } from './Category.styles';
 
 type CategoryBtnProps = {
   strCategory: string,
@@ -8,12 +7,12 @@ type CategoryBtnProps = {
 
 function CategoryButton({ strCategory, getSelectedCategory }: CategoryBtnProps) {
   return (
-    <Button
+    <button
       onClick={ strCategory === 'All' ? () => getSelectedCategory('') : () => getSelectedCategory(strCategory) }
       data-testid={ `${strCategory}-category-filter` }
     >
       {strCategory}
-    </Button>
+    </button>
   );
 }
 

@@ -32,7 +32,7 @@ export const TextContent = styled.div`
 export const RecipeInfo = styled.div`
   display: flex;
   flex-direction: column;
-  width: 60%;  
+  width: 100%;  
 `;
 
 export const NameFavorite = styled.div`

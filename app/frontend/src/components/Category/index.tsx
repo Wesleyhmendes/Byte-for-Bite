@@ -10,13 +10,12 @@ export default function Category2() {
   const [width, setWidth] = useState(0);
   const carousel = useRef<any>();
 
+  const { getCategories, getSelectedCategory } = useContext(Context);
+  const allCategories = getCategories();
+
   useEffect(() => {
     setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
-  }, []);
-
-  const { getCategories, getSelectedCategory } = useContext(Context);
-
-  const allCategories = getCategories();
+  }, [allCategories]);
 
   return (
     <section>
@@ -24,7 +23,7 @@ export default function Category2() {
       <Carousel ref={ carousel } className="carousel" whileTap={ { cursor: 'grabbing' } }>
         <InnerCarousel drag="x" dragConstraints={ { right: 0, left: -width - 20 } } className="inner-carousel">
           { allCategories
-            ? allCategories?.map(
+            ? allCategories.map(
               ({ strCategory }: CategoryType) => (
                 <ItemButton className="item" key={ strCategory }>
                   <CategoryButton
