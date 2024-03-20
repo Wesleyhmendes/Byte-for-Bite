@@ -42,5 +42,9 @@
   {
   "idCategory": "11",
   "strCategory": "Soft Drink"
+  },
+  {
+  "idCategory": "12",
+  "strCategory": "All"
   }
   ]
