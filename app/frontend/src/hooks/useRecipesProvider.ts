@@ -68,13 +68,13 @@ const useRecipesProvider = (path: string) => {
   const getPages = () => {
     const recipes = checkData(allRecipes);
     const pages = Math.ceil(recipes.length / 12);
-    const pagesArr = Array.from({length: pages}, (_, i) => i + 1)
+    const pagesArr = Array.from({ length: pages }, (_, i) => i + 1);
     return pagesArr;
-  }
-  
-  const getAllRecipes = (page: number = 1) => {
+  };
+
+  const getAllRecipes = (page: number) => {
     const recipes = checkData(allRecipes);
-    const initialIndex = (12 * page) - 12
+    const initialIndex = (12 * page) - 12;
     const lastIndex = 12 * page;
     return recipes?.slice(initialIndex, lastIndex);
   };

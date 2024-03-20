@@ -1,0 +1,22 @@
+.item {
+  min-height: 15rem;
+  min-width: 8rem;
+  padding: 10px;
+}
+
+.item button {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2rem;
+  pointer-events: none;
+}
+
+.inner-carousel {
+  display: flex;
+}
+
+.carousel {
+  cursor: grab;
+  overflow: hidden;
+}

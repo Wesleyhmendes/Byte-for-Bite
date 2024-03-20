@@ -16,10 +16,6 @@ export const Main = styled.main`
     padding: 1rem;
     gap: 1rem;
   }
-
-  @media (min-width: 1024px) {
-  }
-
   @media (min-width: 1280px) {
     gap: 1rem;
   }
@@ -42,48 +38,48 @@ export const CardsContainer = styled.div`
     gap: 1rem;
   }
 
-  @media (min-width: 1024px) {
-  }
-
   @media (min-width: 1280px) {
     gap: 1rem;
   }
 `;
 
 export const PageButtonContainer = styled.div`
+  align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
   flex-wrap: wrap;
+  margin-bottom: 5rem;
   width: 80%;
-  margin-bottom: 3rem;
 
   button {
-    width: 1.8rem;
+    background-color: #ff5c16;
+    border-radius: 7px;
+    color: #fff;
+    font-weight: 500;
     height: 1.6rem;
     margin: 0.5rem;
-    font-weight: bold;
-    background-color: #ff5c16;
-    color: #fff;
-    border-radius: 7px;
     transition: 0.3s ease;
+    width: 1.8rem;
+    
+    &:hover { background-color: #d14e16; }  
+  }
 
-    &:hover {
-      background-color: #d14e16;
+  .selected {
+    button {
+      background-color: #ededed;
+      color: #ff5c16;
+      font-weight: bold;
     }
   }
 
   @media (min-width: 320px) {
     width: 100%;
   }
+`;
 
-  @media (min-width: 768px) {
-  }
-
-  @media (min-width: 1024px) {
-  }
-
-  @media (min-width: 1280px) {
-  }
+export const AsideBtn = styled.div`
+  display: flex;
+  align-items: end;
+  p { margin: 0 0.3rem; }
 `;
