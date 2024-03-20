@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "bootstrap": "^5.2.3",
+    "framer-motion": "^11.0.15",
     "history": "^5.3.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
@@ -14,7 +15,8 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
     "react-router-dom": "^6.10.0",
-    "styled-components": "^6.1.8"
+    "styled-components": "^6.1.8",
+    "sweetalert2": "^11.10.6"
   },
   "scripts": {
     "cy": "env CY_CLI=true cypress run",

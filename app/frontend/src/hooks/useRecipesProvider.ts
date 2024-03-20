@@ -60,7 +60,7 @@ const useRecipesProvider = (path: string) => {
     const { data, isLoading } = allCategories;
     if (!isLoading) {
       const categories: CategoryType[] = data;
-      return categories?.slice(0, 5);
+      return categories;
     }
     return [];
   };

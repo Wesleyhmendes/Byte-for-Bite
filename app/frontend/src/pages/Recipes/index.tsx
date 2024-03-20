@@ -5,6 +5,7 @@ import RecipesMiniCard from '../../components/RecipesMiniCard/RecipesMiniCard';
 import * as S from './Recipes.styles';
 import SelectPageButtons from './SelectPageButtons';
 
+
 export default function Recipes() {
   const [pageNum, setPageNum] = useState(1);
   const {
@@ -23,6 +24,8 @@ export default function Recipes() {
   const handlePageNum = (page: number) => {
     setPageNum(page);
   };
+
+  console.log(selectedCategory);
 
   return (
     <>
