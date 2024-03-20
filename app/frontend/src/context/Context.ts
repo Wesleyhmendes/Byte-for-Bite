@@ -20,8 +20,9 @@ export type ContextType = {
   setByFilterURL: (value: React.SetStateAction<string>) => void,
   getRecipesByFilter: () => MealType[] | DrinkType[],
   getSelectedCategory: (category: string) => void,
-  getAllRecipes: () => MealType[] | DrinkType[],
+  getAllRecipes: (page?: number) => MealType[] | DrinkType[]
   getByCategory: () => MealType[] | DrinkType[],
+  getPages: () => number[],
 };
 
 const Context = createContext({} as ContextType);
