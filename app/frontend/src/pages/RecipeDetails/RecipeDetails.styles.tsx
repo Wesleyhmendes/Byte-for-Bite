@@ -1,26 +1,18 @@
 import styled from 'styled-components';
 
 export const Main = styled.main`
-  @media (min-width: 320px) {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: fit-content;
     margin-bottom: -7rem;
-  }
-
-  @media (min-width: 768px) {
-  }
-
-  @media (min-width: 1280px) {
-  }
 `;
 
 export const RecipeCard = styled.section`
   @media (min-width: 320px) {
     align-items: center;
-    background-color: #fff;
+    background-color: #EBEBEB;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -85,6 +77,7 @@ export const Gradient = styled.div`
 `;
 
 export const IngredientsContainer = styled.ul`
+  background-color: #ffffff;
   border: 1px solid #BEBEBE;
   border-radius: 7px;
   display: flex;

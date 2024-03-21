@@ -18,9 +18,10 @@ export const ButtonContainer = styled.section`
 
   @media (min-width: 1280px) {
   }
-`
+`;
 
 export const FilterButton = styled.button`
+  background: #fff;
   width: 10rem;
   height: 3rem;
   border: 1px solid #bebebe;

@@ -42,6 +42,7 @@ export const RecipeInfo = styled.div<{ imgSrc: string }>`
 `;
 
 export const IngredientsDiv = styled.div`
+  background-color: #fff;
   box-shadow: -1px 0px 5px 2px rgba(163,163,163,1);
   border-radius: 10px;
   display: flex;
@@ -90,6 +91,7 @@ export const IngredientsDiv = styled.div`
 `;
 
 export const Instructions = styled.div`
+  background-color: #fff;
   box-shadow: -1px 0px 5px 2px rgba(163, 163, 163, 1);
   border-radius: 10px;
   padding: 2rem;
@@ -112,11 +114,25 @@ export const Instructions = styled.div`
 `;
 
 export const Video = styled.iframe`
-  border: none;
-  border-radius: 10px;
-  margin: 0 auto;
-  margin-bottom: 1.5rem;
-  margin-top: 2rem;  
+  @media (min-width: 320px) {
+    border: none;
+    border-radius: 10px;
+    height: 15rem;
+    margin: 0 auto;
+    margin-bottom: 1.5rem;
+    margin-top: 2rem;
+    width: 95%;
+  }
+
+  @media (min-width: 768px) {
+    height: 20rem;
+    width: 70%;
+  }
+
+  @media (min-width: 1280px) {
+    height: 25rem;
+    width: 60%;
+  }
 `;
 
 export const FinishRecipe = styled.button`
