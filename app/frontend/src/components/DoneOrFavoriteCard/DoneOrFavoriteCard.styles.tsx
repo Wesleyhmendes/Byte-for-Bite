@@ -4,7 +4,7 @@ export const DoneOrFavoriteCard = styled.section`
   @media (min-width: 320px) {
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0px 6px 9px -2px rgba(144, 144, 144, 0.75);
+    box-shadow: 1px 2px 2px 0px rgba(189,189,189,1);
     display: flex;
     flex-direction: row;
     justify-content: space-between;

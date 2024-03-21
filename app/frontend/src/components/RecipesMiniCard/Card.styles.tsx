@@ -5,37 +5,48 @@ export const Div = styled.div`
   display: flex;
   flex-direction: row;
   border-radius: 10px;
-  box-shadow: 3px 3px 5px 0px rgba(168, 168, 168, 0.4);
+  box-shadow: 0px 2px 2px 0px rgba(189,189,189,1);
   margin: 1rem;
   padding: 1rem;
   width: 30rem;
   height: 10rem;
 
-  @media (min-width: 768px) { width: 43%; }
+  @media (min-width: 768px) {
+    width: 44%;
+    padding: 0.7rem;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
 
-  @media (min-width: 1280px) { width: 29%; }
+  @media (min-width: 1280px) {
+    width: 29%;
+    padding: 0.5rem;
+  }
+
+  @media (min-width: 1444px) {
+    width: 25%;
+  }
 `;
 
 export const TextContent = styled.div`
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: flex-start;
+  padding-left: 0.5rem;
   text-align: left;
   width: 100%;
-  padding-left: 0.5rem;
 
   @media (min-width: 768px) {
     
   }
 
   @media (min-width: 1280px) {
-    padding-left: 1.5rem;
+    padding-left: 0.8rem;
   }
 `;
 
 export const RecipeInfo = styled.div`
-
   display: flex;
   flex-direction: column;
   width: 100%;  
@@ -97,14 +108,23 @@ export const H1 = styled.p`
 `;
 
 export const Img = styled.img`
-
   border-radius: 10px;
   width: 8rem;
-  max-height: 8rem;
 
   @media (min-width: 768px) {
-    
-    height: 6.5rem;
-    width: 6.5rem;
+    height: 100%;
+    width: fit-content;
+  }
+
+  @media (min-width: 1280px) {
+    height: 100%;
+    width: fit-content;
+    border-radius: 10px;
+    transition: transform 0.4s ease;
+
+    &:hover {
+      transform: scale(1.1);
+      border-radius: 10px 0 0 10px;
+    }
   }
 `;

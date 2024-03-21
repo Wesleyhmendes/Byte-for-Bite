@@ -3,29 +3,30 @@ import styled, { css } from 'styled-components';
 export const FooterStyled = styled.footer`
   align-items: center;
   background-color: #ffffff;
-  box-shadow: 0px -5px 9px -2px rgba(0,0,0,0.45);
+  box-shadow: 0px -1px 3px 0px rgba(189,189,189,1);
   border-radius: 15px 15px 0 0;
   bottom: 0;
   display: flex;
   gap: 3rem;
   justify-content: center;
   margin-bottom: -0.5px;
-  padding-bottom: 0.5rem;
-  padding-top: 0.3rem;
+  padding-bottom: 1rem;
+  padding-top: 0.5rem;
   position: fixed;
   text-align: center;
-  width: 100%;
+  
 
   @media (min-width: 320px) {
-    
+    width: 100%;
   }
 
   @media (min-width: 768px) {
     justify-content: space-around;
+    width: 100%;
   }
 
   @media (min-width: 1024px) {
-    
+    width: 100%;
   }
 
   @media (min-width: 1280px) {
