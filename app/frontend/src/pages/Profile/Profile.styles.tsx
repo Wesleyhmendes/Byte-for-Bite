@@ -44,7 +44,7 @@ export const ButtonsContainer = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: start;
-    padding: 1.7rem 0;
+    padding: 1.5rem 0;
     width: 100%;
 
   .favoriteBtn {
