@@ -30,6 +30,12 @@ class ProfileService {
     
     return { status: 'INVALID_DATA', data: { message: 'Invalid data' } }
   }
+
+  async getProfileRecipes(id: number) {
+    const response = await this.userModel.getUserRecipes(id);
+
+    return { status: 'SUCCESSFUL', data: response }
+  }
 }
 
 export default ProfileService;

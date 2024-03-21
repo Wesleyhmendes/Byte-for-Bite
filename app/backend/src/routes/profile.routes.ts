@@ -20,4 +20,9 @@ router.patch(
   (req: Request, res: Response) => profileController.updateProfileImage(req, res)
 );
 
+router.get(
+  '/:id/profileRecipes',
+  (req: Request, res: Response) => profileController.getProfileRecipes(req, res)
+)
+
 export default router;

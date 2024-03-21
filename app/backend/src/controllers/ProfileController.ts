@@ -24,6 +24,15 @@ class ProfileController {
 
     return res.status(httpStatus).json(data);
   }
+
+  async getProfileRecipes(req: Request, res: Response) {
+    const { id } = req.params;
+
+    const {status, data} = await this.profileService.getProfileRecipes(Number(id));
+    const httpStatus = mapStatusHTTP(status);
+
+    return res.status(httpStatus).json(data);
+  }
 }
 
 export default ProfileController;
