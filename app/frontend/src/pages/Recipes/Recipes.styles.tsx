@@ -67,7 +67,7 @@ export const PageButtonContainer = styled.div`
 
   .selected {
     button {
-      background-color: #ededed;
+      background-color: #ffffff;
       color: #ff5c16;
       font-weight: bold;
     }

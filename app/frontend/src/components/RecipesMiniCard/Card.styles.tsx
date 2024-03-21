@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Div = styled.div`
+  background: #fff;
   display: flex;
   flex-direction: row;
   border-radius: 10px;

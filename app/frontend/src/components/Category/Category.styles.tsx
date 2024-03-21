@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 export const ItemButton = styled(motion.div)`
   button {
-    background: #eaeaea;
+    background: #ffffff;
     border-radius: 1rem;
     height: 2rem;
     margin: 0 0.5rem;  
