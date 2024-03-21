@@ -60,7 +60,7 @@ export const StyledBurger = styled.div<{ open: boolean }>`
 export const Ul = styled.ul<{ open: boolean }>`
   background-color: #ffffff;
   border-radius: 0 20px 20px 0;
-  box-shadow: 2px 0px 5px 0px rgba(140,140,140,1);
+  box-shadow: 1px 2px 2px 0px rgba(189,189,189,1);
   display: flex;
   flex-flow: column nowrap;
   height: fit-content;

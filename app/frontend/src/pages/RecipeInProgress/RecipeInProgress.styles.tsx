@@ -43,7 +43,7 @@ export const RecipeInfo = styled.div<{ imgSrc: string }>`
 
 export const IngredientsDiv = styled.div`
   background-color: #fff;
-  box-shadow: -1px 0px 5px 2px rgba(163,163,163,1);
+  box-shadow: 1px 2px 2px 0px rgba(189,189,189,1);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -92,7 +92,7 @@ export const IngredientsDiv = styled.div`
 
 export const Instructions = styled.div`
   background-color: #fff;
-  box-shadow: -1px 0px 5px 2px rgba(163, 163, 163, 1);
+  box-shadow: 1px 2px 2px 0px rgba(189,189,189,1);
   border-radius: 10px;
   padding: 2rem;
   margin-bottom: 2rem;

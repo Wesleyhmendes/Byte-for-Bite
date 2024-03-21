@@ -47,7 +47,7 @@ export const Form = styled.form`
 `;
 
 export const Filters = styled.div`
-  background-color: rgb(255, 255, 255, 0.95);
+  background-color: #f4f4f4;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -56,112 +56,28 @@ export const Filters = styled.div`
   padding-bottom: 5px;
   margin-top: 1rem;
   width: 100%;
-
-  @media (min-width: 320px) {
-
-  }
-
-  @media (min-width: 768px) {
-    
-  }
-
-  @media (min-width: 1024px) {
-    
-  }
-
-  @media (min-width: 1280px) {
-    
-  }
-
 `;
 
 export const Label = styled.label`
- 
-  
-
-  @media (min-width: 320px) {
-
-  }
-
-  @media (min-width: 768px) {
-    
-  }
-
-  @media (min-width: 1024px) {
-    
-  }
-
-  @media (min-width: 1280px) {
-    
-  }
-
 `;
 
 export const LabelSearch = styled.label`
   display: flex;
   justify-content: center;
-
-  @media (min-width: 320px) {
-    
-  }
-
-  @media (min-width: 768px) {
-    
-  }
-
-  @media (min-width: 1024px) {
-    
-  }
-
-  @media (min-width: 1280px) {
-    
-  }
 `;
 
 export const InputSearch = styled.input`
-
-  @media (min-width: 320px) {
     padding-left: 0.6rem;
     height: 30px;
     border-radius: 10px 0 0 10px;
     width: 70%;
-  }
-
-  @media (min-width: 768px) {
-    
-  }
-
-  @media (min-width: 1024px) {
-    
-  }
-
-  @media (min-width: 1280px) {
-    
-  }
-
 `;
 
 export const Lupe = styled.img` 
-
-  @media (min-width: 320px) {
     height: 30px;
     background-color: #ffffff;
     border-radius: 0 10px 10px 0;
     border-left: 2px solid #c0c0c0;
-  }
-
-  @media (min-width: 768px) {
-    
-  }
-
-  @media (min-width: 1024px) {
-    
-  }
-
-  @media (min-width: 1280px) {
-    
-  }
-
 `;
 
 export const Button = styled.button`
@@ -170,7 +86,6 @@ export const Button = styled.button`
 `;
 
 export const FilterP = styled.p<{ className: string }>`
-
   font-weight: 600;
   text-align: center;
  
