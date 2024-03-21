@@ -95,11 +95,20 @@ export const CounterContainer = styled.section`
   align-items: center;
   background-color: #fff;
   border-radius: 7px;
-  width: 15rem;
+  width: 25rem;
   padding: 1rem 2rem;
   margin-bottom: -2rem;
   box-shadow: 0px 7px 8px -1px rgba(0, 0, 0, 0.5);
   z-index: 1;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 35%;
+    margin: 0 0.5rem;     
+  }
 
   h2 {
     text-align: center;
