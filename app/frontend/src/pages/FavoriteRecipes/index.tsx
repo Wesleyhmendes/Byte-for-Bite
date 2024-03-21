@@ -8,6 +8,7 @@ import FilterButtons from '../../components/FilterButtons/FilterButtons';
 
 import * as S from './Favorites.styles';
 import Footer from '../../components/Footer';
+import ShortHeader from '../../components/ShortHeader';
 
 export default function FavoriteRecipes() {
   const [filter, setFilter] = useState('all');
@@ -23,47 +24,50 @@ export default function FavoriteRecipes() {
   const formattedDrinks = formatFavorites('/drinks', favoriteDrinks);
 
   return (
-    <S.Favorites>
-      <FilterButtons setFilter={ setFilter } />
-      <S.CardContainer>
-        {formattedMeals && filter === 'all'
-          ? formattedMeals.favoriteRecipes.map((recipe, i) => (
-            <DoneOrFavoriteCard
-              key={ `allMeals[${i}]` }
-              recipe={ recipe }
-              recipeType="meals"
-            />
-          ))
-          : null}
-        {formattedDrinks && filter === 'all'
-          ? formattedDrinks.favoriteRecipes.map((recipe, i) => (
-            <DoneOrFavoriteCard
-              key={ `allDrinks[${i}]` }
-              recipe={ recipe }
-              recipeType="drinks"
-            />
-          ))
-          : null}
-        {formattedMeals && filter === 'meals'
-          ? formattedMeals?.favoriteRecipes.map((recipe, i) => (
-            <DoneOrFavoriteCard
-              key={ `meals[${i}]` }
-              recipe={ recipe }
-              recipeType="meals"
-            />
-          ))
-          : null}
-        {formattedDrinks && filter === 'drinks'
-          ? formattedDrinks.favoriteRecipes.map((recipe, i) => (
-            <DoneOrFavoriteCard
-              key={ `drinks[${i}]` }
-              recipe={ recipe }
-              recipeType="drinks"
-            />
-          ))
-          : null}
-      </S.CardContainer>
-      <Footer />
-    </S.Favorites>
+    <>
+      <ShortHeader />
+      <S.Favorites>
+        <FilterButtons setFilter={ setFilter } />
+        <S.CardContainer>
+          { formattedMeals && filter === 'all'
+            ? formattedMeals.favoriteRecipes.map((recipe, i) => (
+              <DoneOrFavoriteCard
+                key={ `allMeals[${i}]` }
+                recipe={ recipe }
+                recipeType="meals"
+              />
+            ))
+            : null }
+          { formattedDrinks && filter === 'all'
+            ? formattedDrinks.favoriteRecipes.map((recipe, i) => (
+              <DoneOrFavoriteCard
+                key={ `allDrinks[${i}]` }
+                recipe={ recipe }
+                recipeType="drinks"
+              />
+            ))
+            : null }
+          { formattedMeals && filter === 'meals'
+            ? formattedMeals?.favoriteRecipes.map((recipe, i) => (
+              <DoneOrFavoriteCard
+                key={ `meals[${i}]` }
+                recipe={ recipe }
+                recipeType="meals"
+              />
+            ))
+            : null }
+          { formattedDrinks && filter === 'drinks'
+            ? formattedDrinks.favoriteRecipes.map((recipe, i) => (
+              <DoneOrFavoriteCard
+                key={ `drinks[${i}]` }
+                recipe={ recipe }
+                recipeType="drinks"
+              />
+            ))
+            : null }
+        </S.CardContainer>
+        <Footer />
+      </S.Favorites>
+    </>
   );
 }

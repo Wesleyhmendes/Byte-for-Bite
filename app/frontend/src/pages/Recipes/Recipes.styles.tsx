@@ -7,13 +7,13 @@ export const Main = styled.main`
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
-  margin-bottom: -7rem;
+  margin: 1.5rem 0 -7rem 0;
 
   @media (min-width: 320px) {
+
   }
 
   @media (min-width: 768px) {
-    padding: 1rem;
     gap: 1rem;
   }
   @media (min-width: 1280px) {

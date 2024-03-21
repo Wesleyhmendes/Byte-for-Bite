@@ -121,6 +121,7 @@ export const LabelSearch = styled.label`
 export const InputSearch = styled.input`
 
   @media (min-width: 320px) {
+    padding-left: 0.6rem;
     height: 30px;
     border-radius: 10px 0 0 10px;
     width: 70%;
@@ -164,26 +165,8 @@ export const Lupe = styled.img`
 `;
 
 export const Button = styled.button`
- 
   border: none;
   background: transparent;
-
-  @media (min-width: 320px) {
-
-  }
-
-  @media (min-width: 768px) {
-    
-  }
-
-  @media (min-width: 1024px) {
-    
-  }
-
-  @media (min-width: 1280px) {
-    
-  }
-
 `;
 
 export const FilterP = styled.p<{ className: string }>`
@@ -199,87 +182,16 @@ export const FilterP = styled.p<{ className: string }>`
   &:hover {
     cursor: pointer;
   }
-
-  @media (min-width: 320px) {
-
-  }
-
-  @media (min-width: 768px) {
-    
-  }
-
-  @media (min-width: 1024px) {
-    
-  }
-
-  @media (min-width: 1280px) {
-    
-  }
-
 `;
 
 export const InputIngredient = styled.input`
- 
   display: none;
-
-  @media (min-width: 320px) {
-
-  }
-
-  @media (min-width: 768px) {
-    
-  }
-
-  @media (min-width: 1024px) {
-    
-  }
-
-  @media (min-width: 1280px) {
-    
-  }
-
 `;
 
 export const InputName = styled.input`
- 
  display: none;
-
-  @media (min-width: 320px) {
-
-  }
-
-  @media (min-width: 768px) {
-    
-  }
-
-  @media (min-width: 1024px) {
-    
-  }
-
-  @media (min-width: 1280px) {
-    
-  }
-
 `;
 
 export const InputFirstLetter = styled.input`
- 
  display: none;
-
-  @media (min-width: 320px) {
-
-  }
-
-  @media (min-width: 768px) {
-    
-  }
-
-  @media (min-width: 1024px) {
-    
-  }
-
-  @media (min-width: 1280px) {
-    
-  }
-
 `;
