@@ -6,12 +6,13 @@ import Context from '../../context/Context';
 import { ItemButton, InnerCarousel, Carousel } from './Category.styles';
 import Loading from '../Loading/Loading';
 
-export default function Category2() {
+export default function Category() {
   const [width, setWidth] = useState(0);
   const carousel = useRef<any>();
 
   const { getCategories, getSelectedCategory } = useContext(Context);
   const allCategories = getCategories();
+  console.log(allCategories);
 
   useEffect(() => {
     setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
