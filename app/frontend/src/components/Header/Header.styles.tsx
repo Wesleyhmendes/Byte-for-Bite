@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 
 export const HeaderStyle = styled.header`
-
+  
  background: linear-gradient(to bottom, rgba(255,255,255,0) 70%, #000000 100%);
 `;
 

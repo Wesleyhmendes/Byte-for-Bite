@@ -4,21 +4,27 @@ export const Header = styled.header`
   background: #FF5C16;
   box-shadow: 0px 3px 3px 0px rgba(189,189,189,1);
   margin-bottom: 1rem;
-  padding-top: 0.5rem;
   width: 100%;
 `;
 
 export const OuterDiv = styled.div`
+  
   display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const InnerDiv = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
+  padding: 0.5rem 0;
 
   img {
-    width: 7rem;
+    width: 6rem;
+    object-fit: cover;
+    height: 4rem;
   }
 `;
 
