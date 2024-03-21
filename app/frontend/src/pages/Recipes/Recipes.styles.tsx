@@ -67,7 +67,8 @@ export const PageButtonContainer = styled.div`
 
   .selected {
     button {
-      background-color: #ededed;
+      background-color: #ffffff;
+      box-shadow: 0px 1px 1px 0px rgba(189,189,189,1);
       color: #ff5c16;
       font-weight: bold;
     }

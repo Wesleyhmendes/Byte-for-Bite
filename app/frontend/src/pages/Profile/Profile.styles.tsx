@@ -1,26 +1,12 @@
 import styled from 'styled-components';
 
 export const Main = styled.main`
+  align-items: center;
+  background-color: #FF5C16;
   display: flex;
   flex-direction: column;
-  background-color: #FF5C16;
-  align-items: center;
-
-  @media (min-width: 320px) {
-
-  }
-
-  @media (min-width: 768px) {
-    
-  }
-
-  @media (min-width: 1024px) {
-    
-  }
-
-  @media (min-width: 1280px) {
-    
-  }
+  height: 100vh;
+  margin-bottom: -7rem;
 `;
 
 export const UserInfoContainer = styled.section`
@@ -49,42 +35,40 @@ export const UserInfoContainer = styled.section`
 `;
 
 export const ButtonsContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;  
-  width: 100%;  
-  border: 1px solid transparent;
-  border-radius: 50px 50px 0 0;
-  background: #ffffff;
-  padding-top: 5rem; 
-  
-  button {
-    color: #a1a1a3;
-    margin: 0.5rem;
-    font-weight: bold;
-  }
+  @media (min-width: 320px) {
+    align-items: center;  
+    border-radius: 50px 50px 0 0;
+    border: 1px solid transparent;
+    background: #ffffff;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    padding: 1.5rem 0;
+    width: 100%;
 
   .favoriteBtn {
     border-top: 1px solid #dbdde0;
     border-bottom: 1px solid #dbdde0;
     padding: 1rem;
   }
-
-  @media (min-width: 320px) {
-
+    button {
+      color: #a1a1a3;
+      margin: 0.5rem;
+      font-weight: bold;
+      font-size: 1.1rem;
+      height: 4.0rem;
+      width: 70%;
+      &:hover { color: #FD5B16; }
+    }
   }
 
   @media (min-width: 768px) {
-    
-  }
-
-  @media (min-width: 1024px) {
-    
-  }
-
-  @media (min-width: 1280px) {
-    
+    padding: 5rem 0;
+    button {
+      font-size: 1.7rem;
+      width: 40%;
+    }
   }
 `;
 
@@ -121,18 +105,6 @@ export const CounterContainer = styled.section`
     border-left: 1px solid #747474;
     height: 3rem;
     width: 2px;
-  }
-
-  @media (min-width: 320px) {
-  }
-
-  @media (min-width: 768px) {
-  }
-
-  @media (min-width: 1024px) {
-  }
-
-  @media (min-width: 1280px) {
   }
 `;
 

@@ -1,26 +1,18 @@
 import styled from 'styled-components';
 
 export const Main = styled.main`
-  @media (min-width: 320px) {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: fit-content;
     margin-bottom: -7rem;
-  }
-
-  @media (min-width: 768px) {
-  }
-
-  @media (min-width: 1280px) {
-  }
 `;
 
 export const RecipeCard = styled.section`
   @media (min-width: 320px) {
     align-items: center;
-    background-color: #fff;
+    background-color: #f4f4f4;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -85,7 +77,8 @@ export const Gradient = styled.div`
 `;
 
 export const IngredientsContainer = styled.ul`
-  border: 1px solid #BEBEBE;
+  background-color: #ffffff;
+  box-shadow: 1px 2px 2px 0px rgba(189,189,189,1);
   border-radius: 7px;
   display: flex;
   flex-direction: column;
@@ -111,15 +104,6 @@ export const IngredientsContainer = styled.ul`
   hr {
     color: #000;
     width: 2rem;    
-  }
-
-  @media (min-width: 768px) {
-  }
-
-  @media (min-width: 1024px) {
-  }
-
-  @media (min-width: 1280px) {
   }
 `;
 

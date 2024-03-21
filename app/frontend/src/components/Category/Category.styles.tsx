@@ -2,8 +2,10 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 export const ItemButton = styled(motion.div)`
+padding: 0.3rem 0;
   button {
-    background: #eaeaea;
+    background: #ffffff;
+    box-shadow: 0px 1px 2px 0px rgba(189,189,189,1);
     border-radius: 1rem;
     height: 2rem;
     margin: 0 0.5rem;  
