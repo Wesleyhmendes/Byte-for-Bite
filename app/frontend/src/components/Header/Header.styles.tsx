@@ -11,7 +11,6 @@ export const HeaderMainDiv = styled.div`
 `;
 
 export const TopIconsDiv = styled.div`
-  
   align-items: center;
   display: flex;
   justify-content: space-between;

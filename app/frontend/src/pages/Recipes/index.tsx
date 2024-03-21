@@ -24,8 +24,6 @@ export default function Recipes() {
     setPageNum(page);
   };
 
-  console.log(selectedCategory);
-
   return (
     <>
       <Category />

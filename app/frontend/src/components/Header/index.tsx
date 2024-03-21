@@ -21,14 +21,13 @@ function Header() {
   const { profile } = useContext(UserInfoContext);
   const { route } = useContext(Context);
   const { data, handleFetch } = profile;
-  
 
   const profileIMG = data ? data.profileImage : undefined;
 
   const pageTitle = route === '/meals' ? 'Meals' : 'Drinks';
 
   useEffect(() => {
-    handleFetch()
+    handleFetch();
   }, []);
 
   return (
