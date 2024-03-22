@@ -11,12 +11,23 @@ type SignUpFormProps = {
 function SignUpForm({ user, handleChange, handleSubmit }: SignUpFormProps) {
   const { email, username, password, confirmPassword } = user;
 
-  const isInvalid = validateUser(user);
+  const validateRegexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const validateEmail = validateRegexEmail.test(email);
+
+  const validateUserName = username ? username.length >= 3 : false;
+
+  const validatePassword = password.length >= 6;
+  const validateConfirm = confirmPassword ? confirmPassword
+    .length > 0 && confirmPassword === password : null;
+
+  const validateSubmit = validateUser(user);
+
   return (
     <S.Form onSubmit={ handleSubmit }>
       <S.Label>
         Email
         <S.Inputs
+          className={ validateEmail ? 'valid' : 'invalid' }
           type="email"
           name="email"
           value={ email }
@@ -27,8 +38,10 @@ function SignUpForm({ user, handleChange, handleSubmit }: SignUpFormProps) {
       <S.Label>
         Username
         <S.Inputs
+          className={ validateUserName ? 'valid' : 'invalid' }
           type="text"
           name="username"
+          placeholder="At least 3 characters"
           value={ username }
           onChange={ handleChange }
         />
@@ -36,6 +49,7 @@ function SignUpForm({ user, handleChange, handleSubmit }: SignUpFormProps) {
       <S.Label>
         Password
         <S.Inputs
+          className={ validatePassword ? 'valid' : 'invalid' }
           name="password"
           type="password"
           placeholder="At least 6 characters"
@@ -46,13 +60,14 @@ function SignUpForm({ user, handleChange, handleSubmit }: SignUpFormProps) {
       <S.Label>
         Confirm your password
         <S.Inputs
+          className={ validateConfirm ? 'valid' : 'invalid' }
           name="confirmPassword"
           type="password"
           value={ confirmPassword }
           onChange={ handleChange }
         />
       </S.Label>
-      <S.Button disabled={ isInvalid }>Sign up</S.Button>
+      <S.Button disabled={ validateSubmit }>Sign up</S.Button>
     </S.Form>
   );
 }
