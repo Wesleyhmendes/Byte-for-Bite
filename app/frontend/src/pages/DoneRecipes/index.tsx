@@ -25,6 +25,7 @@ export default function DoneRecipes() {
   const formattedDoneDrinks = formatDoneRecipes('/drinks', doneDrinks);
 
   document.title = 'Done Recipes | Byte for Bite';
+  console.log(formattedDoneMeals)
 
   return (
     <>
@@ -69,6 +70,9 @@ export default function DoneRecipes() {
               />
             ))
             : null }
+            {!formattedDoneDrinks?.userId && !formattedDoneMeals?.userId ? (
+              <p>You don't have any recipes done yet.</p>
+            ): null}
         </S.CardContainer>
         <Footer />
       </S.Done>

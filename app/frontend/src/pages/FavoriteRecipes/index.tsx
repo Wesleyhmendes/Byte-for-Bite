@@ -67,6 +67,10 @@ export default function FavoriteRecipes() {
               />
             ))
             : null }
+
+          {!formattedMeals?.userId && !formattedDrinks?.userId ? (
+            <p>You don't have any favorite recipes yet.</p>
+          ) : null}
         </S.CardContainer>
         <Footer />
       </S.Favorites>
