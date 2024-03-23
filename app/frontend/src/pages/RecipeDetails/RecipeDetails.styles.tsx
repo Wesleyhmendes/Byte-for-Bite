@@ -6,7 +6,7 @@ export const Main = styled.main`
     justify-content: center;
     align-items: center;
     height: fit-content;
-    margin-bottom: -7rem;
+    margin-bottom: -4.5rem;
 `;
 
 export const RecipeCard = styled.section`

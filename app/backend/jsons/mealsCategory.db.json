@@ -25,7 +25,7 @@
 },
 {
 "idCategory": "5",
-"strCategory": "Miscellaneous",
+"strCategory": "Others",
 "strCategoryThumb": "https://www.themealdb.com/images/category/miscellaneous.png",
 "strCategoryDescription": "General foods that don't fit into another category"
 },
@@ -87,5 +87,5 @@
 "idCategory": "15",
 "strCategory": "All",
 "strCategoryThumb": "#",
-"strCategoryDescription": "The representation of all categories. Could be food for meals or glasses for drinks."
+"strCategoryDescription": "The representation of all categories."
 }]

@@ -54,14 +54,32 @@ export const Form = styled.form`
 
   input {
     align-self: center;
-    background: #cccccc88;
+    background: #f4f4f4;
     border-radius: 10px;
     border: none;
     color: #000000;
-    height: 2.5rem;
+    /* height: 2.5rem; */
+    margin-top: 1rem;
     padding-left: 1rem;
-    width: fit-content;
+    width: 22rem;
+    transition: ease 0.3s;
   }
+
+  input:focus {
+    outline: none;
+
+  }
+  
+  .invalid:focus {
+    border-bottom: 0;
+    box-shadow: 0px 0px 5px 1px rgba(255,0,0,1);
+  }
+
+  .valid:focus {
+    border-bottom: 0;
+    box-shadow: 0px 0px 5px 1px #199206;
+  }
+  
 
   button {
     background-color: #FF4B00;

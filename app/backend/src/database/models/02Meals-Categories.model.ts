@@ -14,7 +14,6 @@ InferCreationAttributes<MealsCategories>> {
   declare strCategory: string;
   declare strCategoryThumb: string;
   declare strCategoryDescription: string;
-
 }
 
 MealsCategories.init({
