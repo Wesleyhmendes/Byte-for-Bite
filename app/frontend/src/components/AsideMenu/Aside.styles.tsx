@@ -16,6 +16,12 @@ export const Nav = styled.nav`
       }
     }
   }
+
+  @media(min-width: 1280px) {
+    div {
+      display: none;
+    }
+  }
 `;
 
 export const StyledBurger = styled.div<{ open: boolean }>`

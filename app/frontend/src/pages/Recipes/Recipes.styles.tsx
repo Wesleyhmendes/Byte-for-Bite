@@ -3,21 +3,24 @@ import styled from 'styled-components';
 export const Main = styled.main`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
-  margin: 1.5rem 0 -4.5rem 0;
-
-  @media (min-width: 320px) {
-
-  }
+  margin: 1.5rem 0 0rem 0;
 
   @media (min-width: 768px) {
     gap: 1rem;
   }
   @media (min-width: 1280px) {
-    gap: 1rem;
+    footer {
+      display: none;
+    }
+    align-items: flex-start;
+    margin-top: 2rem;
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 0;
   }
 `;
 
@@ -27,7 +30,6 @@ export const CardsContainer = styled.div`
   justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
-  width: 90%;
 
   @media (min-width: 320px) {
     width: 100%;
@@ -39,7 +41,13 @@ export const CardsContainer = styled.div`
   }
 
   @media (min-width: 1280px) {
-    gap: 1rem;
+    padding: 0;
+    gap: 0rem;
+    width: 85%;
+  }
+
+  @media (min-width: 1444px) {
+    margin-top: 0rem;
   }
 `;
 
@@ -49,7 +57,6 @@ export const PageButtonContainer = styled.div`
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 5rem;
   width: 80%;
 
   button {
@@ -76,6 +83,14 @@ export const PageButtonContainer = styled.div`
 
   @media (min-width: 320px) {
     width: 100%;
+  }
+
+  @media (min-width: 1280px) {
+    margin-top: 0rem;
+    margin-left: 13rem;
+  }
+
+  @media (min-width: 1444px) {
   }
 `;
 

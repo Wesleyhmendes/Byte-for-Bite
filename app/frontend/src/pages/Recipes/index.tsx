@@ -4,6 +4,8 @@ import Context from '../../context/Context';
 import RecipesMiniCard from '../../components/RecipesMiniCard/RecipesMiniCard';
 import * as S from './Recipes.styles';
 import SelectPageButtons from './SelectPageButtons';
+import AsideDesktopMenu from '../../components/AsideDesktopMenu/AsideDesktopMenu';
+import Footer from '../../components/Footer';
 
 export default function Recipes() {
   const [pageNum, setPageNum] = useState(1);
@@ -28,6 +30,7 @@ export default function Recipes() {
     <>
       <Category />
       <S.Main>
+        <AsideDesktopMenu />
         <S.CardsContainer>
           { selectedCategory === '' && byFilter?.length === 0 ? (
             allRecipes?.map((recipe, i) => (<RecipesMiniCard
@@ -61,6 +64,7 @@ export default function Recipes() {
           handlePageNum={ handlePageNum }
           currentPage={ pageNum }
         />
+        <Footer />
       </S.Main>
     </>
   );

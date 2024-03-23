@@ -29,6 +29,7 @@ export const FooterStyled = styled.footer`
       width: 70%;
       border-radius: 20px;
       margin-bottom: 1.5rem;
+      padding-bottom: 0.7rem;
     }
   }
 `;
