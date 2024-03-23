@@ -13,8 +13,7 @@ type MealCardProps = {
 export default function MealCard(
   { recipeData, handleInProgress, buttonText }: MealCardProps,
 ) {
-  const { strMealThumb, strMeal, strCategory, idMeal } = recipeData;
-  const category = getCategories(Number(strCategory));
+  const { strMealThumb, strMeal, strCategory, idMeal } = recipeData;  
   const mealIngredients = getIngredients(recipeData);
 
   return (
@@ -23,7 +22,7 @@ export default function MealCard(
         <S.TitleAndButtonContainer>
           <div>
             <h2 data-testid="recipe-title">{ strMeal }</h2>
-            <p data-testid="recipe-category">{ `Category: ${category}` }</p>
+            <p data-testid="recipe-category">{ `Category: ${strCategory}` }</p>
           </div>
 
           <FavoriteButton id={ idMeal } recipeType="/meals" />

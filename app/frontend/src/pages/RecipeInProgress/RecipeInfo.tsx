@@ -12,9 +12,7 @@ type RecipeInfoProps = {
   id: string;
 };
 
-function RecipeInfo({ recipeData, recipeType, id }: RecipeInfoProps) {
-  const category = getCategories(recipeData.strCategory)
-  console.log(recipeType)
+function RecipeInfo({ recipeData, recipeType, id }: RecipeInfoProps) {  
   return (
     <S.RecipeInfo imgSrc={recipeData[`str${recipeType}Thumb`]}>
       <TitleAndButtonContainer>
@@ -22,7 +20,7 @@ function RecipeInfo({ recipeData, recipeType, id }: RecipeInfoProps) {
           <h2 data-testid="recipe-title">{recipeData[`str${recipeType}`]}</h2>
           <p data-testid="recipe-category">
             {`Category: ${
-              recipeType === 'Drink' ? recipeData.strAlcoholic : category
+              recipeType === 'Drink' ? recipeData.strAlcoholic : recipeData.strCategory
             }`}
           </p>
         </div>

@@ -58,13 +58,13 @@ export default function RecipeInProgress() {
     const { name, checked } = target;
     checkIngredientsDispatch({ type: CHANGE, name, value: checked });
   };
-
+  
   const isDone = isRecipeDone(ingredients, stateIngredients);
 
   const handleDone = () => {
     handleFetch();
     setFinishing(true);
-    setTimeout(() => {
+    setTimeout(() => {     
       navigate('/done-recipes');
     }, 2000);
   };
