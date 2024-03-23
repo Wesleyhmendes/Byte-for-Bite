@@ -17,54 +17,69 @@ export default class MealsModel implements IMealsRecipesModel {
   private mealsCategoryModel = MealsCategories;
   private favoriteRecipesModel = FavoriteMealsModel;
   private doneMealsModel = FinishedMealsModel;
-  
+
   async findAll(): Promise<IMealRecipes[]> {
     const recipes = await this.mealsModel.findAll({
-      include: [{
-        model: MealsCategories, as: 'category', attributes: ['strCategory']
-      }],
-      attributes: {exclude: ['strCategory']}
+      include: [
+        {
+          model: MealsCategories,
+          as: 'category',
+          attributes: ['strCategory'],
+        },
+      ],
+      attributes: { exclude: ['strCategory'] },
     });
     const newRecipes = recipes.map((recipe) => {
-      const {category, ...rest} = recipe.toJSON() as IMealRecipes;
-      return {...rest, strCategory: category?.strCategory};
-    }) 
+      const { category, ...rest } = recipe.toJSON() as IMealRecipes;
+      return { ...rest, strCategory: category?.strCategory };
+    });
     return newRecipes;
   }
 
   async findByName(name: string): Promise<IMealRecipes[]> {
-    const recipes = await this.mealsModel.findAll({where: {
-      strMeal: {
-        [Op.like]: `%${name}%`
-      }
-    },  include: [{
-      model: MealsCategories, as: 'category', attributes: ['strCategory']
-    }],
-    attributes: {exclude: ['strCategory']}})
+    const recipes = await this.mealsModel.findAll({
+      where: {
+        strMeal: {
+          [Op.like]: `%${name}%`,
+        },
+      },
+      include: [
+        {
+          model: MealsCategories,
+          as: 'category',
+          attributes: ['strCategory'],
+        },
+      ],
+      attributes: { exclude: ['strCategory'] },
+    });
     const newRecipes = recipes.map((recipe) => {
-      const {category, ...rest} = recipe.toJSON() as IMealRecipes;
-      return {...rest, strCategory: category?.strCategory};
-    }) 
-  return newRecipes;
-  };
+      const { category, ...rest } = recipe.toJSON() as IMealRecipes;
+      return { ...rest, strCategory: category?.strCategory };
+    });
+    return newRecipes;
+  }
 
   async findByFirstLetter(letter: string): Promise<IMealRecipes[]> {
     const recipes = await this.mealsModel.findAll({
       where: {
         strMeal: {
-          [Op.like]: `${letter}%`
-        }
+          [Op.like]: `${letter}%`,
+        },
       },
-      include: [{
-        model: MealsCategories, as: 'category', attributes: ['strCategory']
-      }],
-      attributes: {exclude: ['strCategory']}
-    })
+      include: [
+        {
+          model: MealsCategories,
+          as: 'category',
+          attributes: ['strCategory'],
+        },
+      ],
+      attributes: { exclude: ['strCategory'] },
+    });
     const newRecipes = recipes.map((recipe) => {
-      const {category, ...rest} = recipe.toJSON() as IMealRecipes;
-      return {...rest, strCategory: category?.strCategory};
-    }) 
-  return newRecipes;
+      const { category, ...rest } = recipe.toJSON() as IMealRecipes;
+      return { ...rest, strCategory: category?.strCategory };
+    });
+    return newRecipes;
   }
 
   async findAllCategories(): Promise<IMealsCategory[]> {
@@ -82,41 +97,51 @@ export default class MealsModel implements IMealsRecipesModel {
 
   async findRecipeByCategory(category: string): Promise<IMealRecipes[]> {
     const recipes = await this.mealsModel.findAll({
-      include: [{
-        model: MealsCategories, as: 'category', attributes: ['strCategory'],
-      }],
-      attributes: {exclude: ['strCategory']},
+      include: [
+        {
+          model: MealsCategories,
+          as: 'category',
+          attributes: ['strCategory'],
+        },
+      ],
+      attributes: { exclude: ['strCategory'] },
     });
-    const newRecipes = recipes.map((recipe) => {
-      const {category, ...rest} = recipe.toJSON() as IMealRecipes;
-      return {...rest, strCategory: category?.strCategory};
-    }).filter((recipe) => recipe.strCategory === category);
+    const newRecipes = recipes
+      .map((recipe) => {
+        const { category, ...rest } = recipe.toJSON() as IMealRecipes;
+        return { ...rest, strCategory: category?.strCategory };
+      })
+      .filter((recipe) => recipe.strCategory === category);
     return newRecipes;
   }
 
   async findRecipeByArea(area: string): Promise<IMealRecipes[]> {
     const recipes = await this.mealsModel.findAll({
-      where: {strArea: area},
-      include: [{
-        model: MealsCategories, as: 'category', attributes: ['strCategory'],
-      }],
-      attributes: {exclude: ['strCategory']},
+      where: { strArea: area },
+      include: [
+        {
+          model: MealsCategories,
+          as: 'category',
+          attributes: ['strCategory'],
+        },
+      ],
+      attributes: { exclude: ['strCategory'] },
     });
     const newRecipes = recipes.map((recipe) => {
-      const {category, ...rest} = recipe.toJSON() as IMealRecipes;
-      return {...rest, strCategory: category?.strCategory};
-    })
+      const { category, ...rest } = recipe.toJSON() as IMealRecipes;
+      return { ...rest, strCategory: category?.strCategory };
+    });
     return newRecipes;
   }
 
   async findAllIngredients(): Promise<string[]> {
     const recipes = await this.findAll();
-    const uniqueIngredients:any [] = [];
+    const uniqueIngredients: any[] = [];
     recipes.forEach((recipe) => {
-      for(let i = 1; i <= 20; i += 1) {
+      for (let i = 1; i <= 20; i += 1) {
         const ingredientKey = `strIngredient${i}` as keyof IMealRecipes;
         const ingredient = recipe[ingredientKey];
-        if(ingredient) {
+        if (ingredient) {
           uniqueIngredients.push(ingredient);
         }
       }
@@ -131,33 +156,55 @@ export default class MealsModel implements IMealsRecipesModel {
     const recipesFiltred = recipes.filter((recipe) => {
       const values: string[] = Object.values(recipe);
 
-      const valuesLower: string[] = values.map((value) =>{
-        return typeof value === 'string'? value.toLowerCase() : value;
-      })
-      
-      if(valuesLower.includes(ingredient.toLowerCase())) {
-        return true
+      const valuesLower: string[] = values.map((value) => {
+        return typeof value === 'string' ? value.toLowerCase() : value;
+      });
+
+      if (valuesLower.includes(ingredient.toLowerCase())) {
+        return true;
       }
       return false;
-    })
+    });
 
     return recipesFiltred;
   }
-  
+
   async findRecipeById(id: number): Promise<IMealRecipes | null> {
-    const recipe = await this.mealsModel.findByPk(id);
-    return recipe;
+    const recipe = await this.mealsModel.findByPk(id, {
+      include: [
+        {
+          model: MealsCategories,
+          as: 'category',
+          attributes: ['strCategory'],
+        },
+      ],
+      attributes: { exclude: ['strCategory'] },
+    });
+
+    if (recipe) {
+      const { category, ...rest } = recipe.toJSON() as IMealRecipes;
+      return { ...rest, strCategory: category?.strCategory };
+    }
+
+    return null;
   }
 
-  async addMealInProgress(recipeInProgress: Omit<IProgressMealRecipe, 'id'|'markedIngredients'>): Promise<IProgressMealRecipe> {
+  async addMealInProgress(
+    recipeInProgress: Omit<IProgressMealRecipe, 'id' | 'markedIngredients'>
+  ): Promise<IProgressMealRecipe> {
     const defaultIngredients = startMealRecipeInProgress();
 
-    const { dataValues } = await this.inProgressModel.create({...recipeInProgress, markedIngredients: defaultIngredients});
+    const { dataValues } = await this.inProgressModel.create({
+      ...recipeInProgress,
+      markedIngredients: defaultIngredients,
+    });
 
     return dataValues;
   }
 
-  async findMealInProgress(recipeInProgress: Omit<IProgressMealRecipe, 'id'|'markedIngredients'>): Promise<IProgressMealRecipe | null> {
+  async findMealInProgress(
+    recipeInProgress: Omit<IProgressMealRecipe, 'id' | 'markedIngredients'>
+  ): Promise<IProgressMealRecipe | null> {
     const { userId, mealId } = recipeInProgress;
     const foundRecipe = await this.inProgressModel.findOne({
       where: {
@@ -165,89 +212,106 @@ export default class MealsModel implements IMealsRecipesModel {
         mealId,
       },
     });
-    
-    return foundRecipe
+
+    return foundRecipe;
   }
 
-  async updateMarkedIngredients(recipeInProgress: Omit<IProgressMealRecipe, 'id'>): Promise<number | null> {
+  async updateMarkedIngredients(
+    recipeInProgress: Omit<IProgressMealRecipe, 'id'>
+  ): Promise<number | null> {
     const { userId, mealId, markedIngredients } = recipeInProgress;
-    const rowCount = await this.inProgressModel.update({markedIngredients}, {
-      where: {
-        userId,
-        mealId,
-      },
-    });
+    const rowCount = await this.inProgressModel.update(
+      { markedIngredients },
+      {
+        where: {
+          userId,
+          mealId,
+        },
+      }
+    );
 
     if (rowCount[0] === 0) return null;
 
     return rowCount[0];
   }
 
-  async createFavoriteMeals(userId: number, mealId: number) {   
+  async createFavoriteMeals(userId: number, mealId: number) {
     const findFavorite = await this.findFavorite(userId, mealId);
     if (!findFavorite) {
-      const { dataValues } = await this.favoriteRecipesModel.create({userId, mealId});
+      const { dataValues } = await this.favoriteRecipesModel.create({
+        userId,
+        mealId,
+      });
       return dataValues;
     }
-    await this.favoriteRecipesModel.destroy({where: {userId, mealId}});
+    await this.favoriteRecipesModel.destroy({ where: { userId, mealId } });
   }
 
-  async findFavorite(userId: number, mealId: number) {    
+  async findFavorite(userId: number, mealId: number) {
     const foundFavorite = await this.favoriteRecipesModel.findOne({
       where: {
         userId,
         mealId,
-      }
+      },
     });
-    
+
     return foundFavorite;
-  } 
+  }
 
   async getFavoriteRecipes(userId: number) {
     const favorites = await this.favoriteRecipesModel.findAll({
-      where: {userId},
-      include: [{
-        model: MealsRecipe,
-        as: 'favoriteRecipes',
-        attributes: ['idMeal', 'strMeal', 'strMealThumb', 'strArea']
-      }],           
-      attributes: {exclude: ['mealId']},      
+      where: { userId },
+      include: [
+        {
+          model: MealsRecipe,
+          as: 'favoriteRecipes',
+          attributes: ['idMeal', 'strMeal', 'strMealThumb', 'strArea'],
+        },
+      ],
+      attributes: { exclude: ['mealId'] },
     });
-    
+
     return favorites;
   }
 
   async findDone(userId: number, mealId: number) {
-    // console.log('USERID', userId, 'MEALID', mealId);
     const foundDone = await this.doneMealsModel.findOne({
       where: {
         userId,
         mealId,
-      }
+      },
     });
-    
-    return foundDone;
-  } 
 
-  async createDoneMeals(userId: number, mealId: number) {   
-    const findDone = await this.findDone(userId, mealId);    
+    return foundDone;
+  }
+
+  async createDoneMeals(userId: number, mealId: number) {
+    const findDone = await this.findDone(userId, mealId);
     if (!findDone) {
-      const { dataValues } = await this.doneMealsModel.create({userId, mealId});
+      await this.inProgressModel.destroy({ where: { userId, mealId } });
+      const { dataValues } = await this.doneMealsModel.create({
+        userId,
+        mealId,
+      });
       return dataValues;
     }
-    await this.doneMealsModel.destroy({where: {userId, mealId}});
+
+    await this.inProgressModel.destroy({ where: { userId, mealId } });
+    return findDone;
   }
 
   async getDoneRecipes(userId: number) {
     const doneRecipes = await this.doneMealsModel.findAll({
-      where: {userId},
-      include: [{
-        model: MealsRecipe,
-        as: 'finishedRecipes',
-        attributes: ['idMeal', 'strMeal', 'strMealThumb', 'strArea']
-      }],           
-      attributes: {exclude: ['mealId']},      
-    });   
+      where: { userId },
+      include: [
+        {
+          model: MealsRecipe,
+          as: 'finishedRecipes',
+          attributes: ['idMeal', 'strMeal', 'strMealThumb', 'strArea'],
+        },
+      ],
+      attributes: { exclude: ['mealId'] },
+    });
 
     return doneRecipes;
   }
