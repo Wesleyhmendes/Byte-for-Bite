@@ -11,6 +11,18 @@ import Footer from '../../components/Footer';
 
 import * as S from './RecipeDetails.styles';
 
+function createTitle(route: string, recipe: any) {
+  if (recipe) {
+    return `${route === '/meals'
+      ? `Details | ${recipe.strMeal} Meal`
+      : `Details | ${recipe.strDrink} Cocktail`}`;
+  }
+
+  return route === '/meals'
+    ? 'Details | Meal'
+    : 'Details | Cocktail';
+}
+
 export default function RecipeDetails() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -47,6 +59,8 @@ export default function RecipeDetails() {
       navigate(`${route}/${id}/in-progress`);
     }, 2000);
   };
+
+  document.title = createTitle(route, recipe);
 
   return (
     <S.Main>

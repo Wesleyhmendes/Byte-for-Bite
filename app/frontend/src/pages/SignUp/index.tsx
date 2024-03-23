@@ -11,6 +11,8 @@ import * as S from './SignUp.styles';
 import SignUpForm from './SignUpForm';
 
 function SignUp() {
+  document.title = 'SignUp | Byte for Bite';
+
   const { user, RESET_USER, handleChange, signUpDispatch } = useContext(UserInfoContext);
 
   const { confirmPassword, ...rest } = user;

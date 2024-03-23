@@ -12,7 +12,7 @@ type MealCardProps = {
 export default function MealCard(
   { recipeData, handleInProgress, buttonText }: MealCardProps,
 ) {
-  const { strMealThumb, strMeal, strCategory, idMeal } = recipeData;  
+  const { strMealThumb, strMeal, strCategory, idMeal } = recipeData;
   const mealIngredients = getIngredients(recipeData);
 
   return (

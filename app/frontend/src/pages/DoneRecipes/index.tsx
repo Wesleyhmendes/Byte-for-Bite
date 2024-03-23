@@ -24,6 +24,8 @@ export default function DoneRecipes() {
   const formattedDoneMeals = formatDoneRecipes('/meals', doneMeals);
   const formattedDoneDrinks = formatDoneRecipes('/drinks', doneDrinks);
 
+  document.title = 'Done Recipes | Byte for Bite';
+
   return (
     <>
       <ShortHeader />
