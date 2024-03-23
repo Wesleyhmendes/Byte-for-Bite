@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Category from '../../components/Category';
 import Context from '../../context/Context';
 import RecipesMiniCard from '../../components/RecipesMiniCard/RecipesMiniCard';
@@ -25,6 +25,10 @@ export default function Recipes() {
   const handlePageNum = (page: number) => {
     setPageNum(page);
   };
+
+  if (route) {
+    document.title = `${route === '/meals' ? 'Home | Meals' : 'Home | Drinks'}`;
+  }
 
   return (
     <>

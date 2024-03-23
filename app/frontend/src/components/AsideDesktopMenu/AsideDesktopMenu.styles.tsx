@@ -35,6 +35,7 @@ export const ButtonDiv = styled.div`
   width: 100%;
   
   button {
+    
     display: flex;
     display: flex;
     flex-direction: column;
@@ -46,10 +47,11 @@ export const ButtonDiv = styled.div`
       color: #FE5B15;
     }
 
-    .active {
-      border-bottom: 2px solid #FE5B15;
-      color: #FE5B15;
-    }
+  }
+
+  .active {
+    border-bottom: 2px solid #FE5B15;
+    color: #FE5B15;
   }
 
   p {
