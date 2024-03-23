@@ -7,10 +7,8 @@ import mealIcon from '../../assets/Icons/plate-icon.png';
 import Context from '../../context/Context';
 import {
   FooterStyled,
-  Icon,
   IconMeal,
   IconDrinks,
-  Button,
 } from './Footer.styles';
 
 export default function Footer() {
@@ -27,22 +25,24 @@ export default function Footer() {
     <FooterStyled
       data-testid="footer"
     >
-      <Button onClick={ () => navigate(-1) }>
-        <Icon src={ goBackIcon } alt="ícone de drink" />
-      </Button>
+      <div>
+        <button onClick={ () => navigate(-1) }>
+          <img src={ goBackIcon } alt="ícone de voltar" />
+        </button>
 
-      <Link onClick={ handleReset } to="/drinks">
-        <IconDrinks src={ drinkIcon } alt="ícone de drink" className={ route } />
-      </Link>
+        <Link onClick={ handleReset } to="/drinks">
+          <IconDrinks src={ drinkIcon } alt="ícone de drink" className={ route } />
+        </Link>
 
-      <Link onClick={ handleReset } to="/meals">
-        <IconMeal src={ mealIcon } alt="ícone do drink" className={ route } />
-      </Link>
+        <Link onClick={ handleReset } to="/meals">
+          <IconMeal src={ mealIcon } alt="ícone do drink" className={ route } />
+        </Link>
 
-      <Link to="/meals">
-        <Icon src={ homeIcon } alt="ícone de drink" />
-      </Link>
+        <Link to="/meals">
+          <img src={ homeIcon } alt="ícone de página inicial" />
+        </Link>
 
+      </div>
     </FooterStyled>
   );
 }

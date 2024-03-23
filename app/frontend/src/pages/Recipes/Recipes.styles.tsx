@@ -7,7 +7,7 @@ export const Main = styled.main`
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
-  margin: 1.5rem 0 -7rem 0;
+  margin: 1.5rem 0 -4.5rem 0;
 
   @media (min-width: 320px) {
 
