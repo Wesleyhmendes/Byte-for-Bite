@@ -2,7 +2,6 @@ import { DrinkType, MealType } from '../../type';
 import getIngredients from '../../utils/getIngredients';
 import * as S from '../../pages/RecipeDetails/RecipeDetails.styles';
 import FavoriteButton from '../ShareFavoriteButtons';
-import getCategories from '../../utils/getCategories';
 
 type MealCardProps = {
   recipeData: MealType | DrinkType;

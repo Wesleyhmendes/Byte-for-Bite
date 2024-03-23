@@ -4,7 +4,6 @@ import {
   TitleAndButtonContainer,
 } from '../RecipeDetails/RecipeDetails.styles';
 import FavoriteButton from '../../components/ShareFavoriteButtons';
-import getCategories from '../../utils/getCategories';
 
 type RecipeInfoProps = {
   recipeType: string;
