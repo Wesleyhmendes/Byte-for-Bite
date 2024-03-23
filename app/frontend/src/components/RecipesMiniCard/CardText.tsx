@@ -13,16 +13,19 @@ import {
 import ShareFavoriteButtons from '../ShareFavoriteButtons';
 
 type RecipesMiniCardProps = {
-  recipe: MealType | DrinkType
-  path: string,
-  index: number,
+  recipe: MealType | DrinkType;
+  path: string;
+  index: number;
+  isInProgress: boolean;
 };
 
-function CardText({ recipe, path, index }: RecipesMiniCardProps) {
+function CardText({ recipe, path, index, isInProgress }: RecipesMiniCardProps) {
   const title = path === '/meals' ? recipe.strMeal : recipe.strDrink;
   const shorterTitle = title?.length > 20 ? `${title.slice(0, 20)}...` : title;
   const id = path === '/meals' ? recipe.idMeal : recipe.idDrink;
   const url = `${path}/${id}`;
+  const inProgressURL = `${path}/${id}/in-progress`;
+  const buttonTxt = isInProgress ? 'Continue' : 'Details';
 
   return (
     <TextContent>
@@ -39,8 +42,8 @@ function CardText({ recipe, path, index }: RecipesMiniCardProps) {
           { path === '/meals' ? recipe.strArea : recipe.strAlcoholic }
         </PCategory>
       </RecipeCategories>
-      <Link to={ url } key={ id }>
-        <Details>Detalhes</Details>
+      <Link to={ isInProgress ? inProgressURL : url } key={ id }>
+        <Details>{buttonTxt}</Details>
       </Link>
     </TextContent>
   );

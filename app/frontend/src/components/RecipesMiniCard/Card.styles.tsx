@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Div = styled.div`
   background: #fff;
@@ -107,9 +107,18 @@ export const H1 = styled.p`
 
 `;
 
-export const Img = styled.img`
-  border-radius: 10px;
-  width: 8rem;
+export const Img = styled.div<{ src: string }>`  
+  border-radius: 10px;  
+  background-image: url(${(props) => props.src});
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  min-width: 8rem;
+  padding: 0.3rem;
+  
+  img {
+    width: 1.6rem;
+  }
 
   @media (min-width: 768px) {
     height: 100%;
