@@ -17,6 +17,11 @@ export default function Recipes() {
     selectedCategory,
     route,
   } = useContext(Context);
+
+  document.title = `${route === '/meals'
+    ? 'Meals | Byte for Bite'
+    : 'Drinks | Byte for Bite'}`;
+
   const allRecipes = getAllRecipes(pageNum);
   const byCategory = getByCategory();
   const byFilter = getRecipesByFilter();

@@ -12,7 +12,6 @@ export default function Category() {
 
   const { getCategories, getSelectedCategory } = useContext(Context);
   const allCategories = getCategories();
-  console.log(allCategories);
 
   useEffect(() => {
     setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);

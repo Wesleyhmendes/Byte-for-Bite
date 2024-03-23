@@ -23,6 +23,8 @@ export default function FavoriteRecipes() {
   const formattedMeals = formatFavorites('/meals', favoriteMeals);
   const formattedDrinks = formatFavorites('/drinks', favoriteDrinks);
 
+  document.title = 'Favorite Recipes | Byte for Bite';
+
   return (
     <>
       <ShortHeader />

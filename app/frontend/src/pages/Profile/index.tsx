@@ -23,6 +23,10 @@ export default function Profile() {
   const { data, isLoading, error, handleFetch: updateProfile } = profile;
   const profileIMG = data ? data.profileImage : undefined;
 
+  document.title = data
+    ? `${data.username.charAt(0).toUpperCase() + data.username.slice(1)} | Byte for Bite`
+    : 'Profile | Byte for Bite';
+
   const updateImageURL = `http://localhost:3001/profile/${id}`;
   const options: FetchOptions = { method: 'PATCH', body: { profileImage } };
   const { handleFetch } = useFetch(updateImageURL, options);

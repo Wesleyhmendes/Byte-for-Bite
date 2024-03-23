@@ -12,6 +12,8 @@ import * as S from './Login.styles';
 import LoginForm from './LoginForm';
 
 function Login() {
+  document.title = 'Login | Byte for Bite';
+
   const { user, RESET_USER, handleChange, signUpDispatch } = useContext(UserInfoContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
 

@@ -14,7 +14,6 @@ export default function DoneOrFavoriteCard({ recipe, recipeType }: FavoriteCardP
 
   const title = recipeType === 'meals' ? mealRecipe.strMeal : drinkRecipe.strDrink;
   const shorterTitle = title?.length > 15 ? `${title.slice(0, 15)}...` : title;
-  console.log(shorterTitle);
   return (
     <S.DoneOrFavoriteCard>
       {recipeType === 'meals' ? (
