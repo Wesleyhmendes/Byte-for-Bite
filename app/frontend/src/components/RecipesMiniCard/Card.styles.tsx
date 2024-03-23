@@ -78,6 +78,10 @@ export const PCategory = styled.p`
 
 export const Details = styled.button`
   border: none;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
   color: white;
   font-weight: bold;
   background: rgba(255, 77, 0, 0.912);
@@ -85,6 +89,15 @@ export const Details = styled.button`
   height: 30px;
   width: 160px;
   transition: 0.3s ease;
+
+  img {
+    padding-top: 2px;
+    width: 15px;
+  }
+
+  &.Continue {
+    background: rgba(195, 58, 0, 0.912);
+  }
 
   &:hover {
     background-color: #d14e16;

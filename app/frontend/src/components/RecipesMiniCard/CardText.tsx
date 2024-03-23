@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-max-depth */
 import { Link } from 'react-router-dom';
 import { DrinkType, MealType } from '../../type';
+import clock from '../../assets/Icons/clock-icon.png';
 import {
   TextContent,
   NameFavorite,
@@ -43,7 +44,12 @@ function CardText({ recipe, path, index, isInProgress }: RecipesMiniCardProps) {
         </PCategory>
       </RecipeCategories>
       <Link to={ isInProgress ? inProgressURL : url } key={ id }>
-        <Details>{buttonTxt}</Details>
+        <Details className={ buttonTxt }>
+          {buttonTxt}
+          { buttonTxt === 'Continue' && (
+            <img src={ clock } alt="clock" />
+          )}
+        </Details>
       </Link>
     </TextContent>
   );
