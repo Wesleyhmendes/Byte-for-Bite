@@ -2,7 +2,6 @@
 import styled from 'styled-components';
 
 export const HeaderStyle = styled.header`
-  
  background: linear-gradient(to bottom, rgba(255,255,255,0) 70%, #000000 100%);
 `;
 
@@ -21,6 +20,10 @@ export const Title = styled.img`
   width: 140px;
   height: 50px;
   object-fit: cover;
+
+  @media(min-width: 1280px) {
+    margin-left: 1rem;
+  }
 `;
 
 export const ProfileImg = styled.img`
