@@ -29,47 +29,56 @@ export default function FavoriteRecipes() {
     <>
       <ShortHeader />
       <S.Favorites>
-        <FilterButtons setFilter={ setFilter } />
+        <FilterButtons setFilter={setFilter} />
         <S.CardContainer>
-          { formattedMeals && filter === 'all'
+          {formattedMeals && filter === 'all'
             ? formattedMeals.favoriteRecipes.map((recipe, i) => (
-              <DoneOrFavoriteCard
-                key={ `allMeals[${i}]` }
-                recipe={ recipe }
-                recipeType="meals"
-              />
-            ))
-            : null }
-          { formattedDrinks && filter === 'all'
+                <DoneOrFavoriteCard
+                  key={`allMeals[${i}]`}
+                  recipe={recipe}
+                  recipeType="meals"
+                />
+              ))
+            : null}
+          {formattedDrinks && filter === 'all'
             ? formattedDrinks.favoriteRecipes.map((recipe, i) => (
-              <DoneOrFavoriteCard
-                key={ `allDrinks[${i}]` }
-                recipe={ recipe }
-                recipeType="drinks"
-              />
-            ))
-            : null }
-          { formattedMeals && filter === 'meals'
+                <DoneOrFavoriteCard
+                  key={`allDrinks[${i}]`}
+                  recipe={recipe}
+                  recipeType="drinks"
+                />
+              ))
+            : null}
+          {formattedMeals && filter === 'meals'
             ? formattedMeals?.favoriteRecipes.map((recipe, i) => (
-              <DoneOrFavoriteCard
-                key={ `meals[${i}]` }
-                recipe={ recipe }
-                recipeType="meals"
-              />
-            ))
-            : null }
-          { formattedDrinks && filter === 'drinks'
+                <DoneOrFavoriteCard
+                  key={`meals[${i}]`}
+                  recipe={recipe}
+                  recipeType="meals"
+                />
+              ))
+            : null}
+          {formattedDrinks && filter === 'drinks'
             ? formattedDrinks.favoriteRecipes.map((recipe, i) => (
-              <DoneOrFavoriteCard
-                key={ `drinks[${i}]` }
-                recipe={ recipe }
-                recipeType="drinks"
-              />
-            ))
-            : null }
+                <DoneOrFavoriteCard
+                  key={`drinks[${i}]`}
+                  recipe={recipe}
+                  recipeType="drinks"
+                />
+              ))
+            : null}
 
-          {!formattedMeals?.userId && !formattedDrinks?.userId ? (
-            <p>You don't have any favorite recipes yet.</p>
+          {!formattedMeals?.userId &&
+          !formattedDrinks?.userId &&
+          filter === 'all' ? (
+            <p>You don't have any favorite recipe yet.</p>
+          ) : null}
+          {!formattedMeals?.userId && filter === 'meals' ? (
+            <p>You don't have any favorite meal yet.</p>
+          ) : null}
+
+          {!formattedDrinks?.userId && filter === 'drinks' ? (
+            <p>You don't have any favorite drink yet.</p>
           ) : null}
         </S.CardContainer>
         <Footer />
