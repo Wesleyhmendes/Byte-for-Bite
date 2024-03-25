@@ -1,4 +1,5 @@
 import { screen, waitFor } from '@testing-library/react';
+import { vi } from 'vitest';
 import { renderWithRouter } from './utils/renderWithRouter';
 import Login from '../pages/Login';
 import UserInfoProvider from '../context/UserInfo/UserInfoProvider';
@@ -21,6 +22,15 @@ describe('Testa o componente Login', () => {
   });
 
   test('Testa se ao preencher os campos de input corretamente e clicar no botão Entrar a aplicação é redirecionada para a rota "/meals"', async () => {
+    const mockToken = 'success';
+    const MOCK_ERROR_RESPONSE = {
+      ok: true,
+      status: 200,
+      json: async () => ({ token: mockToken }),
+    } as Response;
+
+    vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_ERROR_RESPONSE);
+
     const { user } = renderWithRouter(
       <UserInfoProvider>
         <Login />
@@ -28,7 +38,7 @@ describe('Testa o componente Login', () => {
     );
 
     const emailTest = 'user@user.com';
-    const passwordTest = 'secret_user';
+    const passwordTest = '123456';
 
     expect(window.location.pathname).toBe('/');
 
@@ -50,6 +60,14 @@ describe('Testa o componente Login', () => {
   });
 
   test('Testa se aparece uma mensagem de erro caso as informações de login sejam inválidas', async () => {
+    const MOCK_ERROR_RESPONSE = {
+      ok: false,
+      status: 400,
+      json: async () => ({ message: 'Invalid email or password' }),
+    } as Response;
+
+    vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_ERROR_RESPONSE);
+
     const { user } = renderWithRouter(
       <UserInfoProvider>
         <Login />

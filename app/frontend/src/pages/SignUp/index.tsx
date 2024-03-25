@@ -21,7 +21,7 @@ function SignUp() {
   // SEND USER DATA TO DB
   const signUpURL = 'http://localhost:3001/user';
   const options: FetchOptions = { method: 'POST', body: requestBody };
-  const { handleFetch, data, isLoading, error } = useFetch(signUpURL, options);
+  const { handleFetch, data, isLoading } = useFetch(signUpURL, options);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -62,11 +62,6 @@ function SignUp() {
 
         ) : null }
 
-        { isModalOpen && error ? (
-
-          <h4>Unexpected error... Please try again.</h4>
-
-        ) : null }
       </section>
     </S.Main>
   );
