@@ -44,7 +44,10 @@ function CardText({ recipe, path, index, isInProgress }: RecipesMiniCardProps) {
         </PCategory>
       </RecipeCategories>
       <Link to={ isInProgress ? inProgressURL : url } key={ id }>
-        <Details className={ buttonTxt }>
+        <Details
+          className={ buttonTxt }
+          data-testid="detailsBtn"
+        >
           {buttonTxt}
           { buttonTxt === 'Continue' && (
             <img src={ clock } alt="clock" />

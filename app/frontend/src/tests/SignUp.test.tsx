@@ -28,13 +28,13 @@ describe('Testa o componente SignUp', () => {
 
   test('Testa se o formulário for preenchido corretamente, leva para a página "/meals"', async () => {
     const mockToken = 'success';
-    const MOCK_ERROR_RESPONSE = {
+    const MOCK_RESPONSE = {
       ok: true,
       status: 200,
       json: async () => ({ token: mockToken }),
     } as Response;
 
-    vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_ERROR_RESPONSE);
+    vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_RESPONSE);
 
     const { user } = renderWithRouter(
       <UserInfoProvider>

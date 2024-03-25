@@ -23,13 +23,13 @@ describe('Testa o componente Login', () => {
 
   test('Testa se ao preencher os campos de input corretamente e clicar no botão Entrar a aplicação é redirecionada para a rota "/meals"', async () => {
     const mockToken = 'success';
-    const MOCK_ERROR_RESPONSE = {
+    const MOCK_RESPONSE = {
       ok: true,
       status: 200,
       json: async () => ({ token: mockToken }),
     } as Response;
 
-    vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_ERROR_RESPONSE);
+    vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_RESPONSE);
 
     const { user } = renderWithRouter(
       <UserInfoProvider>
