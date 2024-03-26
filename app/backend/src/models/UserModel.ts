@@ -20,6 +20,7 @@ export default class UserModel implements IUsersModel {
 
   async createUser(newUser: Omit<IUsers, 'id'>): Promise<IUsers> {
     const { dataValues } = await this.model.create(newUser);
+    console.log(dataValues);
 
     return dataValues;
   }

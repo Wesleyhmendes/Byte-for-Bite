@@ -6,7 +6,7 @@ export default class MealsController {
   constructor(private mealsService = new MealsService()) {}
 
   async getAllMealsRecipe(req: Request, res: Response) {
-    const token = req.headers.authorization    
+    const token = req.headers.authorization;
     const {q} = req.query;
     if(q) {
       const {status, data} = await this.mealsService.getRecipeByName(q as string);
