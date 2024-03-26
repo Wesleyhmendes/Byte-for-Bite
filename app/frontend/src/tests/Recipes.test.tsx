@@ -6,7 +6,9 @@ import Provider from '../context/Provider/Provider';
 import mockMealRecipes from './mocks/mockMealRecipes';
 import mockDrinkRecipe from './mocks/mockDrinkRecipes';
 import RecipesMiniCard from '../components/RecipesMiniCard/RecipesMiniCard';
-import { MealType } from '../type';
+// import UserInfoProvider from '../context/UserInfo/UserInfoProvider';
+// import mockUser from './mocks/mockUser';
+// import UserInfoContext from '../context/UserInfo/UserInfoContext';
 
 describe('Testa o componente Recipes', () => {
   const favoriteTestId = 'favorite-btn';
@@ -94,12 +96,12 @@ describe('Testa o componente Recipes', () => {
     expect(detailsBtn[0]).toBeInTheDocument();
   });
 
-  test('Testa se o botão do MiniCard renderiza corretamente"', async () => {
-    const mock = { message: 'Recipe not found!' };
+  test('Testa se o botão do MiniCard renderiza corretamente', async () => {
+    const mockData = { message: 'Recipe not found!' };
     const MOCK_RESPONSE = {
       ok: true,
       status: 200,
-      json: async () => mock,
+      json: async () => mockData,
     } as Response;
 
     vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_RESPONSE);
@@ -118,4 +120,21 @@ describe('Testa o componente Recipes', () => {
     expect(detailsBtn[0]).toBeInTheDocument();
     expect(detailsBtn[0]).toHaveTextContent('Details');
   });
+
+  // test('Testa se o ID do usuário usado na URL para verificação se a receita está em progresso no MiniCard, vem corretamente do Context', async () => {
+  //   const MOCK_RESPONSE = {
+  //     ok: true,
+  //     status: 200,
+  //     json: async () => mockUser,
+  //   } as Response;
+
+  //   vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_RESPONSE);
+
+  //   renderWithRouter(
+  //     <UserInfoProvider>
+  //       <RecipesMiniCard recipe={ mockMealRecipes[0] } path="/meals" index={ 0 } />
+  //     </UserInfoProvider>,
+  //     { route: '/meals' },
+  //   );
+  // });
 });
