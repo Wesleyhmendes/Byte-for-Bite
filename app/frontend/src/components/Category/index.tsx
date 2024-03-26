@@ -24,10 +24,10 @@ export default function Category() {
         <InnerCarousel drag="x" dragConstraints={ { right: 0, left: -width - 20 } } className="inner-carousel">
           { allCategories
             ? allCategories.map(
-              ({ strCategory }: CategoryType) => (
+              ({ strCategory }: CategoryType, i) => (
                 <ItemButton className="item" key={ strCategory }>
                   <CategoryButton
-                    key={ strCategory }
+                    key={ `${strCategory}[${i}]` }
                     strCategory={ strCategory }
                     getSelectedCategory={ getSelectedCategory }
                   />

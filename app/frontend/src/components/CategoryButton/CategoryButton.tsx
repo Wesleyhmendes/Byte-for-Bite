@@ -6,9 +6,16 @@ type CategoryBtnProps = {
 };
 
 function CategoryButton({ strCategory, getSelectedCategory }: CategoryBtnProps) {
+  const handleSelectCategory = () => {
+    if (strCategory === 'All') {
+      getSelectedCategory('');
+    } else {
+      getSelectedCategory(strCategory);
+    }
+  };
   return (
     <button
-      onClick={ strCategory === 'All' ? () => getSelectedCategory('') : () => getSelectedCategory(strCategory) }
+      onClick={ handleSelectCategory }
       data-testid={ `${strCategory}-category-filter` }
     >
       {strCategory}
