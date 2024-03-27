@@ -10,7 +10,7 @@ export default function Category() {
   const [width, setWidth] = useState(0);
   const carousel = useRef<any>();
 
-  const { getCategories, getSelectedCategory } = useContext(Context);
+  const { getCategories, getSelectedCategory, filter } = useContext(Context);
   const allCategories = getCategories();
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function Category() {
       { !allCategories ? <Loading /> : null }
       <Carousel ref={ carousel } className="carousel" whileTap={ { cursor: 'grabbing' } }>
         <InnerCarousel drag="x" dragConstraints={ { right: 0, left: -width - 20 } } className="inner-carousel">
-          { allCategories
+          { allCategories && !filter.searchActive
             ? allCategories.map(
               ({ strCategory }: CategoryType, i) => (
                 <ItemButton className="item" key={ strCategory }>

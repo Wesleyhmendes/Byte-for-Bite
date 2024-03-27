@@ -12,10 +12,18 @@ import {
 } from './Footer.styles';
 
 export default function Footer() {
-  const { getSelectedCategory, setByFilterURL, route } = useContext(Context);
+  const {
+    getSelectedCategory,
+    setByFilterURL,
+    route,
+    filterDispatch,
+  } = useContext(Context);
+
+  const RESET = 'RESET';
   const handleReset = () => {
     getSelectedCategory('');
     setByFilterURL('');
+    filterDispatch({ type: RESET });
   };
 
   const navigate = useNavigate();

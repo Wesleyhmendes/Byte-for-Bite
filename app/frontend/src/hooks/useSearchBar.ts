@@ -18,12 +18,12 @@ const useSearchBar = () => {
         return {
           ...state,
           [action.key as string]: action.value,
-          searchActive: true,
         };
       case CLEAN_SEARCH:
         return {
           ...state,
           search: '',
+          searchActive: true,
         };
       case RESET:
         return initialFilter;

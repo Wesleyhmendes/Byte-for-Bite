@@ -1,5 +1,7 @@
 /* eslint-disable max-len */
+import { useContext } from 'react';
 import * as S from './Recipes.styles';
+import Context from '../../context/Context';
 
 type SelectPagesButtonProps = {
   pages: number[];
@@ -8,6 +10,7 @@ type SelectPagesButtonProps = {
 };
 
 function SelectPageButtons({ pages, handlePageNum, currentPage }: SelectPagesButtonProps) {
+  const { filter } = useContext(Context);
   const slicePages = () => {
     if (currentPage < 4) return pages.slice(0, 5);
     if (currentPage >= pages.length - 2) return pages.slice(pages.length - 5, pages.length);
@@ -19,25 +22,36 @@ function SelectPageButtons({ pages, handlePageNum, currentPage }: SelectPagesBut
 
   return (
     <S.PageButtonContainer>
-      { currentPage >= 4 && (
+      { !filter.searchActive && currentPage >= 4 && (
         <S.AsideBtn className="firstPage">
-          <button onClick={ () => handlePageNum(1) }>1</button>
+          <button
+            aria-label="firstPage-btn"
+            onClick={ () => handlePageNum(1) }
+          >
+            1
+          </button>
           <p>...</p>
         </S.AsideBtn>
       ) }
-      { pagesToRender.map((page) => (
+      { !filter.searchActive && pagesToRender.map((page) => (
         <div className={ currentPage === page ? 'selected' : '' } key={ `page${page}` }>
           <button
+            aria-label="pageNum-btn"
             onClick={ () => handlePageNum(page) }
           >
             { page }
           </button>
         </div>
       )) }
-      { currentPage <= pages.length - 3 && (
+      { !filter.searchActive && currentPage <= pages.length - 3 && (
         <S.AsideBtn className="lastPage">
           <p>...</p>
-          <button onClick={ () => handlePageNum(pages.length) }>{ pages.length }</button>
+          <button
+            aria-label="lastPage-btn"
+            onClick={ () => handlePageNum(pages.length) }
+          >
+            { pages.length }
+          </button>
         </S.AsideBtn>
       ) }
     </S.PageButtonContainer>

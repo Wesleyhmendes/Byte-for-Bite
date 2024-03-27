@@ -8,10 +8,18 @@ import * as S from './AsideDesktopMenu.styles';
 import Context from '../../context/Context';
 
 export default function AsideDesktopMenu() {
-  const { getSelectedCategory, setByFilterURL, route } = useContext(Context);
+  const {
+    getSelectedCategory,
+    setByFilterURL,
+    route,
+    filterDispatch,
+  } = useContext(Context);
+
+  const RESET = 'RESET';
   const handleReset = () => {
     getSelectedCategory('');
     setByFilterURL('');
+    filterDispatch({ type: RESET });
   };
 
   return (
