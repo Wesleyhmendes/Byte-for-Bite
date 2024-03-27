@@ -2,15 +2,7 @@
 import { Link } from 'react-router-dom';
 import { DrinkType, MealType } from '../../type';
 import clock from '../../assets/Icons/clock-icon.png';
-import {
-  TextContent,
-  NameFavorite,
-  RecipeCategories,
-  RecipeInfo,
-  PCategory,
-  H1,
-  Details,
-} from './Card.styles';
+import * as S from './Card.styles';
 import ShareFavoriteButtons from '../ShareFavoriteButtons';
 
 type RecipesMiniCardProps = {
@@ -29,29 +21,32 @@ function CardText({ recipe, path, index, isInProgress }: RecipesMiniCardProps) {
   const buttonTxt = isInProgress ? 'Continue' : 'Details';
 
   return (
-    <TextContent>
-      <NameFavorite>
-        <RecipeInfo>
-          <H1 data-testid={ `${index}-card-name` }>{ shorterTitle }</H1>
-        </RecipeInfo>
+    <S.CardTextContainer>
+      <S.TitleAndButtonContainer>
+        <div>
+          <h1 data-testid={ `${index}-card-name` }>{ shorterTitle }</h1>
+        </div>
         <ShareFavoriteButtons id={ id } recipeType={ path } />
-      </NameFavorite>
-      <RecipeCategories>
-        <PCategory>{ recipe.strCategory }</PCategory>
+      </S.TitleAndButtonContainer>
+      <S.RecipeCategories>
+        <p>{ recipe.strCategory }</p>
         { ' • ' }
-        <PCategory>
+        <p>
           { path === '/meals' ? recipe.strArea : recipe.strAlcoholic }
-        </PCategory>
-      </RecipeCategories>
+        </p>
+      </S.RecipeCategories>
       <Link to={ isInProgress ? inProgressURL : url } key={ id }>
-        <Details className={ buttonTxt }>
+        <S.DetailsButton
+          className={ buttonTxt }
+          data-testid="detailsBtn"
+        >
           {buttonTxt}
           { buttonTxt === 'Continue' && (
             <img src={ clock } alt="clock" />
           )}
-        </Details>
+        </S.DetailsButton>
       </Link>
-    </TextContent>
+    </S.CardTextContainer>
   );
 }
 

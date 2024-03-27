@@ -29,19 +29,19 @@ export const Section = styled.section`
 `;
 
 export const ButtonDiv = styled.div`
-  align-items: center;
   display: flex;
+  flex-direction: row;
+  align-items: center;
   margin: 1rem 0;
   width: 100%;
   
-  button {
-    
-    display: flex;
-    display: flex;
-    flex-direction: column;
+  a {    
+    display: flex;    
+    flex-direction: row;    
+    align-items: center;
     gap: 0.3rem;
     transition: ease 0.3s;
-    width: fit-content;
+    width: fit-content;    
     
     &:hover {
       color: #FE5B15;

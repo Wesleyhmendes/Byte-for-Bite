@@ -3,11 +3,13 @@ import { FilterRadioType, SearchActionType } from '../type';
 
 const useSearchBar = () => {
   const SET_SEARCH = 'SET_SEARCH';
-  const RESET_SEARCH = 'RESET_SEARCH';
+  const CLEAN_SEARCH = 'CLEAN_SEARCH';
+  const RESET = 'RESET';
 
   const initialFilter: FilterRadioType = {
     radioSelected: 'i',
     search: '',
+    searchActive: false,
   };
 
   const searchReducer = (state = initialFilter, action: SearchActionType) => {
@@ -17,7 +19,13 @@ const useSearchBar = () => {
           ...state,
           [action.key as string]: action.value,
         };
-      case RESET_SEARCH:
+      case CLEAN_SEARCH:
+        return {
+          ...state,
+          search: '',
+          searchActive: true,
+        };
+      case RESET:
         return initialFilter;
       default:
         return state;

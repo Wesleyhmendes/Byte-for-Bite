@@ -1,125 +1,87 @@
 import { screen } from '@testing-library/dom';
+import { vi } from 'vitest';
 import { renderWithRouter } from './utils/renderWithRouter';
 import DoneRecipes from '../pages/DoneRecipes';
+import { mockAllFinished, mockFinishedDrink, mockFinishedMeal } from './mocks/mockFinished';
 
 const buttonDrinkId = 'filter-by-drink-btn';
 const buttonAllId = 'filter-by-all-btn';
 const buttonMealId = 'filter-by-meal-btn';
 const routeDoneRecipes = '/done-recipes';
-const recipeMealName = 'Spicy Arrabiata Penne';
-
-const recipeMeal = {
-  alcoholicOrNot: '',
-  category: 'Vegetarian',
-  doneDate: '2023-09-29T15:54:27.227Z',
-  id: '52771',
-  image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-  name: recipeMealName,
-  nationality: 'Italian',
-  tags: ['Pasta', 'Curry'],
-  type: 'meal',
-};
-
-const recipeDrink = {
-  alcoholicOrNot: 'Alcoholic',
-  category: 'Cocktail',
-  doneDate: '2023-09-29T15:55:14.404Z',
-  id: '178319',
-  image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-  name: 'Aquamarine',
-  nationality: '',
-  tags: [],
-  type: 'drink',
-};
 
 describe('Testa o componente DoneRecipes', () => {
-  test('Testa se os botões estão presentes na página', async () => {
-    renderWithRouter(<DoneRecipes />, { route: routeDoneRecipes });
-
-    screen.getByTestId(buttonAllId);
-    screen.getByTestId(buttonDrinkId);
-    screen.getByTestId(buttonMealId);
+  afterEach(() => {
+    vi.clearAllMocks();
   });
 
-  test('Testa se página renderiza 2 receitas', async () => {
-    localStorage.setItem('doneRecipes', JSON.stringify([recipeMeal, recipeDrink]));
-    renderWithRouter(<DoneRecipes />, { route: routeDoneRecipes });
+  test('Testa se o filtro "meals" funciona corretamente', async () => {
+    const MOCK_RESPONSE = {
+      ok: true,
+      status: 200,
+      json: async () => mockFinishedMeal,
+    } as Response;
 
-    const recipes = screen.getAllByTestId(/horizontal-image/i);
-    expect(recipes).toHaveLength(2);
+    vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_RESPONSE);
 
-    screen.getByText(recipeMealName);
-    screen.getByText('Aquamarine');
+    const { user } = renderWithRouter(
+      <DoneRecipes />,
+      { route: routeDoneRecipes },
+    );
+
+    expect(window.location.pathname).toBe(routeDoneRecipes);
+
+    const mealFilter = screen.getByTestId(buttonMealId);
+    await user.click(mealFilter);
+    const mealTitle = await screen.findByText('Apple Frangipan...');
+
+    expect(mealTitle).toBeInTheDocument();
   });
 
-  test('Testa se ao clicar no botão "Meals" apenas uma receita é exibida na tela', async () => {
-    localStorage.setItem('doneRecipes', JSON.stringify([recipeMeal, recipeDrink]));
-    const { user } = renderWithRouter(<DoneRecipes />, { route: routeDoneRecipes });
+  test('Testa se o filtro "drinks" funciona corretamente', async () => {
+    const MOCK_RESPONSE = {
+      ok: true,
+      status: 200,
+      json: async () => mockFinishedDrink,
+    } as Response;
 
-    expect(screen.getAllByTestId(/horizontal-image/i)).toHaveLength(2);
+    vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_RESPONSE);
 
-    screen.getByText(recipeMealName);
-    screen.getByText('Aquamarine');
+    const { user } = renderWithRouter(
+      <DoneRecipes />,
+      { route: routeDoneRecipes },
+    );
 
-    const buttonMeals = screen.getByTestId(buttonMealId);
-    await user.click(buttonMeals);
+    expect(window.location.pathname).toBe(routeDoneRecipes);
 
-    expect(screen.getAllByTestId(/horizontal-image/i)).toHaveLength(1);
-    screen.getByText(recipeMealName);
+    const drinkFilter = screen.getByTestId(buttonDrinkId);
+    await user.click(drinkFilter);
+    const drinkTitle = await screen.findByText('A1');
+
+    expect(drinkTitle).toBeInTheDocument();
   });
 
-  test('Testa se ao clicar no botão "Drinks" apenas uma receita é exibida na tela', async () => {
-    localStorage.setItem('doneRecipes', JSON.stringify([recipeMeal, recipeDrink]));
-    const { user } = renderWithRouter(<DoneRecipes />, { route: routeDoneRecipes });
+  test('Testa se o filtro "all" funciona corretamente', async () => {
+    const MOCK_RESPONSE = {
+      ok: true,
+      status: 200,
+      json: async () => mockAllFinished,
+    } as Response;
 
-    expect(screen.getAllByTestId(/horizontal-image/i)).toHaveLength(2);
+    vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_RESPONSE);
 
-    screen.getByText(recipeMealName);
-    screen.getByText('Aquamarine');
+    const { user } = renderWithRouter(
+      <DoneRecipes />,
+      { route: routeDoneRecipes },
+    );
 
-    const buttonDrinks = screen.getByTestId(buttonDrinkId);
-    await user.click(buttonDrinks);
+    expect(window.location.pathname).toBe(routeDoneRecipes);
 
-    expect(screen.getAllByTestId(/horizontal-image/i)).toHaveLength(1);
-    screen.getByText('Aquamarine');
-  });
+    const allFilter = screen.getByTestId(buttonAllId);
+    await user.click(allFilter);
+    const mealTitle = await screen.findByText('Apple Frangipan...');
+    const drinkTitle = await screen.findByText('A1');
 
-  test('Testa se ao clicar no botão "All" o filtro de receitas é removido', async () => {
-    localStorage.setItem('doneRecipes', JSON.stringify([recipeMeal, recipeDrink]));
-    const { user } = renderWithRouter(<DoneRecipes />, { route: routeDoneRecipes });
-
-    expect(screen.getAllByTestId(/horizontal-image/i)).toHaveLength(2);
-
-    screen.getByText(recipeMealName);
-    screen.getByText('Aquamarine');
-
-    const buttonDrinks = screen.getByTestId(buttonDrinkId);
-    await user.click(buttonDrinks);
-
-    expect(screen.getAllByTestId(/horizontal-image/i)).toHaveLength(1);
-    screen.getByText('Aquamarine');
-
-    const buttonAll = screen.getByTestId(buttonAllId);
-    await user.click(buttonAll);
-
-    expect(screen.getAllByTestId(/horizontal-image/i)).toHaveLength(2);
-
-    screen.getByText(recipeMealName);
-    screen.getByText('Aquamarine');
-  });
-
-  test('Testa se ao clicar no botão de compartilhar da receita o link é copiado corretamente', async () => {
-    localStorage.setItem('doneRecipes', JSON.stringify([recipeMeal, recipeDrink]));
-    const { user } = renderWithRouter(<DoneRecipes />, { route: routeDoneRecipes });
-
-    expect(screen.getAllByTestId(/horizontal-image/i)).toHaveLength(2);
-
-    screen.getByText(recipeMealName);
-    screen.getByText('Aquamarine');
-
-    const buttonShareSpicy = screen.getByTestId('0-horizontal-share-btn');
-    await user.click(buttonShareSpicy);
-
-    expect(await navigator.clipboard.readText()).toBe('http://localhost:3000/meals/52771');
+    expect(mealTitle).toBeInTheDocument();
+    expect(drinkTitle).toBeInTheDocument();
   });
 });

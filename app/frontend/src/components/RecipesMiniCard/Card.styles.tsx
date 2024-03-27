@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const Div = styled.div`
   background: #fff;
@@ -28,7 +28,7 @@ export const Div = styled.div`
   }
 `;
 
-export const TextContent = styled.div`
+export const CardTextContainer = styled.div`
   align-items: flex-start;
   display: flex;
   flex-direction: column;
@@ -46,22 +46,36 @@ export const TextContent = styled.div`
   }
 `;
 
-export const RecipeInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;  
-`;
-
-export const NameFavorite = styled.div`
+export const TitleAndButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
   width: 100%;
 
-  @media (min-width: 768px) {
-    
+  div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
   }
+
+  h1 {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  @media (min-width: 320px) {
+    h1 {
+      font-size: 1.1rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    h1 {
+      font-size: 1rem;
+    }
+  }
+  
 `;
 
 export const RecipeCategories = styled.div`
@@ -70,13 +84,13 @@ export const RecipeCategories = styled.div`
   justify-content: space-between;
   width: fit-content;
   gap: 7px;
+
+  p {
+    font-size: 1rem;
+  }
 `;
 
-export const PCategory = styled.p`
-  font-size: 1rem;
-`;
-
-export const Details = styled.button`
+export const DetailsButton = styled.button`
   border: none;
   align-items: center;
   display: flex;
@@ -104,20 +118,6 @@ export const Details = styled.button`
     color: #000;
     cursor: pointer;
   }
-`;
-
-export const H1 = styled.p`
-  font-weight: bold;
-  font-size: 1.2rem;
-
-  @media (min-width: 320px) {
-    font-size: 1.1rem;
-  }
-
-  @media (min-width: 768px) {
-    font-size: 1rem;
-  }
-
 `;
 
 export const Img = styled.div<{ src: string }>`  

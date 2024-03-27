@@ -8,6 +8,7 @@ type UserInfoContextType = {
   profile: FetchedData;
   signUpDispatch: React.Dispatch<UserAction>;
   handleChange: ({ target }: React.ChangeEvent<HTMLInputElement>) => void;
+  getProfile: (fetchedData: FetchedData) => User
 };
 
 const UserInfoContext = createContext({} as UserInfoContextType);

@@ -57,25 +57,33 @@ const useRecipesProvider = (path: string) => {
   };
 
   const getCategories = () => {
-    const { data, isLoading } = allCategories;
-    if (!isLoading) {
-      const categories: CategoryType[] = data;
-      return categories;
+    const { data } = allCategories;
+    const categories: CategoryType[] = data;
+    if (!Array.isArray(categories)) {
+      return [];
     }
-    return [];
+
+    return categories;
   };
 
   const getPages = () => {
     const recipes = checkData(allRecipes);
-    const pages = Math.ceil(recipes.length / 12);
-    const pagesArr = Array.from({ length: pages }, (_, i) => i + 1);
-    return pagesArr;
+    if (recipes) {
+      const pages = Math.ceil(recipes.length / 12);
+      const pagesArr = Array.from({ length: pages }, (_, i) => i + 1);
+      return pagesArr;
+    }
+    return [];
   };
 
   const getAllRecipes = (page: number) => {
     const recipes = checkData(allRecipes);
+    if (!Array.isArray(recipes)) {
+      return [];
+    }
     const initialIndex = (12 * page) - 12;
     const lastIndex = 12 * page;
+
     return recipes?.slice(initialIndex, lastIndex);
   };
 
@@ -85,6 +93,9 @@ const useRecipesProvider = (path: string) => {
 
   const getByCategory = () => {
     const recipesByCategory = checkData(byCategory);
+    if (!Array.isArray(recipesByCategory)) {
+      return [];
+    }
     return recipesByCategory?.slice(0, 12);
   };
 

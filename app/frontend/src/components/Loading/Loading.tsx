@@ -9,9 +9,21 @@ import {
 function Loading() {
   return (
     <Div>
-      <Mobile src={ loadingGIFMobile } alt="Byte for bite logo" />
-      <Tablet src={ loadingGIFTablet } alt="Byte for bite logo" />
-      <Desktop src={ loadingGIFDesktop } alt="Byte for bite logo" />
+      <Mobile
+        aria-label="mobile-loading"
+        src={ loadingGIFMobile }
+        alt="Byte for bite logo"
+      />
+      <Tablet
+        aria-label="tablet-loading"
+        src={ loadingGIFTablet }
+        alt="Byte for bite logo"
+      />
+      <Desktop
+        aria-label="desktop-loading"
+        src={ loadingGIFDesktop }
+        alt="Byte for bite logo"
+      />
     </Div>
   );
 }

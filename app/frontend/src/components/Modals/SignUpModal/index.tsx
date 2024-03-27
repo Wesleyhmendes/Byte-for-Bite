@@ -30,6 +30,7 @@ function Modal(props: ModalProps) {
         { returnMessage }
       </h3>
       <button
+        aria-label="signUp-modal-btn"
         onClick={ handleModal }
       >
         Ok

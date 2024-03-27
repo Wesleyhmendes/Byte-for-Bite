@@ -13,6 +13,7 @@ export default function UserInfoProvider({ children }: UserInfoProviderProps) {
     profile,
     signUpDispatch,
     handleChange,
+    getProfile,
   } = useUserProvider();
 
   const value = {
@@ -22,6 +23,7 @@ export default function UserInfoProvider({ children }: UserInfoProviderProps) {
     profile,
     signUpDispatch,
     handleChange,
+    getProfile,
   };
 
   return (

@@ -17,9 +17,9 @@ import {
 } from './SearchBar.styles';
 
 function SearchBar() {
-  const RESET_SEARCH = 'RESET_SEARCH';
+  const CLEAN_SEARCH = 'CLEAN_SEARCH';
   const SET_SEARCH = 'SET_SEARCH';
-  const { filter, setRecipesFilter, filterDispatch } = useContext(Context);  
+  const { filter, setRecipesFilter, filterDispatch } = useContext(Context);
 
   // FILTER AND FILTER DISPATCH LOGIC CAN BE FOUND IN HOOK useSearchBar
   const handleFilterChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
@@ -27,10 +27,10 @@ function SearchBar() {
     filterDispatch({ type: SET_SEARCH, key: name, value });
   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setRecipesFilter(filter);
-    filterDispatch({ type: RESET_SEARCH });
+    filterDispatch({ type: CLEAN_SEARCH });
   };
 
   return (
