@@ -30,15 +30,15 @@ export default function Footer() {
           <img src={ goBackIcon } alt="ícone de voltar" />
         </button>
 
-        <Link onClick={ handleReset } to="/drinks">
+        <Link onClick={ handleReset } aria-label="drinks-btn" to="/drinks">
           <IconDrinks src={ drinkIcon } alt="ícone de drink" className={ route } />
         </Link>
 
-        <Link onClick={ handleReset } to="/meals">
+        <Link onClick={ handleReset } aria-label="meals-btn" to="/meals">
           <IconMeal src={ mealIcon } alt="ícone do drink" className={ route } />
         </Link>
 
-        <Link to="/meals">
+        <Link to="/meals" aria-label="home-btn">
           <img src={ homeIcon } alt="ícone de página inicial" />
         </Link>
 

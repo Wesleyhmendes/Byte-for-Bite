@@ -10,6 +10,10 @@ const buttonMealId = 'filter-by-meal-btn';
 const routeDoneRecipes = '/done-recipes';
 
 describe('Testa o componente DoneRecipes', () => {
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
   test('Testa se o filtro "meals" funciona corretamente', async () => {
     const MOCK_RESPONSE = {
       ok: true,

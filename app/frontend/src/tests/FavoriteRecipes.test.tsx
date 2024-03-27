@@ -10,6 +10,10 @@ const buttonMealId = 'filter-by-meal-btn';
 const routeFavoriteRecipes = '/favorite-recipes';
 
 describe('Testa o componente FavoriteRecipes', () => {
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
   test('Testa o filtro "meals" na página de favoritos', async () => {
     const MOCK_RESPONSE = {
       ok: true,

@@ -1,89 +1,72 @@
-// import { screen } from '@testing-library/dom';
-// import { vi } from 'vitest';
-// import { renderWithRouter } from './utils/renderWithRouter';
-// import SearchBar from '../components/SearchBar';
-// import MealsProvider from '../context/MealContext/MealsProvider';
-// import DrinksProvider from '../context/DrinkContext/DrinksProvider';
+import { fireEvent, screen, waitFor } from '@testing-library/dom';
+import { vi } from 'vitest';
+import { useState } from 'react';
+import { renderHook } from '@testing-library/react';
+import { renderWithRouter } from './utils/renderWithRouter';
+import SearchBar from '../components/SearchBar';
+import Provider from '../context/Provider/Provider';
+import mockMealRecipes from './mocks/mockMealRecipes';
+import Recipes from '../pages/Recipes';
+import UserInfoProvider from '../context/UserInfo/UserInfoProvider';
+import App from '../App';
 
-// const inputSearchId = 'search-input';
-// const buttonSearchId = 'exec-search-btn';
-// const radioIngredientId = 'ingredient-search-radio';
-// const radioNameId = 'name-search-radio';
+const inputSearchId = 'search-input';
+const buttonSearchId = 'exec-search-btn';
+const radioIngredientId = 'ingredient-search-radio';
+const radioNameId = 'name-search-radio';
 
-// afterEach(() => {
-//   vi.clearAllMocks();
-// });
+afterEach(() => {
+  vi.clearAllMocks();
+});
 
-// describe('Testa o componente SearchBar', () => {
-//   test('Testa se o input, os 3 radio buttons e o botão de pesquisar estão presentes', async () => {
-//     renderWithRouter(<SearchBar />);
+describe('Testa o componente SearchBar', () => {
+  test('Testa se o componente SearchBar é renderizado corretamente', () => {
+    renderWithRouter(
+      <Provider>
+        <SearchBar />
+      </Provider>,
+      { route: '/meals' },
+    );
 
-//     expect(screen.getByTestId(inputSearchId)).toBeInTheDocument();
-//     expect(screen.getByTestId(buttonSearchId)).toBeInTheDocument();
-//     expect(screen.getByTestId(radioIngredientId)).toBeInTheDocument();
-//     expect(screen.getByTestId(radioNameId)).toBeInTheDocument();
-//     expect(screen.getByTestId('first-letter-search-radio')).toBeInTheDocument();
-//   });
+    const searchInput = screen.getByTestId(inputSearchId);
+    const searchButton = screen.getByTestId(buttonSearchId);
+    const ingredientRadioSelect = screen.getByTestId(radioIngredientId);
+    const nameRadioSelect = screen.getByTestId(radioNameId);
 
-//   test('Testa se a pesquisa por ingrediente é realizada corretamente', async () => {
-//     const { user } = renderWithRouter(
-//       <MealsProvider>
-//         <SearchBar />
-//       </MealsProvider>,
-//       { route: '/meals' },
-//     );
+    expect(searchInput).toBeInTheDocument();
+    expect(searchButton).toBeInTheDocument();
+    expect(ingredientRadioSelect).toBeInTheDocument();
+    expect(nameRadioSelect).toBeInTheDocument();
+  });
 
-//     const inputSearch = screen.getByTestId(inputSearchId);
-//     await user.type(inputSearch, 'salmon');
+  test('Testa se o input de busca do SearchBar funciona corretamente', async () => {
+    renderWithRouter(
+      <Provider>
+        <SearchBar />
+      </Provider>,
+      { route: '/meals' },
+    );
 
-//     const radioIngredient = screen.getByTestId(radioIngredientId);
-//     await user.click(radioIngredient);
+    const searchInput: HTMLInputElement = screen.getByTestId(inputSearchId);
 
-//     const buttonSearch = screen.getByTestId(buttonSearchId);
-//     await user.click(buttonSearch);
-//   });
+    fireEvent.change(searchInput, { target: { value: 'teste' } });
+    expect(searchInput.value).toBe('teste');
+  });
 
-//   test('Testa se a pesquisa por name é realizada corretamente', async () => {
-//     const { user } = renderWithRouter(<SearchBar />);
+  // test('Testa se o botão de busca do SearchBar funciona corretamente', async () => {
+  //   renderWithRouter(
+  //     <Provider>
+  //       <SearchBar />
+  //     </Provider>,
+  //     { route: '/meals' },
+  //   );
 
-//     const inputSearch = screen.getByTestId(inputSearchId);
-//     await user.type(inputSearch, 'arrabiata');
+  //   const clickSpy = vi.spyOn(SearchBar.prototype, 'handleSubmit');
 
-//     const radioName = screen.getByTestId(radioNameId);
-//     await user.click(radioName);
+  //   const searchButton = screen.getByTestId(buttonSearchId);
 
-//     const buttonSearch = screen.getByTestId(buttonSearchId);
-//     await user.click(buttonSearch);
-//   });
+  //   fireEvent.click(searchButton);
 
-//   test('Testa se a pesquisa por primeira letra é realizada corretamente', async () => {
-//     const { user } = renderWithRouter(<SearchBar />);
-
-//     const inputSearch = screen.getByTestId(inputSearchId);
-//     await user.type(inputSearch, 'd');
-
-//     const radioFirstLetter = screen.getByTestId('first-letter-search-radio');
-//     await user.click(radioFirstLetter);
-
-//     const buttonSearch = screen.getByTestId(buttonSearchId);
-//     await user.click(buttonSearch);
-//   });
-
-//   test('Testa se a pesquisa por name é realizada corretamente na rota drink', async () => {
-//     const { user } = renderWithRouter(
-//       <DrinksProvider>
-//         <SearchBar />
-//       </DrinksProvider>,
-//       { route: '/drinks' },
-//     );
-
-//     const inputSearch = screen.getByTestId(inputSearchId);
-//     await user.type(inputSearch, 'aquamarine');
-
-//     const radioName = screen.getByTestId(radioNameId);
-//     await user.click(radioName);
-
-//     const buttonSearch = screen.getByTestId(buttonSearchId);
-//     await user.click(buttonSearch);
-//   });
-// });
+  //   expect(clickSpy).toHaveBeenCalledTimes(1);
+  // });
+});

@@ -11,6 +11,11 @@ import UserInfoProvider from '../context/UserInfo/UserInfoProvider';
 describe('Testa o componente Recipes', () => {
   const favoriteTestId = 'favorite-btn';
   const detailsBtnTestId = 'detailsBtn';
+
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
   test('Testa se as receitas são carregadas corretamente na rota "/meals"', async () => {
     const MOCK_RESPONSE = {
       ok: true,
