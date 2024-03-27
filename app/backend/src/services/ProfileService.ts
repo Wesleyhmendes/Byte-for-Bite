@@ -20,15 +20,15 @@ class ProfileService {
   async updateProfileImage(id: number, imageUrl: string): Promise<ServiceResponse<{ message: string }>> {
     const response = await this.userModel.updateImage(id, imageUrl);
 
-    if (response !== 1) return { status: 'NOT_FOUND', data: { message: 'ID not found!' } }
+    if (response !== 1) return { status: 'NOT_FOUND', data: { message: 'ID not found or user is already using this URL' } }
 
-    return { status: 'SUCCESSFUL', data: { message: `Profile ID:${id} image updated!` } }
+    return { status: 'SUCCESSFUL', data: { message: `Profile image updated! ID: ${id}!` } }
   }
 
   private serviceResponse(status: string): ServiceResponse<IUsers> {
-    if (status === notFound) return { status: 'NOT_FOUND', data: { message: 'User not found'} }
+    /*if (status === notFound)*/ return { status: 'NOT_FOUND', data: { message: 'User not found'} }
     
-    return { status: 'INVALID_DATA', data: { message: 'Invalid data' } }
+    // return { status: 'INVALID_DATA', data: { message: 'Invalid data' } }
   }
 
   async getProfileRecipes(id: number) {

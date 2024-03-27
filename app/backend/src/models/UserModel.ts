@@ -52,7 +52,6 @@ export default class UserModel implements IUsersModel {
       }
     );
     if (rowCount[0] === 0) return null;
-
     return rowCount[0];
   }
 

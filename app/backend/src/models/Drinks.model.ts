@@ -190,10 +190,15 @@ export default class DrinksModel implements IDrinkModel {
   async createDoneDrinks(userId: number, drinkId: number) {   
     const findDone = await this.findDone(userId, drinkId);
     if (!findDone) {
-      const { dataValues } = await this.DoneDrinksModel.create({userId, drinkId});
+      await this.inProgressModel.destroy({where: {userId, drinkId}});
+      const { dataValues } = await this.DoneDrinksModel.create({
+        userId,
+        drinkId
+      });
       return dataValues;
     }
-    await this.DoneDrinksModel.destroy({where: {userId, drinkId}});
+    await this.inProgressModel.destroy({where: {userId, drinkId}});
+    return findDone;
   }
 
   async getDoneRecipes(userId: number) {

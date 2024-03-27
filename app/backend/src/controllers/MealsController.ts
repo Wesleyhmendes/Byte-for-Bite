@@ -6,7 +6,6 @@ export default class MealsController {
   constructor(private mealsService = new MealsService()) {}
 
   async getAllMealsRecipe(req: Request, res: Response) {
-    const token = req.headers.authorization    
     const {q} = req.query;
     if(q) {
       const {status, data} = await this.mealsService.getRecipeByName(q as string);
@@ -104,7 +103,7 @@ export default class MealsController {
   }
 
   async getFavoriteRecipes(req: Request, res: Response) {
-    const { user } = req.query;    
+    const { user } = req.query;   
     const { status, data } = await this.mealsService.getFavoriteRecipes(Number(user));
     return res.status(mapStatusHTTP(status)).json(data);
   }
@@ -117,7 +116,7 @@ export default class MealsController {
   }
 
   async getDoneRecipes(req: Request, res: Response) {
-    const { user } = req.query;    
+    const { user } = req.query;
     const { status, data } = await this.mealsService.getDoneRecipes(Number(user as string));
     return res.status(mapStatusHTTP(status)).json(data);
   }

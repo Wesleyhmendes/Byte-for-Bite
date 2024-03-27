@@ -160,11 +160,8 @@ export default class MealsService {
   }
 
   async addDoneMeal(userId: number, mealId: number) {
-    const doneRecipe = await this.mealsModel.createDoneMeals(userId, mealId);
-    if(doneRecipe) {
-      return {status: 'SUCCESSFUL', data: { message: 'Recipe is done!' }}    
-    } 
-    return {status: 'SUCCESSFUL', data: { message: 'Recipe removed from done recipes list.' }};
+    await this.mealsModel.createDoneMeals(userId, mealId);
+    return {status: 'SUCCESSFUL', data: { message: 'Recipe is done!' }}
   }
 
   async getDoneRecipes(userId: number) {

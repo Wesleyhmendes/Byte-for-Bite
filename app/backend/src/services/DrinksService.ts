@@ -142,12 +142,8 @@ export default class MatchesService {
   }
 
   async addDoneDrink(userId: number, id: number) {
-    const doneRecipe = await this.drinkModel.createDoneDrinks(userId, id);
-    
-    if(doneRecipe) {
-      return { status: 'SUCCESSFUL', data: { message: 'Recipe is done!' } }
-    }
-    return {status: 'SUCCESSFUL', data: { message: 'Recipe removed from done recipes list.' }};
+    await this.drinkModel.createDoneDrinks(userId, id);
+    return { status: 'SUCCESSFUL', data: { message: 'Recipe is done!' } }
   }
 
   async getDoneRecipes(userId: number) {
