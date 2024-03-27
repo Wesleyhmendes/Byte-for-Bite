@@ -111,7 +111,7 @@ export default class MealsModel implements IMealsRecipesModel {
         const { category, ...rest } = recipe.toJSON() as IMealRecipes;
         return { ...rest, strCategory: category?.strCategory };
       })
-      .filter((recipe) => recipe.strCategory === category);
+      .filter((recipe) => recipe.strCategory?.toLocaleLowerCase() === category.toLocaleLowerCase());
     return newRecipes;
   }
 
@@ -238,11 +238,11 @@ export default class MealsModel implements IMealsRecipesModel {
   async createFavoriteMeals(userId: number, mealId: number) {
     const findFavorite = await this.findFavorite(userId, mealId);
     if (!findFavorite) {
-      const { dataValues } = await this.favoriteRecipesModel.create({
+      const teste = await this.favoriteRecipesModel.create({
         userId,
         mealId,
       });
-      return dataValues;
+      return teste.dataValues;
     }
     await this.favoriteRecipesModel.destroy({ where: { userId, mealId } });
   }
@@ -254,7 +254,6 @@ export default class MealsModel implements IMealsRecipesModel {
         mealId,
       },
     });
-
     return foundFavorite;
   }
 
@@ -288,7 +287,7 @@ export default class MealsModel implements IMealsRecipesModel {
   async createDoneMeals(userId: number, mealId: number) {
     const findDone = await this.findDone(userId, mealId);
     if (!findDone) {
-      await this.inProgressModel.destroy({ where: { userId, mealId } });
+      await this.inProgressModel.destroy({where: { userId, mealId}});
       const { dataValues } = await this.doneMealsModel.create({
         userId,
         mealId,
