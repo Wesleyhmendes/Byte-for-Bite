@@ -17,7 +17,7 @@ import {
 } from './SearchBar.styles';
 
 function SearchBar() {
-  const RESET_SEARCH = 'RESET_SEARCH';
+  const CLEAN_SEARCH = 'CLEAN_SEARCH';
   const SET_SEARCH = 'SET_SEARCH';
   const { filter, setRecipesFilter, filterDispatch } = useContext(Context);
 
@@ -30,7 +30,7 @@ function SearchBar() {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setRecipesFilter(filter);
-    filterDispatch({ type: RESET_SEARCH });
+    filterDispatch({ type: CLEAN_SEARCH });
   };
 
   return (

@@ -7,8 +7,8 @@ import {
 
 type ModalProps = {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
-  message: string,
-  token: string,
+  message: string | undefined,
+  token: string | undefined,
 };
 
 function LoginModal(props: ModalProps) {
@@ -37,6 +37,7 @@ function LoginModal(props: ModalProps) {
       </H3>
       {message ? (
         <Button
+          aria-label="loginModal-btn"
           onClick={ handleModal }
         >
           Ok

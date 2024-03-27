@@ -1,4 +1,5 @@
 import { screen } from '@testing-library/dom';
+import { vi } from 'vitest';
 import { renderWithRouter } from './utils/renderWithRouter';
 import Footer from '../components/Footer';
 import Provider from '../context/Provider/Provider';
@@ -51,4 +52,21 @@ describe('Testa o componente Footer', () => {
 
     expect(fourthLocation).toBe('/meals');
   });
+
+  // test('Testa se a função handleReset é chamada', async () => {
+  //   const { user } = renderWithRouter(
+  //     <Provider>
+  //       <Footer />
+  //     </Provider>,
+  //     { route: '/meals' },
+  //   );
+
+  //   const handleResetSpy = vi.spyOn(global, 'SubmitEvent');
+
+  //   const homeBtn = screen.getByLabelText('home-btn');
+
+  //   await user.click(homeBtn);
+
+  //   expect(handleResetSpy).toHaveBeenCalled();
+  // });
 });

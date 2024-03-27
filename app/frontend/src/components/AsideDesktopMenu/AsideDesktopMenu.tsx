@@ -1,53 +1,69 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useContext } from 'react';
 import verifiedIcon from '../../assets/Icons/AsideMenuDesktop/done_icon.png';
 import favoriteIcon from '../../assets/Icons/AsideMenuDesktop/favorite_icon.png';
 import glassIcon from '../../assets/Icons/AsideMenuDesktop/glass-icon32.png';
 import plateIcon from '../../assets/Icons/AsideMenuDesktop/plate-icon32.png';
 import * as S from './AsideDesktopMenu.styles';
+import Context from '../../context/Context';
 
 export default function AsideDesktopMenu() {
-  const navigate = useNavigate();
-  const url = useLocation().pathname;
+  const { getSelectedCategory, setByFilterURL, route } = useContext(Context);
+  const handleReset = () => {
+    getSelectedCategory('');
+    setByFilterURL('');
+  };
+
   return (
     <S.Section>
       <div>
         <h2>Pages</h2>
         <S.ButtonDiv>
-          <img className="glass" src={ glassIcon } alt="icon of a glass" />
-          <button
-            className={ url.endsWith('drinks') ? 'active' : '' }
-            onClick={ () => navigate('/drinks') }
+          <Link
+            to="/drinks"
+            onClick={ handleReset }
           >
-            <p>Drinks</p>
-          </button>
+            <img className="glass" src={ glassIcon } alt="icon of a glass" />
+            <p
+              className={ route === '/drinks' ? 'active' : '' }
+            >
+              Drinks
+            </p>
+          </Link>
         </S.ButtonDiv>
         <S.ButtonDiv>
-          <img src={ plateIcon } alt="icon of a plate" />
-          <button
-            className={ url.endsWith('meals') ? 'active' : '' }
-            onClick={ () => navigate('/meals') }
+          <Link
+            to="/meals"
+            onClick={ handleReset }
           >
-            <p>Meals</p>
-          </button>
+            <img className="glass" src={ plateIcon } alt="icon of a glass" />
+            <p
+              className={ route === '/meals' ? 'active' : '' }
+            >
+              Meals
+            </p>
+          </Link>
         </S.ButtonDiv>
       </div>
       <div>
         <h2>Filter</h2>
         <S.ButtonDiv>
-          <img src={ verifiedIcon } alt="verified icon" />
-          <button
-            onClick={ () => navigate('/done-recipes') }
+          <Link
+            to="/done-recipes"
+            onClick={ handleReset }
           >
+            <img src={ verifiedIcon } alt="verified icon" />
             <p>Done Recipes</p>
-          </button>
+          </Link>
         </S.ButtonDiv>
         <S.ButtonDiv>
-          <img src={ favoriteIcon } alt="verified icon" />
-          <button
-            onClick={ () => navigate('/favorite-recipes') }
+          <Link
+            to="/favorite-recipes"
+            onClick={ handleReset }
           >
+            <img src={ favoriteIcon } alt="verified icon" />
             <p>Favorite Recipes</p>
-          </button>
+          </Link>
         </S.ButtonDiv>
       </div>
     </S.Section>

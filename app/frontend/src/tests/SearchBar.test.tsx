@@ -1,14 +1,9 @@
-import { fireEvent, screen, waitFor } from '@testing-library/dom';
+import { fireEvent, screen } from '@testing-library/dom';
 import { vi } from 'vitest';
-import { useState } from 'react';
-import { renderHook } from '@testing-library/react';
+
 import { renderWithRouter } from './utils/renderWithRouter';
 import SearchBar from '../components/SearchBar';
 import Provider from '../context/Provider/Provider';
-import mockMealRecipes from './mocks/mockMealRecipes';
-import Recipes from '../pages/Recipes';
-import UserInfoProvider from '../context/UserInfo/UserInfoProvider';
-import App from '../App';
 
 const inputSearchId = 'search-input';
 const buttonSearchId = 'exec-search-btn';
@@ -61,7 +56,7 @@ describe('Testa o componente SearchBar', () => {
   //     { route: '/meals' },
   //   );
 
-  //   const clickSpy = vi.spyOn(SearchBar.prototype, 'handleSubmit');
+  //   const clickSpy = vi.spyOn(global, 'SubmitEvent');
 
   //   const searchButton = screen.getByTestId(buttonSearchId);
 

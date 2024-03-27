@@ -16,7 +16,6 @@ type FavoriteButtonProps = {
 export default function FavoriteButton({
   id, recipeType,
 }: FavoriteButtonProps) {
-  const [shareMessage, setShareMessage] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
   // GETS PROFILE FROM CONTEXT
@@ -33,12 +32,6 @@ export default function FavoriteButton({
   // CHECKS IF IT IS A FAVORITE RECIPE ON DB
   const isRecipeFavorite = checkFavoritesFromDB(recipeType, id as string, formattedFavorites);
 
-  // COPY URL TO SHARE RECIPE
-  const copyText = async () => {
-    await navigator.clipboard.writeText(`${window.location.origin}/${recipeType}/${id}`);
-    setShareMessage(true);
-  };
-
   // SETS FAVORITE STATE AND SETS RECIPE AS FAVORITE ON DB VIA handleFetch()
   const favoriteRecipe = () => {
     setIsFavorite((prev) => !prev);
@@ -53,19 +46,15 @@ export default function FavoriteButton({
   }, [isRecipeFavorite]);
 
   return (
-    <>
-      <Button
-        type="button"
-        onClick={ favoriteRecipe }
-      >
-        <img
-          data-testid="favorite-btn"
-          src={ isFavorite ? fullHeart : emptyHeart }
-          alt="Heart"
-        />
-      </Button>
-
-      {shareMessage ? <h4>Link copied!</h4> : null}
-    </>
+    <Button
+      type="button"
+      onClick={ favoriteRecipe }
+    >
+      <img
+        data-testid="favorite-btn"
+        src={ isFavorite ? fullHeart : emptyHeart }
+        alt="Heart"
+      />
+    </Button>
   );
 }

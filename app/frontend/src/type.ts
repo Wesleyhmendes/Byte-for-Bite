@@ -53,6 +53,7 @@ export type FetchedData = {
 export type FilterRadioType = {
   radioSelected: 'i' | 's' | 'f';
   search: string;
+  searchActive: boolean;
 };
 
 export type CategoryType = {

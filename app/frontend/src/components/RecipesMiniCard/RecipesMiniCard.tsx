@@ -27,10 +27,11 @@ function RecipesMiniCard({ recipe, path, index }: RecipesMiniCardProps) {
   const inProgressData = useFetch(inProgressURL);
 
   const isInProgress = checkInProgress(inProgressData);
+
   return (
     <S.Div data-testid={ `${index}-recipe-card` }>
       <S.Img src={ thumbnail }>
-        <img src={ isInProgress ? orangeClock : '' } alt="orangeClock" />
+        {isInProgress && <img src={ orangeClock } alt="orangeClock" />}
       </S.Img>
       <CardText
         recipe={ recipe }

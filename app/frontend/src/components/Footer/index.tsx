@@ -12,13 +12,12 @@ import {
 } from './Footer.styles';
 
 export default function Footer() {
-  const { getSelectedCategory, setByFilterURL } = useContext(Context);
+  const { getSelectedCategory, setByFilterURL, route } = useContext(Context);
   const handleReset = () => {
     getSelectedCategory('');
     setByFilterURL('');
   };
 
-  const { route } = useContext(Context);
   const navigate = useNavigate();
 
   return (
@@ -38,7 +37,7 @@ export default function Footer() {
           <IconMeal src={ mealIcon } alt="ícone do drink" className={ route } />
         </Link>
 
-        <Link to="/meals" aria-label="home-btn">
+        <Link onClick={ handleReset } to="/meals" aria-label="home-btn">
           <img src={ homeIcon } alt="ícone de página inicial" />
         </Link>
 
