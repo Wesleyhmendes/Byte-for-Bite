@@ -7,7 +7,7 @@ type GoogleSignUpProps = {
   signUpDispatch: React.Dispatch<UserAction>;
 };
 
-export default function GoogleSignUp({ signUpDispatch }: GoogleSignUpProps) {
+export default function GoogleAuth({ signUpDispatch }: GoogleSignUpProps) {
   const navigate = useNavigate();
   return (
     <div className="google">
@@ -16,6 +16,7 @@ export default function GoogleSignUp({ signUpDispatch }: GoogleSignUpProps) {
         theme="filled_black"
         onSuccess={ (credentialResponse) => {
           const decode = jwtDecode<JwtPayload>(credentialResponse?.credential as string);
+          console.log(decode);
           signUpDispatch({
             type: 'UPDATE_USER', key: 'email', value: decode.email,
           });

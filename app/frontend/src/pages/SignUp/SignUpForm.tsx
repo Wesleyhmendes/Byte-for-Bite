@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import { User, UserAction } from '../../type';
 import validateUser from '../../utils/validateUser';
-import GoogleSignUp from './GoogleSignUp';
+import GoogleAuth from './GoogleAuth';
 import * as S from './SignUp.styles';
 
 type SignUpFormProps = {
@@ -70,7 +70,7 @@ function SignUpForm({ user, handleChange, handleSubmit, signUpDispatch }: SignUp
           onChange={ handleChange }
         />
       </S.Label>
-      <GoogleSignUp signUpDispatch={ signUpDispatch } />
+      <GoogleAuth signUpDispatch={ signUpDispatch } />
       <S.Button disabled={ validateSubmit }>Sign up</S.Button>
     </S.Form>
   );

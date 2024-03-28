@@ -27,7 +27,7 @@ export const Main = styled.main`
     }
 
     .google {
-      margin-bottom: 1rem;
+      margin-top: 1rem;
     }
 
     @media(min-width: 768px) {

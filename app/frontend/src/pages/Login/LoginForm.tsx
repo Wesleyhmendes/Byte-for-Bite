@@ -1,17 +1,19 @@
 /* eslint-disable max-len */
 import validateLogin from '../../utils/validateLogin';
-import { User } from '../../type';
+import { User, UserAction } from '../../type';
 
 import * as S from './Login.styles';
 import DontHaveAccount from './DontHaveAccount';
+import GoogleAuth from '../SignUp/GoogleAuth';
 
 type LoginFormProps = {
-  user: User
+  user: User;
+  handleChange: ({ target }: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-  handleChange: ({ target }: React.ChangeEvent<HTMLInputElement>) => void
+  signUpDispatch: React.Dispatch<UserAction>;
 };
 
-function LoginForm({ user, handleChange, handleSubmit }: LoginFormProps) {
+function LoginForm({ user, handleChange, handleSubmit, signUpDispatch }: LoginFormProps) {
   const { email, password } = user;
   const isDisabled = validateLogin(user);
   return (
@@ -40,6 +42,7 @@ function LoginForm({ user, handleChange, handleSubmit }: LoginFormProps) {
         >
           Login
         </button>
+        <GoogleAuth signUpDispatch={ signUpDispatch } />
       </form>
 
       <DontHaveAccount />

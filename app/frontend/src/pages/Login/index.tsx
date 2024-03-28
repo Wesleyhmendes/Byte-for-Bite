@@ -45,6 +45,7 @@ function Login() {
             user={ user }
             handleChange={ handleChange }
             handleSubmit={ handleSubmit }
+            signUpDispatch={ signUpDispatch }
           />
         ) : null }
 
