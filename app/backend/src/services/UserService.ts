@@ -61,7 +61,7 @@ export default class UserService {
   async createGoogleUser(newUser: Omit<IGUsers, 'role'>): Promise<ServiceResponse<Token>> {
     const { email, username, profileImage, emailVerified } = newUser;
 
-    if (!emailVerified) return this.userValidation.invalidStatusResponse('invalid_emailOrPassword');
+    if (emailVerified === 'false') return this.userValidation.invalidStatusResponse('invalid_emailOrPassword');
 
     const userInfo = (await this.userModel.createGoogleUser({
       email,

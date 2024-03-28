@@ -5,9 +5,10 @@ import { UserAction } from '../../type';
 
 type GoogleSignUpProps = {
   signUpDispatch: React.Dispatch<UserAction>;
+  setGoogleUser: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function GoogleAuth({ signUpDispatch }: GoogleSignUpProps) {
+export default function GoogleAuth({ signUpDispatch, setGoogleUser }: GoogleSignUpProps) {
   const navigate = useNavigate();
   return (
     <div className="google">
@@ -16,7 +17,6 @@ export default function GoogleAuth({ signUpDispatch }: GoogleSignUpProps) {
         theme="filled_black"
         onSuccess={ (credentialResponse) => {
           const decode = jwtDecode<JwtPayload>(credentialResponse?.credential as string);
-          console.log(decode);
           signUpDispatch({
             type: 'UPDATE_USER', key: 'email', value: decode.email,
           });
@@ -26,7 +26,10 @@ export default function GoogleAuth({ signUpDispatch }: GoogleSignUpProps) {
           signUpDispatch({
             type: 'UPDATE_USER', key: 'profileImage', value: decode.picture,
           });
-          navigate('/meals');
+          signUpDispatch({
+            type: 'UPDATE_USER', key: 'email_verified', value: decode.email_verified ? 'true' : 'false',
+          });
+          setGoogleUser((prev) => !prev);
         } }
         onError={ () => {
           console.log('Login Failed');

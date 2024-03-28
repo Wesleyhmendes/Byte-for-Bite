@@ -13,7 +13,7 @@ export interface IGUsers {
   profileImage: string,  
   role: string,
   email: string,
-  emailVerified: boolean,
+  emailVerified: string,
 }
 
 export interface IUsersModel {

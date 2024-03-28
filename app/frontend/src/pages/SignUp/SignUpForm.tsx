@@ -9,9 +9,10 @@ type SignUpFormProps = {
   handleChange: ({ target }: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   signUpDispatch: React.Dispatch<UserAction>;
+  setGoogleUser: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function SignUpForm({ user, handleChange, handleSubmit, signUpDispatch }: SignUpFormProps) {
+function SignUpForm({ user, handleChange, handleSubmit, signUpDispatch, setGoogleUser }: SignUpFormProps) {
   const { email, username, password, confirmPassword } = user;
 
   const validateRegexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -70,7 +71,10 @@ function SignUpForm({ user, handleChange, handleSubmit, signUpDispatch }: SignUp
           onChange={ handleChange }
         />
       </S.Label>
-      <GoogleAuth signUpDispatch={ signUpDispatch } />
+      <GoogleAuth
+        signUpDispatch={ signUpDispatch }
+        setGoogleUser={ setGoogleUser }
+      />
       <S.Button disabled={ validateSubmit }>Sign up</S.Button>
     </S.Form>
   );
