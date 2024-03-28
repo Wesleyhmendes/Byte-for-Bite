@@ -30,6 +30,27 @@ export default class UserService {
     return { status: 'SUCCESSFUL', data: token };
   }
 
+  public async verifyGoogleLogin(login: IGUsers): Promise<ServiceResponse<Token>> {
+    const { email, username, emailVerified, profileImage } = login;
+    if (emailVerified === 'false') return this.userValidation.invalidStatusResponse('invalid_data');
+
+    const user = await this.userModel.findByEmail(email);
+
+    if (!user) {
+      const create = await this.createGoogleUser({
+        username,
+        profileImage,
+        email,
+        emailVerified,
+      });
+      return create;
+    }
+
+    const token = this.userValidation.tokenBuilder(user.id, user.role, user.email);
+
+    return { status: 'SUCCESSFUL', data: token };
+  }
+
   async createNewUser(
     newUser: Omit<IUsers, 'role' | 'profileImage'>
     ): Promise<ServiceResponse<Token>> {
@@ -58,10 +79,13 @@ export default class UserService {
     return { status: 'CREATED', data: token };
   }
 
-  async createGoogleUser(newUser: Omit<IGUsers, 'role'>): Promise<ServiceResponse<Token>> {
+  async createGoogleUser(newUser: Omit<IGUsers, 'role' | 'id'>): Promise<ServiceResponse<Token>> {
     const { email, username, profileImage, emailVerified } = newUser;
 
     if (emailVerified === 'false') return this.userValidation.invalidStatusResponse('invalid_emailOrPassword');
+
+    const user = await this.userModel.findByEmail(email);
+    if (user) return this.userValidation.invalidStatusResponse('email_exists');
 
     const userInfo = (await this.userModel.createGoogleUser({
       email,

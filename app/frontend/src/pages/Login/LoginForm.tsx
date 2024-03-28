@@ -11,9 +11,10 @@ type LoginFormProps = {
   handleChange: ({ target }: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   signUpDispatch: React.Dispatch<UserAction>;
+  setGoogleUser: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function LoginForm({ user, handleChange, handleSubmit, signUpDispatch }: LoginFormProps) {
+function LoginForm({ user, handleChange, handleSubmit, signUpDispatch, setGoogleUser }: LoginFormProps) {
   const { email, password } = user;
   const isDisabled = validateLogin(user);
   return (
@@ -42,7 +43,10 @@ function LoginForm({ user, handleChange, handleSubmit, signUpDispatch }: LoginFo
         >
           Login
         </button>
-        <GoogleAuth signUpDispatch={ signUpDispatch } />
+        <GoogleAuth
+          signUpDispatch={ signUpDispatch }
+          setGoogleUser={ setGoogleUser }
+        />
       </form>
 
       <DontHaveAccount />

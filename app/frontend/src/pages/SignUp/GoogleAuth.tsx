@@ -1,7 +1,7 @@
 import { JwtPayload, jwtDecode } from 'jwt-decode';
 import { GoogleLogin } from '@react-oauth/google';
-import { useNavigate } from 'react-router-dom';
 import { UserAction } from '../../type';
+import { useLocation } from 'react-router-dom';
 
 type GoogleSignUpProps = {
   signUpDispatch: React.Dispatch<UserAction>;
@@ -9,12 +9,13 @@ type GoogleSignUpProps = {
 };
 
 export default function GoogleAuth({ signUpDispatch, setGoogleUser }: GoogleSignUpProps) {
-  const navigate = useNavigate();
+  const route = useLocation().pathname;
   return (
     <div className="google">
       <GoogleLogin
         size="large"
         theme="filled_black"
+        text={ route.endsWith('signup') ? "signup_with" : "continue_with" }
         onSuccess={ (credentialResponse) => {
           const decode = jwtDecode<JwtPayload>(credentialResponse?.credential as string);
           signUpDispatch({
@@ -27,7 +28,9 @@ export default function GoogleAuth({ signUpDispatch, setGoogleUser }: GoogleSign
             type: 'UPDATE_USER', key: 'profileImage', value: decode.picture,
           });
           signUpDispatch({
-            type: 'UPDATE_USER', key: 'email_verified', value: decode.email_verified ? 'true' : 'false',
+            type: 'UPDATE_USER',
+            key: 'email_verified',
+            value: decode.email_verified ? 'true' : 'false',
           });
           setGoogleUser((prev) => !prev);
         } }

@@ -9,28 +9,12 @@ export const ModalDiv = styled.div`
 `;
 
 export const H3 = styled.h3`
-  
   color: #313131;
+  font-size: larger;
   font-weight: 600;
   text-align: center;
   line-height: 0px;
   margin-bottom: 35px;
-
-  @media (min-width: 320px) {
-
-  }
-
-  @media (min-width: 768px) {
-    
-  }
-
-  @media (min-width: 1024px) {
-    
-  }
-
-  @media (min-width: 1280px) {
-    
-  }
 `;
 
 export const Button = styled.button`

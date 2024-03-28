@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import useFetch from '../../hooks/useFetch';
 
@@ -16,9 +16,10 @@ function Login() {
 
   const { user, RESET_USER, handleChange, signUpDispatch } = useContext(UserInfoContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [googleUser, setGoogleUser] = useState(false);
 
   // GETS USER INITIAL STATE FROM CONTEXT, FILLS WITH INFORMATION FROM FORM BELLOW AND SENDS TO DB
-  const url = 'http://localhost:3001/user/login';
+  const url = googleUser ? 'http://localhost:3001/user/login-google' : 'http://localhost:3001/user/login';
 
   const requestBody = user;
   const options: FetchOptions = { method: 'POST', body: requestBody };
@@ -34,6 +35,17 @@ function Login() {
     signUpDispatch({ type: RESET_USER });
   };
 
+  const handleGoogle = () => {
+    handleFetch();
+    localStorage.setItem('user', JSON.stringify(user.email));
+    signUpDispatch({ type: RESET_USER });
+    setIsModalOpen(true);
+  };
+
+  useEffect(() => {
+    if (googleUser) handleGoogle();
+  }, [googleUser]);
+
   return (
     <S.Main>
       <section>
@@ -43,6 +55,7 @@ function Login() {
         { !isModalOpen ? (
           <LoginForm
             user={ user }
+            setGoogleUser={ setGoogleUser }
             handleChange={ handleChange }
             handleSubmit={ handleSubmit }
             signUpDispatch={ signUpDispatch }

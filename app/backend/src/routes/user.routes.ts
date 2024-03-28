@@ -22,4 +22,9 @@ router.post(
   (req: Request, res: Response) => userController.login(req, res)
 );
 
+router.post(
+  '/login-google',
+  (req: Request, res: Response) => userController.loginGoogle(req, res)
+);
+
 export default router;
