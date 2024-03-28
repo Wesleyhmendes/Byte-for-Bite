@@ -1,6 +1,6 @@
 import { ServiceResponse } from '../Interfaces/serviceReponse';
 import UserModel from '../models/UserModel';
-import IUsers, {IUsersModel} from '../Interfaces/IUsers';
+import IUsers, {IUsersModel, IGUsers} from '../Interfaces/IUsers';
 import { Token, Login } from '../Interfaces/Login';
 import UserValidation from '../utils/userValidation';
 
@@ -30,6 +30,27 @@ export default class UserService {
     return { status: 'SUCCESSFUL', data: token };
   }
 
+  public async verifyGoogleLogin(login: Omit<IGUsers, 'role' | 'id'>): Promise<ServiceResponse<Token>> {
+    const { email, username, emailVerified, profileImage } = login;
+    if (emailVerified === 'false') return this.userValidation.invalidStatusResponse('invalid_data');
+
+    const user = await this.userModel.findByEmail(email);
+
+    if (!user) {
+      const create = await this.createGoogleUser({
+        username,
+        profileImage,
+        email,
+        emailVerified,
+      });
+      return create;
+    }
+
+    const token = this.userValidation.tokenBuilder(user.id, user.role, user.email);
+
+    return { status: 'SUCCESSFUL', data: token };
+  }
+
   async createNewUser(
     newUser: Omit<IUsers, 'role' | 'profileImage'>
     ): Promise<ServiceResponse<Token>> {
@@ -56,5 +77,27 @@ export default class UserService {
     const token = this.userValidation.tokenBuilder(userInfo.id, userInfo.role, userInfo.email);
 
     return { status: 'CREATED', data: token };
-  } 
+  }
+
+  async createGoogleUser(newUser: Omit<IGUsers, 'role' | 'id'>): Promise<ServiceResponse<Token>> {
+    const { email, username, profileImage, emailVerified } = newUser;
+
+    if (emailVerified === 'false') return this.userValidation.invalidStatusResponse('invalid_emailOrPassword');
+
+    const user = await this.userModel.findByEmail(email);
+    if (user) {
+      return await this.verifyGoogleLogin(newUser);
+    };
+
+    const userInfo = (await this.userModel.createGoogleUser({
+      email,
+      username,
+      profileImage,
+      role: 'user',
+    }));
+
+    const token = this.userValidation.tokenBuilder(userInfo.id, userInfo.role, userInfo.email);
+
+    return { status: 'CREATED', data: token };
+  }
 }

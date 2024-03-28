@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 
@@ -15,13 +15,16 @@ function SignUp() {
 
   const { user, RESET_USER, handleChange, signUpDispatch } = useContext(UserInfoContext);
 
+  const [googleUser, setGoogleUser] = useState(false);
+
   const { confirmPassword, ...rest } = user;
   const requestBody = rest;
 
   // SEND USER DATA TO DB
-  const signUpURL = 'http://localhost:3001/user';
+  const signUpURL = googleUser ? 'http://localhost:3001/user/signup-google' : 'http://localhost:3001/user';
   const options: FetchOptions = { method: 'POST', body: requestBody };
   const { handleFetch, data, isLoading } = useFetch(signUpURL, options);
+  console.log(data);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -35,6 +38,17 @@ function SignUp() {
     setIsModalOpen(true);
   };
 
+  const handleGoogle = () => {
+    handleFetch();
+    localStorage.setItem('user', JSON.stringify(user.email));
+    signUpDispatch({ type: RESET_USER });
+    setIsModalOpen(true);
+  };
+
+  useEffect(() => {
+    if (googleUser) handleGoogle();
+  }, [googleUser]);
+
   return (
     <S.Main>
       <section>
@@ -44,16 +58,11 @@ function SignUp() {
         { !isModalOpen ? (
           <SignUpForm
             user={ user }
+            setGoogleUser={ setGoogleUser }
             handleChange={ handleChange }
             handleSubmit={ handleSubmit }
+            signUpDispatch={ signUpDispatch }
           />
-
-        ) : null }
-
-        { isModalOpen && isLoading ? (
-
-          <Loading />
-
         ) : null }
 
         { isModalOpen && !isLoading ? (

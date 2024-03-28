@@ -13,8 +13,18 @@ router.post(
 );
 
 router.post(
+  '/signup-google',
+  (req: Request, res: Response) => userController.createNewGoogleUser(req, res)
+);
+
+router.post(
   '/login',
   (req: Request, res: Response) => userController.login(req, res)
+);
+
+router.post(
+  '/login-google',
+  (req: Request, res: Response) => userController.loginGoogle(req, res)
 );
 
 export default router;

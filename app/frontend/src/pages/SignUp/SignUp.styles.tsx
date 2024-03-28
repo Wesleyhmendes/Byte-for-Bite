@@ -26,6 +26,10 @@ export const Main = styled.main`
       }
     }
 
+    .google {
+      margin-top: 1rem;
+    }
+
     @media(min-width: 768px) {
       width: 70%;
     }

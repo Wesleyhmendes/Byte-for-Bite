@@ -1,14 +1,18 @@
-import { User } from '../../type';
+/* eslint-disable max-len */
+import { User, UserAction } from '../../type';
 import validateUser from '../../utils/validateUser';
+import GoogleAuth from './GoogleAuth';
 import * as S from './SignUp.styles';
 
 type SignUpFormProps = {
   user: User;
   handleChange: ({ target }: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  signUpDispatch: React.Dispatch<UserAction>;
+  setGoogleUser: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function SignUpForm({ user, handleChange, handleSubmit }: SignUpFormProps) {
+function SignUpForm({ user, handleChange, handleSubmit, signUpDispatch, setGoogleUser }: SignUpFormProps) {
   const { email, username, password, confirmPassword } = user;
 
   const validateRegexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -67,6 +71,10 @@ function SignUpForm({ user, handleChange, handleSubmit }: SignUpFormProps) {
           onChange={ handleChange }
         />
       </S.Label>
+      <GoogleAuth
+        signUpDispatch={ signUpDispatch }
+        setGoogleUser={ setGoogleUser }
+      />
       <S.Button disabled={ validateSubmit }>Sign up</S.Button>
     </S.Form>
   );
