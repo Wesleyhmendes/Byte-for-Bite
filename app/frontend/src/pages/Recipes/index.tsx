@@ -1,4 +1,5 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Category from '../../components/Category';
 import Context from '../../context/Context';
 import RecipesMiniCard from '../../components/RecipesMiniCard/RecipesMiniCard';
@@ -9,12 +10,14 @@ import Footer from '../../components/Footer';
 
 export default function Recipes() {
   const [pageNum, setPageNum] = useState(1);
+  const navigate = useNavigate();
   const {
-    getAllRecipes,
-    getByCategory,
-    getRecipesByFilter,
-    getPages,
-    selectedCategory,
+    getRecipesByPage,
+    recipesByFilter,
+    byFilterPages,
+    allRecipesPages,
+    allRecipes,
+    filter,
     route,
   } = useContext(Context);
 
@@ -22,14 +25,19 @@ export default function Recipes() {
     ? 'Meals | Byte for Bite'
     : 'Drinks | Byte for Bite'}`;
 
-  const allRecipes = getAllRecipes(pageNum);
-  const byCategory = getByCategory();
-  const byFilter = getRecipesByFilter();
-  const pages = getPages();
+  const allRecipesByPage = getRecipesByPage(allRecipes, pageNum);
+  const byFilter = getRecipesByPage(recipesByFilter, pageNum);
 
   const handlePageNum = (page: number) => {
     setPageNum(page);
   };
+
+  useEffect(() => {
+    const recipeType = route === '/meals' ? 'Meal' : 'Drink';
+    if (byFilter.length === 1) {
+      navigate(`${route}/${byFilter[0][`id${recipeType}`]}`);
+    }
+  }, [byFilter]);
 
   return (
     <>
@@ -37,8 +45,8 @@ export default function Recipes() {
       <S.Main>
         <AsideDesktopMenu />
         <S.CardsContainer>
-          { selectedCategory === '' && byFilter?.length === 0 ? (
-            allRecipes?.map((recipe, i) => (<RecipesMiniCard
+          { !filter.searchActive ? (
+            allRecipesByPage.map((recipe, i) => (<RecipesMiniCard
               key={ i }
               recipe={ recipe }
               path={ route }
@@ -46,29 +54,26 @@ export default function Recipes() {
             />))
           ) : null }
 
-          { selectedCategory !== '' && byFilter?.length === 0 ? (
-            byCategory?.map((recipe, i) => (<RecipesMiniCard
+          { byFilter.length > 1 ? (
+            byFilter.map((recipe, i) => (<RecipesMiniCard
               key={ i }
               recipe={ recipe }
               path={ route }
               index={ i }
             />))
-          ) : null }
+          ) : null}
 
-          { byFilter?.length > 1 ? (
-            byFilter?.map((recipe, i) => (<RecipesMiniCard
-              key={ i }
-              recipe={ recipe }
-              path={ route }
-              index={ i }
-            />))
-          ) : null }
+          {byFilter.length === 0 && filter.searchActive ? <p>Recipe not found.</p> : null}
+
         </S.CardsContainer>
-        <SelectPageButtons
-          pages={ pages }
-          handlePageNum={ handlePageNum }
-          currentPage={ pageNum }
-        />
+
+        {(allRecipesPages.length > 1 || byFilterPages.length > 1) && (
+          <SelectPageButtons
+            pages={ !filter.searchActive ? allRecipesPages : byFilterPages }
+            handlePageNum={ handlePageNum }
+            currentPage={ pageNum }
+          />
+        )}
         <Footer />
       </S.Main>
     </>

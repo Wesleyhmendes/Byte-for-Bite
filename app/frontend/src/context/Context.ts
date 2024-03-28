@@ -10,19 +10,25 @@ import {
 } from '../type';
 
 export type ContextType = {
-  route: string,
-  selectedCategory: string,
-  filter: FilterRadioType,
-  formattedFavorites: FavoriteMealReduceType | FavoriteDrinkReduceType | undefined,
-  getCategories: () => CategoryType[],
-  filterDispatch: React.Dispatch<SearchActionType>,
-  setRecipesFilter: (selectedFilter: FilterRadioType) => void,
-  setByFilterURL: (value: React.SetStateAction<string>) => void,
-  getRecipesByFilter: () => MealType[] | DrinkType[],
-  getSelectedCategory: (category: string) => void,
-  getAllRecipes: (page?: number) => MealType[] | DrinkType[]
-  getByCategory: () => MealType[] | DrinkType[],
-  getPages: () => number[],
+  route: string;
+  filter: FilterRadioType;
+  formattedFavorites:
+  | FavoriteMealReduceType
+  | FavoriteDrinkReduceType
+  | undefined;
+  allRecipes: (MealType | DrinkType)[];
+  allRecipesPages: number[];
+  recipesByFilter: (MealType | DrinkType)[];
+  byFilterPages: number[];
+  getCategories: () => CategoryType[];
+  filterDispatch: React.Dispatch<SearchActionType>;
+  setByFilterURL: React.Dispatch<React.SetStateAction<string>>;
+  setRecipesFilter: (selectedFilter: FilterRadioType) => void;
+  getSelectedCategory: (category: string) => void;
+  getRecipesByPage: (
+    recipes: (MealType | DrinkType)[],
+    page: number
+  ) => (MealType | DrinkType)[];
 };
 
 const Context = createContext({} as ContextType);

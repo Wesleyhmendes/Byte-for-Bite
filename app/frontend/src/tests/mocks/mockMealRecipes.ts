@@ -29,27 +29,7 @@ const mockMealRecipes: MealType[] = [
     strIngredient18: '',
     strIngredient19: '',
     strIngredient20: '',
-    strInstructions: `Preheat the oven to 200C/180C Fan/Gas 6.
-    \r\nPut the biscuits in a large re-sealable freezer bag and 
-    bash with a rolling pin into fine crumbs. Melt the butter 
-    in a small pan, then add the biscuit crumbs and stir until 
-    coated with butter. Tip into the tart tin and, using the back 
-    of a spoon, press over the base and sides of the tin to give 
-    an even layer. Chill in the fridge while you make the filling.
-    \r\nCream together the butter and sugar until light and fluffy. 
-    You can do this in a food processor if you have one. Process 
-    for 2-3 minutes. Mix in the eggs, then add the ground almonds and almond 
-    extract and blend until well combined.\r\nPeel the apples, and cut thin 
-    slices of apple. Do this at the last minute to prevent the apple going 
-    brown. Arrange the slices over the biscuit base. Spread the frangipane 
-    filling evenly on top. Level the surface and sprinkle with the flaked 
-    almonds.\r\nBake for 20-25 minutes until golden-brown and set.
-    \r\nRemove from the oven and leave to cool for 15 minutes. 
-    Remove the sides of the tin. An easy way to do this is to 
-    stand the tin on a can of beans and push down gently on 
-    the edges of the tin.\r\nTransfer the tart, with the tin 
-    base attached, to a serving plate. Serve warm with cream, 
-    crème fraiche or ice cream.`,
+    strInstructions: 'Preheat the oven to 200C/180C Fan/Gas 6...',
     strMeal: 'Apple Frangipan Tart',
     strMealThumb: 'https://www.themealdb.com/images/media/meals/wxywrq1468235067.jpg',
     strMeasure1: '175g/6oz',
@@ -104,18 +84,7 @@ const mockMealRecipes: MealType[] = [
     strIngredient18: '',
     strIngredient19: '',
     strIngredient20: '',
-    strInstructions: `Heat oven to 190C/170C fan/gas 5. Tip the flour and sugar into 
-a large bowl. Add the butter, then rub into the flour using your fingertips to 
-make a light breadcrumb texture. Do not overwork it or the crumble will become 
-heavy. Sprinkle the mixture evenly over a baking sheet and bake for 15 mins or 
-until lightly coloured.\r\nMeanwhile, for the compote, peel, core and cut the 
-apples into 2cm dice. Put the butter and sugar in a medium saucepan and melt 
-together over a medium heat. Cook for 3 mins until the mixture turns to a light 
-caramel. Stir in the apples and cook for 3 mins. Add the blackberries and cinnamon, 
-and cook for 3 mins more. Cover, remove from the heat, then leave for 2-3 mins 
-to continue cooking in the warmth of the pan.\r\nTo serve, spoon the warm fruit 
-into an ovenproof gratin dish, top with the crumble mix, then reheat in the oven 
-for 5-10 mins. Serve with vanilla ice cream.`,
+    strInstructions: 'Heat oven to 190C/170C fan/gas 5...',
     strMeal: 'Apple & Blackberry Crumble',
     strMealThumb: 'https://www.themealdb.com/images/media/meals/xvsurr1511719182.jpg',
     strMeasure1: '120g',
@@ -141,6 +110,116 @@ for 5-10 mins. Serve with vanilla ice cream.`,
     strSource: 'https://www.bbcgoodfood.com/recipes/778642/apple-and-blackberry-crumble',
     strTags: 'Pudding',
     strYoutube: 'https://www.youtube.com/watch?v=4vhcOwVBDO4',
+  },
+  {
+    idMeal: '114',
+    strMeal: 'French Onion Chicken with Roasted Carrots & Mashed Potatoes',
+    strDrinkAlternate: '',
+    strCategory: 'Chicken',
+    strArea: 'American',
+    strInstructions: '1\r\n\r\nPreheat oven to 425 degrees...',
+    strMealThumb: 'https://www.themealdb.com/images/media/meals/b5ft861583188991.jpg',
+    strTags: '',
+    strYoutube: '',
+    strIngredient1: 'Chicken Breasts',
+    strIngredient2: 'Carrots',
+    strIngredient3: 'Small Potatoes',
+    strIngredient4: 'Onion',
+    strIngredient5: 'Beef Stock',
+    strIngredient6: 'Mozzarella',
+    strIngredient7: 'Sour Cream',
+    strIngredient8: 'Butter',
+    strIngredient9: 'Sugar',
+    strIngredient10: 'Vegetable Oil',
+    strIngredient11: 'Salt',
+    strIngredient12: 'Pepper',
+    strIngredient13: '',
+    strIngredient14: '',
+    strIngredient15: '',
+    strIngredient16: '',
+    strIngredient17: '',
+    strIngredient18: '',
+    strIngredient19: '',
+    strIngredient20: '',
+    strMeasure1: '2',
+    strMeasure2: '12 ounces',
+    strMeasure3: '5',
+    strMeasure4: '1',
+    strMeasure5: '1',
+    strMeasure6: '1 1/2 cup ',
+    strMeasure7: '2 tbsp',
+    strMeasure8: ' ',
+    strMeasure9: ' ',
+    strMeasure10: ' ',
+    strMeasure11: ' ',
+    strMeasure12: ' ',
+    strMeasure13: ' ',
+    strMeasure14: ' ',
+    strMeasure15: ' ',
+    strMeasure16: ' ',
+    strMeasure17: ' ',
+    strMeasure18: ' ',
+    strMeasure19: ' ',
+    strMeasure20: ' ',
+    strSource: '',
+    strImageSource: '',
+    strCreativeCommonsConfirmed: '',
+    dateModified: '',
+  },
+  {
+    idMeal: '135',
+    strMeal: 'Irish stew',
+    strDrinkAlternate: '',
+    strCategory: 'Beef',
+    strArea: 'Irish',
+    strInstructions: 'Heat the oven to 180C/350F/gas mark 4...',
+    strMealThumb: 'https://www.themealdb.com/images/media/meals/sxxpst1468569714.jpg',
+    strTags: 'Stew,Meat',
+    strYoutube: 'https://www.youtube.com/watch?v=kYH2qJXnSMo',
+    strIngredient1: 'whole wheat',
+    strIngredient2: 'lamb loin chops',
+    strIngredient3: 'olive oil',
+    strIngredient4: 'shallots',
+    strIngredient5: 'carrots',
+    strIngredient6: 'turnips',
+    strIngredient7: 'celeriac',
+    strIngredient8: 'charlotte potatoes',
+    strIngredient9: 'white wine',
+    strIngredient10: 'caster sugar',
+    strIngredient11: 'fresh thyme',
+    strIngredient12: 'oregano',
+    strIngredient13: 'chicken stock',
+    strIngredient14: '',
+    strIngredient15: '',
+    strIngredient16: '',
+    strIngredient17: '',
+    strIngredient18: '',
+    strIngredient19: '',
+    strIngredient20: '',
+    strMeasure1: '300g soaked overnight in water',
+    strMeasure2: '2kg cut into 3cm cubes',
+    strMeasure3: '120ml',
+    strMeasure4: '24 Skinned',
+    strMeasure5: '4 large',
+    strMeasure6: '2',
+    strMeasure7: '1',
+    strMeasure8: '350g',
+    strMeasure9: '150ml',
+    strMeasure10: '1 tsp',
+    strMeasure11: '4 sprigs',
+    strMeasure12: '4 sprigs',
+    strMeasure13: '450ml',
+    strMeasure14: '',
+    strMeasure15: '',
+    strMeasure16: '',
+    strMeasure17: '',
+    strMeasure18: '',
+    strMeasure19: '',
+    strMeasure20: '',
+    strSource: 'http://www.ottolenghi.co.uk/recipes/meat/irish-stew-shop',
+    strImageSource: '',
+    strCreativeCommonsConfirmed: '',
+    dateModified: '',
   },
 ];
 

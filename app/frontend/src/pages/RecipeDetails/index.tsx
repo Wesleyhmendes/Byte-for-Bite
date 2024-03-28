@@ -10,6 +10,8 @@ import Loading from '../../components/Loading/Loading';
 import Footer from '../../components/Footer';
 
 import * as S from './RecipeDetails.styles';
+import checkInProgress from '../../utils/checkInProgress';
+import getProfileId from '../../utils/getProfileId';
 
 function createTitle(route: string, recipe: any) {
   if (recipe) {
@@ -30,7 +32,7 @@ export default function RecipeDetails() {
 
   const { route } = useContext(Context);
   const { profile } = useContext(UserInfoContext);
-  const userId = profile?.data?.id;
+  const userId = getProfileId(profile);
 
   const recipeDetailsURL = `http://localhost:3001${route}/${id}`;
   const { data, isLoading, error } = useFetch(recipeDetailsURL);
@@ -39,12 +41,14 @@ export default function RecipeDetails() {
   const inProgressURL = `http://localhost:3001${route}/inprogress/${id}?user=${userId}`;
   const inProgress = useFetch(inProgressURL);
 
-  const buttonText = inProgress?.data?.message ? 'Start recipe' : 'Continue recipe';
+  const isInProgress = checkInProgress(inProgress);
+
+  const buttonText = isInProgress ? 'Continue recipe' : 'Start recipe';
 
   const startInProgressURL = `http://localhost:3001${route}/inprogress`;
   const reqBody = route === '/meals'
-    ? { userId: profile?.data?.id, mealId: Number(id) }
-    : { userId: profile?.data?.id, drinkId: Number(id) };
+    ? { userId, mealId: Number(id) }
+    : { userId, drinkId: Number(id) };
 
   const { handleFetch } = useFetch(startInProgressURL, { method: 'POST', body: reqBody });
 
@@ -80,7 +84,7 @@ export default function RecipeDetails() {
         />
       ) : null}
 
-      {error && !loadingNextPage ? (
+      {(error && !loadingNextPage) || userId === 0 ? (
         <h3>An unexpected error occurred...</h3>
       ) : null}
 

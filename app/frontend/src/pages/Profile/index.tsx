@@ -12,6 +12,8 @@ import profileIcon from '../../assets/Images/profileIcon.png';
 import { FetchOptions } from '../../type';
 import RecipesCounter from './RecipesCounter';
 import Footer from '../../components/Footer';
+import getProfileId from '../../utils/getProfileId';
+import getUsername from '../../utils/getUsername';
 
 export default function Profile() {
   const [profileImage, setProfileImage] = useState('');
@@ -21,11 +23,11 @@ export default function Profile() {
 
   const { UPDATE_USER, profile, signUpDispatch } = useContext(UserInfoContext);
   const { data, isLoading, error, handleFetch: updateProfile } = profile;
+  const userID = getProfileId(profile);
+  const userName = getUsername(profile);
   const profileIMG = data ? data.profileImage : undefined;
 
-  document.title = data
-    ? `${data.username.charAt(0).toUpperCase() + data.username.slice(1)} | Byte for Bite`
-    : 'Profile | Byte for Bite';
+  document.title = `${userName} | Byte for Bite`;
 
   const updateImageURL = `http://localhost:3001/profile/${id}`;
   const options: FetchOptions = { method: 'PATCH', body: { profileImage } };
@@ -33,7 +35,7 @@ export default function Profile() {
 
   const handleWantChange = () => {
     setWantChange((prev) => !prev);
-    setId(data.id);
+    setId(userID);
   };
 
   const handleUpdate = () => {
@@ -41,7 +43,7 @@ export default function Profile() {
       window.alert('Please insert a image URL!');
       return;
     }
-    if (id) {
+    if (id !== 0) {
       handleFetch();
       signUpDispatch({ type: UPDATE_USER, key: 'profileImage', value: profileImage });
       setWantChange(false);
@@ -92,7 +94,7 @@ export default function Profile() {
 
       {isLoading ? <Loading /> : null}
 
-      {error ? <h3> Profile not found </h3> : null}
+      {error || userID === 0 ? <h3> Profile not found </h3> : null}
       <Footer />
     </S.Main>
   );

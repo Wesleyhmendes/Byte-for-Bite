@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
   CategoryType,
   DrinkType,
@@ -15,7 +14,6 @@ import UserInfoContext from '../context/UserInfo/UserInfoContext';
 import formatFavorites from '../utils/formatFavorites';
 
 const useRecipesProvider = (path: string) => {
-  const navigate = useNavigate();
   const { profile } = useContext(UserInfoContext);
   const userId = profile?.data?.id;
 
@@ -28,14 +26,12 @@ const useRecipesProvider = (path: string) => {
   // URLS //
   const allCategoriesURL = `http://localhost:3001${path}/categories`;
   const allRecipesURL = `http://localhost:3001${path}/name`;
-  const byCategoryURL = `http://localhost:3001${path}/category?q=${selectedCategory}`;
   const favoritesURL = `http://localhost:3001${path}/favorites/search?user=${userId}`;
   const [byFilterURL, setByFilterURL] = useState('');
 
   // FETCHS
   const allCategories: FetchedData = useFetch(allCategoriesURL);
-  const allRecipes: FetchedData = useFetch(allRecipesURL);
-  const byCategory: FetchedData = useFetch(byCategoryURL);
+  const allFetchedRecipes: FetchedData = useFetch(allRecipesURL);
   const byFilter = useFetch(byFilterURL);
   const favorites = useFetch(favoritesURL);
 
@@ -66,8 +62,7 @@ const useRecipesProvider = (path: string) => {
     return categories;
   };
 
-  const getPages = () => {
-    const recipes = checkData(allRecipes);
+  const getPages = (recipes: (MealType | DrinkType)[]) => {
     if (recipes) {
       const pages = Math.ceil(recipes.length / 12);
       const pagesArr = Array.from({ length: pages }, (_, i) => i + 1);
@@ -76,27 +71,29 @@ const useRecipesProvider = (path: string) => {
     return [];
   };
 
-  const getAllRecipes = (page: number) => {
-    const recipes = checkData(allRecipes);
+  const getRecipes = (fetchedRecipe: FetchedData, category: string) => {
+    const recipes = checkData(fetchedRecipe);
     if (!Array.isArray(recipes)) {
       return [];
     }
+    if (category !== '') {
+      const recipesByCategory = recipes?.filter((recipe) => recipe.strCategory === category);
+
+      return recipesByCategory;
+    }
+
+    return recipes;
+  };
+
+  const getRecipesByPage = (recipes: (MealType | DrinkType)[], page: number) => {
     const initialIndex = (12 * page) - 12;
     const lastIndex = 12 * page;
 
-    return recipes?.slice(initialIndex, lastIndex);
+    return recipes.slice(initialIndex, lastIndex);
   };
 
   const getSelectedCategory = (category: string) => {
     setSelectedCategory(category);
-  };
-
-  const getByCategory = () => {
-    const recipesByCategory = checkData(byCategory);
-    if (!Array.isArray(recipesByCategory)) {
-      return [];
-    }
-    return recipesByCategory?.slice(0, 12);
   };
 
   const setRecipesFilter = (selectedFilter: FilterRadioType) => {
@@ -108,38 +105,25 @@ const useRecipesProvider = (path: string) => {
     }
   };
 
-  const getRecipesByFilter = () => {
-    const recipesByFilter = checkData(byFilter);
-    if (!recipesByFilter) {
-      return [];
-    }
-    if (recipesByFilter.length > 1) {
-      return recipesByFilter;
-    }
-    if (recipesByFilter.length === 1 && byFilterURL !== '') {
-      const id = recipesByFilter[0].idMeal ? recipesByFilter[0].idMeal : recipesByFilter[0].idDrink;
-      navigate(`${path}/${id}`);
-      setByFilterURL('');
-      return [];
-    }
-    return [];
-  };
-
+  const allRecipes = getRecipes(allFetchedRecipes, selectedCategory);
+  const allRecipesPages = getPages(allRecipes);
+  const recipesByFilter = getRecipes(byFilter, selectedCategory);
+  const byFilterPages = getPages(recipesByFilter);
   const formattedFavorites = formatFavorites(path, favorites);
 
   return {
-    selectedCategory,
     filter,
     formattedFavorites,
+    allRecipes,
+    allRecipesPages,
+    recipesByFilter,
+    byFilterPages,
     getCategories,
     filterDispatch,
     setByFilterURL,
     setRecipesFilter,
-    getRecipesByFilter,
     getSelectedCategory,
-    getByCategory,
-    getAllRecipes,
-    getPages,
+    getRecipesByPage,
   };
 };
 
