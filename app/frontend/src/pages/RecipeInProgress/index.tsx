@@ -19,6 +19,7 @@ import Loading from '../../components/Loading/Loading';
 import * as S from './RecipeInProgress.styles';
 import formatInstructions from '../../utils/formatInstructions';
 import RecipeInstructions from './RecipeInstructions';
+import getProfileId from '../../utils/getProfileId';
 
 export default function RecipeInProgress() {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ export default function RecipeInProgress() {
   const { profile } = useContext(UserInfoContext);
   const [finishing, setFinishing] = useState(false);
   const { id } = useParams();
-  const userId = profile?.data?.id;
+  const userId = getProfileId(profile);
 
   // HOOK THAT CONTROLS STATE OF INGREDIENT CHECKBOX AND USES FETCHED DATA FROM DB AS INITIAL STATE
   const {

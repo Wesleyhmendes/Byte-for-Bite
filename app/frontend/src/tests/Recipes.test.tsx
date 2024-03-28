@@ -23,7 +23,7 @@ describe('Testa o componente Recipes', () => {
       json: async () => mockMealRecipes,
     } as Response;
 
-    vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_RESPONSE);
+    const fetchSpy = vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_RESPONSE);
 
     renderWithRouter(
       <UserInfoProvider>
@@ -43,6 +43,7 @@ describe('Testa o componente Recipes', () => {
     expect(meal2).toBeInTheDocument();
     expect(favoriteBtn[0]).toBeInTheDocument();
     expect(detailsBtn[0]).toBeInTheDocument();
+    expect(fetchSpy).toHaveBeenCalled();
   });
 
   test('Testa se as receitas são carregadas corretamente na rota "/drinks"', async () => {
@@ -130,5 +131,50 @@ describe('Testa o componente Recipes', () => {
 
     expect(detailsBtn[0]).toBeInTheDocument();
     expect(detailsBtn[0]).toHaveTextContent('Details');
+  });
+
+  test('Testa se ao clicar nos botões de categorias na página "/meals", aparecem as receitas corretas', async () => {
+    const MOCK_RESPONSE = {
+      ok: true,
+      status: 200,
+      json: async () => mockMealRecipes,
+    } as Response;
+
+    vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_RESPONSE);
+
+    const { user } = renderWithRouter(
+      <UserInfoProvider>
+        <Provider>
+          <Recipes />
+        </Provider>
+      </UserInfoProvider>,
+      { route: '/meals' },
+    );
+    expect(window.location.pathname).toBe('/meals');
+    const meal1 = await screen.findByText('Apple Frangipan Tart');
+    const meal2 = await screen.findByText('Apple & Blackberry C...');
+    const meal3 = await screen.findByText('French Onion Chicken...');
+    const meal4 = await screen.findByText('Irish stew');
+
+    const detailsBtn = await screen.findAllByTestId(detailsBtnTestId);
+    const favoriteBtn = await screen.findAllByTestId(favoriteTestId);
+    const chickenCategoryBtn = await screen.findByTestId('Chicken-category-filter');
+    const beefCategoryBtn = await screen.findByTestId('Beef-category-filter');
+    const dessertCategoryBtns = await screen.findAllByTestId('Dessert-category-filter');
+
+    expect(meal1).toBeInTheDocument();
+    expect(meal2).toBeInTheDocument();
+    expect(meal3).toBeInTheDocument();
+    expect(meal4).toBeInTheDocument();
+    expect(favoriteBtn[0]).toBeInTheDocument();
+    expect(detailsBtn[0]).toBeInTheDocument();
+    expect(chickenCategoryBtn).toBeInTheDocument();
+    expect(beefCategoryBtn).toBeInTheDocument();
+    expect(dessertCategoryBtns[0]).toBeInTheDocument();
+
+    await user.click(dessertCategoryBtns[0]);
+
+    expect(meal1).toBeInTheDocument();
+    expect(meal2).toBeInTheDocument();
   });
 });

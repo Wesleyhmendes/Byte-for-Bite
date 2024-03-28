@@ -103,12 +103,12 @@ export type FavoriteDrinkType = {
 };
 
 export type FavoriteMealReduceType = {
-  userId: number;
+  userId: number | undefined;
   favoriteRecipes: MealInfoType[];
 };
 
 export type FavoriteDrinkReduceType = {
-  userId: number;
+  userId: number | undefined;
   favoriteRecipes: DrinkInfoType[];
 };
 
