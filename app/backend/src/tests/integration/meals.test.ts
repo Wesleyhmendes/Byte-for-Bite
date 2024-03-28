@@ -10,6 +10,7 @@ import SequelizeInProgress from '../../database/models/08In-Progress-Meals';
 import SequelizeFavorite from '../../database/models/06Favorite-Meals';
 import SequelizeDone from '../../database/models/10Finished-Meals';
 import AuthValidation from '../../middlewares/auth.middlware';
+import { validToken } from '../mocks/user.mock';
 import * as M from '../mocks/meal.mock';
 
 chai.use(chaiHttp);
@@ -25,7 +26,7 @@ describe('Meals routes tests', () => {
   it('Should return all meal recipes when no query is sent', async function() {
     const { status, body } = await chai.request(app)
     .get('/meals/name')
-    .set('Authorization', M.validToken);
+    .set('Authorization', validToken);
 
     expect(status).to.equal(200);
     expect(body.length).to.equal(301);
@@ -53,7 +54,7 @@ describe('Meals search routes tests', () => {
     const { status, body } = await chai.request(app)
     .get('/meals/name')
     .query({ q: 'Beef Wellington' })
-    .set('Authorization', M.validToken);
+    .set('Authorization', validToken);
 
     expect(status).to.equal(200);
     expect(body).to.deep.equal(M.mealByName);
@@ -63,7 +64,7 @@ describe('Meals search routes tests', () => {
     const { status, body } = await chai.request(app)
     .get('/meals/letter')
     .query({ q: 'i' })
-    .set('Authorization', M.validToken);
+    .set('Authorization', validToken);
 
     expect(status).to.equal(200);
     expect(body).to.deep.equal(M.mealByLetterI);
@@ -72,7 +73,7 @@ describe('Meals search routes tests', () => {
   it('Should return the correct recipe when searched by id', async function() {
     const { status, body } = await chai.request(app)
     .get('/meals/104')
-    .set('Authorization', M.validToken);
+    .set('Authorization', validToken);
 
     expect(status).to.equal(200);
     expect(body).to.deep.equal(M.recipeById);
@@ -81,7 +82,7 @@ describe('Meals search routes tests', () => {
   it('Should return an error when an incorrect id is used on search by id', async function() {
     const { status, body } = await chai.request(app)
     .get('/meals/1040')
-    .set('Authorization', M.validToken);
+    .set('Authorization', validToken);
 
     expect(status).to.equal(404);
     expect(body).to.deep.equal({"message": "Food not found"});
@@ -99,7 +100,7 @@ describe('Meals categories routes tests', () => {
   it('Should return all categories', async function() {
     const { status, body } = await chai.request(app)
     .get('/meals/categories')
-    .set('Authorization', M.validToken);
+    .set('Authorization', validToken);
 
     expect(status).to.equal(200);
     expect(body).to.deep.equal(M.allCategories);
@@ -110,7 +111,7 @@ describe('Meals categories routes tests', () => {
     const { status, body } = await chai.request(app)
     .get('/meals/category')
     .query({ q: 'Goat' })
-    .set('Authorization', M.validToken);
+    .set('Authorization', validToken);
 
     expect(status).to.equal(200);
     expect(body).to.deep.equal(M.recipeByCategoryGoat);
@@ -120,7 +121,7 @@ describe('Meals categories routes tests', () => {
     const { status, body } = await chai.request(app)
     .get('/meals/category')
     .query({ q: 'goat' })
-    .set('Authorization', M.validToken);
+    .set('Authorization', validToken);
 
     expect(status).to.equal(200);
     expect(body).to.deep.equal(M.recipeByCategoryGoat);
@@ -138,7 +139,7 @@ describe('Meals not implemented routes tests', () => {
   it('Should return a random recipe', async function() {
     const { status, body } = await chai.request(app)
     .get('/meals/random')
-    .set('Authorization', M.validToken);
+    .set('Authorization', validToken);
 
     expect(status).to.equal(200);
     expect(Object.keys(body)).to.deep.equal(Object.keys(M.mealByName[0]));
@@ -147,7 +148,7 @@ describe('Meals not implemented routes tests', () => {
   it('Should return all areas', async function() {
     const { status, body } = await chai.request(app)
     .get('/meals/areas')
-    .set('Authorization', M.validToken);
+    .set('Authorization', validToken);
 
     expect(status).to.equal(200);
     expect(body).to.deep.equal(M.allAreas);
@@ -156,7 +157,7 @@ describe('Meals not implemented routes tests', () => {
   it('Should return all the ingredients', async function() {
     const { status, body } = await chai.request(app)
     .get('/meals/ingredients')
-    .set('Authorization', M.validToken);
+    .set('Authorization', validToken);
 
     expect(status).to.equal(200);
     expect(body).to.deep.equal(M.allIngredients);
@@ -176,7 +177,7 @@ describe('Meals in progress routes tests', () => {
     const { status, body } = await chai.request(app)
     .post('/meals/inprogress')
     .send({ "userId": "3", "mealId": "3" })
-    .set('Authorization', M.validToken);
+    .set('Authorization', validToken);
 
     expect(status).to.equal(200);
     expect(body).to.deep.equal(M.formattedInProgressDefault);
@@ -186,7 +187,7 @@ describe('Meals in progress routes tests', () => {
     const { status, body } = await chai.request(app)
     .post('/meals/inprogress')
     .send({ "mealId": "3" })
-    .set('Authorization', M.validToken);
+    .set('Authorization', validToken);
 
     expect(status).to.equal(400);
     expect(body).to.deep.equal({ message: 'Must provide a userId' });
@@ -196,7 +197,7 @@ describe('Meals in progress routes tests', () => {
     const { status, body } = await chai.request(app)
     .post('/meals/inprogress')
     .send({ "userId": "3" })
-    .set('Authorization', M.validToken);
+    .set('Authorization', validToken);
 
     expect(status).to.equal(400);
     expect(body).to.deep.equal({ message: 'Must provide a mealId' });
@@ -207,7 +208,7 @@ describe('Meals in progress routes tests', () => {
     const { status, body } = await chai.request(app)
     .get('/meals/inprogress/3')
     .query({ user: '3' })
-    .set('Authorization', M.validToken);
+    .set('Authorization', validToken);
 
     expect(status).to.equal(200);
     expect(body).to.deep.equal(M.formattedInProgressDefault);
@@ -216,7 +217,7 @@ describe('Meals in progress routes tests', () => {
   it('Should return an error when no userId is sent in /meals/inprogress/:id', async function() {
     const { status, body } = await chai.request(app)
     .get('/meals/inprogress/3')
-    .set('Authorization', M.validToken);
+    .set('Authorization', validToken);
 
     expect(status).to.equal(400);
     expect(body).to.deep.equal({ message: 'Must provide a userId' });
@@ -227,7 +228,7 @@ describe('Meals in progress routes tests', () => {
     const { status, body } = await chai.request(app)
     .get('/meals/inprogress/3')
     .query({ user: '3' })
-    .set('Authorization', M.validToken);
+    .set('Authorization', validToken);
 
     expect(status).to.equal(404);
     expect(body).to.deep.equal({ message: 'Recipe not found!' });
@@ -238,7 +239,7 @@ describe('Meals in progress routes tests', () => {
     const { status, body } = await chai.request(app)
     .patch('/meals/inprogress/3')
     .query({ user: '3' })
-    .set('Authorization', M.validToken);
+    .set('Authorization', validToken);
 
     expect(status).to.equal(200);
     expect(body).to.deep.equal({ message: `Marked ingredients updated!` });
@@ -258,7 +259,7 @@ describe('Meals favorite routes tests', () => {
     const { status, body } = await chai.request(app)
     .get('/meals/favorites/search')
     .query({ user: '2' })
-    .set('Authorization', M.validToken);
+    .set('Authorization', validToken);
 
     expect(status).to.equal(200);
     expect(body).to.deep.equal(M.favoriteRecipes);
@@ -269,7 +270,7 @@ describe('Meals favorite routes tests', () => {
     const { status, body } = await chai.request(app)
     .get('/meals/favorites/search')
     .query({ user: '2' })
-    .set('Authorization', M.validToken);
+    .set('Authorization', validToken);
 
     expect(status).to.equal(404);
     expect(body).to.deep.equal({ message: 'No favorite recipes stored!' });
@@ -281,7 +282,7 @@ describe('Meals favorite routes tests', () => {
     const { status, body } = await chai.request(app)
     .post('/meals/favorites/14')
     .send({ "userId": 2 })
-    .set('Authorization', M.validToken);
+    .set('Authorization', validToken);
 
     expect(status).to.equal(200);
     expect(body).to.deep.equal({ message: 'Recipe stored in favorites' });
@@ -293,7 +294,7 @@ describe('Meals favorite routes tests', () => {
     const { status, body } = await chai.request(app)
     .post('/meals/favorites/14')
     .send({ "userId": 2 })
-    .set('Authorization', M.validToken);
+    .set('Authorization', validToken);
 
     expect(status).to.equal(200);
     expect(body).to.deep.equal({ message: 'Recipe removed from favorites' });
@@ -314,7 +315,7 @@ describe('Meals done recipes routes tests', () => {
     const { status, body } = await chai.request(app)
     .get('/meals/donerecipes/search')
     .query({ user: '2' })
-    .set('Authorization', M.validToken);
+    .set('Authorization', validToken);
 
     expect(status).to.equal(200);
     expect(body).to.deep.equal(M.doneRecipes);
@@ -325,7 +326,7 @@ describe('Meals done recipes routes tests', () => {
     const { status, body } = await chai.request(app)
     .get('/meals/donerecipes/search')
     .query({ user: '2' })
-    .set('Authorization', M.validToken);
+    .set('Authorization', validToken);
 
     expect(status).to.equal(404);
     expect(body).to.deep.equal({ message: 'No done recipes stored!' });
@@ -339,7 +340,7 @@ describe('Meals done recipes routes tests', () => {
     const { status, body } = await chai.request(app)
     .post('/meals/donerecipes/30')
     .send({ userId: '2' })
-    .set('Authorization', M.validToken);
+    .set('Authorization', validToken);
 
     expect(status).to.equal(200);
     expect(body).to.deep.equal({ message: 'Recipe is done!' });

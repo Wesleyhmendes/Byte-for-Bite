@@ -62,9 +62,9 @@ export default class MatchesService {
 
   async getRandomDrink(): Promise<ServiceResponse<iDrinkRecipe>> {
     const recipes = await this.drinkModel.findAll();
-    const randomRecipe = recipes[Math.floor(Math.random() * recipes.length) + 1];
-
-    return { status: 'SUCCESSFUL', data: randomRecipe };
+      const randomRecipe = recipes[Math.floor(Math.random() * recipes.length) + 1];
+      
+      return { status: 'SUCCESSFUL', data: randomRecipe };
   }
 
   async getAllIngredients() {
@@ -83,11 +83,11 @@ export default class MatchesService {
     const { userId, drinkId } = recipeInProgress;
 
     if (!userId) {
-      return {status: 'INVALID_DATA', data: { message: 'Must have a userId' } }
+      return {status: 'INVALID_DATA', data: { message: 'Must provide a userId' } }
     }
 
     if (!drinkId) {
-      return {status: 'INVALID_DATA', data: { message: 'Must have a drinkId' } }
+      return {status: 'INVALID_DATA', data: { message: 'Must provide a drinkId' } }
     }
     // IF NEEDS TO CHECK IF RECIPE IS ALREADY IN PROGRESS, INVOKE 'findRecipeInProgressById' HERE:    
     const recipe = await this.drinkModel.addDrinkInProgress(recipeInProgress)   
@@ -135,7 +135,7 @@ export default class MatchesService {
   async getFavoriteRecipes(userId: number) {
     const favoriteRecipes = await this.drinkModel.getFavoriteRecipes(userId);
     if (favoriteRecipes.length === 0) {
-      return {status: 'NOT_FOUND', data: { message: 'No favorite recipes stored!' }};
+      return {status: 'NOT_FOUND', data: { message: 'No favorite drinks stored!' }};
     }
 
     return { status: 'SUCCESSFUL', data: favoriteRecipes };
@@ -143,13 +143,13 @@ export default class MatchesService {
 
   async addDoneDrink(userId: number, id: number) {
     await this.drinkModel.createDoneDrinks(userId, id);
-    return { status: 'SUCCESSFUL', data: { message: 'Recipe is done!' } }
+    return { status: 'SUCCESSFUL', data: { message: 'Drink recipe is done!' } }
   }
 
   async getDoneRecipes(userId: number) {
     const doneRecipes = await this.drinkModel.getDoneRecipes(userId);    
     if (doneRecipes.length === 0) {
-      return {status: 'NOT_FOUND', data: { message: 'No done recipes stored!' }};
+      return {status: 'NOT_FOUND', data: { message: 'No done drinks stored!' }};
     }
 
     return { status: 'SUCCESSFUL', data: doneRecipes };
