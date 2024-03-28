@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-
 type CategoryBtnProps = {
   strCategory: string,
   getSelectedCategory: (category: string) => void

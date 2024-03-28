@@ -46,8 +46,8 @@ function SignUp() {
             user={ user }
             handleChange={ handleChange }
             handleSubmit={ handleSubmit }
+            signUpDispatch={ signUpDispatch }
           />
-
         ) : null }
 
         { isModalOpen && isLoading ? (

@@ -40,22 +40,21 @@ function Login() {
         <div>
           <img src={ logo } alt="logo" />
         </div>
-
-        {!isModalOpen ? (
+        { !isModalOpen ? (
           <LoginForm
             user={ user }
             handleChange={ handleChange }
             handleSubmit={ handleSubmit }
           />
-        ) : null}
+        ) : null }
 
-        {isModalOpen && !isLoading ? (
+        { isModalOpen && !isLoading ? (
           <LoginModal
             setIsModalOpen={ setIsModalOpen }
             token={ data.token }
             message={ data.message }
           />
-        ) : null}
+        ) : null }
       </section>
     </S.Main>
   );

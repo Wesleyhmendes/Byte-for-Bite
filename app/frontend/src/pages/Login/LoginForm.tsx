@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import validateLogin from '../../utils/validateLogin';
 import { User } from '../../type';
 
@@ -12,7 +13,6 @@ type LoginFormProps = {
 
 function LoginForm({ user, handleChange, handleSubmit }: LoginFormProps) {
   const { email, password } = user;
-
   const isDisabled = validateLogin(user);
   return (
     <S.FormMainDiv>

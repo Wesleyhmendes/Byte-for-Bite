@@ -1,14 +1,17 @@
-import { User } from '../../type';
+/* eslint-disable max-len */
+import { User, UserAction } from '../../type';
 import validateUser from '../../utils/validateUser';
+import GoogleSignUp from './GoogleSignUp';
 import * as S from './SignUp.styles';
 
 type SignUpFormProps = {
   user: User;
   handleChange: ({ target }: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  signUpDispatch: React.Dispatch<UserAction>;
 };
 
-function SignUpForm({ user, handleChange, handleSubmit }: SignUpFormProps) {
+function SignUpForm({ user, handleChange, handleSubmit, signUpDispatch }: SignUpFormProps) {
   const { email, username, password, confirmPassword } = user;
 
   const validateRegexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -67,6 +70,7 @@ function SignUpForm({ user, handleChange, handleSubmit }: SignUpFormProps) {
           onChange={ handleChange }
         />
       </S.Label>
+      <GoogleSignUp signUpDispatch={ signUpDispatch } />
       <S.Button disabled={ validateSubmit }>Sign up</S.Button>
     </S.Form>
   );

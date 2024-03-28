@@ -23,21 +23,40 @@ export const Main = styled.div`
       width: 80%;
 
       img { margin: 0 auto; width: 70%; }
+
+      .google {
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
+        margin-bottom: 2rem;
+      }
     }
 
     @media(min-width: 768px) {
       width: 70%;
       img { width: 50%; }
+
+      .google {
+        width: 65%;
+      }
     }
 
     @media(min-width: 1280px) {
       width: 50%;
       img { width: 50%; }
+
+      .google {
+        width: 60%;
+      }
     }
 
     @media(min-width: 1444px) {
       width: 45%;
       img { width: 45%; }
+
+      .google {
+        width: 40%;
+      }
     }
 
   }
