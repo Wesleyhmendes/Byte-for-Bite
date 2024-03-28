@@ -30,7 +30,7 @@ export default class UserService {
     return { status: 'SUCCESSFUL', data: token };
   }
 
-  public async verifyGoogleLogin(login: IGUsers): Promise<ServiceResponse<Token>> {
+  public async verifyGoogleLogin(login: Omit<IGUsers, 'role' | 'id'>): Promise<ServiceResponse<Token>> {
     const { email, username, emailVerified, profileImage } = login;
     if (emailVerified === 'false') return this.userValidation.invalidStatusResponse('invalid_data');
 
@@ -85,7 +85,9 @@ export default class UserService {
     if (emailVerified === 'false') return this.userValidation.invalidStatusResponse('invalid_emailOrPassword');
 
     const user = await this.userModel.findByEmail(email);
-    if (user) return this.userValidation.invalidStatusResponse('email_exists');
+    if (user) {
+      return await this.verifyGoogleLogin(newUser);
+    };
 
     const userInfo = (await this.userModel.createGoogleUser({
       email,
