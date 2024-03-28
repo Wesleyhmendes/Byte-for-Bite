@@ -1,7 +1,5 @@
 import { startMealRecipeInProgress } from "../../utils/startRecipeInProgress";
 
-export const validToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInJvbGUiOiJ1c2VyIiwiZW1haWwiOiJ1c2VyMUB1c2VyLmNvbSIsImlhdCI6MTcxMTQ2ODU4OSwiZXhwIjoxNzEyMDczMzg5fQ.7TTV9EYxsHlcnHd2o0V2hpH-3MuU1jA-C7yHC8OwO2c";
-
 export const validAllMeals = {
   "idMeal": 1,
   "strMeal": "Apple Frangipan Tart",
