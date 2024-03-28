@@ -14,7 +14,7 @@ InferCreationAttributes<SequelizeUsers>> {
   declare profileImage: string;  
   declare role: string;
   declare email: string;
-  declare password: string;
+  declare password: CreationOptional<string>;
 }
 
 SequelizeUsers.init({
@@ -38,7 +38,7 @@ SequelizeUsers.init({
   },
   password: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   profileImage: {
     type: DataTypes.TEXT,

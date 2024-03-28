@@ -24,7 +24,7 @@ export default {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       profileImage: {
         type: DataTypes.TEXT,

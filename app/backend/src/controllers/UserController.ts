@@ -21,6 +21,15 @@ export default class UserController {
     const httpStatus = mapStatusHTTP(status);
 
     return res.status(httpStatus).json(data);
+  }
 
+  async createNewGoogleUser(req: Request, res: Response) {
+    const newUser = req.body;
+    console.log(newUser);
+    const { data, status } = await this.userService.createGoogleUser(newUser);
+    
+    const httpStatus = mapStatusHTTP(status);
+
+    return res.status(httpStatus).json(data);
   }
 }

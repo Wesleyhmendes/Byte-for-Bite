@@ -1,6 +1,6 @@
 import { ServiceResponse } from '../Interfaces/serviceReponse';
 import UserModel from '../models/UserModel';
-import IUsers, {IUsersModel} from '../Interfaces/IUsers';
+import IUsers, {IUsersModel, IGUsers} from '../Interfaces/IUsers';
 import { Token, Login } from '../Interfaces/Login';
 import UserValidation from '../utils/userValidation';
 
@@ -56,5 +56,22 @@ export default class UserService {
     const token = this.userValidation.tokenBuilder(userInfo.id, userInfo.role, userInfo.email);
 
     return { status: 'CREATED', data: token };
-  } 
+  }
+
+  async createGoogleUser(newUser: Omit<IGUsers, 'role'>): Promise<ServiceResponse<Token>> {
+    const { email, username, profileImage, emailVerified } = newUser;
+
+    if (!emailVerified) return this.userValidation.invalidStatusResponse('invalid_emailOrPassword');
+
+    const userInfo = (await this.userModel.createGoogleUser({
+      email,
+      username,
+      profileImage,
+      role: 'user',
+    }));
+
+    const token = this.userValidation.tokenBuilder(userInfo.id, userInfo.role, userInfo.email);
+
+    return { status: 'CREATED', data: token };
+  }
 }

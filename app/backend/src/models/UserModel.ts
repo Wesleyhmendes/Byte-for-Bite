@@ -1,4 +1,4 @@
-import IUsers from '../Interfaces/IUsers';
+import IUsers, { IGUsers } from '../Interfaces/IUsers';
 import SequelizeUsers from '../database/models/00UserModel';
 import { IUsersModel } from '../Interfaces/IUsers';
 import FavoriteDrinksModel from '../database/models/05Favorite-Drinks';
@@ -19,6 +19,12 @@ export default class UserModel implements IUsersModel {
   private finishedMeals = FinishedMealsModel;
 
   async createUser(newUser: Omit<IUsers, 'id'>): Promise<IUsers> {
+    const { dataValues } = await this.model.create(newUser);
+
+    return dataValues;
+  }
+
+  async createGoogleUser(newUser: Omit<IGUsers, 'id' | 'emailVerified'>): Promise<Omit<IGUsers, 'emailVerified'>> {
     const { dataValues } = await this.model.create(newUser);
 
     return dataValues;
