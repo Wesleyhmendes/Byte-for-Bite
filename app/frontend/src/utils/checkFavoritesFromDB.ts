@@ -13,15 +13,15 @@ const checkFavoritesFromDB = (
   }
   if (recipeType === '/meals') {
     const mealFavorites = formattedFavorites as FavoriteMealReduceType;
-    const isFavorite = mealFavorites.favoriteRecipes?.some(
-      (recipe) => Number(recipe?.idMeal) === Number(id),
+    const isFavorite = mealFavorites.favoriteRecipes.some(
+      (recipe) => Number(recipe.idMeal) === Number(id),
     );
 
     return isFavorite;
   }
   const drinkFavorites = formattedFavorites as FavoriteDrinkReduceType;
-  const isFavorite = drinkFavorites.favoriteRecipes?.some(
-    (recipe) => Number(recipe?.idDrink) === Number(id),
+  const isFavorite = drinkFavorites.favoriteRecipes.some(
+    (recipe) => Number(recipe.idDrink) === Number(id),
   );
 
   return isFavorite;

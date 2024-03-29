@@ -1,7 +1,7 @@
 import { JwtPayload, jwtDecode } from 'jwt-decode';
 import { GoogleLogin } from '@react-oauth/google';
-import { UserAction } from '../../type';
 import { useLocation } from 'react-router-dom';
+import { UserAction } from '../../type';
 
 type GoogleSignUpProps = {
   signUpDispatch: React.Dispatch<UserAction>;
@@ -15,7 +15,7 @@ export default function GoogleAuth({ signUpDispatch, setGoogleUser }: GoogleSign
       <GoogleLogin
         size="large"
         theme="filled_black"
-        text={ route.endsWith('signup') ? "signup_with" : "continue_with" }
+        text={ route.endsWith('signup') ? 'signup_with' : 'continue_with' }
         onSuccess={ (credentialResponse) => {
           const decode = jwtDecode<JwtPayload>(credentialResponse?.credential as string);
           signUpDispatch({

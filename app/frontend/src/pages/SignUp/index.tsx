@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 
-import Loading from '../../components/Loading/Loading';
 import Modal from '../../components/Modals/SignUpModal';
 import logo from '../../assets/Images/BfB_Logo.png';
 
