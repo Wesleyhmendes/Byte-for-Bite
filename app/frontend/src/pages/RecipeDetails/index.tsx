@@ -12,18 +12,7 @@ import Footer from '../../components/Footer';
 import * as S from './RecipeDetails.styles';
 import checkInProgress from '../../utils/checkInProgress';
 import getProfileId from '../../utils/getProfileId';
-
-function createTitle(route: string, recipe: any) {
-  if (recipe) {
-    return `${route === '/meals'
-      ? `Details | ${recipe.strMeal} Meal`
-      : `Details | ${recipe.strDrink} Cocktail`}`;
-  }
-
-  return route === '/meals'
-    ? 'Details | Meal'
-    : 'Details | Cocktail';
-}
+import createTitle from '../../utils/createTitle';
 
 export default function RecipeDetails() {
   const navigate = useNavigate();

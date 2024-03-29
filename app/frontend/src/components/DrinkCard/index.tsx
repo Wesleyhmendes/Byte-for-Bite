@@ -17,7 +17,7 @@ export default function DrinkCard(
   const drinkIngredients = getIngredients(recipeData);
   return (
     <S.RecipeCard>
-      <S.RecipeImageDiv data-testid="recipe-photo" imageurl={ strDrinkThumb }>
+      <S.RecipeImageDiv aria-label="recipe-image" imageurl={ strDrinkThumb }>
         <S.TitleAndButtonContainer>
           <div>
             <h2 data-testid="recipe-title">{ strDrink }</h2>
@@ -32,11 +32,11 @@ export default function DrinkCard(
         Ingredients:
         { drinkIngredients.map((ingredient, index) => (
           <li key={ index }>
-            <p data-testid={ `${index}-ingredient-name-and-measure` }>
+            <p data-testid={ `${index}-ingredient-name` }>
               { ingredient }
             </p>
             <hr />
-            <p data-testid={ `${index}-ingredient-name-and-measure` }>
+            <p data-testid={ `${index}-ingredient-measure` }>
               { `${recipeData[`strMeasure${index + 1}`]}` }
             </p>
           </li>

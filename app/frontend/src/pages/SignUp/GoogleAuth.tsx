@@ -11,7 +11,10 @@ type GoogleSignUpProps = {
 export default function GoogleAuth({ signUpDispatch, setGoogleUser }: GoogleSignUpProps) {
   const route = useLocation().pathname;
   return (
-    <div className="google">
+    <div
+      className="google"
+      aria-label="google-parent"
+    >
       <GoogleLogin
         size="large"
         theme="filled_black"

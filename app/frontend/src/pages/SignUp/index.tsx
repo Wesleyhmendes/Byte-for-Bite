@@ -23,7 +23,6 @@ function SignUp() {
   const signUpURL = googleUser ? 'http://localhost:3001/user/signup-google' : 'http://localhost:3001/user';
   const options: FetchOptions = { method: 'POST', body: requestBody };
   const { handleFetch, data, isLoading } = useFetch(signUpURL, options);
-  console.log(data);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
