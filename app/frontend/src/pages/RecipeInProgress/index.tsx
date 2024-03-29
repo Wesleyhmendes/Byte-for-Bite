@@ -104,6 +104,7 @@ export default function RecipeInProgress() {
             </S.Instructions>
             <S.FinishRecipe>
               <button
+                aria-label="finishRecipe-btn"
                 disabled={ !isDone }
                 onClick={ handleDone }
               >

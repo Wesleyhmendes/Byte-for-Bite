@@ -7,7 +7,7 @@ function RecipeInstructions({ instructions }: RecipeInstructionsProps) {
     <>
       <h2>Instructions:</h2>
       {instructions.map((paragraph, index) => (
-        <p key={ index }>{`- ${paragraph}`}</p>
+        <p aria-label={ `instruction-${index + 1}` } key={ index }>{`- ${paragraph}`}</p>
       ))}
     </>
   );

@@ -4,6 +4,7 @@ import {
   TitleAndButtonContainer,
 } from '../RecipeDetails/RecipeDetails.styles';
 import FavoriteButton from '../../components/ShareFavoriteButtons';
+import getRecipeCategory from '../../utils/getRecipeCategory';
 
 type RecipeInfoProps = {
   recipeType: string;
@@ -12,15 +13,14 @@ type RecipeInfoProps = {
 };
 
 function RecipeInfo({ recipeData, recipeType, id }: RecipeInfoProps) {
+  const recipeCategory = getRecipeCategory(recipeType, recipeData);
   return (
     <S.RecipeInfo imgSrc={ recipeData[`str${recipeType}Thumb`] }>
       <TitleAndButtonContainer>
         <div>
           <h2 data-testid="recipe-title">{recipeData[`str${recipeType}`]}</h2>
           <p data-testid="recipe-category">
-            {`Category: ${
-              recipeType === 'Drink' ? recipeData.strAlcoholic : recipeData.strCategory
-            }`}
+            {`Category: ${recipeCategory}`}
           </p>
         </div>
         <FavoriteButton id={ id } recipeType={ recipeType } />
