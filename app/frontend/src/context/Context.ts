@@ -4,6 +4,7 @@ import {
   DrinkType,
   FavoriteDrinkReduceType,
   FavoriteMealReduceType,
+  FetchedData,
   FilterRadioType,
   MealType,
   SearchActionType,
@@ -29,6 +30,7 @@ export type ContextType = {
     recipes: (MealType | DrinkType)[],
     page: number
   ) => (MealType | DrinkType)[];
+  getRecipes: (fetchedRecipe: FetchedData, category: string) => (MealType | DrinkType)[];
 };
 
 const Context = createContext({} as ContextType);

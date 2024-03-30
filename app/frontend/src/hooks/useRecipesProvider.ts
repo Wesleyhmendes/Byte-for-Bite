@@ -47,7 +47,7 @@ const useRecipesProvider = (path: string) => {
       return drinks;
     }
     if (!isLoading && error) {
-      console.log(error);
+      console.log(error.message);
     }
     return [];
   };
@@ -124,6 +124,7 @@ const useRecipesProvider = (path: string) => {
     setRecipesFilter,
     getSelectedCategory,
     getRecipesByPage,
+    getRecipes,
   };
 };
 

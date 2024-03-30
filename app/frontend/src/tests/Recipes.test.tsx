@@ -177,5 +177,6 @@ describe('Testa o componente Recipes', () => {
 
     expect(meal1[0]).toBeInTheDocument();
     expect(meal2[0]).toBeInTheDocument();
+    expect(meal3[0]).not.toBeInTheDocument();
   });
 });
