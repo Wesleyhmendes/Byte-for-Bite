@@ -16,15 +16,16 @@ import {
 } from './Header.styles';
 import AsideMenu from '../AsideMenu/Aside.Menu';
 import Context from '../../context/Context';
+import { getHeaderTitle, getProfileImage } from '../../utils/headerUtils';
 
 function Header() {
   const { profile } = useContext(UserInfoContext);
   const { route } = useContext(Context);
   const { data, handleFetch } = profile;
 
-  const profileIMG = data ? data.profileImage : undefined;
+  const profileIMG = getProfileImage(data, profileIcon);
 
-  const pageTitle = route === '/meals' ? 'Meals' : 'Drinks';
+  const pageTitle = getHeaderTitle(route);
 
   useEffect(() => {
     handleFetch();
@@ -35,10 +36,13 @@ function Header() {
       <HeaderMainDiv className={ pageTitle }>
         <TopIconsDiv>
           <AsideMenu />
-          <Title src={ route === '/meals' ? mealTitle : drinkTitle } />
+          <Title
+            aria-label="header-title"
+            src={ route === '/meals' ? mealTitle : drinkTitle }
+          />
           <Link to="/profile">
             <ProfileImg
-              src={ profileIMG || profileIcon }
+              src={ profileIMG }
               alt="Profile"
               data-testid="profile-top-btn"
             />
