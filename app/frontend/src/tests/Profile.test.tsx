@@ -1,42 +1,129 @@
-// import { screen } from '@testing-library/dom';
-// import { renderWithRouter } from './utils/renderWithRouter';
-// import Profile from '../pages/Profile';
+import { screen } from '@testing-library/dom';
+import { vi } from 'vitest';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { renderWithRouter } from './utils/renderWithRouter';
+import Profile from '../pages/Profile';
+import UserInfoProvider from '../context/UserInfo/UserInfoProvider';
+import Provider from '../context/Provider/Provider';
+import mockUser from './mocks/mockUser';
+import App from '../App';
+import getUsername from '../utils/getUsername';
 
-// describe('Testa o componente Profile', () => {
-//   test('Verifica se o email e todos os botões são exibidos na tela', () => {
-//     localStorage.setItem('user', JSON.stringify({ email: 'teste@teste.com' }));
-//     renderWithRouter(<Profile />, { route: '/profile' });
+describe('Testa o componente Profile', () => {
+  beforeEach(() => {
+    const MOCK_RESPONSE = {
+      ok: true,
+      status: 200,
+      json: async () => mockUser,
+    } as Response;
+    vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_RESPONSE);
+  });
 
-//     expect(screen.getByText('teste@teste.com')).toBeInTheDocument();
-//     expect(screen.getByTestId('profile-done-btn')).toBeInTheDocument();
-//     expect(screen.getByTestId('profile-favorite-btn')).toBeInTheDocument();
-//     expect(screen.getByTestId('profile-logout-btn')).toBeInTheDocument();
-//   });
+  afterEach(() => {
+    vi.resetAllMocks();
+  });
 
-//   test('Testa se ao clicar no botão "Done Recipes" a aplicação é redirecionada para "/done-recipes"', async () => {
-//     const { user } = renderWithRouter(<Profile />, { route: '/profile' });
+  const doneBtnTestId = 'profile-done-btn';
+  const favoriteBtnTestId = 'profile-favorite-btn';
+  const logoutBtnTestId = 'profile-logout-btn';
 
-//     const buttonDoneRecipes = screen.getByTestId('profile-done-btn');
-//     await user.click(buttonDoneRecipes);
+  test('Testa se a página Profile é renderizada', async () => {
+    renderWithRouter(
+      <UserInfoProvider>
+        <Provider>
+          <Profile />
+        </Provider>
+      </UserInfoProvider>,
+      { route: '/profile' },
+    );
 
-//     expect(window.location.pathname).toBe('/done-recipes');
-//   });
+    const doneBtn = await screen.findByTestId(doneBtnTestId);
+    const favoriteBtn = await screen.findByTestId(favoriteBtnTestId);
+    const logoutBtn = await screen.findByTestId(logoutBtnTestId);
+    const user = await screen.findByText('user@user.com');
 
-//   test('Testa se ao clicar no botão "Favorite Recipes" a aplicação é redirecionada para "/favorite-recipes"', async () => {
-//     const { user } = renderWithRouter(<Profile />, { route: '/profile' });
+    expect(user).toBeInTheDocument();
+    expect(doneBtn).toBeInTheDocument();
+    expect(favoriteBtn).toBeInTheDocument();
+    expect(logoutBtn).toBeInTheDocument();
+  });
 
-//     const buttonFavoriteRecipes = screen.getByTestId('profile-favorite-btn');
-//     await user.click(buttonFavoriteRecipes);
+  test('Testa se ao clicar no botão de Done Recipes, é redirecionado para a rota /done-recipes', async () => {
+    const { user } = renderWithRouter(
+      <UserInfoProvider>
+        <Provider>
+          <App />
+        </Provider>
+      </UserInfoProvider>,
+      { route: '/profile' },
+    );
 
-//     expect(window.location.pathname).toBe('/favorite-recipes');
-//   });
+    const doneBtn = await screen.findByTestId(doneBtnTestId);
 
-//   test('Testa se ao clicar no botão "Logout" a aplicação é redirecionada para "/"', async () => {
-//     const { user } = renderWithRouter(<Profile />, { route: '/profile' });
+    expect(doneBtn).toBeInTheDocument();
 
-//     const buttonLogout = screen.getByTestId('profile-logout-btn');
-//     await user.click(buttonLogout);
+    await user.click(doneBtn);
 
-//     expect(window.location.pathname).toBe('/');
-//   });
-// });
+    const path = window.location.pathname;
+
+    expect(path).toBe('/done-recipes');
+  });
+
+  test('Testa se ao clicar no botão de Favorite Recipes, é redirecionado para a rota /favorite-recipes', async () => {
+    const { user } = renderWithRouter(
+      <UserInfoProvider>
+        <Provider>
+          <App />
+        </Provider>
+      </UserInfoProvider>,
+      { route: '/profile' },
+    );
+
+    const favBtn = await screen.findByTestId(favoriteBtnTestId);
+
+    // expect(screen.getByText('teste@teste.com')).toBeInTheDocument();
+    expect(favBtn).toBeInTheDocument();
+
+    await user.click(favBtn);
+
+    const path = window.location.pathname;
+
+    expect(path).toBe('/favorite-recipes');
+  });
+
+  test('Testa se ao clicar no botão de Logout, é redirecionado para a rota "/"', async () => {
+    const { user } = renderWithRouter(
+      <GoogleOAuthProvider clientId="837825883055-16f47j4qisf0vcbpf9on5p44mclu8dlk.apps.googleusercontent.com">
+        <UserInfoProvider>
+          <Provider>
+            <App />
+          </Provider>
+        </UserInfoProvider>
+      </GoogleOAuthProvider>,
+      { route: '/profile' },
+    );
+
+    const logoutBtn = await screen.findByTestId(logoutBtnTestId);
+
+    // expect(screen.getByText('teste@teste.com')).toBeInTheDocument();
+    expect(logoutBtn).toBeInTheDocument();
+
+    await user.click(logoutBtn);
+
+    const path = window.location.pathname;
+
+    expect(path).toBe('/');
+  });
+
+  test('Testa a função getUsername', async () => {
+    const user = {
+      data: mockUser,
+      isLoading: false,
+      error: undefined,
+      handleFetch: vi.fn(),
+      dispatch: vi.fn(),
+    };
+    const username = getUsername(user);
+    expect(username).toEqual('User');
+  });
+});
