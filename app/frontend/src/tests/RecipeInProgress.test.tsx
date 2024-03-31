@@ -12,6 +12,9 @@ import getRecipeCategory from '../utils/getRecipeCategory';
 import mockDrinkRecipe from './mocks/mockDrinkRecipes';
 
 describe('Testa o componente RecipesInProgress', () => {
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
   test('Testa se uma receita de meals é renderizada corretamente', async () => {
     const MOCK_RESPONSE = {
       ok: true,

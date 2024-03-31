@@ -19,11 +19,11 @@ export default function Category() {
 
   return (
     <section>
-      { !allCategories ? <Loading /> : null }
+      { allCategories.length === 0 ? <Loading /> : null }
       <Carousel ref={ carousel } className="carousel" whileTap={ { cursor: 'grabbing' } }>
         <InnerCarousel drag="x" dragConstraints={ { right: 0, left: -width - 20 } } className="inner-carousel">
           { allCategories
-            ? allCategories.map(
+            && allCategories.map(
               ({ strCategory }: CategoryType, i) => (
                 <ItemButton className="item" key={ strCategory }>
                   <CategoryButton
@@ -33,8 +33,7 @@ export default function Category() {
                   />
                 </ItemButton>
               ),
-            )
-            : null }
+            )}
         </InnerCarousel>
       </Carousel>
     </section>

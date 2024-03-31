@@ -1,4 +1,4 @@
-import { FavoriteDrinkReduceType, FavoriteMealReduceType } from '../type';
+import { FavoriteDrinkReduceType, FavoriteMealReduceType, MealInfoType } from '../type';
 
 const checkFavoritesFromDB = (
   recipeType: string,
@@ -14,7 +14,7 @@ const checkFavoritesFromDB = (
   if (recipeType === '/meals') {
     const mealFavorites = formattedFavorites as FavoriteMealReduceType;
     const isFavorite = mealFavorites.favoriteRecipes.some(
-      (recipe) => Number(recipe?.idMeal) === Number(id),
+      (recipe: MealInfoType) => Number(recipe?.idMeal) === Number(id),
     );
 
     return isFavorite;

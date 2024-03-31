@@ -2,6 +2,12 @@ import { useNavigate } from 'react-router-dom';
 import {
   Div,
 } from './SignUpModal.styles';
+import {
+  getMessage,
+  getReturnMessage,
+  getRoute,
+  getToken,
+} from '../../../utils/signUpModalUtils';
 
 type ModalProps = {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
@@ -10,14 +16,14 @@ type ModalProps = {
 
 function Modal(props: ModalProps) {
   const { setIsModalOpen, data } = props;
-  const token = data.token ? data.token : undefined;
-  const message = data.message ? data.message : null;
+  const token = getToken(data);
+  const message = getMessage(data);
   const navigate = useNavigate();
-  const route = token ? '/meals' : '/signup';
-  const returnMessage = token ? 'Registration complete!' : message;
+  const route = getRoute(token);
+  const returnMessage = getReturnMessage(token, message);
 
   const handleModal = () => {
-    if (token) {
+    if (token !== 'Token not found') {
       localStorage.setItem('token', JSON.stringify(token));
     }
     setIsModalOpen(false);

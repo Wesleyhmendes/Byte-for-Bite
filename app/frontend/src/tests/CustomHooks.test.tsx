@@ -2,7 +2,6 @@
 import { renderHook } from '@testing-library/react';
 import { vi } from 'vitest';
 import { act } from 'react-dom/test-utils';
-import React from 'react';
 import useRecipesProvider from '../hooks/useRecipesProvider';
 import mockMealRecipes from './mocks/mockMealRecipes';
 import useSearchBar from '../hooks/useSearchBar';
