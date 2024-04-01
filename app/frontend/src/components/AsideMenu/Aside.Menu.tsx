@@ -5,22 +5,23 @@ import logo from '../../assets/Images/BfB_Logo.png';
 function AsideMenu() {
   const [open, setOpen] = useState(false);
 
-  const handleMenuEnter = () => {
-    setOpen(true);
+  const handleMenu = () => {
+    setOpen((prev) => !prev);
   };
 
-  const handleMenuLeave = () => {
-    setOpen(false);
-  };
   return (
     <Nav>
-      <StyledBurger open={ open } onMouseEnter={ handleMenuEnter }>
+      <StyledBurger
+        aria-label="asideMenu-btn"
+        open={ open }
+        onMouseEnter={ handleMenu }
+      >
         <div />
         <div />
         <div />
       </StyledBurger>
-      <Ul open={ open } onMouseLeave={ handleMenuLeave }>
-        <img src={ logo } alt="logo bite for byte" />
+      <Ul open={ open } onMouseLeave={ handleMenu }>
+        <img aria-label="logoImg" src={ logo } alt="logo bite for byte" />
         <li>All</li>
         <li>Beef</li>
         <li>Chicken</li>
