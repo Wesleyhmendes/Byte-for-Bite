@@ -15,7 +15,7 @@ type RecipeInfoProps = {
 function RecipeInfo({ recipeData, recipeType, id }: RecipeInfoProps) {
   const recipeCategory = getRecipeCategory(recipeType, recipeData);
   return (
-    <S.RecipeInfo imgSrc={ recipeData[`str${recipeType}Thumb`] }>
+    <S.RecipeInfo imgsrc={ recipeData[`str${recipeType}Thumb`] }>
       <TitleAndButtonContainer>
         <div>
           <h2 data-testid="recipe-title">{recipeData[`str${recipeType}`]}</h2>

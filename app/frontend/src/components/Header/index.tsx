@@ -38,7 +38,7 @@ function Header() {
           <AsideMenu />
           <Title
             aria-label="header-title"
-            src={ route === '/meals' ? mealTitle : drinkTitle }
+            src={ pageTitle }
           />
           <Link to="/profile">
             <ProfileImg

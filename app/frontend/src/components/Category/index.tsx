@@ -25,9 +25,8 @@ export default function Category() {
           { allCategories
             && allCategories.map(
               ({ strCategory }: CategoryType, i) => (
-                <ItemButton className="item" key={ strCategory }>
+                <ItemButton className="item" key={ `${strCategory}[${i}]` }>
                   <CategoryButton
-                    key={ `${strCategory}[${i}]` }
                     strCategory={ strCategory }
                     getSelectedCategory={ getSelectedCategory }
                   />
