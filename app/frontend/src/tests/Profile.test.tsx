@@ -126,4 +126,35 @@ describe('Testa o componente Profile', () => {
     const username = getUsername(user);
     expect(username).toEqual('User');
   });
+
+  test('Testa se é possivel trocar a imagem de perfil', async () => {
+    const { user } = renderWithRouter(
+      <GoogleOAuthProvider clientId="837825883055-16f47j4qisf0vcbpf9on5p44mclu8dlk.apps.googleusercontent.com">
+        <UserInfoProvider>
+          <Provider>
+            <App />
+          </Provider>
+        </UserInfoProvider>
+      </GoogleOAuthProvider>,
+      { route: '/profile' },
+    );
+
+    const changeImgBtn = await screen.findByLabelText('changeImg-btn');
+
+    expect(changeImgBtn).toBeInTheDocument();
+
+    await user.click(changeImgBtn);
+
+    const changeImgInput = await screen.findByLabelText('changeImg-input');
+    const updateImgBtn = await screen.findByLabelText('updateImg-btn');
+
+    await user.type(changeImgInput, 'imageUrl');
+
+    expect(changeImgInput).toBeInTheDocument();
+    expect(updateImgBtn).toBeInTheDocument();
+
+    await user.click(updateImgBtn);
+
+    expect(updateImgBtn).not.toBeInTheDocument();
+  });
 });

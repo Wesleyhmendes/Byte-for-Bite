@@ -69,7 +69,10 @@ export default function Profile() {
     <S.Main>
       {!isLoading && data.username ? (
         <S.UserInfoContainer>
-          <button onClick={ handleWantChange }>
+          <button
+            aria-label="changeImg-btn"
+            onClick={ handleWantChange }
+          >
             <img src={ profileIMG || profileIcon } alt="Profile" />
           </button>
 
