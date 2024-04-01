@@ -1,6 +1,7 @@
 import { screen } from '@testing-library/dom';
 import { vi } from 'vitest';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import React from 'react';
 import { renderWithRouter } from './utils/renderWithRouter';
 import Profile from '../pages/Profile';
 import UserInfoProvider from '../context/UserInfo/UserInfoProvider';
@@ -105,7 +106,6 @@ describe('Testa o componente Profile', () => {
 
     const logoutBtn = await screen.findByTestId(logoutBtnTestId);
 
-    // expect(screen.getByText('teste@teste.com')).toBeInTheDocument();
     expect(logoutBtn).toBeInTheDocument();
 
     await user.click(logoutBtn);
@@ -156,5 +156,33 @@ describe('Testa o componente Profile', () => {
     await user.click(updateImgBtn);
 
     expect(updateImgBtn).not.toBeInTheDocument();
+  });
+
+  test('Testa se clicar no botão update sem uma URL inserida aparece um alerta', async () => {
+    const { user } = renderWithRouter(
+      <GoogleOAuthProvider clientId="837825883055-16f47j4qisf0vcbpf9on5p44mclu8dlk.apps.googleusercontent.com">
+        <UserInfoProvider>
+          <Provider>
+            <App />
+          </Provider>
+        </UserInfoProvider>
+      </GoogleOAuthProvider>,
+      { route: '/profile' },
+    );
+
+    const changeImgBtn = await screen.findByLabelText('changeImg-btn');
+
+    await user.click(changeImgBtn);
+
+    const updateImgBtn = await screen.findByLabelText('updateImg-btn');
+
+    expect(updateImgBtn).toBeInTheDocument();
+
+    await user.click(updateImgBtn);
+
+    const alert = await screen.findByLabelText('error-alert');
+
+    expect(updateImgBtn).toBeInTheDocument();
+    expect(alert).toBeInTheDocument();
   });
 });

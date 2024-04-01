@@ -12,6 +12,7 @@ import useSearchBar from './useSearchBar';
 import { createURLFilter } from '../utils/createURLFilter';
 import UserInfoContext from '../context/UserInfo/UserInfoContext';
 import formatFavorites from '../utils/formatFavorites';
+import alertGenerator from '../utils/alertGenerator';
 
 const useRecipesProvider = (path: string) => {
   const { profile } = useContext(UserInfoContext);
@@ -98,7 +99,7 @@ const useRecipesProvider = (path: string) => {
 
   const setRecipesFilter = (selectedFilter: FilterRadioType) => {
     if (selectedFilter.radioSelected === 'f' && selectedFilter.search.length > 1) {
-      window.alert('Your search must have only 1 (one) character');
+      alertGenerator('error', 'Your search must have only 1 (one) character');
     } else {
       const url = createURLFilter(path, filter.radioSelected, filter.search);
       setByFilterURL(url);
