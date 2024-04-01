@@ -27,9 +27,9 @@ export const RecipeSection = styled.section`
   }
 `;
 
-export const RecipeInfo = styled.div<{ imgSrc: string }>`
+export const RecipeInfo = styled.div<{ imgsrc: string }>`
   align-items: end;
-  background-image: url(${(props) => props.imgSrc});
+  background-image: url(${(props) => props.imgsrc});
   background-size: cover;
   background-position: center;
   border-radius: 0 0 40px 40px;

@@ -1,35 +1,53 @@
-// import { screen } from '@testing-library/dom';
-// import { renderWithRouter } from './utils/renderWithRouter';
-// import Header from '../components/Header';
+import { screen, waitFor } from '@testing-library/dom';
+import { vi } from 'vitest';
+import { renderWithRouter } from './utils/renderWithRouter';
+import Header from '../components/Header';
+import UserInfoProvider from '../context/UserInfo/UserInfoProvider';
+import Provider from '../context/Provider/Provider';
+import { getHeaderTitle, getProfileImage } from '../utils/headerUtils';
+import mockUser from './mocks/mockUser';
+import profileIcon from '../assets/Icons/profile-icon.svg';
 
-// const profileId = 'profile-top-btn';
-// const buttonActiveInputId = 'search-top-btn';
+const profileId = 'profile-top-btn';
+const searchInputId = 'search-input';
 
-// describe('Testa o componente Header', () => {
-//   test('Testa se os ícones de perfil e o botão que ativa a barra de pesquisas estão presentes', () => {
-//     renderWithRouter(<Header />, { route: '/meals' });
+describe('Testa o componente Header', () => {
+  test('Testa se o Header é renderizado na rota "/meals"', async () => {
+    renderWithRouter(
+      <UserInfoProvider>
+        <Provider>
+          <Header />
+        </Provider>
+      </UserInfoProvider>,
+      { route: '/meals' },
+    );
 
-//     expect(screen.getByTestId(profileId)).toBeInTheDocument();
-//     expect(screen.getByTestId(buttonActiveInputId)).toBeInTheDocument();
-//   });
+    const profileBtn = await screen.findByTestId(profileId);
+    const headerTitle = await screen.findByLabelText('header-title');
+    const searchInput = await screen.findByTestId(searchInputId);
 
-//   test('Testa se ao clicar no ícone profile a aplicação é redirecionada para a rota "/profile"', async () => {
-//     const { user } = renderWithRouter(<Header />, { route: '/meals' });
+    expect(searchInput).toBeInTheDocument();
+    expect(profileBtn).toBeInTheDocument();
+    expect(headerTitle).toBeInTheDocument();
+  });
 
-//     expect(window.location.pathname).toBe('/meals');
+  test('Testa se as funções utilitárias do Header funcionam corretamente', async () => {
+    const headerTitle = getHeaderTitle('/meals');
 
-//     const profileButton = screen.getByTestId(profileId);
-//     await user.click(profileButton);
+    expect(headerTitle).toBe('/src/assets/Images/Meals-title.png');
 
-//     expect(window.location.pathname).toBe('/profile');
-//   });
+    const headerTitle2 = getHeaderTitle('/drinks');
 
-//   test('Testa se ao clicar no botão search o input de pesquisa fica visível', async () => {
-//     const { user } = renderWithRouter(<Header />, { route: '/meals' });
+    expect(headerTitle2).toBe('/src/assets/Images/Drinks-title.png');
 
-//     const searchButton = screen.getByTestId(buttonActiveInputId);
-//     await user.click(searchButton);
+    const profileImage = getProfileImage(mockUser, profileIcon);
 
-//     screen.getByTestId('search-input');
-//   });
-// });
+    expect(profileImage).toBe(profileIcon);
+
+    const validImage = { ...mockUser, profileImage: 'validUrl' };
+
+    const validProfileImage = getProfileImage(validImage, profileIcon);
+
+    expect(validProfileImage).toBe('validUrl');
+  });
+});

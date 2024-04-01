@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 
-import Loading from '../../components/Loading/Loading';
 import Modal from '../../components/Modals/SignUpModal';
 import logo from '../../assets/Images/BfB_Logo.png';
 
@@ -24,7 +23,6 @@ function SignUp() {
   const signUpURL = googleUser ? 'http://localhost:3001/user/signup-google' : 'http://localhost:3001/user';
   const options: FetchOptions = { method: 'POST', body: requestBody };
   const { handleFetch, data, isLoading } = useFetch(signUpURL, options);
-  console.log(data);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 

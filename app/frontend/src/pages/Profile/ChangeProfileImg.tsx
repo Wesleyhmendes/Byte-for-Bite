@@ -27,9 +27,14 @@ function ChangeProfileImg({
         <label>
           Image URL
           <br />
-          <input value={ profileImage } onChange={ handleChange } type="text" />
+          <input
+            aria-label="changeImg-input"
+            value={ profileImage }
+            onChange={ handleChange }
+            type="text"
+          />
         </label>
-        <button onClick={ handleUpdate }>Update</button>
+        <button aria-label="updateImg-btn" onClick={ handleUpdate }>Update</button>
       </S.ChangeImage>
     ) : null
   );

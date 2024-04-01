@@ -1,100 +1,100 @@
-// import { screen, waitFor } from '@testing-library/dom';
-// import { renderWithRouter } from './utils/renderWithRouter';
-// import App from '../App';
+import { screen } from '@testing-library/dom';
+import { vi } from 'vitest';
+import { renderWithRouter } from './utils/renderWithRouter';
+import mockMealRecipes from './mocks/mockMealRecipes';
+import Provider from '../context/Provider/Provider';
+import RecipeDetails from '../pages/RecipeDetails';
+import UserInfoProvider from '../context/UserInfo/UserInfoProvider';
+import mockDrinkRecipe from './mocks/mockDrinkRecipes';
+import MealCard from '../components/MealCard';
 
-// const testLocalStorage = {
-//   drinks: {},
-//   meals: {
-//     52771: [],
-//   },
-// };
+describe('Testa o componente RecipeDetails', () => {
+  const startRecipeBtnTestId = 'start-recipe-btn';
+  test('Testa se uma receita de meals é renderizada corretamente', async () => {
+    const MOCK_RESPONSE = {
+      ok: true,
+      status: 200,
+      json: async () => mockMealRecipes[0],
+    } as Response;
 
-// const srcWhiteHeart = '/src/images/whiteHeartIcon.svg';
-// const linkMealArrabiata = '/meals/52771';
-// const recipeTitleId = 'recipe-title';
+    const fetchSpy = vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_RESPONSE);
+    renderWithRouter(
+      <UserInfoProvider>
+        <Provider>
+          <RecipeDetails />
+        </Provider>
+      </UserInfoProvider>,
+      { route: '/meals/1' },
+    );
+    const recipeImage = await screen.findByLabelText('recipe-image');
+    const mealTitle = await screen.findByText('Apple Frangipan Tart');
+    const mealCategory = await screen.findByTestId('recipe-category');
+    const mealFirstIngredient = await screen.findByTestId('0-ingredient-name');
+    const firstIngredientMeasure = await screen.findByTestId('0-ingredient-measure');
+    const startRecipeBtn = await screen.findByTestId(startRecipeBtnTestId);
 
-// describe('Testa o componente RecipeDetails', () => {
-//   test('Testa se a página de detalhes de receita de uma bebida é renderizada corretamente', async () => {
-//     renderWithRouter(<App />, { route: '/drinks/178319' });
+    expect(window.location.pathname).toBe('/meals/1');
+    expect(fetchSpy).toHaveBeenCalled();
+    expect(recipeImage).toBeInTheDocument();
+    expect(mealTitle).toBeInTheDocument();
+    expect(mealCategory).toBeInTheDocument();
+    expect(mealFirstIngredient).toBeInTheDocument();
+    expect(firstIngredientMeasure).toBeInTheDocument();
+    expect(startRecipeBtn).toBeInTheDocument();
+  });
 
-//     await waitFor(() => {
-//       screen.getByTestId(recipeTitleId);
-//     }, { timeout: 5000 });
-//   });
+  test('Testa se uma receita de drinks é renderizada corretamente', async () => {
+    const MOCK_RESPONSE = {
+      ok: true,
+      status: 200,
+      json: async () => mockDrinkRecipe[0],
+    } as Response;
 
-//   test('Testa se é possível favoritar uma receita de comida e se o src da imagem é alterado', async () => {
-//     const { user } = renderWithRouter(<App />, { route: linkMealArrabiata });
+    const fetchSpy = vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_RESPONSE);
+    renderWithRouter(
+      <UserInfoProvider>
+        <Provider>
+          <RecipeDetails />
+        </Provider>
+      </UserInfoProvider>,
+      { route: '/drinks/1' },
+    );
+    const recipeImage = await screen.findByLabelText('recipe-image');
+    const drinkTitle = await screen.findByText('A1');
+    const drinkCategory = await screen.findByTestId('recipe-category');
+    const drinkFirstIngredient = await screen.findByTestId('0-ingredient-name');
+    const firstIngredientMeasure = await screen.findByTestId('0-ingredient-measure');
+    const startRecipeBtn = await screen.findByTestId(startRecipeBtnTestId);
 
-//     await waitFor(() => {
-//       screen.getByTestId(recipeTitleId);
-//     }, { timeout: 5000 });
+    expect(window.location.pathname).toBe('/drinks/1');
+    expect(fetchSpy).toHaveBeenCalled();
+    expect(recipeImage).toBeInTheDocument();
+    expect(drinkTitle).toBeInTheDocument();
+    expect(drinkCategory).toBeInTheDocument();
+    expect(drinkFirstIngredient).toBeInTheDocument();
+    expect(firstIngredientMeasure).toBeInTheDocument();
+    expect(startRecipeBtn).toBeInTheDocument();
+  });
 
-//     const favoriteButton = screen.getByTestId('favorite-btn');
+  test('Testa se a função handleInProgress funciona corretamente', async () => {
+    const mockRecipe = mockMealRecipes[0];
+    const handleInProgressSpy = vi.fn();
+    const { user } = renderWithRouter(
+      <UserInfoProvider>
+        <Provider>
+          <MealCard
+            recipeData={ mockRecipe }
+            handleInProgress={ handleInProgressSpy }
+            buttonText="Start recipe"
+          />
+        </Provider>
+      </UserInfoProvider>,
+      { route: '/meals/1' },
+    );
 
-//     expect(favoriteButton).toHaveAttribute('src', srcWhiteHeart);
-//     await user.click(favoriteButton);
+    const startBtn = screen.getByTestId(startRecipeBtnTestId);
+    await user.click(startBtn);
 
-//     expect(favoriteButton).toHaveAttribute('src', '/src/images/blackHeartIcon.svg');
-//     await user.click(favoriteButton);
-
-//     expect(favoriteButton).toHaveAttribute('src', srcWhiteHeart);
-//   });
-
-//   test('Testa se é possível favoritar uma receita de bebida e se o src da imagem é alterado', async () => {
-//     const { user } = renderWithRouter(<App />, { route: '/drinks/178319' });
-
-//     await waitFor(() => {
-//       screen.getByTestId(recipeTitleId);
-//     }, { timeout: 5000 });
-
-//     const favoriteButton = screen.getByTestId('favorite-btn');
-
-//     expect(favoriteButton).toHaveAttribute('src', srcWhiteHeart);
-//     await user.click(favoriteButton);
-
-//     expect(favoriteButton).toHaveAttribute('src', '/src/images/blackHeartIcon.svg');
-//     await user.click(favoriteButton);
-
-//     expect(favoriteButton).toHaveAttribute('src', srcWhiteHeart);
-//   });
-
-//   test('Testa se ao clicar no botão compartilhar o texto "Link copied!" é exibido na tela e o link é copiado com sucesso', async () => {
-//     const { user } = renderWithRouter(<App />, { route: linkMealArrabiata });
-
-//     await waitFor(() => {
-//       screen.getByTestId(recipeTitleId);
-//     }, { timeout: 5000 });
-
-//     const shareButton = screen.getByTestId('share-btn');
-//     user.click(shareButton);
-
-//     await screen.findByText('Link copied!');
-//   });
-
-//   test('Testa se ao clicar no botão "Start Recipe" a aplicação é redirecionada para a página de receita em progresso', async () => {
-//     const { user } = renderWithRouter(<App />, { route: linkMealArrabiata });
-
-//     await waitFor(() => {
-//       screen.getByTestId(recipeTitleId);
-//     }, { timeout: 5000 });
-
-//     const startRecipeButton = screen.getByTestId('start-recipe-btn');
-//     await user.click(startRecipeButton);
-
-//     expect(window.location.pathname).toBe('/meals/52771/in-progress');
-//   });
-
-//   test('Testa se o botão "Continue Recipe" é exibido na tela de uma receita já iniciada', async () => {
-//     localStorage.setItem('inProgressRecipes', JSON.stringify(testLocalStorage));
-
-//     renderWithRouter(<App />, { route: linkMealArrabiata });
-
-//     await waitFor(() => {
-//       screen.getByTestId(recipeTitleId);
-//     }, { timeout: 5000 });
-
-//     screen.getByTestId('start-recipe-btn');
-
-//     screen.getByText('Continue Recipe');
-//   });
-// });
+    expect(handleInProgressSpy).toHaveBeenCalled();
+  });
+});

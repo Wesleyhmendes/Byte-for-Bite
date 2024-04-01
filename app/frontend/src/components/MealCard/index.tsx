@@ -17,7 +17,7 @@ export default function MealCard(
 
   return (
     <S.RecipeCard>
-      <S.RecipeImageDiv imageurl={ strMealThumb }>
+      <S.RecipeImageDiv aria-label="recipe-image" imageurl={ strMealThumb }>
         <S.TitleAndButtonContainer>
           <div>
             <h2 data-testid="recipe-title">{ strMeal }</h2>
@@ -32,11 +32,11 @@ export default function MealCard(
         Ingredients:
         { mealIngredients.map((ingredient, index) => (
           <li key={ index }>
-            <p data-testid={ `${index}-ingredient-name-and-measure` }>
+            <p data-testid={ `${index}-ingredient-name` }>
               { ingredient }
             </p>
             <hr />
-            <p data-testid={ `${index}-ingredient-name-and-measure` }>
+            <p data-testid={ `${index}-ingredient-measure` }>
               { `${recipeData[`strMeasure${index + 1}`]}` }
             </p>
           </li>

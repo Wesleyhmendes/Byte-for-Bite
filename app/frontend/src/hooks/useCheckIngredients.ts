@@ -6,6 +6,28 @@ import useFetch from './useFetch';
 const useCheckIngredients = (userId: number, recipeId: string, route: string) => {
   const CHANGE = 'CHANGE';
   const UPDATE = 'UPDATE';
+  const defaultInitialState = {
+    strIngredient1: false,
+    strIngredient2: false,
+    strIngredient3: false,
+    strIngredient4: false,
+    strIngredient5: false,
+    strIngredient6: false,
+    strIngredient7: false,
+    strIngredient8: false,
+    strIngredient9: false,
+    strIngredient10: false,
+    strIngredient11: false,
+    strIngredient12: false,
+    strIngredient13: false,
+    strIngredient14: false,
+    strIngredient15: false,
+    strIngredient16: false,
+    strIngredient17: false,
+    strIngredient18: false,
+    strIngredient19: false,
+    strIngredient20: false,
+  };
 
   // FETCHES (UN)MARKED INGREDIENT LIST FROM DB
   const inProgressURL = `http://localhost:3001${route}/inprogress/${recipeId}?user=${userId}`;
@@ -32,7 +54,7 @@ const useCheckIngredients = (userId: number, recipeId: string, route: string) =>
       case UPDATE:
         return initialState;
       default:
-        return state;
+        return defaultInitialState;
     }
   };
 
@@ -66,6 +88,7 @@ const useCheckIngredients = (userId: number, recipeId: string, route: string) =>
   }, [stateIngredients]);
 
   return {
+    initialState,
     isInprogress,
     stateIngredients,
     CHANGE,

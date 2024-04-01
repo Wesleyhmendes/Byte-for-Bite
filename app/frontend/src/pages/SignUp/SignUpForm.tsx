@@ -24,7 +24,7 @@ function SignUpForm({ user, handleChange, handleSubmit, signUpDispatch, setGoogl
   const validateConfirm = confirmPassword ? confirmPassword
     .length > 0 && confirmPassword === password : null;
 
-  const validateSubmit = validateUser(user);
+  const isUserValid = validateUser(user);
 
   return (
     <S.Form onSubmit={ handleSubmit }>
@@ -75,7 +75,7 @@ function SignUpForm({ user, handleChange, handleSubmit, signUpDispatch, setGoogl
         signUpDispatch={ signUpDispatch }
         setGoogleUser={ setGoogleUser }
       />
-      <S.Button disabled={ validateSubmit }>Sign up</S.Button>
+      <S.Button disabled={ !isUserValid }>Sign up</S.Button>
     </S.Form>
   );
 }

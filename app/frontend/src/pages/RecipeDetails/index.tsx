@@ -12,18 +12,7 @@ import Footer from '../../components/Footer';
 import * as S from './RecipeDetails.styles';
 import checkInProgress from '../../utils/checkInProgress';
 import getProfileId from '../../utils/getProfileId';
-
-function createTitle(route: string, recipe: any) {
-  if (recipe) {
-    return `${route === '/meals'
-      ? `Details | ${recipe.strMeal} Meal`
-      : `Details | ${recipe.strDrink} Cocktail`}`;
-  }
-
-  return route === '/meals'
-    ? 'Details | Meal'
-    : 'Details | Cocktail';
-}
+import createTitle from '../../utils/createTitle';
 
 export default function RecipeDetails() {
   const navigate = useNavigate();
@@ -55,7 +44,7 @@ export default function RecipeDetails() {
   // IF inProgress.data RETURNS WITH A MESSAGE, IT MEANS THAT THE RECIPE IS NOT IN PROGRESS
   // HAD TO PUT A TIMEOUT FUNCTION SO 'IN PROGRESS' COMPONENT HAS TIME TO LOAD DATA FROM DB.
   const handleInProgress = () => {
-    if (inProgress?.data?.message) {
+    if (!isInProgress) {
       handleFetch();
     }
     setIsLoadingNextPage(true);

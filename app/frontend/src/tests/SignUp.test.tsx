@@ -1,5 +1,6 @@
 import { screen, waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import { renderWithRouter } from './utils/renderWithRouter';
 import SignUp from '../pages/SignUp';
 import UserInfoProvider from '../context/UserInfo/UserInfoProvider';
@@ -7,9 +8,11 @@ import UserInfoProvider from '../context/UserInfo/UserInfoProvider';
 describe('Testa o componente SignUp', () => {
   test('Testa se o formulário para cadastro de conta está na página', () => {
     renderWithRouter(
-      <UserInfoProvider>
-        <SignUp />
-      </UserInfoProvider>,
+      <GoogleOAuthProvider clientId="837825883055-16f47j4qisf0vcbpf9on5p44mclu8dlk.apps.googleusercontent.com">
+        <UserInfoProvider>
+          <SignUp />
+        </UserInfoProvider>
+      </GoogleOAuthProvider>,
     );
 
     const emailInput = screen.getByRole('textbox', { name: /email/i });
@@ -37,9 +40,11 @@ describe('Testa o componente SignUp', () => {
     vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_RESPONSE);
 
     const { user } = renderWithRouter(
-      <UserInfoProvider>
-        <SignUp />
-      </UserInfoProvider>,
+      <GoogleOAuthProvider clientId="837825883055-16f47j4qisf0vcbpf9on5p44mclu8dlk.apps.googleusercontent.com">
+        <UserInfoProvider>
+          <SignUp />
+        </UserInfoProvider>
+      </GoogleOAuthProvider>,
     );
 
     const email = 'teste@teste.com';

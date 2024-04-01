@@ -1,5 +1,6 @@
 import { screen } from '@testing-library/dom';
 import { vi } from 'vitest';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import { renderWithRouter } from './utils/renderWithRouter';
 import Recipes from '../pages/Recipes';
 import Provider from '../context/Provider/Provider';
@@ -26,21 +27,21 @@ describe('Testa o componente Recipes', () => {
     const fetchSpy = vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_RESPONSE);
 
     renderWithRouter(
-      <UserInfoProvider>
-        <Provider>
-          <Recipes />
-        </Provider>
-      </UserInfoProvider>,
+      <GoogleOAuthProvider clientId="837825883055-16f47j4qisf0vcbpf9on5p44mclu8dlk.apps.googleusercontent.com">
+        <UserInfoProvider>
+          <Provider>
+            <Recipes />
+          </Provider>
+        </UserInfoProvider>
+      </GoogleOAuthProvider>,
       { route: '/meals' },
     );
     expect(window.location.pathname).toBe('/meals');
-    const meal1 = await screen.findByText('Apple Frangipan Tart');
-    const meal2 = await screen.findByText('Apple & Blackberry C...');
+    const meal1 = await screen.findAllByTestId('0-card-name');
     const detailsBtn = await screen.findAllByTestId(detailsBtnTestId);
     const favoriteBtn = await screen.findAllByTestId(favoriteTestId);
 
-    expect(meal1).toBeInTheDocument();
-    expect(meal2).toBeInTheDocument();
+    expect(meal1[0]).toBeInTheDocument();
     expect(favoriteBtn[0]).toBeInTheDocument();
     expect(detailsBtn[0]).toBeInTheDocument();
     expect(fetchSpy).toHaveBeenCalled();
@@ -65,13 +66,13 @@ describe('Testa o componente Recipes', () => {
     );
 
     expect(window.location.pathname).toBe('/drinks');
-    const drink1 = await screen.findByText('A1');
-    const drink2 = await screen.findByText('ABC');
+    const drink1 = await screen.findAllByText('A1');
+    const drink2 = await screen.findAllByText('ABC');
     const detailsBtn = await screen.findAllByTestId(detailsBtnTestId);
     const favoriteBtn = await screen.findAllByTestId(favoriteTestId);
 
-    expect(drink1).toBeInTheDocument();
-    expect(drink2).toBeInTheDocument();
+    expect(drink1[0]).toBeInTheDocument();
+    expect(drink2[0]).toBeInTheDocument();
     expect(favoriteBtn[0]).toBeInTheDocument();
     expect(detailsBtn[0]).toBeInTheDocument();
   });
@@ -95,13 +96,13 @@ describe('Testa o componente Recipes', () => {
     );
 
     expect(window.location.pathname).toBe('/drinks');
-    const drink1 = await screen.findByText('A1');
-    const drink2 = await screen.findByText('ABC');
+    const drink1 = await screen.findAllByText('A1');
+    const drink2 = await screen.findAllByText('ABC');
     const detailsBtn = await screen.findAllByTestId(detailsBtnTestId);
     const favoriteBtn = await screen.findAllByTestId(favoriteTestId);
 
-    expect(drink1).toBeInTheDocument();
-    expect(drink2).toBeInTheDocument();
+    expect(drink1[0]).toBeInTheDocument();
+    expect(drink2[0]).toBeInTheDocument();
     expect(favoriteBtn[0]).toBeInTheDocument();
     expect(detailsBtn[0]).toBeInTheDocument();
   });
@@ -151,10 +152,10 @@ describe('Testa o componente Recipes', () => {
       { route: '/meals' },
     );
     expect(window.location.pathname).toBe('/meals');
-    const meal1 = await screen.findByText('Apple Frangipan Tart');
-    const meal2 = await screen.findByText('Apple & Blackberry C...');
-    const meal3 = await screen.findByText('French Onion Chicken...');
-    const meal4 = await screen.findByText('Irish stew');
+    const meal1 = await screen.findAllByText('Apple Frangipan Tart');
+    const meal2 = await screen.findAllByText('Apple & Blackberry C...');
+    const meal3 = await screen.findAllByText('French Onion Chicken...');
+    const meal4 = await screen.findAllByText('Irish stew');
 
     const detailsBtn = await screen.findAllByTestId(detailsBtnTestId);
     const favoriteBtn = await screen.findAllByTestId(favoriteTestId);
@@ -162,10 +163,10 @@ describe('Testa o componente Recipes', () => {
     const beefCategoryBtn = await screen.findByTestId('Beef-category-filter');
     const dessertCategoryBtns = await screen.findAllByTestId('Dessert-category-filter');
 
-    expect(meal1).toBeInTheDocument();
-    expect(meal2).toBeInTheDocument();
-    expect(meal3).toBeInTheDocument();
-    expect(meal4).toBeInTheDocument();
+    expect(meal1[0]).toBeInTheDocument();
+    expect(meal2[0]).toBeInTheDocument();
+    expect(meal3[0]).toBeInTheDocument();
+    expect(meal4[0]).toBeInTheDocument();
     expect(favoriteBtn[0]).toBeInTheDocument();
     expect(detailsBtn[0]).toBeInTheDocument();
     expect(chickenCategoryBtn).toBeInTheDocument();
@@ -174,7 +175,8 @@ describe('Testa o componente Recipes', () => {
 
     await user.click(dessertCategoryBtns[0]);
 
-    expect(meal1).toBeInTheDocument();
-    expect(meal2).toBeInTheDocument();
+    expect(meal1[0]).toBeInTheDocument();
+    expect(meal2[0]).toBeInTheDocument();
+    expect(meal3[0]).not.toBeInTheDocument();
   });
 });

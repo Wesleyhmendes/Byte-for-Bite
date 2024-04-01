@@ -14,6 +14,7 @@ import RecipesCounter from './RecipesCounter';
 import Footer from '../../components/Footer';
 import getProfileId from '../../utils/getProfileId';
 import getUsername from '../../utils/getUsername';
+import alertGenerator from '../../utils/alertGenerator';
 
 export default function Profile() {
   const [profileImage, setProfileImage] = useState('');
@@ -40,7 +41,7 @@ export default function Profile() {
 
   const handleUpdate = () => {
     if (profileImage === '') {
-      window.alert('Please insert a image URL!');
+      alertGenerator('error', 'Please insert URL');
       return;
     }
     if (id !== 0) {
@@ -69,7 +70,10 @@ export default function Profile() {
     <S.Main>
       {!isLoading && data.username ? (
         <S.UserInfoContainer>
-          <button onClick={ handleWantChange }>
+          <button
+            aria-label="changeImg-btn"
+            onClick={ handleWantChange }
+          >
             <img src={ profileIMG || profileIcon } alt="Profile" />
           </button>
 
