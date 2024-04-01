@@ -34,11 +34,11 @@ describe('Testa o componente Header', () => {
   test('Testa se as funções utilitárias do Header funcionam corretamente', async () => {
     const headerTitle = getHeaderTitle('/meals');
 
-    expect(headerTitle).toBe('Meals');
+    expect(headerTitle).toBe('/src/assets/Images/Meals-title.png');
 
     const headerTitle2 = getHeaderTitle('/drinks');
 
-    expect(headerTitle2).toBe('Drinks');
+    expect(headerTitle2).toBe('/src/assets/Images/Drinks-title.png');
 
     const profileImage = getProfileImage(mockUser, profileIcon);
 

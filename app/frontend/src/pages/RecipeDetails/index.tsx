@@ -44,7 +44,7 @@ export default function RecipeDetails() {
   // IF inProgress.data RETURNS WITH A MESSAGE, IT MEANS THAT THE RECIPE IS NOT IN PROGRESS
   // HAD TO PUT A TIMEOUT FUNCTION SO 'IN PROGRESS' COMPONENT HAS TIME TO LOAD DATA FROM DB.
   const handleInProgress = () => {
-    if (inProgress?.data?.message) {
+    if (!isInProgress) {
       handleFetch();
     }
     setIsLoadingNextPage(true);

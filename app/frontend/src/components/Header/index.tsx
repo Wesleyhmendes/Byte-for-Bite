@@ -5,8 +5,7 @@ import { Link } from 'react-router-dom';
 import SearchBar from '../SearchBar';
 import profileIcon from '../../images/profileIcon.svg';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
-import mealTitle from '../../assets/Images/Meals-title.png';
-import drinkTitle from '../../assets/Images/Drinks-title.png';
+
 import {
   HeaderStyle,
   HeaderMainDiv,

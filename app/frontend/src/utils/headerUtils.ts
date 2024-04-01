@@ -1,11 +1,13 @@
 import { User } from '../type';
+import mealTitle from '../assets/Images/Meals-title.png';
+import drinkTitle from '../assets/Images/Drinks-title.png';
 
 export const getHeaderTitle = (route: string) => {
   if (route !== '/meals') {
-    return 'Drinks';
+    return drinkTitle;
   }
 
-  return 'Meals';
+  return mealTitle;
 };
 
 export const getProfileImage = (data: any, defaultIcon: string) => {
