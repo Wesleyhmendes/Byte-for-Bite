@@ -3,10 +3,11 @@ import { useContext } from 'react';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import useFetch from '../../hooks/useFetch';
 import * as S from './Profile.styles';
+import getProfileId from '../../utils/getProfileId';
 
 function RecipesCounter() {
   const { profile } = useContext(UserInfoContext);
-  const userId = profile?.data?.id;
+  const userId = getProfileId(profile);
 
   const profileRecipesURL = `http://localhost:3001/profile/${userId}/profileRecipes`;
 

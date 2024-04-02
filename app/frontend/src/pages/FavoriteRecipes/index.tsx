@@ -9,11 +9,13 @@ import FilterButtons from '../../components/FilterButtons/FilterButtons';
 import * as S from './Favorites.styles';
 import Footer from '../../components/Footer';
 import ShortHeader from '../../components/ShortHeader';
+import getProfileId from '../../utils/getProfileId';
+import DoneOrFavoriteMessage from '../../components/DoneOrFavoriteMessage';
 
 export default function FavoriteRecipes() {
   const [filter, setFilter] = useState('all');
   const { profile } = useContext(UserInfoContext);
-  const userId = profile?.data?.id;
+  const userId = getProfileId(profile);
 
   const favoriteMealsURL = `http://localhost:3001/meals/favorites/search?user=${userId}`;
   const favoriteDrinksURL = `http://localhost:3001/drinks/favorites/search?user=${userId}`;
@@ -68,18 +70,12 @@ export default function FavoriteRecipes() {
             ))
             : null}
 
-          {/* {!formattedMeals?.userId &&
-          !formattedDrinks?.userId &&
-          filter === 'all' ? (
-            <p>You don't have any favorite recipe yet.</p>
-          ) : null}
-          {!formattedMeals?.userId && filter === 'meals' ? (
-            <p>You don't have any favorite meal yet.</p>
-          ) : null}
-
-          {!formattedDrinks?.userId && filter === 'drinks' ? (
-            <p>You don't have any favorite drink yet.</p>
-          ) : null} */}
+          <DoneOrFavoriteMessage
+            filter={ filter }
+            doneOrFav="favorite"
+            mealUserId={ formattedMeals?.userId }
+            drinkUserId={ formattedDrinks?.userId }
+          />
         </S.CardContainer>
         <Footer />
       </S.Favorites>
