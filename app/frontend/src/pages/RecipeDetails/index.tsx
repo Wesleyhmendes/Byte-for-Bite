@@ -8,9 +8,8 @@ import MealCard from '../../components/MealCard';
 import DrinkCard from '../../components/DrinkCard';
 import Loading from '../../components/Loading/Loading';
 import Footer from '../../components/Footer';
-
 import * as S from './RecipeDetails.styles';
-import checkInProgress from '../../utils/checkInProgress';
+
 import getProfileId from '../../utils/getProfileId';
 import createTitle from '../../utils/createTitle';
 
@@ -19,7 +18,7 @@ export default function RecipeDetails() {
   const { id } = useParams();
   const [loadingNextPage, setIsLoadingNextPage] = useState(false);
 
-  const { route } = useContext(Context);
+  const { route, checkInProgressRecipe } = useContext(Context);
   const { profile } = useContext(UserInfoContext);
   const userId = getProfileId(profile);
 
@@ -27,10 +26,7 @@ export default function RecipeDetails() {
   const { data, isLoading, error } = useFetch(recipeDetailsURL);
   const recipe = data;
 
-  const inProgressURL = `http://localhost:3001${route}/inprogress/${id}?user=${userId}`;
-  const inProgress = useFetch(inProgressURL);
-
-  const isInProgress = checkInProgress(inProgress);
+  const isInProgress = checkInProgressRecipe(Number(id));
 
   const buttonText = isInProgress ? 'Continue recipe' : 'Start recipe';
 

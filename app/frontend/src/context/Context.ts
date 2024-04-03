@@ -22,6 +22,7 @@ export type ContextType = {
   recipesByFilter: (MealType | DrinkType)[];
   byFilterPages: number[];
   inProgress: FetchedData;
+  favorites: FetchedData;
   getCategories: () => CategoryType[];
   filterDispatch: React.Dispatch<SearchActionType>;
   setByFilterURL: React.Dispatch<React.SetStateAction<string>>;
