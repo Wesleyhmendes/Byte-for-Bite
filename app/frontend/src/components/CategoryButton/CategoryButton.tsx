@@ -1,3 +1,5 @@
+import { Button } from './Category.styles';
+
 type CategoryBtnProps = {
   strCategory: string,
   getSelectedCategory: (category: string) => void
@@ -12,12 +14,12 @@ function CategoryButton({ strCategory, getSelectedCategory }: CategoryBtnProps) 
     }
   };
   return (
-    <button
+    <Button
       onClick={ handleSelectCategory }
       data-testid={ `${strCategory}-category-filter` }
     >
       {strCategory}
-    </button>
+    </Button>
   );
 }
 
