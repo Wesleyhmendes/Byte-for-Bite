@@ -62,6 +62,12 @@ drinksRouter.post(
 );
 
 drinksRouter.get(
+  '/inprogress/search',
+  Authorization.auth,
+  (req: Request, res: Response) => drinkController.getInProgressRecipes(req, res)
+);
+
+drinksRouter.get(
   '/inprogress/:id',
   Authorization.auth,
   (req: Request, res: Response) => drinkController.findRecipeInProgressById(req, res)
