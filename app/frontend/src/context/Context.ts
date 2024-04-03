@@ -33,7 +33,6 @@ export type ContextType = {
   ) => (MealType | DrinkType)[];
   checkInProgressRecipe: (recipeId: number) => boolean;
   checkFavoriteRecipe: (recipeId: number) => boolean;
-  getRecipes: (fetchedRecipe: FetchedData, category: string) => (MealType | DrinkType)[];
   selectedCategory: string;
 };
 
