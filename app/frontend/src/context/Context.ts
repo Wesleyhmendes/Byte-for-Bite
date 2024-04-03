@@ -1,6 +1,5 @@
 import { createContext } from 'react';
 import {
-  CategoryType,
   DrinkType,
   FavoriteDrinkReduceType,
   FavoriteMealReduceType,
@@ -21,7 +20,7 @@ export type ContextType = {
   allRecipesPages: number[];
   recipesByFilter: (MealType | DrinkType)[];
   byFilterPages: number[];
-  getCategories: () => CategoryType[];
+  getCategories: () => string[];
   filterDispatch: React.Dispatch<SearchActionType>;
   setByFilterURL: React.Dispatch<React.SetStateAction<string>>;
   setRecipesFilter: (selectedFilter: FilterRadioType) => void;
@@ -31,6 +30,7 @@ export type ContextType = {
     page: number
   ) => (MealType | DrinkType)[];
   getRecipes: (fetchedRecipe: FetchedData, category: string) => (MealType | DrinkType)[];
+  selectedCategory: string;
 };
 
 const Context = createContext({} as ContextType);

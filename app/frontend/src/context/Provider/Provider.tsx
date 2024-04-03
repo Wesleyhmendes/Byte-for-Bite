@@ -22,6 +22,7 @@ export default function Provider({ children }: ProviderProps) {
     setByFilterURL,
     getSelectedCategory,
     getRecipesByPage,
+    selectedCategory,
   } = useRecipesProvider(route);
 
   const value = {
@@ -38,6 +39,7 @@ export default function Provider({ children }: ProviderProps) {
     setByFilterURL,
     getSelectedCategory,
     getRecipesByPage,
+    selectedCategory,
   };
 
   return (

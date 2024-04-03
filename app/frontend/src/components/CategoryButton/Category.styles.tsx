@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
 export const Button = styled.button`
-  background: #ffffff;
+  background-color: #ffffff;
   box-shadow: 0px 1px 2px 0px rgba(189,189,189,1);
+  
   border-radius: 1rem;
   height: 2rem;
   margin: 0 0.5rem;  
@@ -10,13 +11,13 @@ export const Button = styled.button`
   transition: 0.3s ease;
   width: 10rem;
     
-   &:hover {
+  &:hover {
     background-color: #FF5C16;
     color: #fff;
-    border: none;
   }
 
-  .active {
-    border: 3px solid blue;
+  &.active {
+    background-color: #FF5C16;
+    color: #fff;
   }
 `;
