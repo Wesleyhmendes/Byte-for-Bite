@@ -13,7 +13,7 @@ function ShortHeader() {
         { route.pathname.endsWith('/done-recipes') && (
           <S.InnerDiv>
             <AsideMenu />
-            <img src={ doneRecipe } alt="" />
+            <img className="page-logo" src={ doneRecipe } alt="done recipes logo" />
             <S.Single />
           </S.InnerDiv>
         ) }
@@ -23,7 +23,7 @@ function ShortHeader() {
         { route.pathname.endsWith('/favorite-recipes') && (
           <S.InnerDiv>
             <AsideMenu />
-            <img src={ favorite } alt="" />
+            <img className="page-logo" src={ favorite } alt="" />
             <S.Single />
           </S.InnerDiv>
         ) }
@@ -33,7 +33,7 @@ function ShortHeader() {
         { route.pathname.endsWith('recipes/in-progress') && (
           <S.InnerDiv>
             <AsideMenu />
-            <img src={ inProgress } alt="" />
+            <img className="page-logo" src={ inProgress } alt="" />
             <S.Single />
           </S.InnerDiv>
         ) }

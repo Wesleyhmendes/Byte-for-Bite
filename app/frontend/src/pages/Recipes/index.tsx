@@ -7,6 +7,7 @@ import * as S from './Recipes.styles';
 import SelectPageButtons from './SelectPageButtons';
 import AsideDesktopMenu from '../../components/AsideDesktopMenu/AsideDesktopMenu';
 import Footer from '../../components/Footer';
+import bin from '../../assets/Icons/bin.png';
 
 export default function Recipes() {
   const [pageNum, setPageNum] = useState(1);
@@ -72,19 +73,27 @@ export default function Recipes() {
               path={ route }
               index={ i }
             />))
-          ) : null}
+          ) : null }
 
-          {byFilter.length === 0 && filter.searchActive ? <p>Recipe not found.</p> : null}
+          { (byFilter.length === 0 && filter.searchActive) && (
+            <S.ClearFilter>
+              <p>Recipe not found.</p>
+              <button onClick={ () => window.location.reload() }>
+                Clear Filter
+                <img src={ bin } alt="trash bin" />
+              </button>
+            </S.ClearFilter>
+          )}
 
         </S.CardsContainer>
 
-        {(allRecipesPages.length > 1 || byFilterPages.length > 1) && (
+        { (allRecipesPages.length > 1 || byFilterPages.length > 1) && (
           <SelectPageButtons
             pages={ !filter.searchActive ? allRecipesPages : byFilterPages }
             handlePageNum={ handlePageNum }
             currentPage={ pageNum }
           />
-        )}
+        ) }
         <Footer />
       </S.Main>
     </>
