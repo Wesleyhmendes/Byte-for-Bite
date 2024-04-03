@@ -65,6 +65,12 @@ export default class DrinksController {
     return res.status(mapStatusHTTP(status)).json(data);
   }
 
+  async getInProgressRecipes(req: Request, res: Response) {
+    const { user } = req.query;
+    const { status, data } = await this.drinkService.getInProgressRecipes(Number(user));
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
   async findRecipeInProgressById(req: Request, res: Response) {
     const { id } = req.params;
     const { user } = req.query;

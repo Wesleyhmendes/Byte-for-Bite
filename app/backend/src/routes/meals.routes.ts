@@ -73,6 +73,12 @@ mealsRouter.post(
 );
 
 mealsRouter.get(
+  '/inprogress/search',
+  Authorization.auth,
+  (req: Request, res: Response) => mealsController.getInProgressRecipes(req, res)
+);
+
+mealsRouter.get(
   '/inprogress/:id',
   Authorization.auth,
   (req: Request, res: Response) => mealsController.findRecipeInProgressById(req, res)

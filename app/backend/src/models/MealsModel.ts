@@ -202,6 +202,11 @@ export default class MealsModel implements IMealsRecipesModel {
     return dataValues;
   }
 
+  async getInProgressRecipes(userId: number) {
+    const recipes = await this.inProgressModel.findAll({where: { userId }});
+    return recipes;
+  }
+
   async findMealInProgress(
     recipeInProgress: Omit<IProgressMealRecipe, 'id' | 'markedIngredients'>
   ): Promise<IProgressMealRecipe | null> {

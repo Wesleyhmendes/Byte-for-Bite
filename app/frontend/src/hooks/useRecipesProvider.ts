@@ -28,6 +28,7 @@ const useRecipesProvider = (path: string) => {
   const allCategoriesURL = `http://localhost:3001${path}/categories`;
   const allRecipesURL = `http://localhost:3001${path}/name`;
   const favoritesURL = `http://localhost:3001${path}/favorites/search?user=${userId}`;
+  const inProgressURL = `http://localhost:3001${path}/inprogress/search?user=${userId}`;
   const [byFilterURL, setByFilterURL] = useState('');
 
   // FETCHS
@@ -35,6 +36,7 @@ const useRecipesProvider = (path: string) => {
   const allFetchedRecipes: FetchedData = useFetch(allRecipesURL);
   const byFilter = useFetch(byFilterURL);
   const favorites = useFetch(favoritesURL);
+  const inProgress = useFetch(inProgressURL);
 
   // GETTER FUNCTIONS //
   const checkData = (fetchedData: FetchedData) => {
@@ -110,11 +112,58 @@ const useRecipesProvider = (path: string) => {
     }
   };
 
+  const getFavoriteIds = (fetchedData: FetchedData): number[] => {
+    const { data } = fetchedData;
+    if (!Array.isArray(data)) {
+      return [];
+    }
+    if (path === '/meals' && data) {
+      const favoriteMealIds = data.map((info) => info.favoriteRecipes.idMeal);
+      return favoriteMealIds;
+    }
+    if (path === '/drinks' && data) {
+      const favoriteDrinkIds = data.map((info) => info.favoriteRecipes.idDrink);
+      return favoriteDrinkIds;
+    }
+
+    return [];
+  };
+
+  const getInProgress = (fetchedData: FetchedData): number[] => {
+    const { data } = fetchedData;
+    if (!Array.isArray(data)) {
+      return [];
+    }
+    if (path === '/meals' && data) {
+      const recipeIds = data.map((info) => info.mealId);
+      return recipeIds;
+    }
+    if (path === '/drinks' && data) {
+      const recipeIds = data.map((info) => info.drinkId);
+      return recipeIds;
+    }
+    return [];
+  };
+
+  const checkInProgressRecipe = (recipeId: number) => {
+    const isInProgress = recipesInProgress.some((id) => id === recipeId);
+
+    return isInProgress;
+  };
+
+  const checkFavoriteRecipe = (recipeId: number) => {
+    const isFavorite = favoriteRecipeIds.some((id) => id === recipeId);
+
+    return isFavorite;
+  };
+
   const allRecipes = getRecipes(allFetchedRecipes, selectedCategory);
   const allRecipesPages = getPages(allRecipes);
   const recipesByFilter = getRecipes(byFilter, selectedCategory);
   const byFilterPages = getPages(recipesByFilter);
   const formattedFavorites = formatFavorites(path, favorites);
+  const favoriteRecipeIds = getFavoriteIds(favorites);
+  const recipesInProgress = getInProgress(inProgress);
 
   return {
     filter,
@@ -123,12 +172,15 @@ const useRecipesProvider = (path: string) => {
     allRecipesPages,
     recipesByFilter,
     byFilterPages,
+    inProgress,
     getCategories,
     filterDispatch,
     setByFilterURL,
     setRecipesFilter,
     getSelectedCategory,
     getRecipesByPage,
+    checkInProgressRecipe,
+    checkFavoriteRecipe,
     getRecipes,
     selectedCategory,
   };

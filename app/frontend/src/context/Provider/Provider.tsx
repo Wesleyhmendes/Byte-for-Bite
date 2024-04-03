@@ -16,12 +16,15 @@ export default function Provider({ children }: ProviderProps) {
     allRecipes,
     recipesByFilter,
     byFilterPages,
+    inProgress,
     getCategories,
     filterDispatch,
     setRecipesFilter,
     setByFilterURL,
     getSelectedCategory,
     getRecipesByPage,
+    checkInProgressRecipe,
+    checkFavoriteRecipe,
     selectedCategory,
   } = useRecipesProvider(route);
 
@@ -33,12 +36,15 @@ export default function Provider({ children }: ProviderProps) {
     allRecipes,
     recipesByFilter,
     byFilterPages,
+    inProgress,
     getCategories,
     filterDispatch,
     setRecipesFilter,
     setByFilterURL,
     getSelectedCategory,
     getRecipesByPage,
+    checkInProgressRecipe,
+    checkFavoriteRecipe,
     selectedCategory,
   };
 

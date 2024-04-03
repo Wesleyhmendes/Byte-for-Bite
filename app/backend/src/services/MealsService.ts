@@ -6,8 +6,12 @@ import { ServiceResponse } from "../Interfaces/serviceReponse";
 import MealsModel from "../models/MealsModel";
 import { IProgressMealRecipe } from '../Interfaces/IProgress';
 
+
 export default class MealsService {
-  constructor(private mealsModel = new MealsModel()) {}
+  constructor(
+    private mealsModel = new MealsModel(),
+   
+  ) {}
 
   async getAllMealsRecipe(): Promise<ServiceResponse<IMealRecipes[]>> {
     const recipes = await this.mealsModel.findAll();
@@ -102,6 +106,21 @@ export default class MealsService {
     // IF NEEDS TO CHECK IF RECIPE IS ALREADY IN PROGRESS, INVOKE 'findRecipeInProgressById' HERE:   
     const recipe = await this.mealsModel.addMealInProgress(recipeInProgress);
     return { status: 'SUCCESSFUL', data: recipe };
+  }
+
+  async getInProgressRecipes(userId: number) {
+    if (!userId) {
+      return {
+        status: 'INVALID_DATA',
+        data: { message: 'Must provide a userId' },
+      }
+    }
+  
+    const inProgressRecipes = await this.mealsModel.getInProgressRecipes(userId);
+    return {
+      status: 'SUCCESSFUL',
+      data: inProgressRecipes,
+    }
   }
 
   async findRecipeInProgressById(
