@@ -51,6 +51,7 @@ function SearchBar() {
             <Lupe src={ lupe } alt="pesquisar" />
           </Button>
         </LabelSearch>
+        <h4>Search by:</h4>
         <Filters>
           <Label>
             <InputIngredient

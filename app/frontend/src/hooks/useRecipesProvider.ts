@@ -62,7 +62,11 @@ const useRecipesProvider = (path: string) => {
       return [];
     }
 
-    return categories;
+    const sortedCategories: string[] = categories.map((category) => {
+      return category.strCategory;
+    }).sort();
+
+    return sortedCategories;
   };
 
   const getPages = (recipes: (MealType | DrinkType)[]) => {
@@ -177,6 +181,8 @@ const useRecipesProvider = (path: string) => {
     getRecipesByPage,
     checkInProgressRecipe,
     checkFavoriteRecipe,
+    getRecipes,
+    selectedCategory,
   };
 };
 

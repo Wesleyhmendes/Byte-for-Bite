@@ -1,6 +1,5 @@
 import { createContext } from 'react';
 import {
-  CategoryType,
   DrinkType,
   FavoriteDrinkReduceType,
   FavoriteMealReduceType,
@@ -33,7 +32,8 @@ export type ContextType = {
   ) => (MealType | DrinkType)[];
   checkInProgressRecipe: (recipeId: number) => boolean;
   checkFavoriteRecipe: (recipeId: number) => boolean;
-
+  getRecipes: (fetchedRecipe: FetchedData, category: string) => (MealType | DrinkType)[];
+  selectedCategory: string;
 };
 
 const Context = createContext({} as ContextType);

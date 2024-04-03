@@ -1,3 +1,8 @@
+import { useContext } from 'react';
+import { Button } from './Category.styles';
+import Context from '../../context/Context';
+import setCategoryClass from '../../utils/readCtegory';
+
 type CategoryBtnProps = {
   strCategory: string,
   getSelectedCategory: (category: string) => void
@@ -11,13 +16,18 @@ function CategoryButton({ strCategory, getSelectedCategory }: CategoryBtnProps) 
       getSelectedCategory(strCategory);
     }
   };
+
+  const { selectedCategory } = useContext(Context);
+  const categoryClass = setCategoryClass(selectedCategory, strCategory);
+
   return (
-    <button
+    <Button
+      className={ categoryClass }
       onClick={ handleSelectCategory }
       data-testid={ `${strCategory}-category-filter` }
     >
       {strCategory}
-    </button>
+    </Button>
   );
 }
 

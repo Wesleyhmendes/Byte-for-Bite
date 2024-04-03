@@ -29,7 +29,6 @@ function Header() {
   useEffect(() => {
     handleFetch();
   }, []);
-
   return (
     <HeaderStyle>
       <HeaderMainDiv className={ pageTitle }>

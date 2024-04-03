@@ -25,6 +25,7 @@ export default function Provider({ children }: ProviderProps) {
     getRecipesByPage,
     checkInProgressRecipe,
     checkFavoriteRecipe,
+    selectedCategory,
   } = useRecipesProvider(route);
 
   const value = {
@@ -44,6 +45,7 @@ export default function Provider({ children }: ProviderProps) {
     getRecipesByPage,
     checkInProgressRecipe,
     checkFavoriteRecipe,
+    selectedCategory,
   };
 
   return (
