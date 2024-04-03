@@ -99,3 +99,33 @@ export const AsideBtn = styled.div`
   align-items: end;
   p { margin: 0 0.3rem; }
 `;
+
+export const ClearFilter = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+
+  p {
+    font-size: larger;
+  }
+
+  button {
+    align-items: center;
+    box-shadow: 1px 2px 2px 0px rgba(189,189,189,1);
+    color: #4f4f4f;
+    background-color: #dcdcdc;
+    border-radius: 5px;
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.3rem 1rem;
+    
+    img { width: 20px; }
+
+    &:hover {
+      border: 1px solid #ff0000;
+      color: #ff0000;
+    }
+  }
+`;

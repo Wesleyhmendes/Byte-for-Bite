@@ -2,59 +2,29 @@
 import styled, { css } from 'styled-components';
 
 export const Div = styled.div`
-
-  @media (min-width: 320px) {
     margin-bottom: 1rem;
-  }
-
-  @media (min-width: 768px) {
-    
-  }
-
-  @media (min-width: 1024px) {
-    
-  }
-
-  @media (min-width: 1280px) {
-    
-  }
-
 `;
 
 export const Form = styled.form`
- 
-  
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  @media (min-width: 320px) {
-
+  h4 {
+    color: #fff;
+    font-size: large;
+    padding: 1rem 0 0.5rem 0;
   }
-
-  @media (min-width: 768px) {
-    
-  }
-
-  @media (min-width: 1024px) {
-    
-  }
-
-  @media (min-width: 1280px) {
-    
-  }
-
 `;
 
 export const Filters = styled.div`
-  background-color: #f4f4f4;
+  background: #f4f4f4;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   gap: 3rem;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  margin-top: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   width: 100%;
 `;
 
@@ -88,10 +58,11 @@ export const Button = styled.button`
 export const FilterP = styled.p<{ className: string }>`
   font-weight: 600;
   text-align: center;
+  color: rgb(56, 56, 56);
  
  ${(props) => props.className === 'active' && css`
-    color: rgb(255,75,0);
-    border-bottom: 2px solid rgb(255,75,0);
+    color: #FE5B15;
+    border-bottom: 2px solid #FE5B15;
   `}
 
   &:hover {

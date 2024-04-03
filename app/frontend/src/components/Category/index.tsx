@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 import { useContext, useRef, useEffect, useState } from 'react';
-import { CategoryType } from '../../type';
 import CategoryButton from '../CategoryButton/CategoryButton';
 import Context from '../../context/Context';
 import { ItemButton, InnerCarousel, Carousel } from './Category.styles';
@@ -24,10 +23,10 @@ export default function Category() {
         <InnerCarousel drag="x" dragConstraints={ { right: 0, left: -width - 20 } } className="inner-carousel">
           { allCategories
             && allCategories.map(
-              ({ strCategory }: CategoryType, i) => (
-                <ItemButton className="item" key={ `${strCategory}[${i}]` }>
+              (category, i) => (
+                <ItemButton className="item" key={ `${category}[${i}]` }>
                   <CategoryButton
-                    strCategory={ strCategory }
+                    strCategory={ category }
                     getSelectedCategory={ getSelectedCategory }
                   />
                 </ItemButton>
