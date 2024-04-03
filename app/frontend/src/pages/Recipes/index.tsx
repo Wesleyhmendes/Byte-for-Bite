@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Category from '../../components/Category';
 import Context from '../../context/Context';
@@ -16,6 +16,7 @@ export default function Recipes() {
     recipesByFilter,
     byFilterPages,
     allRecipesPages,
+    inProgress,
     allRecipes,
     filter,
     route,
@@ -28,16 +29,26 @@ export default function Recipes() {
   const allRecipesByPage = getRecipesByPage(allRecipes, pageNum);
   const byFilter = getRecipesByPage(recipesByFilter, pageNum);
 
+  const { handleFetch } = inProgress;
+
   const handlePageNum = (page: number) => {
     setPageNum(page);
   };
+
+  const synchronizeInProgress = useCallback(() => {
+    handleFetch();
+  }, []);
 
   useEffect(() => {
     const recipeType = route === '/meals' ? 'Meal' : 'Drink';
     if (byFilter.length === 1) {
       navigate(`${route}/${byFilter[0][`id${recipeType}`]}`);
     }
-  }, [byFilter]);
+  }, [byFilter, navigate, route]);
+
+  useEffect(() => {
+    synchronizeInProgress();
+  }, [synchronizeInProgress]);
 
   return (
     <>

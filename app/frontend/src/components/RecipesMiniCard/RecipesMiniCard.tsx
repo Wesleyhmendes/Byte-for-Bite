@@ -4,10 +4,7 @@ import { DrinkType, MealType } from '../../type';
 import * as S from './Card.styles';
 import CardText from './CardText';
 import orangeClock from '../../assets/Icons/orangeClock.png';
-
-import UserInfoContext from '../../context/UserInfo/UserInfoContext';
-import useFetch from '../../hooks/useFetch';
-import checkInProgress from '../../utils/checkInProgress';
+import Context from '../../context/Context';
 
 type RecipesMiniCardProps = {
   recipe: MealType | DrinkType
@@ -16,17 +13,12 @@ type RecipesMiniCardProps = {
 };
 
 function RecipesMiniCard({ recipe, path, index }: RecipesMiniCardProps) {
-  const { profile, getProfile } = useContext(UserInfoContext);
-  const userProfile = getProfile(profile);
-  const userId = userProfile.id;
+  const { checkInProgressRecipe } = useContext(Context);
 
   const id = path === '/meals' ? recipe.idMeal : recipe.idDrink;
   const thumbnail = path === '/meals' ? recipe.strMealThumb : recipe.strDrinkThumb;
 
-  const inProgressURL = `http://localhost:3001${path}/inprogress/${id}?user=${userId}`;
-  const inProgressData = useFetch(inProgressURL);
-
-  const isInProgress = checkInProgress(inProgressData);
+  const isInProgress = checkInProgressRecipe(Number(id));
 
   return (
     <S.Div data-testid={ `${index}-recipe-card` }>

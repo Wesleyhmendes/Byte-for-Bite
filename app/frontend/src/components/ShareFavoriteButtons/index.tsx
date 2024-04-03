@@ -4,9 +4,9 @@ import fullHeart from '../../assets/Icons/favorite_full.png';
 import emptyHeart from '../../assets/Icons/favorite_empty.png';
 import useFetch from '../../hooks/useFetch';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
-import checkFavoritesFromDB from '../../utils/checkFavoritesFromDB';
 import Context from '../../context/Context';
 import { Button } from './Favorite.styles';
+import getProfileId from '../../utils/getProfileId';
 
 type FavoriteButtonProps = {
   id: string | undefined;
@@ -17,20 +17,19 @@ export default function FavoriteButton({
   id, recipeType,
 }: FavoriteButtonProps) {
   const [isFavorite, setIsFavorite] = useState(false);
-
   // GETS PROFILE FROM CONTEXT
   const { profile } = useContext(UserInfoContext);
-  const { formattedFavorites } = useContext(Context);
+  const { checkFavoriteRecipe } = useContext(Context);
 
   // SENDS INFORMATION TO DB THROUGH BODY VIA 'POST'
-  const user = profile?.data;
+  const userId = getProfileId(profile);
   const addFavoriteURL = `http://localhost:3001${recipeType}/favorites/${id}`;
   const {
     handleFetch,
-  } = useFetch(addFavoriteURL, { method: 'POST', body: { userId: user?.id } });
+  } = useFetch(addFavoriteURL, { method: 'POST', body: { userId } });
 
   // CHECKS IF IT IS A FAVORITE RECIPE ON DB
-  const isRecipeFavorite = checkFavoritesFromDB(recipeType, id as string, formattedFavorites);
+  const isRecipeFavorite = checkFavoriteRecipe(Number(id));
 
   // SETS FAVORITE STATE AND SETS RECIPE AS FAVORITE ON DB VIA handleFetch()
   const favoriteRecipe = () => {
