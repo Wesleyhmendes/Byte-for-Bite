@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import fullHeart from '../../assets/Icons/favorite_full.png';
 import emptyHeart from '../../assets/Icons/favorite_empty.png';
 import useFetch from '../../hooks/useFetch';
@@ -16,10 +16,10 @@ type FavoriteButtonProps = {
 export default function FavoriteButton({
   id, recipeType,
 }: FavoriteButtonProps) {
-  const [isFavorite, setIsFavorite] = useState(false);
   // GETS PROFILE FROM CONTEXT
   const { profile } = useContext(UserInfoContext);
-  const { checkFavoriteRecipe } = useContext(Context);
+  const { checkFavoriteRecipe, favorites } = useContext(Context);
+  const { handleFetch: favFetch } = favorites;
 
   // SENDS INFORMATION TO DB THROUGH BODY VIA 'POST'
   const userId = getProfileId(profile);
@@ -31,18 +31,13 @@ export default function FavoriteButton({
   // CHECKS IF IT IS A FAVORITE RECIPE ON DB
   const isRecipeFavorite = checkFavoriteRecipe(Number(id));
 
-  // SETS FAVORITE STATE AND SETS RECIPE AS FAVORITE ON DB VIA handleFetch()
+  // SETS RECIPE FAVORITE ON DB VIA handleFetch() AND SYNCHRONIZES THE COMPONENT WITH favFetch();
   const favoriteRecipe = () => {
-    setIsFavorite((prev) => !prev);
     handleFetch();
+    setTimeout(() => {
+      favFetch();
+    }, 100);
   };
-
-  // SYNCHRONIZES STATE WITH DB
-  useEffect(() => {
-    if (isRecipeFavorite) {
-      setIsFavorite(isRecipeFavorite);
-    }
-  }, [isRecipeFavorite]);
 
   return (
     <Button
@@ -51,7 +46,7 @@ export default function FavoriteButton({
     >
       <img
         data-testid="favorite-btn"
-        src={ isFavorite ? fullHeart : emptyHeart }
+        src={ isRecipeFavorite ? fullHeart : emptyHeart }
         alt="Heart"
       />
     </Button>

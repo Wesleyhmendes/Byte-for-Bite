@@ -21,7 +21,8 @@ export type ContextType = {
   recipesByFilter: (MealType | DrinkType)[];
   byFilterPages: number[];
   inProgress: FetchedData;
-  getCategories: () => CategoryType[];
+  favorites: FetchedData;
+  getCategories: () => string[];
   filterDispatch: React.Dispatch<SearchActionType>;
   setByFilterURL: React.Dispatch<React.SetStateAction<string>>;
   setRecipesFilter: (selectedFilter: FilterRadioType) => void;
@@ -32,7 +33,6 @@ export type ContextType = {
   ) => (MealType | DrinkType)[];
   checkInProgressRecipe: (recipeId: number) => boolean;
   checkFavoriteRecipe: (recipeId: number) => boolean;
-  getRecipes: (fetchedRecipe: FetchedData, category: string) => (MealType | DrinkType)[];
   selectedCategory: string;
 };
 

@@ -27,6 +27,7 @@ function CardText({ recipe, path, index, isInProgress }: RecipesMiniCardProps) {
           <h1 data-testid={ `${index}-card-name` }>{ shorterTitle }</h1>
         </div>
         <ShareFavoriteButtons id={ id } recipeType={ path } />
+        {/* <p>{isFav ? 'favorito' : 'não'}</p> */}
       </S.TitleAndButtonContainer>
       <S.RecipeCategories>
         <p>{ recipe.strCategory }</p>

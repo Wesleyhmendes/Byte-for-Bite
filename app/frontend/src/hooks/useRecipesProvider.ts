@@ -173,6 +173,7 @@ const useRecipesProvider = (path: string) => {
     recipesByFilter,
     byFilterPages,
     inProgress,
+    favorites,
     getCategories,
     filterDispatch,
     setByFilterURL,
