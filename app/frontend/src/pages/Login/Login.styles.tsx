@@ -1,10 +1,11 @@
 /* eslint-disable max-lines */
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import theme from '../../theme';
 
 export const Main = styled.div`
   align-items: center;
-  background: #FF4B00;
+  background: ${theme.colors.background.first};
   display: flex;
   height: 100vh;
   margin-bottom: -7rem;
@@ -13,8 +14,8 @@ export const Main = styled.div`
 
   section {
     @media(min-width: 320px) {
-      background: #fff;
-      box-shadow: 0px 2px 5px 0px rgba(133,133,133,1);
+      background: ${theme.colors.background.white};
+      box-shadow: 0px 2px 5px 0px ${theme.colors.background.lightGrey};
       border-radius: 10px;
       display: flex;
       flex-direction: column;
@@ -71,19 +72,25 @@ export const FormMainDiv = styled.div`
     gap: 4px;
 
     input {
-      background: #cccccc88;
+      background: ${theme.colors.input.inputDefault};
       border-radius: 10px;
       border: none;
-      color: #000000;
+      color: ${theme.colors.background.black};
       height: 2.5rem;
       padding-left: 1rem;
       width: 100%;
+
+      &:focus {
+        outline: none;
+      }
     }
 
     button {
-      background-color: #ff4b00;
+
+      background-color: ${theme.colors.background.first};
       border-radius: 7px;
-      color: #fff;
+      color: ${theme.colors.text.whiteText};
+
       font-size: 20px;
       font-weight: 600;
       height: 2.5rem;
@@ -92,13 +99,14 @@ export const FormMainDiv = styled.div`
       width: 100%;
 
       &:hover {
-        background-color: #d14e16;
+        background-color: ${theme.colors.button.activeBtn};
         cursor: pointer;
-        color: black;
+        color: ${theme.colors.background.black};
       }
 
       &:disabled {
         cursor: pointer;
+
         background-color: #828282;
         color: #fff;
       }
@@ -106,6 +114,10 @@ export const FormMainDiv = styled.div`
       &.google-oauth {
         background-color: transparent;
         width: 100%;      
+
+        background-color: ${theme.colors.button.disableBtn};
+        color: ${theme.colors.background.white}; 
+
       }
     }
 
@@ -139,7 +151,7 @@ export const FormMainDiv = styled.div`
 `;
 
 export const PhraseLink = styled(Link)`
-  color: blue;
+  color: ${theme.colors.text.link};
   font-weight: bold;
   text-decoration: underline;
 
@@ -152,8 +164,4 @@ export const StyledLink = styled(Link)`
 
 export const NoAccountDiv = styled.div`
   text-align: center;
-
-  Link {
-    
-  }
 `;

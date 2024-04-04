@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import theme from '../../theme';
 
 export const FooterStyled = styled.footer`
   bottom: 0;
@@ -7,7 +8,7 @@ export const FooterStyled = styled.footer`
   width: 100%;
 
   div {
-    background-color: #fff;
+    background-color: ${theme.colors.background.white};
     border-radius: 20px 20px 0 0;
     box-shadow: 0px -1px 3px 0px rgba(189,189,189,1);
     display: flex;
@@ -36,13 +37,13 @@ export const FooterStyled = styled.footer`
 
 export const IconMeal = styled.img`
   ${(props) => props.className === '/meals' && css`
-    border-bottom: 3px solid #FF4B00;
+    border-bottom: 3px solid ${theme.colors.background.first};
   `}
 
 `;
 
 export const IconDrinks = styled.img`
   ${(props) => props.className === '/drinks' && css`
-    border-bottom: 3px solid #FF4B00;
+    border-bottom: 3px solid ${theme.colors.background.first};
   `}
 `;

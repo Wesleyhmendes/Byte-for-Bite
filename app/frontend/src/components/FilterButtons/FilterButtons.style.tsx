@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import theme from '../../theme';
 
 export const ButtonContainer = styled.section`
   display: flex;
@@ -9,10 +10,10 @@ export const ButtonContainer = styled.section`
 `;
 
 export const FilterButton = styled.button`
-  background: #fff;
+  background: ${theme.colors.background.white};
   width: 10rem;
   height: 3rem;
-  border: 1px solid #bebebe;
+  border: 1px solid ${theme.colors.button.borderButton};
   border-radius: 20px;
   margin: 0 0.5rem;
   transition: 0.3s ease;
@@ -20,7 +21,7 @@ export const FilterButton = styled.button`
   margin-bottom: 4rem;
 
   &:hover {
-    background-color: #ff5c16;
-    color: #fff;
+    background-color: ${theme.colors.button.activeBtn};
+    color: ${theme.colors.text.whiteText};
   }
 `;
