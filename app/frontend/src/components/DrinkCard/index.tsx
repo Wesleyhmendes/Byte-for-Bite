@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import { DrinkType, MealType } from '../../type';
 import getIngredients from '../../utils/getIngredients';
-import FavoriteButton from '../ShareFavoriteButtons';
+import FavoriteButton from '../FavoriteButton';
 import * as S from '../../pages/RecipeDetails/RecipeDetails.styles';
 
 type DrinkCardProps = {

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import theme from '../../theme';
 
 export const Main = styled.main`
     display: flex;
@@ -12,7 +13,7 @@ export const Main = styled.main`
 export const RecipeCard = styled.section`
   @media (min-width: 320px) {
     align-items: center;
-    background-color: #f4f4f4;
+    background-color: ${theme.colors.background.background};
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -37,8 +38,12 @@ export const TitleAndButtonContainer = styled.div`
 
   div {
     margin-left: 1.5em;
-    h2 { color: #ffffff; font-size: 30px; font-weight: 500; }
-    p { color: #ffffff; }
+    h2 {
+      color: ${theme.colors.text.whiteText};
+      font-size: 30px;
+      font-weight: 500;
+    }
+    p { color: ${theme.colors.text.whiteText}; }
   }
 
   @media (min-width: 768px) {
@@ -77,40 +82,48 @@ export const Gradient = styled.div`
 `;
 
 export const IngredientsContainer = styled.ul`
-  background-color: #ffffff;
-  box-shadow: 1px 2px 2px 0px rgba(189,189,189,1);
-  border-radius: 7px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-bottom: 2rem;
-  margin-top: 2rem;
-  padding: 1rem;
-  text-align: center; 
-  width: 95%;
-
-  li {
+  @media(min-width: 320px) {
+    background-color: ${theme.colors.text.whiteText};
+    box-shadow: 1px 2px 5px 0px rgba(189,189,189,1);
+    border-radius: 7px;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;    
-  }
-
-  p {
-    width: 45%; 
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    padding: 1rem;
     text-align: center; 
+    width: 95%;
+
+    li {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;    
+    }
+
+    p {
+      width: 45%; 
+      text-align: center; 
+    }
+
+    hr {
+      color: ${theme.colors.text.text};
+      width: 2rem;    
+    }
   }
 
-  hr {
-    color: #000;
-    width: 2rem;    
+  @media(min-width: 768px) {
+    hr {
+      width: 10rem;
+    }
   }
 `;
 
 export const Button = styled.button`
-  background-color: #ff4b00;
+  background-color: ${theme.colors.button.activeBtn};
   border-radius: 7px;
-  color: #fff;
+  color: ${theme.colors.text.whiteText};
   font-weight: 600;
   height: 5%;
   margin-bottom: 6rem;
@@ -119,8 +132,8 @@ export const Button = styled.button`
   width: fit-content;
 
   &:hover {
-    background-color: #d14e16;
-    color: #000;
+    background-color: ${theme.colors.button.hoverBtn};
+    color: ${theme.colors.text.text};
     cursor: pointer;
   }
 `;

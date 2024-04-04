@@ -1,8 +1,9 @@
 import styled from 'styled-components';
+import theme from '../../theme';
 
 export const Main = styled.main`
   align-items: center;
-  background-color: #FF5C16;
+  background-color: ${theme.colors.background.first};
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -16,8 +17,8 @@ export const UserInfoContainer = styled.section`
   justify-content: center;
   align-items: center;
   width: 100%;
-  background-color: #FF5C16;
-  color: #fff;
+  background-color: ${theme.colors.background.first};
+  color: ${theme.colors.text.whiteText};
   margin-bottom: 1rem;
 
   h2 {
@@ -40,7 +41,7 @@ export const ButtonsContainer = styled.section`
     align-items: center;  
     border-radius: 50px 50px 0 0;
     border: 1px solid transparent;
-    background: #ffffff;
+    background: ${theme.colors.background.white};
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -49,18 +50,18 @@ export const ButtonsContainer = styled.section`
     width: 100%;
 
   .favoriteBtn {
-    border-top: 1px solid #dbdde0;
-    border-bottom: 1px solid #dbdde0;
+    border-top: 1px solid ${theme.colors.button.borderButton};
+    border-bottom: 1px solid ${theme.colors.button.borderButton};
     padding: 1rem;
   }
     button {
-      color: #a1a1a3;
+      color: ${theme.colors.text.extraLightText};
       margin: 0.5rem;
       font-weight: bold;
       font-size: 1.1rem;
       height: 4.0rem;
       width: 70%;
-      &:hover { color: #FD5B16; }
+      &:hover { color: ${theme.colors.text.selectedText}; }
     }
   }
 
@@ -79,7 +80,7 @@ export const CounterContainer = styled.section`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background-color: #fff;
+    background-color: ${theme.colors.background.white};
     border-radius: 7px;
     width: 25rem;
     padding: 1rem 1rem;
@@ -105,7 +106,7 @@ export const CounterContainer = styled.section`
     
     hr {
       border: none;
-      border-left: 1px solid #747474;
+      border-left: 1px solid ${theme.colors.button.borderButton};
       height: 3rem;
       width: 2px;
     }
@@ -128,19 +129,25 @@ export const ChangeImage = styled.div`
 
   input {
     border-radius: 7px;
-    color: #000;
+    color: ${theme.colors.text.text};
+    padding: 0.5rem;
+
+    &:focus {
+      outline: none;
+    }
   }
 
   button {
-    border: 1px solid #fff;
+    background-color: ${theme.colors.button.disableBtn};
     border-radius: 7px;
     width: 8rem;
     height: 2rem;
-    transition: 0.3s ease;
-    font-weight: bold;
+    font-weight: 500;
   }
 
   button:hover{
-    background-color: green;
+    background-color: ${theme.colors.button.hoverBtn};
+    border: 2px solid ${theme.colors.button.selectedBtn};
+    color: ${theme.colors.text.text};
   }
 `;

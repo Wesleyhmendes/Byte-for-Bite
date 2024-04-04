@@ -1,8 +1,9 @@
 import styled from 'styled-components';
+import theme from '../../theme';
 
 export const DoneOrFavoriteCard = styled.section`
   @media (min-width: 320px) {
-    background: #fff;
+    background: ${theme.colors.background.white};
     border-radius: 10px;
     box-shadow: 1px 2px 2px 0px rgba(189,189,189,1);
     display: flex;
