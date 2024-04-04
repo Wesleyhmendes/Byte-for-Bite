@@ -12,27 +12,36 @@ export const Main = styled.main`
 `;
 
 export const UserInfoContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: ${theme.colors.background.first};
-  color: ${theme.colors.text.whiteText};
-  margin-bottom: 1rem;
+  @media (min-width: 320px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: ${theme.colors.background.first};
+    color: ${theme.colors.text.whiteText};
+    margin-bottom: 1rem;
 
-  h2 {
-    font-size: 2rem;
+    h2 {
+      font-size: 2rem;
+    }
+
+    img {
+      width: 6rem;
+      height: 6rem;
+      border-radius: 50%;
+    }
+
+    button {
+      margin: 2rem;
+    }
   }
 
-  img {
-    width: 8rem;
-    height: 8rem;
-    border-radius: 50%;
-  }
-
-  button {
-    margin: 2rem;
+  @media (min-width: 768px) {
+    img {
+      width: 12rem;
+      height: 12rem;
+    }
   }
 `;
 
@@ -103,6 +112,8 @@ export const CounterContainer = styled.section`
       font-weight: bold;
       font-size: 1.3rem;
     }
+
+    p { font-size: 0.8rem; }
     
     hr {
       border: none;
@@ -113,6 +124,7 @@ export const CounterContainer = styled.section`
     
   }
   @media(min-width: 768px) {
+    p { font-size: 1rem; }
     padding: 1rem 2rem;
     width: 60%;
   }
@@ -132,9 +144,7 @@ export const ChangeImage = styled.div`
     color: ${theme.colors.text.text};
     padding: 0.5rem;
 
-    &:focus {
-      outline: none;
-    }
+    &:focus { outline: none; }
   }
 
   button {
