@@ -21,20 +21,13 @@ export default function GoogleAuth({ signUpDispatch, setGoogleUser }: GoogleSign
         text={ route.endsWith('signup') ? 'signup_with' : 'continue_with' }
         onSuccess={ (credentialResponse) => {
           const decode = jwtDecode<JwtPayload>(credentialResponse?.credential as string);
-          signUpDispatch({
-            type: 'UPDATE_USER', key: 'email', value: decode.email,
-          });
-          signUpDispatch({
-            type: 'UPDATE_USER', key: 'username', value: decode.name,
-          });
-          signUpDispatch({
-            type: 'UPDATE_USER', key: 'profileImage', value: decode.picture,
-          });
-          signUpDispatch({
-            type: 'UPDATE_USER',
-            key: 'email_verified',
-            value: decode.email_verified ? 'true' : 'false',
-          });
+          const googleUser = {
+            email: decode.email,
+            username: decode.name,
+            profileImage: decode.picture,
+            email_verified: decode.email_verified ? 'true' : 'false',
+          };
+          signUpDispatch({ type: 'GOOGLE_USER', value: googleUser });
           setGoogleUser((prev) => !prev);
         } }
         onError={ () => {

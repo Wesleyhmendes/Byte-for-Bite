@@ -8,12 +8,18 @@ export type User = {
   profileImage?: string;
 };
 
-// ACTIONS
-export type UserAction = {
-  type: string,
-  key?: string,
-  value?: string,
+export type GoogleUser = {
+  email: string,
+  username: string,
+  profileImage: string,
+  email_verified: string,
 };
+
+// ACTIONS
+export type UserAction =
+| { type: 'UPDATE_USER', key?: string, value?: string }
+| { type: 'RESET_USER' }
+| { type: 'GOOGLE_USER', value: GoogleUser };
 
 export type FetchAction =
 | { type: 'loading' }

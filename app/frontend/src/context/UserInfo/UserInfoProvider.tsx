@@ -8,8 +8,6 @@ type UserInfoProviderProps = {
 export default function UserInfoProvider({ children }: UserInfoProviderProps) {
   const {
     user,
-    UPDATE_USER,
-    RESET_USER,
     profile,
     signUpDispatch,
     handleChange,
@@ -18,8 +16,6 @@ export default function UserInfoProvider({ children }: UserInfoProviderProps) {
 
   const value = {
     user,
-    UPDATE_USER,
-    RESET_USER,
     profile,
     signUpDispatch,
     handleChange,
