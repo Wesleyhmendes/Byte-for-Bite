@@ -7,7 +7,6 @@ import profileIcon from '../../images/profileIcon.svg';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 
 import {
-  HeaderStyle,
   HeaderMainDiv,
   TopIconsDiv,
   Title,
@@ -30,7 +29,7 @@ function Header() {
     handleFetch();
   }, []);
   return (
-    <HeaderStyle>
+    <header>
       <HeaderMainDiv className={ pageTitle }>
         <TopIconsDiv>
           <AsideMenu />
@@ -50,7 +49,7 @@ function Header() {
           <SearchBar />
         </div>
       </HeaderMainDiv>
-    </HeaderStyle>
+    </header>
   );
 }
 

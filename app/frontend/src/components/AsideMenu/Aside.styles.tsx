@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import theme from '../../theme';
 
 export const Nav = styled.nav`
   background: transparent;
@@ -64,7 +65,7 @@ export const StyledBurger = styled.div<{ open: boolean }>`
 `;
 
 export const Ul = styled.ul<{ open: boolean }>`
-  background-color: #ffffff;
+  background-color: ${theme.colors.background.white};
   border-radius: 0 20px 20px 0;
   box-shadow: 1px 2px 2px 0px rgba(189,189,189,1);
   display: flex;
@@ -86,18 +87,18 @@ export const Ul = styled.ul<{ open: boolean }>`
   }
 
   .pages {
-    color: #777777;
+    color: ${theme.colors.text.extraLightText};
     font-size: larger;
     padding: 2rem 1rem 0 2rem;
   }
 
   button {
     align-items: center;
-    color: #777777;
+    color: ${theme.colors.text.text};
     display: flex;
     font-size: larger;
     gap: 0.5rem;
-    padding: 15rem 1rem 1rem 0rem;
+    margin: 15rem 1rem 1rem 0rem;
     transition: ease 0.3s;
 
     img {
@@ -106,7 +107,7 @@ export const Ul = styled.ul<{ open: boolean }>`
 
     &:hover {
       cursor: pointer;
-      color: #FF4B00;
+      color: ${theme.colors.text.selectedText};
     }
   }
 
@@ -124,7 +125,7 @@ export const Ul = styled.ul<{ open: boolean }>`
 
     &:hover {
       cursor: pointer;
-      color: #FF4B00;
+      color: ${theme.colors.text.selectedText};
     }
   }
 `;

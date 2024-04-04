@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import theme from '../../../theme';
 
 export const Div = styled.div`
   display: flex;
@@ -7,15 +8,15 @@ export const Div = styled.div`
   gap: 1rem;
 
   h3 {
-    color: #4b4b4b;
+    color: ${theme.colors.text.title};
     font-weight: bold;
     font-size: 25px;
   }
 
   button {
-    background-color: #FF4B00;
+    background-color: ${theme.colors.button.activeBtn};
     border-radius: 7px;
-    color: #FFF;
+    color: ${theme.colors.text.text};
     font-size: 20px;
     font-weight: 600; 
     height: 2.5rem;
@@ -24,9 +25,9 @@ export const Div = styled.div`
     width: 100%;
 
     &:hover {
-      background-color: #d14e16;
+      background-color: ${theme.colors.button.hoverBtn};
       cursor: pointer;
-      color: black;
+      color: ${theme.colors.text.whiteText};
     }
   }
 `;
