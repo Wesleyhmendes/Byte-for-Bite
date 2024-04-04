@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
 import {
   Div,
 } from './SignUpModal.styles';
@@ -8,6 +9,7 @@ import {
   getRoute,
   getToken,
 } from '../../../utils/signUpModalUtils';
+import UserInfoContext from '../../../context/UserInfo/UserInfoContext';
 
 type ModalProps = {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
@@ -15,6 +17,8 @@ type ModalProps = {
 };
 
 function Modal(props: ModalProps) {
+  const { profile } = useContext(UserInfoContext);
+  const { handleFetch } = profile;
   const { setIsModalOpen, data } = props;
   const token = getToken(data);
   const message = getMessage(data);
@@ -25,6 +29,7 @@ function Modal(props: ModalProps) {
   const handleModal = () => {
     if (token !== 'Token not found') {
       localStorage.setItem('token', JSON.stringify(token));
+      handleFetch();
     }
     setIsModalOpen(false);
     navigate(route);
