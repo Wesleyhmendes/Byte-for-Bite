@@ -12,7 +12,7 @@ import SignUpForm from './SignUpForm';
 function SignUp() {
   document.title = 'SignUp | Byte for Bite';
 
-  const { user, RESET_USER, handleChange, signUpDispatch } = useContext(UserInfoContext);
+  const { user, handleChange, signUpDispatch } = useContext(UserInfoContext);
 
   const [googleUser, setGoogleUser] = useState(false);
 
@@ -30,16 +30,15 @@ function SignUp() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     handleFetch();
-
     localStorage.setItem('user', JSON.stringify(user.email));
-    signUpDispatch({ type: RESET_USER });
+    signUpDispatch({ type: 'RESET_USER' });
     setIsModalOpen(true);
   };
 
   const handleGoogle = () => {
     handleFetch();
     localStorage.setItem('user', JSON.stringify(user.email));
-    signUpDispatch({ type: RESET_USER });
+    signUpDispatch({ type: 'RESET_USER' });
     setIsModalOpen(true);
   };
 

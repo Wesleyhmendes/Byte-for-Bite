@@ -86,11 +86,13 @@ export const FormMainDiv = styled.div`
     }
 
     button {
+
       background-color: ${theme.colors.background.first};
       border-radius: 7px;
       color: ${theme.colors.text.whiteText};
+
       font-size: 20px;
-      font-weight: 600; 
+      font-weight: 600;
       height: 2.5rem;
       margin: 1rem 0 1rem;
       transition: 0.3s ease;
@@ -104,24 +106,46 @@ export const FormMainDiv = styled.div`
 
       &:disabled {
         cursor: pointer;
+
+        background-color: #828282;
+        color: #fff;
+      }
+
+      &.google-oauth {
+        background-color: transparent;
+        width: 100%;      
+
         background-color: ${theme.colors.button.disableBtn};
         color: ${theme.colors.background.white}; 
+
       }
     }
 
-    @media(min-width: 768px) {
-      input { width: 65%; }
-      button { width: 65%; }
+    @media (min-width: 768px) {
+      input {
+        width: 65%;
+      }
+      button {
+        width: 65%;
+      }
     }
 
-    @media(min-width: 1280px) {
-      input { width: 60%; }
-      button { width: 60%; }
+    @media (min-width: 1280px) {
+      input {
+        width: 60%;
+      }
+      button {
+        width: 60%;
+      }
     }
 
-    @media(min-width: 1444px) {
-      input { width: 40%; }
-      button { width: 40%; }
+    @media (min-width: 1444px) {
+      input {
+        width: 40%;
+      }
+      button {
+        width: 40%;
+      }
     }
   }
 `;

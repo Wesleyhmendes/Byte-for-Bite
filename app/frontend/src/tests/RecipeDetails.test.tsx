@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/dom';
+import { screen, waitFor } from '@testing-library/dom';
 import { vi } from 'vitest';
 import { renderWithRouter } from './utils/renderWithRouter';
 import mockMealRecipes from './mocks/mockMealRecipes';
@@ -7,6 +7,7 @@ import RecipeDetails from '../pages/RecipeDetails';
 import UserInfoProvider from '../context/UserInfo/UserInfoProvider';
 import mockDrinkRecipe from './mocks/mockDrinkRecipes';
 import MealCard from '../components/MealCard';
+import App from '../App';
 
 describe('Testa o componente RecipeDetails', () => {
   const startRecipeBtnTestId = 'start-recipe-btn';
@@ -96,5 +97,54 @@ describe('Testa o componente RecipeDetails', () => {
     await user.click(startBtn);
 
     expect(handleInProgressSpy).toHaveBeenCalled();
+  });
+
+  test('Testa se iniciar uma receita, leva para a pagina in progress referente a ela', async () => {
+    const MOCK_RESPONSE = {
+      ok: true,
+      status: 200,
+      json: async () => mockMealRecipes[0],
+    } as Response;
+
+    vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_RESPONSE);
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+
+    const { user } = renderWithRouter(
+      <UserInfoProvider>
+        <Provider>
+          <App />
+        </Provider>
+      </UserInfoProvider>,
+      { route: '/meals/1' },
+    );
+
+    const startBtn = await screen.findByTestId(startRecipeBtnTestId);
+    await user.click(startBtn);
+    vi.advanceTimersByTime(2000);
+    await waitFor(() => {
+      expect(window.location.pathname).toBe('/meals/1/in-progress');
+    });
+  });
+
+  test('Testa se o botão antes de iniciar uma receita aparece como "Start recipe"', async () => {
+    const MOCK_RESPONSE = {
+      ok: true,
+      status: 200,
+      json: async () => mockMealRecipes,
+    } as Response;
+
+    vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_RESPONSE);
+
+    const { user } = renderWithRouter(
+      <UserInfoProvider>
+        <Provider>
+          <App />
+        </Provider>
+      </UserInfoProvider>,
+      { route: '/meals/1' },
+    );
+
+    const startBtn = await screen.findByTestId(startRecipeBtnTestId);
+    expect(startBtn).toHaveTextContent('Start recipe');
   });
 });

@@ -3,6 +3,7 @@ import { UserAction } from '../type';
 
 const useSignUp = () => {
   const UPDATE_USER = 'UPDATE_USER';
+  const GOOGLE_USER = 'GOOGLE_USER';
   const RESET_USER = 'RESET_USER';
 
   const initialState = {
@@ -19,6 +20,11 @@ const useSignUp = () => {
         return {
           ...state,
           [action.key as string]: action.value,
+        };
+      case GOOGLE_USER:
+        return {
+          ...state,
+          ...action.value,
         };
       case RESET_USER:
         return initialState;
@@ -37,8 +43,6 @@ const useSignUp = () => {
 
   return {
     user,
-    UPDATE_USER,
-    RESET_USER,
     handleChange,
     signUpDispatch,
   };

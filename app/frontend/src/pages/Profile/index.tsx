@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import UserInfoContext from '../../context/UserInfo/UserInfoContext';
 import useFetch from '../../hooks/useFetch';
 
@@ -22,7 +22,7 @@ export default function Profile() {
   const [imageUpdated, setImageUpdated] = useState(false);
   const [id, setId] = useState<number | undefined>(undefined);
 
-  const { UPDATE_USER, profile, signUpDispatch } = useContext(UserInfoContext);
+  const { profile, signUpDispatch } = useContext(UserInfoContext);
   const { data, isLoading, error, handleFetch: updateProfile } = profile;
   const userID = getProfileId(profile);
   const userName = getUsername(profile);
@@ -46,25 +46,16 @@ export default function Profile() {
     }
     if (id !== 0) {
       handleFetch();
-      signUpDispatch({ type: UPDATE_USER, key: 'profileImage', value: profileImage });
+      signUpDispatch({ type: 'UPDATE_USER', key: 'profileImage', value: profileImage });
       setWantChange(false);
-      setImageUpdated(true);
-    }
-  };
-
-  const handleSynchronize = useCallback(() => {
-    if (imageUpdated) {
       setTimeout(() => {
         updateProfile();
         setImageUpdated(false);
         setProfileImage('');
-      }, 1000);
+      }, 200);
+      setImageUpdated(true);
     }
-  }, [imageUpdated, updateProfile]);
-
-  useEffect(() => {
-    handleSynchronize();
-  }, [handleSynchronize]);
+  };
 
   return (
     <S.Main>

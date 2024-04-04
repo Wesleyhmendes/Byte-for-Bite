@@ -19,7 +19,7 @@ describe('Testa o componente SignUp', () => {
     const usernameInput = screen.getByRole('textbox', { name: /username/i });
     const passwordInput = screen.getByPlaceholderText('At least 6 characters');
     const confirmPasswordInput = screen.getByLabelText('Confirm your password');
-    const submitBtn = screen.getByRole('button');
+    const submitBtn = screen.getByRole('button', { name: /Sign up/i });
 
     expect(emailInput).toBeInTheDocument();
     expect(usernameInput).toBeInTheDocument();
@@ -56,7 +56,7 @@ describe('Testa o componente SignUp', () => {
     const usernameInput = screen.getByRole('textbox', { name: /username/i });
     const passwordInput = screen.getByPlaceholderText('At least 6 characters');
     const confirmPasswordInput = screen.getByLabelText('Confirm your password');
-    const submitBtn = screen.getByRole('button');
+    const submitBtn = screen.getByRole('button', { name: /Sign up/i });
 
     await user.type(emailInput, email);
     await user.type(usernameInput, username);

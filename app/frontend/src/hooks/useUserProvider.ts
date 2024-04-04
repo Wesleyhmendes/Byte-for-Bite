@@ -4,7 +4,7 @@ import useSignUp from './useSignUp';
 
 const useUserProvider = () => {
   // USER HANDLERS
-  const { user, UPDATE_USER, RESET_USER, signUpDispatch, handleChange } = useSignUp();
+  const { user, signUpDispatch, handleChange } = useSignUp();
 
   // PROFILE URL AND USER EMAIL
   const email = JSON.parse(localStorage.getItem('user') as string);
@@ -26,8 +26,6 @@ const useUserProvider = () => {
 
   return {
     user,
-    UPDATE_USER,
-    RESET_USER,
     signUpDispatch,
     handleChange,
     profile,

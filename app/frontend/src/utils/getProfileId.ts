@@ -1,9 +1,8 @@
 import { FetchedData } from '../type';
 
 const getProfileId = (fetchedProfile: FetchedData) => {
-  const { data } = fetchedProfile;
-  if (data) {
-    const profileId: number = data.id;
+  if (fetchedProfile?.data) {
+    const profileId: number = fetchedProfile?.data?.id;
     return profileId;
   }
 

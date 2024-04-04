@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
 import {
   ModalDiv,
   H3,
   Button,
 } from './Modal.styles';
+import UserInfoContext from '../../../context/UserInfo/UserInfoContext';
 
 type ModalProps = {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
@@ -13,7 +15,8 @@ type ModalProps = {
 
 function LoginModal(props: ModalProps) {
   const { setIsModalOpen, message, token } = props;
-
+  const { profile } = useContext(UserInfoContext);
+  const { handleFetch } = profile;
   const returnMessage = message || 'Welcome!';
   const navigate = useNavigate();
 
@@ -25,6 +28,7 @@ function LoginModal(props: ModalProps) {
   if (token) {
     localStorage.setItem('token', JSON.stringify(token));
     setTimeout(() => {
+      handleFetch();
       navigate('/meals');
       setIsModalOpen(false);
     }, 1000);

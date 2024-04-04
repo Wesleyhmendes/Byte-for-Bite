@@ -12,6 +12,14 @@ describe('Testa o componente Login', () => {
   const passwordTestId = 'password-input';
   const submitBtnTestId = 'login-submit-btn';
 
+  const mockUser: User = {
+    email: 'user@teste.com',
+    username: '',
+    password: '123456',
+    confirmPassword: '',
+    profileImage: '',
+  };
+
   test('Testa se os inputs de email e senha e o botão entrar estão presentes', () => {
     renderWithRouter(
       <GoogleOAuthProvider clientId="837825883055-16f47j4qisf0vcbpf9on5p44mclu8dlk.apps.googleusercontent.com">
@@ -44,8 +52,8 @@ describe('Testa o componente Login', () => {
       </GoogleOAuthProvider>,
     );
 
-    const emailTest = 'user@user.com';
-    const passwordTest = '123456';
+    const emailTest = mockUser.email;
+    const passwordTest = mockUser.password;
 
     expect(window.location.pathname).toBe('/');
 
@@ -110,14 +118,6 @@ describe('Testa o componente Login', () => {
   });
 
   test('Testa se o componente formulario de login funciona corretamente', async () => {
-    const mockUser: User = {
-      email: 'user@teste.com',
-      username: '',
-      password: '123456',
-      confirmPassword: '',
-      profileImage: '',
-    };
-
     const handleChangeSpy = vi.fn();
     const handleSubmitSpy = vi.fn();
     const signUpDispatchSpy = vi.fn();
@@ -140,12 +140,38 @@ describe('Testa o componente Login', () => {
     const passwordInput = await screen.findByTestId('password-input');
     const loginBtn = await screen.findByTestId('login-submit-btn');
 
-    await user.type(emailInput, 'user@teste.com');
-    await user.type(passwordInput, '123456');
+    await user.type(emailInput, mockUser.email);
+    await user.type(passwordInput, mockUser.password);
     await user.click(loginBtn);
 
-    expect(handleChangeSpy).toHaveBeenCalled();
     expect(loginBtn).toBeEnabled();
+    expect(handleChangeSpy).toHaveBeenCalled();
     expect(handleSubmitSpy).toHaveBeenCalled();
   });
+
+  // test('Testa se o componente formulario de login funciona corretamente', async () => {
+  //   const handleChangeSpy = vi.fn();
+  //   const handleSubmitSpy = vi.fn();
+  //   const signUpDispatchSpy = vi.fn();
+  //   const setGoogleUserSpy = vi.fn();
+  //   const { user } = renderWithRouter(
+  //     <GoogleOAuthProvider clientId="837825883055-16f47j4qisf0vcbpf9on5p44mclu8dlk.apps.googleusercontent.com">
+  //       <UserInfoProvider>
+  //         <LoginForm
+  //           user={ mockUser }
+  //           handleChange={ handleChangeSpy }
+  //           handleSubmit={ handleSubmitSpy }
+  //           signUpDispatch={ signUpDispatchSpy }
+  //           setGoogleUser={ setGoogleUserSpy }
+  //         />
+  //       </UserInfoProvider>
+  //     </GoogleOAuthProvider>,
+  //   );
+
+  //   const googleOAuth = await screen.findByLabelText('google-oauth');
+  //   await user.click(googleOAuth);
+
+  //   expect(googleOAuth).toBeInTheDocument();
+  //   expect(setGoogleUserSpy).toHaveBeenCalled();
+  // });
 });
