@@ -30,7 +30,6 @@ function SignUp() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     handleFetch();
-
     localStorage.setItem('user', JSON.stringify(user.email));
     signUpDispatch({ type: RESET_USER });
     setIsModalOpen(true);

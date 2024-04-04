@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-max-depth */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import SearchBar from '../SearchBar';
 import profileIcon from '../../images/profileIcon.svg';
@@ -20,15 +20,12 @@ import { getHeaderTitle, getProfileImage } from '../../utils/headerUtils';
 function Header() {
   const { profile } = useContext(UserInfoContext);
   const { route } = useContext(Context);
-  const { data, handleFetch } = profile;
+  const { data } = profile;
 
   const profileIMG = getProfileImage(data, profileIcon);
 
   const pageTitle = getHeaderTitle(route);
 
-  useEffect(() => {
-    handleFetch();
-  }, []);
   return (
     <HeaderStyle>
       <HeaderMainDiv className={ pageTitle }>

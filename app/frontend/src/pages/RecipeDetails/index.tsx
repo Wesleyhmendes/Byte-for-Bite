@@ -18,7 +18,8 @@ export default function RecipeDetails() {
   const { id } = useParams();
   const [loadingNextPage, setIsLoadingNextPage] = useState(false);
 
-  const { route, checkInProgressRecipe } = useContext(Context);
+  const { route, checkInProgressRecipe, inProgress } = useContext(Context);
+  const { handleFetch: inProgressFetch } = inProgress;
   const { profile } = useContext(UserInfoContext);
   const userId = getProfileId(profile);
 
@@ -45,6 +46,7 @@ export default function RecipeDetails() {
     }
     setIsLoadingNextPage(true);
     setTimeout(() => {
+      inProgressFetch();
       navigate(`${route}/${id}/in-progress`);
     }, 2000);
   };
