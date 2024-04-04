@@ -6,7 +6,7 @@ import useRecipesProvider from '../hooks/useRecipesProvider';
 import mockMealRecipes from './mocks/mockMealRecipes';
 import useSearchBar from '../hooks/useSearchBar';
 import useCheckIngredients from '../hooks/useCheckIngredients';
-import useSignUp from '../hooks/useSignUp';
+import useUserProvider from '../hooks/useUserProvider';
 
 describe('Testes referentes aos custom hooks criados', async () => {
   test('Testa o useRecipesProvider', () => {
@@ -290,12 +290,21 @@ describe('Testes referentes aos custom hooks criados', async () => {
     expect(result.current.initialState).toEqual({});
   });
 
-  test('Testa o useSigUp', () => {
-    const { result } = renderHook(() => useSignUp());
+  test('Testa o useUserProvider', () => {
+    const { result } = renderHook(() => useUserProvider());
 
-    act(() => result.current.signUpDispatch({ type: '' }));
+    const mockData2 = {
+      data: undefined,
+      isLoading: false,
+      error: undefined,
+      handleFetch: vi.fn(),
+      dispatch: vi.fn(),
+    };
+
+    act(() => result.current.getProfile(mockData2));
 
     expect(result.current.user).toEqual({
+
       confirmPassword: '',
       email: '',
       password: '',

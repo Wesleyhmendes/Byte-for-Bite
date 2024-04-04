@@ -6,34 +6,41 @@ import { UserAction } from '../../type';
 type GoogleSignUpProps = {
   signUpDispatch: React.Dispatch<UserAction>;
   setGoogleUser: React.Dispatch<React.SetStateAction<boolean>>;
+
 };
 
 export default function GoogleAuth({ signUpDispatch, setGoogleUser }: GoogleSignUpProps) {
   const route = useLocation().pathname;
+
   return (
-    <div
-      className="google"
-      aria-label="google-parent"
-    >
-      <GoogleLogin
-        size="large"
-        theme="filled_black"
-        text={ route.endsWith('signup') ? 'signup_with' : 'continue_with' }
-        onSuccess={ (credentialResponse) => {
-          const decode = jwtDecode<JwtPayload>(credentialResponse?.credential as string);
-          const googleUser = {
-            email: decode.email,
-            username: decode.name,
-            profileImage: decode.picture,
-            email_verified: decode.email_verified ? 'true' : 'false',
-          };
-          signUpDispatch({ type: 'GOOGLE_USER', value: googleUser });
-          setGoogleUser((prev) => !prev);
-        } }
-        onError={ () => {
-          console.log('Login Failed');
-        } }
-      />
+    <div>
+      <button
+        className="google-oauth"
+        aria-label="google-oauth"
+      >
+
+        <GoogleLogin
+          size="large"
+          theme="filled_black"
+          text={ route.endsWith('signup') ? 'signup_with' : 'continue_with' }
+          onSuccess={ (credentialResponse) => {
+            const decode = jwtDecode<JwtPayload>(
+              credentialResponse?.credential as string,
+            );
+            const googleUser = {
+              email: decode.email as string,
+              username: decode.name as string,
+              profileImage: decode.picture as string,
+              email_verified: decode.email_verified ? 'true' : 'false',
+            };
+            signUpDispatch({ type: 'GOOGLE_USER', value: googleUser });
+            setGoogleUser((prev) => !prev);
+          } }
+          onError={ () => {
+            console.log('Login Failed');
+          } }
+        />
+      </button>
     </div>
   );
 }

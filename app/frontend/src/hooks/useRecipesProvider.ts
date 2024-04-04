@@ -118,11 +118,11 @@ const useRecipesProvider = (path: string) => {
       return [];
     }
     if (path === '/meals' && data) {
-      const favoriteMealIds = data.map((info) => info.favoriteRecipes.idMeal);
+      const favoriteMealIds = data.map((info) => info.favoriteRecipes?.idMeal);
       return favoriteMealIds;
     }
     if (path === '/drinks' && data) {
-      const favoriteDrinkIds = data.map((info) => info.favoriteRecipes.idDrink);
+      const favoriteDrinkIds = data.map((info) => info.favoriteRecipes?.idDrink);
       return favoriteDrinkIds;
     }
 
