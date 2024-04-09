@@ -30,7 +30,7 @@ export default function Profile() {
 
   document.title = `${userName} | Byte for Bite`;
 
-  const updateImageURL = `http://localhost:3001/profile/${id}`;
+  const updateImageURL = `/profile/${id}`;
   const options: FetchOptions = { method: 'PATCH', body: { profileImage } };
   const { handleFetch } = useFetch(updateImageURL, options);
 

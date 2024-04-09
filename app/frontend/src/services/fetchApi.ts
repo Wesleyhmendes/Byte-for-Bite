@@ -2,7 +2,7 @@ import { FilterRadioType } from '../type';
 import { createUrlMealsFilter } from '../utils/functions/createUrlMealsFilter';
 
 export const fetchMeals = async (token: string) => {
-  const URL_API = 'http://localhost:3001/meals/name';
+  const URL_API = '/meals/name';
   const response = await fetch(URL_API, { headers: {
     Authorization: `bearer ${token}`,
   } });
@@ -20,14 +20,14 @@ export const fetchMealsByFilter = async (
 };
 
 export const fetchMealsCategories = async () => {
-  const URL_API = 'http://localhost:3001/meals/categories';
+  const URL_API = '/meals/categories';
   const response = await fetch(URL_API);
   const data = await response.json();
   return data;
 };
 
 export const fetchMealsFilterByCategory = async (category: string) => {
-  const URL_API = `http://localhost:3001/meals/category?q=${category}`;
+  const URL_API = `/meals/category?q=${category}`;
   const response = await fetch(URL_API);
   const data = await response.json();
   return data;
@@ -58,14 +58,14 @@ export const fetchDrinksCategories = async () => {
 };
 
 export const fetchDrinksFilterByCategory = async (category: string) => {
-  const URL_API = `http://localhost:3001/drinks/category?q=${category}`;
+  const URL_API = `/drinks/category?q=${category}`;
   const response = await fetch(URL_API);
   const data = await response.json();
   return data;
 };
 
 export const fetchRecipeById = async (typeRecipe: string, id: string) => {
-  const URL_API = typeRecipe === 'meals' ? `http://localhost:3001/meals/${id}` : `http://localhost:3001/drinks/${id}`;
+  const URL_API = typeRecipe === 'meals' ? `/meals/${id}` : `/drinks/${id}`;
   const response = await fetch(URL_API);
   const data = await response.json();
   return data;

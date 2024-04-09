@@ -8,7 +8,7 @@ const useUserProvider = () => {
 
   // PROFILE URL AND USER EMAIL
   const email = JSON.parse(localStorage.getItem('user') as string);
-  const url = `http://localhost:3001/profile?email=${email}`;
+  const url = `/profile?email=${email}`;
 
   const getProfile = (fetchedData: FetchedData) => {
     const { data } = fetchedData;

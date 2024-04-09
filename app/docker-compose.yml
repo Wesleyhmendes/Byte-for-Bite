@@ -14,6 +14,10 @@ services:
       test: ["CMD", "lsof", "-t", "-i:3000"]  # Caso utilize outra porta interna para o front, altere ela aqui também
       timeout: 10s
       retries: 5
+    environment:
+      - PROTOCOL=http
+      - URL_BASE=localhost
+      - PORT_API=3001
   backend:
     container_name: app_backend
     build: ./backend
