@@ -37,10 +37,10 @@ export default function RecipeInProgress() {
     checkIngredientsDispatch,
   } = useCheckIngredients(userId, id as string, route);
 
-  const recipeURL = `http://localhost:3001${route}/${id}`;
+  const recipeURL = `${route}/${id}`;
   const { data, error } = useFetch(recipeURL);
 
-  const addDoneRecipeURL = `http://localhost:3001${route}/donerecipes/${id}`;
+  const addDoneRecipeURL = `${route}/donerecipes/${id}`;
   const {
     handleFetch,
   } = useFetch(addDoneRecipeURL, { method: 'POST', body: { userId } });

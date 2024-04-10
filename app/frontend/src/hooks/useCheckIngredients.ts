@@ -30,7 +30,7 @@ const useCheckIngredients = (userId: number, recipeId: string, route: string) =>
   };
 
   // FETCHES (UN)MARKED INGREDIENT LIST FROM DB
-  const inProgressURL = `http://localhost:3001${route}/inprogress/${recipeId}?user=${userId}`;
+  const inProgressURL = `${route}/inprogress/${recipeId}?user=${userId}`;
   const inProgress = useFetch(inProgressURL);
 
   // FUNCTION HANDLES FETCHED DATA AND RETURNS A COPY TO SERVE AS INITIAL STATE OF REDUCER
@@ -69,7 +69,7 @@ const useCheckIngredients = (userId: number, recipeId: string, route: string) =>
   const isInprogress = checkIfIsInProgress(inProgress);
 
   // USEFETCH SENDING DATA TO DB VIA 'PATCH' REQUISITION
-  const updateMarkedIngredientsURL = `http://localhost:3001${route}/inprogress/${recipeId}?user=${userId}`;
+  const updateMarkedIngredientsURL = `${route}/inprogress/${recipeId}?user=${userId}`;
   const { handleFetch } = useFetch(updateMarkedIngredientsURL, { method: 'PATCH', body: { markedIngredients: stateIngredients } });
 
   // USEEFFECT THAT SINCRONIZES THE HOOK'S INITIAL STATE WITH THE DATA FETCHED IN DB.

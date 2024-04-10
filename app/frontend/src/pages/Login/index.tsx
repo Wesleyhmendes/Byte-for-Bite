@@ -19,7 +19,7 @@ function Login() {
   const [googleUser, setGoogleUser] = useState(false);
 
   // GETS USER INITIAL STATE FROM CONTEXT, FILLS WITH INFORMATION FROM FORM BELLOW AND SENDS TO DB
-  const url = googleUser ? 'http://localhost:3001/user/login-google' : 'http://localhost:3001/user/login';
+  const url = googleUser ? '/user/login-google' : '/user/login';
 
   const requestBody = user;
   const options: FetchOptions = { method: 'POST', body: requestBody };

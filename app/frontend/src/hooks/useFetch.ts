@@ -1,8 +1,10 @@
 import { useReducer, useEffect } from 'react';
 import { FetchAction, FetchOptions } from '../type';
+const { PROTOCOL = 'http', URL_BASE = 'localhost', PORT_API = '3001' } = import.meta.env;
 
 const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
   // INITIAL STATE IS PREPARED TO ACCEPT ALL KINDS OF DATA
+  const baseUrl = `${PROTOCOL}://${URL_BASE}:${PORT_API}`;
   const initialState = {
     data: undefined,
     isLoading: true,
@@ -54,7 +56,7 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
     dispatch({ type: 'loading' });
 
     try {
-      const response = await fetch(URL, request);
+      const response = await fetch(`${baseUrl}${URL}`, request);
 
       const result = await response.json();
       dispatch({ type: 'fetched', payload: result });

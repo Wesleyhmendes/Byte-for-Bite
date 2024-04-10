@@ -17,8 +17,8 @@ export default function FavoriteRecipes() {
   const { profile } = useContext(UserInfoContext);
   const userId = getProfileId(profile);
 
-  const favoriteMealsURL = `http://localhost:3001/meals/favorites/search?user=${userId}`;
-  const favoriteDrinksURL = `http://localhost:3001/drinks/favorites/search?user=${userId}`;
+  const favoriteMealsURL = `/meals/favorites/search?user=${userId}`;
+  const favoriteDrinksURL = `/drinks/favorites/search?user=${userId}`;
 
   const favoriteMeals = useFetch(favoriteMealsURL);
   const favoriteDrinks = useFetch(favoriteDrinksURL);

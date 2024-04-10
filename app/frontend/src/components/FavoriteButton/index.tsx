@@ -23,7 +23,7 @@ export default function FavoriteButton({
 
   // SENDS INFORMATION TO DB THROUGH BODY VIA 'POST'
   const userId = getProfileId(profile);
-  const addFavoriteURL = `http://localhost:3001${recipeType}/favorites/${id}`;
+  const addFavoriteURL = `${recipeType}/favorites/${id}`;
   const {
     handleFetch,
   } = useFetch(addFavoriteURL, { method: 'POST', body: { userId } });

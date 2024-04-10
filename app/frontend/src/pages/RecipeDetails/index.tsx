@@ -23,7 +23,7 @@ export default function RecipeDetails() {
   const { profile } = useContext(UserInfoContext);
   const userId = getProfileId(profile);
 
-  const recipeDetailsURL = `http://localhost:3001${route}/${id}`;
+  const recipeDetailsURL = `${route}/${id}`;
   const { data, isLoading, error } = useFetch(recipeDetailsURL);
   const recipe = data;
 
@@ -31,7 +31,7 @@ export default function RecipeDetails() {
 
   const buttonText = isInProgress ? 'Continue recipe' : 'Start recipe';
 
-  const startInProgressURL = `http://localhost:3001${route}/inprogress`;
+  const startInProgressURL = `${route}/inprogress`;
   const reqBody = route === '/meals'
     ? { userId, mealId: Number(id) }
     : { userId, drinkId: Number(id) };
