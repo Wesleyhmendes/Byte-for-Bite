@@ -1,5 +1,6 @@
 /* eslint-disable max-lines */
 import styled, { css } from 'styled-components';
+import theme from '../../theme';
 
 export const Div = styled.div`
     margin-bottom: 1rem;
@@ -18,7 +19,7 @@ export const Form = styled.form`
 `;
 
 export const Filters = styled.div`
-  background: #f4f4f4;
+  background: ${theme.colors.background.background};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,10 +45,9 @@ export const InputSearch = styled.input`
 `;
 
 export const Lupe = styled.img` 
-    height: 30px;
-    background-color: #ffffff;
+    height: 30.72px;
     border-radius: 0 10px 10px 0;
-    border-left: 2px solid #c0c0c0;
+    margin-left: -0.2px;
 `;
 
 export const Button = styled.button`
@@ -58,11 +58,11 @@ export const Button = styled.button`
 export const FilterP = styled.p<{ className: string }>`
   font-weight: 600;
   text-align: center;
-  color: rgb(56, 56, 56);
+  color: ${theme.colors.text.text};
  
  ${(props) => props.className === 'active' && css`
-    color: #FE5B15;
-    border-bottom: 2px solid #FE5B15;
+    color: ${theme.colors.text.selectedText};
+    border-bottom: 2px solid ${theme.colors.button.activeBtn};
   `}
 
   &:hover {

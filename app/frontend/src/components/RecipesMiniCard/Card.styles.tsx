@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import theme from '../../theme';
 
 export const Div = styled.div`
-  background: #fff;
+  background: ${theme.colors.background.white};
   display: flex;
   flex-direction: row;
   border-radius: 10px;
@@ -10,6 +11,11 @@ export const Div = styled.div`
   padding: 1rem;
   width: 30rem;
   height: 10rem;
+
+  &:hover {
+    transition: 0.4s ease;
+    background: ${theme.colors.background.cardHover};
+  }
 
   @media (min-width: 768px) {
     width: 44%;
@@ -37,10 +43,6 @@ export const CardTextContainer = styled.div`
   text-align: left;
   width: 100%;
 
-  @media (min-width: 768px) {
-    
-  }
-
   @media (min-width: 1280px) {
     padding-left: 0.8rem;
   }
@@ -60,8 +62,7 @@ export const TitleAndButtonContainer = styled.div`
   }
 
   h1 {
-    font-weight: bold;
-    font-size: 1.2rem;
+    font-weight: 500;
   }
 
   @media (min-width: 320px) {
@@ -72,7 +73,7 @@ export const TitleAndButtonContainer = styled.div`
 
   @media (min-width: 768px) {
     h1 {
-      font-size: 1rem;
+      font-size: large;
     }
   }
   
@@ -86,7 +87,7 @@ export const RecipeCategories = styled.div`
   gap: 7px;
 
   p {
-    font-size: 1rem;
+    font-size: 0.90rem;
   }
 `;
 
@@ -96,9 +97,9 @@ export const DetailsButton = styled.button`
   display: flex;
   justify-content: center;
   gap: 0.4rem;
-  color: white;
-  font-weight: bold;
-  background: rgba(255, 77, 0, 0.912);
+  color: ${theme.colors.text.whiteText};
+  font-weight: 600;
+  background: ${theme.colors.button.activeBtn};
   border-radius: 7px;
   height: 30px;
   width: 160px;
@@ -110,12 +111,12 @@ export const DetailsButton = styled.button`
   }
 
   &.Continue {
-    background: rgba(195, 58, 0, 0.912);
+    background: ${theme.colors.button.continueBtn};
   }
 
   &:hover {
-    background-color: #d14e16;
-    color: #000;
+    background-color: ${theme.colors.button.hoverBtn};
+    color: ${theme.colors.text.whiteText};
     cursor: pointer;
   }
 `;
@@ -142,11 +143,5 @@ export const Img = styled.div<{ src: string }>`
     height: 100%;
     width: fit-content;
     border-radius: 10px;
-    transition: transform 0.4s ease;
-
-    &:hover {
-      transform: scale(1.1);
-      border-radius: 10px 0 0 10px;
-    }
   }
 `;

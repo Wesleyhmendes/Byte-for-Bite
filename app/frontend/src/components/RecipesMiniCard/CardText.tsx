@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { DrinkType, MealType } from '../../type';
 import clock from '../../assets/Icons/clock-icon.png';
 import * as S from './Card.styles';
-import ShareFavoriteButtons from '../ShareFavoriteButtons';
+import FavoriteButton from '../FavoriteButton';
 
 type RecipesMiniCardProps = {
   recipe: MealType | DrinkType;
@@ -26,7 +26,7 @@ function CardText({ recipe, path, index, isInProgress }: RecipesMiniCardProps) {
         <div>
           <h1 data-testid={ `${index}-card-name` }>{ shorterTitle }</h1>
         </div>
-        <ShareFavoriteButtons id={ id } recipeType={ path } />
+        <FavoriteButton id={ id } recipeType={ path } />
         {/* <p>{isFav ? 'favorito' : 'não'}</p> */}
       </S.TitleAndButtonContainer>
       <S.RecipeCategories>

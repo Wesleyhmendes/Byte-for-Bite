@@ -3,9 +3,9 @@ import { vi } from 'vitest';
 import { renderWithRouter } from './utils/renderWithRouter';
 import Provider from '../context/Provider/Provider';
 
-import FavoriteButton from '../components/ShareFavoriteButtons';
+import FavoriteButton from '../components/FavoriteButton';
 
-describe('Testes referentes ao ShareFavoriteButtons', () => {
+describe('Testes referentes ao FavoriteButton', () => {
   test('Testa se o botão de favoritos é renderizado', async () => {
     renderWithRouter(
       <Provider>

@@ -28,9 +28,9 @@ function SignUpForm({ user, handleChange, handleSubmit, signUpDispatch, setGoogl
 
   return (
     <S.Form onSubmit={ handleSubmit }>
-      <S.Label>
+      <label>
         Email
-        <S.Inputs
+        <input
           className={ validateEmail ? 'valid' : 'invalid' }
           type="email"
           name="email"
@@ -38,10 +38,10 @@ function SignUpForm({ user, handleChange, handleSubmit, signUpDispatch, setGoogl
           onChange={ handleChange }
           placeholder="Ex.: email@email.com"
         />
-      </S.Label>
-      <S.Label>
+      </label>
+      <label>
         Username
-        <S.Inputs
+        <input
           className={ validateUserName ? 'valid' : 'invalid' }
           type="text"
           name="username"
@@ -49,10 +49,10 @@ function SignUpForm({ user, handleChange, handleSubmit, signUpDispatch, setGoogl
           value={ username }
           onChange={ handleChange }
         />
-      </S.Label>
-      <S.Label>
+      </label>
+      <label>
         Password
-        <S.Inputs
+        <input
           className={ validatePassword ? 'valid' : 'invalid' }
           name="password"
           type="password"
@@ -60,22 +60,22 @@ function SignUpForm({ user, handleChange, handleSubmit, signUpDispatch, setGoogl
           value={ password }
           onChange={ handleChange }
         />
-      </S.Label>
-      <S.Label>
+      </label>
+      <label>
         Confirm your password
-        <S.Inputs
+        <input
           className={ validateConfirm ? 'valid' : 'invalid' }
           name="confirmPassword"
           type="password"
           value={ confirmPassword }
           onChange={ handleChange }
         />
-      </S.Label>
+      </label>
       <GoogleAuth
         signUpDispatch={ signUpDispatch }
         setGoogleUser={ setGoogleUser }
       />
-      <S.Button disabled={ !isUserValid }>Sign up</S.Button>
+      <button disabled={ !isUserValid }>Sign up</button>
     </S.Form>
   );
 }

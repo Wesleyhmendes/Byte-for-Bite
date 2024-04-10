@@ -14,21 +14,21 @@ describe('Teste das funções da pasta utils', () => {
 
     const result = createURLFilter(mockPath, mockFirstLetterRadio, mockLetter);
 
-    expect(result).toBe(`http://localhost:3001${mockPath}/letter?q=${mockLetter}`);
+    expect(result).toBe(`${mockPath}/letter?q=${mockLetter}`);
 
     const mockNameRadio = 's';
     const mockName = 'beef wellington';
 
     const newResult = createURLFilter(mockPath, mockNameRadio, mockName);
 
-    expect(newResult).toBe(`http://localhost:3001${mockPath}/name?q=${mockName}`);
+    expect(newResult).toBe(`${mockPath}/name?q=${mockName}`);
 
     const mockIngredientRadio = 'i';
     const mockIngredient = 'eggs';
 
     const thirdResult = createURLFilter(mockPath, mockIngredientRadio, mockIngredient);
 
-    expect(thirdResult).toBe(`http://localhost:3001${mockPath}/ingredient?q=${mockIngredient}`);
+    expect(thirdResult).toBe(`${mockPath}/ingredient?q=${mockIngredient}`);
   });
 
   test('Testa se a função validateLogin está funcionando corretamente', () => {

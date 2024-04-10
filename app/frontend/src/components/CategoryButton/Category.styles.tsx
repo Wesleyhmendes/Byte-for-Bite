@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import theme from '../../theme';
 
 export const Button = styled.button`
-  background-color: #ffffff;
+  background-color: ${theme.colors.background.white};
   box-shadow: 0px 1px 2px 0px rgba(189,189,189,1);
   
   border-radius: 1rem;
@@ -12,12 +13,12 @@ export const Button = styled.button`
   width: 10rem;
     
   &:hover {
-    background-color: #FF5C16;
+    background-color: ${theme.colors.button.activeBtn};
     color: #fff;
   }
 
   &.active {
-    background-color: #FF5C16;
-    color: #fff;
+    background-color: ${theme.colors.button.activeBtn};
+    color: ${theme.colors.text.whiteText};
   }
 `;

@@ -17,8 +17,8 @@ export default function DoneRecipes() {
   const { profile } = useContext(UserInfoContext);
   const userId = getProfileId(profile);
 
-  const doneMealsURL = `http://localhost:3001/meals/donerecipes/search?user=${userId}`;
-  const doneDrinksURL = `http://localhost:3001/drinks/donerecipes/search?user=${userId}`;
+  const doneMealsURL = `/meals/donerecipes/search?user=${userId}`;
+  const doneDrinksURL = `/drinks/donerecipes/search?user=${userId}`;
 
   const doneMeals = useFetch(doneMealsURL);
   const doneDrinks = useFetch(doneDrinksURL);

@@ -3,7 +3,7 @@ import {
   Gradient,
   TitleAndButtonContainer,
 } from '../RecipeDetails/RecipeDetails.styles';
-import FavoriteButton from '../../components/ShareFavoriteButtons';
+import FavoriteButton from '../../components/FavoriteButton';
 import getRecipeCategory from '../../utils/getRecipeCategory';
 
 type RecipeInfoProps = {

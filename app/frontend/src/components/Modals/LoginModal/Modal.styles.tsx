@@ -1,5 +1,6 @@
 /* eslint-disable max-lines */
 import styled from 'styled-components';
+import theme from '../../../theme';
 
 export const ModalDiv = styled.div`
   align-items: center;
@@ -9,7 +10,7 @@ export const ModalDiv = styled.div`
 `;
 
 export const H3 = styled.h3`
-  color: #313131;
+  color: ${theme.colors.text.title};
   font-size: larger;
   font-weight: 600;
   text-align: center;
@@ -19,9 +20,9 @@ export const H3 = styled.h3`
 
 export const Button = styled.button`
   @media (min-width: 320px) {
-    background-color: #FF4B00;
+    background-color: ${theme.colors.button.activeBtn};
     border-radius: 7px;
-    color: #FFF;
+    color: ${theme.colors.text.whiteText};
     font-size: 20px;
     font-weight: 600; 
     height: 2.5rem;
@@ -30,9 +31,9 @@ export const Button = styled.button`
     width: 80%;
 
     &:hover {
-      background-color: #d14e16;
+      background-color: ${theme.colors.button.hoverBtn};
       cursor: pointer;
-      color: black;
+      color: ${theme.colors.text.text};
     }
   }
 

@@ -1,3 +1,5 @@
+import { P } from './message.styles';
+
 type DoneOrFavoriteMessageProps = {
   mealUserId: number | undefined;
   drinkUserId: number | undefined;
@@ -14,13 +16,13 @@ function DoneOrFavoriteMessage({
   return (
     <>
       {!mealUserId && !drinkUserId && filter === 'all' ? (
-        <p>{`You don't have any ${doneOrFav} recipe. `}</p>
+        <P>{`You don't have any ${doneOrFav} recipe. `}</P>
       ) : null}
       {!mealUserId && filter === 'meals' ? (
-        <p>{`You don't have any ${doneOrFav} meal. `}</p>
+        <P>{`You don't have any ${doneOrFav} meal. `}</P>
       ) : null}
       {!drinkUserId && filter === 'drinks' ? (
-        <p>{`You don't have any ${doneOrFav} drink. `}</p>
+        <P>{`You don't have any ${doneOrFav} drink. `}</P>
       ) : null}
     </>
 

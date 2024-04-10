@@ -20,7 +20,7 @@ function SignUp() {
   const requestBody = rest;
 
   // SEND USER DATA TO DB
-  const signUpURL = googleUser ? 'http://localhost:3001/user/signup-google' : 'http://localhost:3001/user';
+  const signUpURL = googleUser ? '/user/signup-google' : '/user';
   const options: FetchOptions = { method: 'POST', body: requestBody };
   const { handleFetch, data, isLoading } = useFetch(signUpURL, options);
 

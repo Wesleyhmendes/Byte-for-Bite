@@ -1,12 +1,9 @@
 /* eslint-disable max-len */
 import styled from 'styled-components';
-
-export const HeaderStyle = styled.header`
-
-`;
+import theme from '../../theme';
 
 export const HeaderMainDiv = styled.div`
-  background: rgba(255, 77, 0, 0.912);
+  background: ${theme.colors.background.first};
 `;
 
 export const TopIconsDiv = styled.div`

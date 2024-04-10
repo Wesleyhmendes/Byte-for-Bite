@@ -25,10 +25,10 @@ const useRecipesProvider = (path: string) => {
   const { filter, filterDispatch } = useSearchBar();
 
   // URLS //
-  const allCategoriesURL = `http://localhost:3001${path}/categories`;
-  const allRecipesURL = `http://localhost:3001${path}/name`;
-  const favoritesURL = `http://localhost:3001${path}/favorites/search?user=${userId}`;
-  const inProgressURL = `http://localhost:3001${path}/inprogress/search?user=${userId}`;
+  const allCategoriesURL = `${path}/categories`;
+  const allRecipesURL = `${path}/name`;
+  const favoritesURL = `${path}/favorites/search?user=${userId}`;
+  const inProgressURL = `${path}/inprogress/search?user=${userId}`;
   const [byFilterURL, setByFilterURL] = useState('');
 
   // FETCHS

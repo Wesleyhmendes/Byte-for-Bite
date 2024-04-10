@@ -9,7 +9,7 @@ function RecipesCounter() {
   const { profile } = useContext(UserInfoContext);
   const userId = getProfileId(profile);
 
-  const profileRecipesURL = `http://localhost:3001/profile/${userId}/profileRecipes`;
+  const profileRecipesURL = `/profile/${userId}/profileRecipes`;
 
   const { data } = useFetch(profileRecipesURL);
   if (!data) {

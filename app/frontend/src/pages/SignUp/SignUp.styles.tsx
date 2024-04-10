@@ -1,15 +1,16 @@
 import styled from 'styled-components';
+import theme from '../../theme';
 
 export const Main = styled.main`
   height: 100vh;
-  background-color: #FF4B00; // #FF4B00
+  background-color: ${theme.colors.background.first};
   margin-bottom: -7rem;
   display: flex;
   justify-content: center;
 
   section {
     align-items: center;
-    background: #fff;
+    background: ${theme.colors.background.white};
     border-radius: 0 0 35px 35px;
     box-shadow: 2px 0px 5px 0px rgba(140,140,140,1);
     display: flex;
@@ -58,10 +59,10 @@ export const Form = styled.form`
 
   input {
     align-self: center;
-    background: #f4f4f4;
+    background: ${theme.colors.input.inputDefault};
     border-radius: 10px;
     border: none;
-    color: #000000;
+    color: ${theme.colors.text.text};
     /* height: 2.5rem; */
     margin-top: 1rem;
     padding-left: 1rem;
@@ -71,24 +72,23 @@ export const Form = styled.form`
 
   input:focus {
     outline: none;
-
   }
   
   .invalid:focus {
     border-bottom: 0;
-    box-shadow: 0px 0px 5px 1px rgba(255,0,0,1);
+    box-shadow: 0px 0px 5px 1px ${theme.colors.input.redInput};
   }
 
   .valid:focus {
     border-bottom: 0;
-    box-shadow: 0px 0px 5px 1px #199206;
+    box-shadow: 0px 0px 5px 1px ${theme.colors.input.greenInput};
   }
   
 
   button {
-    background-color: #FF4B00;
+    background-color: ${theme.colors.button.activeBtn};
     border-radius: 7px;
-    color: #FFF;
+    color: ${theme.colors.text.whiteText};
     font-size: 20px;
     font-weight: 600; 
     height: 2.5rem;
@@ -97,47 +97,20 @@ export const Form = styled.form`
     width: 100%;
 
     &:hover {
-      background-color: #d14e16;
+      background-color: ${theme.colors.button.hoverBtn};
       cursor: pointer;
       color: black;
     }
 
     &:disabled {
       cursor: pointer;
-      background-color: #828282;
-      color: #FFF; 
+      background-color: ${theme.colors.button.disableBtn};
+      color: ${theme.colors.text.whiteText};
     }
   }
 
   @media(min-width: 768px) {
-    /* label { font-size: larger; } */
     input { height: 3rem; }
     button { height: 3rem; margin-top: 2rem; }
   }
-
-  @media(min-width: 1280px) {
-    
-  }
-
-  @media(min-width: 1444px) {
-      
-  }
-`;
-
-export const Label = styled.label`
-  
-  
-
-`;
-
-export const Inputs = styled.input`
-  
-  
-
-`;
-
-export const Button = styled.button`
-  
-  
-
 `;

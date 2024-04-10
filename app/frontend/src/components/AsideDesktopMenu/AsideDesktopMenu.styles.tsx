@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import theme from '../../theme';
 
 export const Section = styled.section`
 @media (min-width: 320px) {
@@ -17,7 +18,7 @@ export const Section = styled.section`
   div {
     h2 {
       font-size: x-large;
-      color: #b0b0b0;
+      color: ${theme.colors.text.extraLightText};
     }
     gap: 1rem;
   }
@@ -44,14 +45,14 @@ export const ButtonDiv = styled.div`
     width: fit-content;    
     
     &:hover {
-      color: #FE5B15;
+      color: ${theme.colors.button.activeBtn};
     }
 
   }
 
   .active {
-    border-bottom: 2px solid #FE5B15;
-    color: #FE5B15;
+    border-bottom: 2px solid ${theme.colors.background.first};
+    color: ${theme.colors.button.activeBtn};
   }
 
   p {

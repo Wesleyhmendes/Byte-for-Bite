@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import theme from '../../theme';
 
 export const Header = styled.header`
-  background: #FF5C16;
+  background: ${theme.colors.background.first};
   box-shadow: 1px 1px 3px 0px rgba(189,189,189,1);
   margin-bottom: 1rem;
   width: 100%;

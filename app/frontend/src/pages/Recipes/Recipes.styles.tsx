@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import theme from '../../theme';
 
 export const Main = styled.main`
   display: flex;
@@ -58,25 +59,25 @@ export const PageButtonContainer = styled.div`
   justify-content: center;
   flex-wrap: wrap;
   width: 80%;
-
+  
   button {
-    background-color: #ff5c16;
+    background-color: ${theme.colors.button.activeBtn};
     border-radius: 7px;
-    color: #fff;
+    color: ${theme.colors.text.whiteText};
     font-weight: 500;
     height: 1.6rem;
     margin: 0.5rem;
     transition: 0.3s ease;
     width: 1.8rem;
     
-    &:hover { background-color: #d14e16; }  
+    &:hover { background-color: ${theme.colors.button.hoverBtn}; }  
   }
 
   .selected {
     button {
-      background-color: #ffffff;
+      background-color: ${theme.colors.button.selectedBtn};
       box-shadow: 0px 1px 1px 0px rgba(189,189,189,1);
-      color: #ff5c16;
+      color: ${theme.colors.text.selectedText};
       font-weight: bold;
     }
   }
@@ -114,8 +115,8 @@ export const ClearFilter = styled.div`
   button {
     align-items: center;
     box-shadow: 1px 2px 2px 0px rgba(189,189,189,1);
-    color: #4f4f4f;
-    background-color: #dcdcdc;
+    color: ${theme.colors.text.lightText};
+    background-color: ${theme.colors.button.lightBtn};
     border-radius: 5px;
     display: flex;
     gap: 0.5rem;
@@ -124,8 +125,7 @@ export const ClearFilter = styled.div`
     img { width: 20px; }
 
     &:hover {
-      border: 1px solid #ff0000;
-      color: #ff0000;
+      color: ${theme.colors.text.selectedText};
     }
   }
 `;
