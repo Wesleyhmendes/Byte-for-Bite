@@ -16,8 +16,8 @@ services:
       retries: 5
     environment:
       - PROTOCOL=http
-      - URL_BASE=localhost
-      - PORT_API=3001
+      - URL_BASE=52.90.169.223
+      - PORT_API=/api
   backend:
     container_name: app_backend
     build: ./backend
