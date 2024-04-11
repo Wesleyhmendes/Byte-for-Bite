@@ -5,7 +5,7 @@ const { VITE_PROTOCOL, VITE_URL_BASE, VITE_PORT_API  } = import.meta.env;
 
 const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
   // INITIAL STATE IS PREPARED TO ACCEPT ALL KINDS OF DATA
-  const baseUrl = `${VITE_PROTOCOL}://${VITE_URL_BASE}:${VITE_PORT_API}`;
+  const baseUrl = `${VITE_PROTOCOL}://${VITE_URL_BASE}` + VITE_PORT_API ? `:${VITE_PORT_API}` : '';
   const initialState = {
     data: undefined,
     isLoading: true,
