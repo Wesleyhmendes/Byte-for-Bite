@@ -15,9 +15,9 @@ services:
       timeout: 10s
       retries: 5
     environment:
-      - PROTOCOL=http
-      - URL_BASE=localhost
-      - PORT_API=3001
+      - VITE_PROTOCOL=http
+      - VITE_URL_BASE=localhost
+      - VITE_PORT_API=3001
   backend:
     container_name: app_backend
     build: ./backend
