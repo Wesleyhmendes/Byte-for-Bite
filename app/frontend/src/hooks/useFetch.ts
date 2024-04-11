@@ -1,10 +1,10 @@
 import { useReducer, useEffect } from 'react';
 import { FetchAction, FetchOptions } from '../type';
-const { PROTOCOL = 'http', URL_BASE = 'localhost', PORT_API = '3001' } = import.meta.env;
+const { VITE_PROTOCOL = 'http', VITE_URL_BASE = 'localhost', VITE_PORT_API = '3001' } = import.meta.env;
 
 const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
   // INITIAL STATE IS PREPARED TO ACCEPT ALL KINDS OF DATA
-  const baseUrl = `${PROTOCOL}://${URL_BASE}:${PORT_API}`;
+  const baseUrl = `${VITE_PROTOCOL}://${VITE_URL_BASE}:${VITE_PORT_API}`;
   const initialState = {
     data: undefined,
     isLoading: true,
