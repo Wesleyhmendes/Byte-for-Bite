@@ -7,6 +7,7 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
   const navigate = useNavigate();
   // INITIAL STATE IS PREPARED TO ACCEPT ALL KINDS OF DATA
   const baseUrl = `${VITE_PROTOCOL}://${VITE_URL_BASE}`;
+  // const baseUrl = 'https://backend-production-2024.up.railway.app';
   const initialState = {
     data: undefined,
     isLoading: true,
