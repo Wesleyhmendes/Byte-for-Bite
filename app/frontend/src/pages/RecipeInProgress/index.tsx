@@ -13,6 +13,7 @@ import RecipeInfo from './RecipeInfo';
 import RecipeIngredients from './RecipeIngredients';
 import RecipeVideo from './RecipeVideo';
 import Footer from '../../components/Footer';
+import NotFound from '../NotFound/NotFound';
 
 import Loading from '../../components/Loading/Loading';
 
@@ -76,7 +77,7 @@ export default function RecipeInProgress() {
   return (
     <>
       <S.Main>
-        { error ? <h3>An unexpected error occurred...</h3> : null }
+        { error ? <NotFound /> : null }
 
         { recipeData && !isInprogress ? (
           <h3>This recipe has not been started.</h3>

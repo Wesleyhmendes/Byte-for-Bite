@@ -8,6 +8,7 @@ import FavoriteRecipes from '../pages/FavoriteRecipes';
 import RecipeDetails from '../pages/RecipeDetails';
 import RecipeInProgress from '../pages/RecipeInProgress';
 import SignUp from '../pages/SignUp';
+import NotFound from '../pages/NotFound/NotFound';
 
 export default function RoutesApp() {
   return (
@@ -25,6 +26,7 @@ export default function RoutesApp() {
         <Route path="meals" Component={ Recipes } />
         <Route path="drinks" Component={ Recipes } />
       </Route>
+      <Route path="*" Component={ NotFound } />
     </Routes>
   );
 }

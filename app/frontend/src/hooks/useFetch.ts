@@ -1,9 +1,11 @@
 import { useReducer, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FetchAction, FetchOptions } from '../type';
 
-const { VITE_PROTOCOL, VITE_URL_BASE, VITE_PORT_API  } = import.meta.env;
+const { VITE_PROTOCOL, VITE_URL_BASE } = import.meta.env;
 
 const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
+  const navigate = useNavigate();
   // INITIAL STATE IS PREPARED TO ACCEPT ALL KINDS OF DATA
   const baseUrl = `${VITE_PROTOCOL}://${VITE_URL_BASE}`;
   const initialState = {
@@ -45,6 +47,9 @@ const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
   const handleFetch = async () => {
     const { method, body } = options;
     const token = JSON.parse(localStorage.getItem('token') as string);
+    if (!token) {
+      navigate('/');
+    }
     const request = {
       method,
       headers: {

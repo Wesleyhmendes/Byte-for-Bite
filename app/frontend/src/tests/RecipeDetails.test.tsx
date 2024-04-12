@@ -135,7 +135,7 @@ describe('Testa o componente RecipeDetails', () => {
 
     vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_RESPONSE);
 
-    const { user } = renderWithRouter(
+    renderWithRouter(
       <UserInfoProvider>
         <Provider>
           <App />

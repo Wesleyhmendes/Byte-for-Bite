@@ -4,7 +4,7 @@ import { User, UserAction } from '../../type';
 
 import * as S from './Login.styles';
 import DontHaveAccount from './DontHaveAccount';
-import GoogleAuth from '../SignUp/GoogleAuth';
+import GoogleAuth from '../../components/GoogleOAuth/GoogleAuth';
 
 type LoginFormProps = {
   user: User;

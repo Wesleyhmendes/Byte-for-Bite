@@ -102,7 +102,7 @@ describe('Testa o componente Login', () => {
     await user.type(inputPassword, passwordTest);
     await user.click(buttonSubmit);
 
-    waitFor(() => {
+    await waitFor(() => {
       expect(screen.getByText('Invalid email or password')).toBeInTheDocument();
     });
 
@@ -112,7 +112,7 @@ describe('Testa o componente Login', () => {
 
     await user.click(okButton);
 
-    waitFor(() => {
+    await waitFor(() => {
       expect(window.location.pathname).toBe('/');
     });
   });
