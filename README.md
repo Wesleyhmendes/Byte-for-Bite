@@ -80,14 +80,14 @@ Byte for Bite é uma aplicação web de receitas. Nela, o usuário tem acesso à
 <details>
 <summary>Diagrama do database de Meals:</summary>
 
-![meal_driagram.png](Byte%20for%20Bite%200a8a24c240174fd6997b2b532ddae5ea/meal_driagram.png)
+![meal_driagram.png](readmeAssets/meal_driagram.png)
 
 </details>
 
 <details>
 <summary>Diagrama do database de Drinks:</summary>
 
-![drink_diagram.png](Byte%20for%20Bite%200a8a24c240174fd6997b2b532ddae5ea/drink_diagram.png)
+![drink_diagram.png](readmeAssets/drink_diagram.png)
 
 </details>
 
@@ -101,8 +101,8 @@ O aplicativa foi criado pensando primeiro em dispositivos mobile (mobile first),
 
 <div style="display: flex; justify-content: center;">
     <div style="display: flex; flex-direction: row; gap: 40px;">
-        <img src="Byte%20for%20Bite%200a8a24c240174fd6997b2b532ddae5ea/iPhone-13-PRO-localhost.png" width="250">
-        <img src="Byte%20for%20Bite%200a8a24c240174fd6997b2b532ddae5ea/iPhone-13-PRO-localhost_(1).png" width="250">
+        <img src="readmeAssets/iPhone-13-PRO-localhost.png" width="250">
+        <img src="readmeAssets/iPhone-13-PRO-localhost_(1).png" width="250">
     </div>
 </div>
 
@@ -112,9 +112,9 @@ O aplicativa foi criado pensando primeiro em dispositivos mobile (mobile first),
 
 #### Desktop:
 
-![Macbook-Air-localhost.png](Byte%20for%20Bite%200a8a24c240174fd6997b2b532ddae5ea/Macbook-Air-localhost.png)
+![Macbook-Air-localhost.png](readmeAssets/Macbook-Air-localhost.png)
 
-![Macbook-Air-localhost (1).png](Byte%20for%20Bite%200a8a24c240174fd6997b2b532ddae5ea/Macbook-Air-localhost_(1).png)
+![Macbook-Air-localhost (1).png](readmeAssets/Macbook-Air-localhost_(1).png)
 
 ---
 
@@ -203,7 +203,7 @@ Crie um arquivo `.env` com essas mesmas variáveis e atribua os valores que acha
 
 <div style="display: flex; flex-direction: row;">
     <div style="flex: 1; padding-right: 20px;">
-        <img src="Byte%20for%20Bite%200a8a24c240174fd6997b2b532ddae5ea/foto-perfil-amarela.png" width="250">
+        <img src="readmeAssets/foto-perfil-amarela.png" width="250">
     </div>
     <div style="flex: 2;">
         <h3>Wesley Mendes <a href="https://emojiterra.com/pt/foguete/" target="_blank">🚀</a></h3>
@@ -217,7 +217,7 @@ Crie um arquivo `.env` com essas mesmas variáveis e atribua os valores que acha
 
 <div style="display: flex; flex-direction: row;">
     <div style="flex: 1; padding-right: 20px;">
-        <img src="Byte%20for%20Bite%200a8a24c240174fd6997b2b532ddae5ea/1697576847994.png" width="250">
+        <img src="readmeAssets/1697576847994.png" width="250">
     </div>
     <div style="flex: 2;">
         <h3>Gabriel Muniz Ferreira</h3>
