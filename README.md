@@ -99,9 +99,14 @@ O aplicativa foi criado pensando primeiro em dispositivos mobile (mobile first),
 
 #### Mobile:
 
-<img src="Byte%20for%20Bite%200a8a24c240174fd6997b2b532ddae5ea/iPhone-13-PRO-localhost.png" width="350">
+<div style="display: flex; justify-content: center;">
+    <div style="display: flex; flex-direction: row; gap: 40px;">
+        <img src="Byte%20for%20Bite%200a8a24c240174fd6997b2b532ddae5ea/iPhone-13-PRO-localhost.png" width="250">
+        <img src="Byte%20for%20Bite%200a8a24c240174fd6997b2b532ddae5ea/iPhone-13-PRO-localhost_(1).png" width="250">
+    </div>
+</div>
 
-<img src="Byte%20for%20Bite%200a8a24c240174fd6997b2b532ddae5ea/iPhone-13-PRO-localhost_(1).png" width="350">
+
 
 ---
 
