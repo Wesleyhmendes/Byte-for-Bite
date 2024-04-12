@@ -12,6 +12,7 @@ import * as S from './RecipeDetails.styles';
 
 import getProfileId from '../../utils/getProfileId';
 import createTitle from '../../utils/createTitle';
+import NotFound from '../NotFound/NotFound';
 
 export default function RecipeDetails() {
   const navigate = useNavigate();
@@ -72,7 +73,7 @@ export default function RecipeDetails() {
       ) : null}
 
       {(error && !loadingNextPage) || userId === 0 ? (
-        <h3>An unexpected error occurred...</h3>
+        <NotFound />
       ) : null}
 
       {isLoading ? <h3>Loading...</h3> : null}

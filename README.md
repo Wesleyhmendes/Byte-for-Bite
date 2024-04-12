@@ -9,12 +9,13 @@
 - Como rodar este projeto no seu computador?
 - Contribuição
 
+## Onde acessar o app?
+**Caso queira acessar o app oficial, basta acessar [Byte-for-bite](https://frontend-production-a0e7.up.railway.app/)**. Crie sua conta e tenha acesso à diversas receitas de pratos ou drinks na palma da mão.
+
 
 ## O que é possível com o Byte for Bite?
 
 Byte for Bite é uma aplicação web de receitas. Nela, o usuário tem acesso à centenas de receitas e drinks de forma prática e rápida.
-
-**Caso queira acessar o app oficial, basta acessar [Byte-for-bite](https://frontend-production-a0e7.up.railway.app/)**.
 
 <details>
 <summary>Neste app, o usuário pode:</summary>

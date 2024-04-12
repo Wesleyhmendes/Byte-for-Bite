@@ -89,7 +89,7 @@ describe('Testa o componente SearchBar', () => {
 
     const searchButton = screen.getByTestId(buttonSearchId);
 
-    user.click(searchButton);
+    await user.click(searchButton);
 
     const recipe1 = await screen.findByText('Apple Frangipan Tart');
     const recipe2 = await screen.findByText('Apple & Blackberry C...');
