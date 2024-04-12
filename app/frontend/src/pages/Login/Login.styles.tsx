@@ -113,7 +113,7 @@ export const FormMainDiv = styled.div`
 
       &.google-oauth {
         background-color: transparent;
-        width: 100%;      
+        width: 100%;
 
         background-color: ${theme.colors.button.disableBtn};
         color: ${theme.colors.background.white}; 

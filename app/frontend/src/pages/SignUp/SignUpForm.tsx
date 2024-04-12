@@ -61,7 +61,7 @@ function SignUpForm({ user, handleChange, handleSubmit, signUpDispatch, setGoogl
           onChange={ handleChange }
         />
       </label>
-      <label>
+      <label className="confirm">
         Confirm your password
         <input
           className={ validateConfirm ? 'valid' : 'invalid' }

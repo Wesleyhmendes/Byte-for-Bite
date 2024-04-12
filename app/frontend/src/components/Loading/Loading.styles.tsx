@@ -43,5 +43,8 @@ export const Desktop = styled.img`
 
   @media(min-width: 1280px) {
     display: inline;
+    z-index: 99;
+    height: 100vh;
+    width: 100vh;
   }
 `;

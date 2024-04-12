@@ -23,7 +23,7 @@ export const Main = styled.main`
       display: flex;
       justify-content: center;
       img {
-        width: 50%;
+        width: 30%;
       }
     }
 
@@ -32,6 +32,7 @@ export const Main = styled.main`
     }
 
     @media(min-width: 768px) {
+      div { img { width: 50%; }}
       width: 70%;
     }
 
@@ -63,11 +64,15 @@ export const Form = styled.form`
     border-radius: 10px;
     border: none;
     color: ${theme.colors.text.text};
-    /* height: 2.5rem; */
+    height: 2.5rem;
     margin-top: 1rem;
     padding-left: 1rem;
     width: 22rem;
     transition: ease 0.3s;
+  }
+
+  .confirm {
+    margin-bottom: 1rem;
   }
 
   input:focus {
