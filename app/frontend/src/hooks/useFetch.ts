@@ -1,5 +1,6 @@
 import { useReducer, useEffect } from 'react';
 import { FetchAction, FetchOptions } from '../type';
+
 const { PROTOCOL = 'http', URL_BASE = 'localhost', PORT_API = '3001' } = import.meta.env;
 
 const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
