@@ -158,13 +158,15 @@ Faça o `build` da aplicação pelo Docker:
 $ docker-compose up -d --build
 ```
 
-Para rodar os testes:
+Para rodar os testes, instale as dependências primeiro:
 
 ```bash
 # pasta frontend
+$ npm install
 $ npm run test
 
 #pasta backend
+$ npm install
 $ npm run test
 
 ```
