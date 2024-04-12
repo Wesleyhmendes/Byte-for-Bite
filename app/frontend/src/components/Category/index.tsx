@@ -18,7 +18,7 @@ export default function Category() {
 
   return (
     <section>
-      { allCategories.length === 0 ? <Loading /> : null }
+      { allCategories.length === 0 && '' }
       <Carousel ref={ carousel } className="carousel" whileTap={ { cursor: 'grabbing' } }>
         <InnerCarousel drag="x" dragConstraints={ { right: 0, left: -width - 20 } } className="inner-carousel">
           { allCategories

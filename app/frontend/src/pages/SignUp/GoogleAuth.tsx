@@ -14,11 +14,6 @@ export default function GoogleAuth({ signUpDispatch, setGoogleUser }: GoogleSign
 
   return (
     <div>
-      <button
-        className="google-oauth"
-        aria-label="google-oauth"
-      >
-
         <GoogleLogin
           size="large"
           theme="filled_black"
@@ -40,7 +35,6 @@ export default function GoogleAuth({ signUpDispatch, setGoogleUser }: GoogleSign
             console.log('Login Failed');
           } }
         />
-      </button>
     </div>
   );
 }
