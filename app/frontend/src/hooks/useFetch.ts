@@ -2,12 +2,12 @@ import { useReducer, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FetchAction, FetchOptions } from '../type';
 
-const { PROTOCOL = 'http', URL_BASE = 'localhost', PORT_API = '3001' } = import.meta.env;
+const { VITE_PROTOCOL, VITE_URL_BASE } = import.meta.env;
 
 const useFetch = (URL: string, options: FetchOptions = { method: 'GET' }) => {
   const navigate = useNavigate();
   // INITIAL STATE IS PREPARED TO ACCEPT ALL KINDS OF DATA
-  const baseUrl = `${PROTOCOL}://${URL_BASE}:${PORT_API}`;
+  const baseUrl = `${VITE_PROTOCOL}://${VITE_URL_BASE}`;
   const initialState = {
     data: undefined,
     isLoading: true,

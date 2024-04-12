@@ -1,194 +1,230 @@
-# Projeto App de Receitas! 🍴 #
+# Byte for Bite
 
-Neste projeto, eu e meu grupo desenvolvemos um app de receitas utilizando o que há de mais moderno dentro do ecossistema React: Hooks e Context API. Nessa aplicação, o usuário será capaz de:
+<h4>Glossário:</h4>
 
-- Fazer login 🔑
-- Pesquisar receitas de comidas 🍔
-- Pesquisar receitas de bebidas 🍹
-- Favoritar Receitas ❤️
-- Acompanhar o progresso de receitas de comidas e bebidas 📈
-- Verificar na página de perfil os dados da sua receita 🧑🏻‍🍳
+- O que é possível com o Byte for Bite?
+- Tecnologias Utilizadas
+- Diagrama do banco de dados
+- App em funcionamento:
+- Como rodar este projeto no seu computador?
+- Contribuição
+
+## Onde acessar o app?
+**Caso queira acessar o app oficial, basta acessar [Byte-for-bite](https://frontend-production-a0e7.up.railway.app/)**. Crie sua conta e tenha acesso à diversas receitas de pratos ou drinks na palma da mão.
 
 
-Além disso, neste projeto, foi verificado nossa capacidade de:
-- Utilizar a biblioteca React-Redux 📚
-- Utilizar a Context API do React para gerenciar estado 🔄
-- Utilizar o React Hook useState ⚛️
-- Utilizar o React Hook useContext ⚛️
-- Utilizar o React Hook useEffect ⚛️.
-- Criar Hooks customizados 🪝
-- Usar a metodologia Kanban para divisão de requisitos 📊
+## O que é possível com o Byte for Bite?
 
-Para garantir a qualidade do código, utilizamos neste projeto os linters ESLint e StyleLint. Assim, o código se manteve alinhado com as boas práticas de desenvolvimento, além de ser mais legível e de fácil manutenção. 👨🏻‍💻
+Byte for Bite é uma aplicação web de receitas. Nela, o usuário tem acesso à centenas de receitas e drinks de forma prática e rápida.
 
-### ⚙️ Projeto funcionando ###
-Você pode ver o projeto funcionando <a href=“https://recipes-app-amber.vercel.app/“>aqui</a>. Lembre-se de que se trata de um app estilizado para mobile. A estilização para desktop ainda não foi implementada.
-
-<div align="center">
-<img src="./src/assets/readmePics/homePageMeal.png" alt="homePageMeal.png" width="250"> <img src="./src/assets/readmePics/profilePage.png" alt="profilePage.png" width="250">
-</div>
-
-<br />
-
-## Requisitos 📜 ##
 <details>
-  <summary><strong>Ver Detalhes</strong></summary>
+<summary>Neste app, o usuário pode:</summary>
 
-## Tela de login
-1 - Crie todos os elementos que devem respeitar os atributos descritos no protótipo para a tela de login
-<br />
-2 - Desenvolva a tela de maneira que a pessoa consiga escrever seu e-mail no input de email e sua senha no input de senha
-<br />
-3 - Desenvolva a tela de maneira que o formulário só seja válido após o preenchimento de um e-mail válido e de uma senha com mais de 6 caracteres
-  <br />
-4 - Após a submissão do formulário, salve no localStorage o e-mail da pessoa usuária na chave user<br />
-  <br />
-5 - Redirecione a pessoa usuária para a tela principal de receitas de comidas após a submissão e validação com sucesso do login
-<br />
-
-## Header
-6 - Implemente o header de acordo com a necessidade de cada tela
-<br />
-7 - Redirecione a pessoa usuária para a tela de perfil ao clicar no botão de perfil
-<br />
-8 - Desenvolva o botão de busca que, ao ser clicado, permita a visualização da barra de busca ou a esconda
-<br />
-
-## Barra de busca – Header
-9  - Implemente os elementos da barra de busca respeitando os atributos descritos no protótipo
-<br />
-10 - Implemente três radio buttons na barra de busca: Ingredient, Name e First letter
-<br />
-11 - Busque na API de comidas caso a pessoa esteja na página de comidas e na API de bebidas caso a pessoa esteja na de bebidas
-<br />
-12 - Redirecione a pessoa usuária para a tela de detalhes da receita caso apenas uma receita seja encontrada (o ID da receita deve constar na URL)
-<br />
-13 - Caso a busca retorne mais de uma receita, renderize as 12 primeiras encontradas e exiba a imagem e o nome de cada uma delas
-<br />
-14 - Exiba um alert caso nenhuma receita seja encontrada
-<br />
-
-## Menu inferior
-15 - Implemente o menu inferior posicionando-o de forma fixa e contendo dois ícones: um para comidas e outro para bebidas
-<br />
-16 - Exiba o menu inferior apenas nas telas indicadas pelo protótipo
-<br />
-17 - Redirecione a pessoa usuária para a tela correta ao clicar em cada ícone no menu inferior
-<br />
-
-## Tela principal de receitas
-18 - Carregue as 12 primeiras receitas de comidas ou bebidas, uma em cada card
-<br />
-19 - Implemente os botões de categoria para serem utilizados como filtro
-<br />
-20 - Implemente o filtro das receitas por meio da API ao clicar no filtro de categoria
-<br />
-21 - Implemente o filtro como um toggle, o qual, se for selecionado novamente, fará o app retornar as receitas sem nenhum filtro
-<br />
-22 - Redirecione a pessoa usuária para a tela de detalhes quando ela clicar no card (a rota da tela deve mudar e sua URL deve conter o ID da receita)
-<br />
-
-## Tela de detalhes de uma receita
-23 - Realize uma request para a API passando o ID da receita que deve estar disponível nos parâmetros da URL
-<br />
-24 - Desenvolva a tela de modo que ela contenha uma imagem da receita, um título, a categoria da receita (em caso de comidas) e se é ou não alcoólica (em caso de bebidas), uma lista de ingredientes (com as quantidades e instruções necessárias), um vídeo do YouTube incorporado e recomendações
-<br />
-25 - Implemente as recomendações (para receitas de comida, a recomendação deverá ser bebida; já para as receitas de bebida, a recomendação deverá ser comida)
-<br />
-26 - Implemente os 6 cards de recomendação, mostrando apenas 2 deles (o scroll é horizontal, similar a um carousel)
-<br />
-27 - Desenvolva um botão de nome "Start Recipe", que deve ficar fixo na parte de baixo da tela o tempo todo
-<br />
-28 - Implemente a solução de forma que, caso a receita já tenha sido feita, o botão "Start Recipe" desapareça
-<br />
-29 - Implemente a solução de modo que, caso a receita tenha sido iniciada mas não finalizada, o texto do botão deve ser "Continue Recipe"
-<br />
-30 - Redirecione a pessoa usuária caso o botão Start Recipe seja clicado (nesse caso, a rota deve mudar para a tela de receita em progresso)
-<br />
-31 - Implemente um botão de compartilhar e um de favoritar a receita
-<br />
-32 - Implemente a solução de forma que, ao clicar no botão de compartilhar, o link de detalhes da receita seja copiado para o clipboard e uma mensagem avisando que ele foi copiado apareça na tela em uma tag HTML
-<br />
-33 - Salve as receitas favoritas no localStorage na chave favoriteRecipes
-<br />
-34 - Implemente o ícone do coração (favorito) de modo que ele fique preenchido caso a receita esteja favoritada e vazio caso contrário
-<br />
-35 - Implemente a lógica no botão de favoritar de modo que, caso ele seja clicado, o ícone de coração mude seu estado atual e, caso esteja preenchido, mude para vazio e vice-versa
-<br />
-
-## Tela de receita em progresso
-36 - Desenvolva a tela de modo que ela contenha uma imagem da receita, um título, a categoria (em caso de comidas) e se é ou não alcoólico (em caso de bebidas), uma lista de ingredientes (com as quantidades e instruções necessárias)
-<br />
-37 - Desenvolva um checkbox para cada item da lista de ingredientes
-<br />
-38 - Implemente uma lógica que ao clicar no checkbox de um ingrediente, o nome dele deve ser "riscado" da lista
-<br />
-39 - Salve o estado do progresso, que deve ser mantido caso a pessoa atualize a página ou volte para a mesma receita
-<br />
-40 - Desenvolva a lógica de favoritar e compartilhar (a lógica da tela de detalhes de uma receita se aplica aqui)
-<br />
-41 - Implemente a solução de modo que o botão de finalizar receita (Finish Recipe) só esteja habilitado quando todos os ingredientes estiverem "checkados" (marcados)
-<br />
-42 - Redirecione a pessoa usuária após ela clicar no botão de finalizar receita (Finish Recipe) para a página de receitas feitas, cuja rota deve ser /done-recipes
-<br />
-
-## Tela de receitas feitas
-43 - Implemente os elementos da tela de receitas feitas respeitando os atributos descritos no protótipo
-<br />
-44 - Desenvolva a tela de modo que, caso a receita do card seja uma comida, ela apresente: foto da receita, nome, categoria, nacionalidade, data em que a pessoa fez a receita, duas primeiras tags retornadas pela API e botão de compartilhar
-<br />
-45 - Desenvolva a tela de maneira que, caso a receita do card seja uma bebida, ela apresente: foto da receita, nome, se é alcoólica, data em que a pessoa fez a receita e botão de compartilhar
-<br />
-46 - Desenvolva a solução de modo que o botão de compartilhar copie a URL da tela de detalhes da receita para o clipboard
-<br />
-47 - Implemente 2 botões que filtram as receitas por comida ou bebida e um terceiro que remove todos os filtros
-<br />
-48 - Redirecione a pessoa usuária para a tela de detalhes da receita caso seja clicado na foto ou no nome da receita
-<br />
-
-## Tela de receitas favoritas
-49 - Implemente os elementos da tela de receitas favoritas (cumulativo com os atributos em comum com a tela de receitas feitas) respeitando os atributos descritos no protótipo
-<br />
-50 - Desenvolva a tela de modo que, caso a receita do card seja uma comida, ela apresente: foto da receita, nome, categoria, nacionalidade, botão de compartilhar e botão de desfavoritar
-<br />
-51 - Desenvolva a tela de modo que, caso a receita do card seja uma bebida, ela apresente: foto da receita, nome, se é alcoólica ou não, botão de compartilhar e botão de desfavoritar
-<br />
-52 - Desenvolva a solução de modo que o botão de compartilhar copie a URL da tela de detalhes da receita para o clipboard
-<br />
-53 - Desenvolva a solução de modo que o botão de desfavoritar remova a receita da lista de receitas favoritas do localStorage e da tela
-<br />
-54 - Implemente dois botões que filtrem as receitas por comida ou bebida e um terceiro que remova todos os filtros
-<br />
-55 - Redirecione a pessoa usuária quando ela clicar na foto ou no nome da receita (nesse caso, a rota deve mudar para a tela de detalhes daquela receita)
-<br />
-
-## Tela de perfil
-56 - Implemente os elementos da tela de perfil respeitando os atributos descritos no protótipo
-<br />
-57 - Implemente a solução de maneira que o e-mail da pessoa usuária esteja visível
-<br />
-58 - Implemente três botões: um de nome Done Recipes, um de nome Favorite Recipes e um de nome Logout
-<br />
-59 - Redirecione a pessoa usuária de modo que, ao clicar no botão de Done Recipes, a rota mude para a tela de receitas feitas
-<br />
-60 - Redirecione a pessoa usuária de modo que, ao clicar no botão de Favorite Recipes, a rota mude para a tela de receitas favoritas
-<br />
-61 - Redirecione a pessoa usuária de modo que, ao clicar no botão Logout, o localStorage seja limpo e a rota mude para a tela de login
-<br />
+- Criar uma conta ou fazer login com a opção de utilizar o login com sua conta Google.
+- Filtrar receitas por Meals ou Drinks e, dentro destas opções, filtrar por categoria.
+- Pesquisar uma receitas pelo nome, por ingredientes ou pela primeira letra.
+- Favoritar uma receita e ter acesso a uma página com as receitas favoritas.
+- Ver a página de detalhes da receita.
+- Iniciar uma receita, onde é possível dar check nos ingredientes conforme a receita vai sendo feita.
+- Sair de uma receita em progresso e voltar posteriormente, mantendo os ingredientes já marcados. As receitas em progresso possuem uma marcação pra identifica-las.
+- Ao marcar todos os ingredientes, é possível finalizar a receita, o que leva o usuário para a página de receitas finalizadas.
+- Acessar a página de perfil e ter acesso ao número de receitas já feitas, favoritadas e em progresso.
+- Trocar a foto de perfil
+- Navegar pelo aplicativo voltando para página inicial ou para a página anterior através do menu de navegação
 </details>
 
-<br />
+## **🛠** Tecnologias Utilizadas
 
-### Além disso, toda a aplicação foi posteriormente estilizada com CSS Modules garantindo um layout agradável e responsivo. ###
+<details>
+<summary>Front-end:</summary>
 
-### O que já veio pronto da Trybe ###
-- Todos os testes de requisitos que foram rodados no Cypress durante o desenvolvimento já vieram prontos da Trybe.
-- Toda a estruturação do README com os requistos e o quadro do Trello vieram prontos.
+- **React** - Biblioteca JavaScript para construção de interfaces de usuário declarativas e componentizadas.
+- **TypeScript**  - Superset JavaScript que adiciona tipagem estática opcional ao JavaScript.
+- **Styled-components** - Biblioteca para estilização de componentes React utilizando CSS-in-JS.
+- **React-router-dom** - Biblioteca para roteamento de páginas em aplicativos React.
+- **React Icons** - Conjunto de ícones React para diversas bibliotecas de ícones populares.
+- **React Testing Library** - Utilitários para testar componentes React de forma mais eficaz.
+- **Vite** - Ferramenta de construção de front-end para desenvolvimento rápido.
+- **Vitest** - Estrutura de teste completa para aplicativos JavaScript/TypeScript, com suporte para Jest, Mocha e Cypress.
+- **Stylelint** - Linter para CSS/SCSS para ajudar a manter um código CSS consistente.
+- **Framer-motion** - Biblioteca para animações fluidas e interativas em componentes React.
+- **OAuth Google** - Biblioteca para autenticação OAuth com o Google em aplicativos React.
+- **Sweetalert2** - ****Biblioteca para criar modais e alertas customizados com JavaScript.
+</details>
 
-### Agradecimento à denisrodrigues-dev pela colaboração em todo o projeto
+<details>
+<summary>Back-end:</summary>
+    
+##### **Bibliotecas de Desenvolvimento (DevDependencies):**
+    
+- **chai** (v4.3.6): Uma biblioteca de asserção que torna os testes mais legíveis e expressivos.
+- **chai-http** (v4.3.0): Extensão para Chai que fornece funcionalidades de teste HTTP.
+- **eslint** (v7.32.0): Uma ferramenta de linting para identificar e reportar padrões problemáticos no código
+- **mocha** (v9.2.1): Um framework de teste para Node.js, usado para escrever testes assíncronos.
+- **nodemon** (v2.0.15): Uma ferramenta utilizada para monitorar alterações nos arquivos e reiniciar automaticamente o servidor.
+- **sequelize-cli** (v6.3.0): Uma ferramenta de linha de comando para o ORM Sequelize, utilizada para gerenciar bancos de dados.
+- **sinon** (v11.1.1): Uma biblioteca de simulação para testes em JavaScript.
+- **typescript** (v4.4.4): Uma linguagem de programação que estende o JavaScript adicionando tipos estáticos opcionais.
+    
+##### **Bibliotecas de Produção (Dependencies):**
+    
+- **bcryptjs** (v2.4.3): Uma biblioteca para hash de senhas baseada no algoritmo bcrypt.
+- **cors** (v2.8.5): Um pacote que fornece um middleware Express para habilitar o CORS com várias opções.
+- **express** (v4.17.1): Um framework web para Node.js que simplifica o desenvolvimento de aplicativos da web e APIs.
+- **jest** (v27.4.3): Uma estrutura de teste JavaScript com foco na simplicidade.
+- **jsonwebtoken** (v8.5.1): Uma implementação de JSON Web Tokens (JWT) em JavaScript.
+- **mysql2** (v3.0.0): Um driver MySQL para Node.js, fornecendo uma implementação de baixo nível do protocolo MySQL.
+- **sequelize** (v6.25.5): Um ORM Node.js para bancos de dados SQL, que suporta PostgreSQL, MySQL, SQLite e outros.
+</details>
 
-### 📬 Entre em contato comigo ###
-Em caso de dúvidas ou para entrar em contato, você pode me encontrar em:
+## Diagrama ER e Entidades do banco de dados
+<details>
+<summary>Diagrama do database de Meals:</summary>
 
-- ✉️ Email: wesleymendes123321@gmail.com
-- 🔗 Linkedin: https://www.linkedin.com/in/wesley-mendes/
+![meal_driagram.png](Byte%20for%20Bite%200a8a24c240174fd6997b2b532ddae5ea/meal_driagram.png)
+
+</details>
+
+<details>
+<summary>Diagrama do database de Drinks:</summary>
+
+![drink_diagram.png](Byte%20for%20Bite%200a8a24c240174fd6997b2b532ddae5ea/drink_diagram.png)
+
+</details>
+
+---
+
+## App em funcionamento:
+
+O aplicativa foi criado pensando primeiro em dispositivos mobile (mobile first), mas também recebeu sua versão para tablets e desktops.
+
+#### Mobile:
+
+<div style="display: flex; justify-content: center;">
+    <div style="display: flex; flex-direction: row; gap: 40px;">
+        <img src="Byte%20for%20Bite%200a8a24c240174fd6997b2b532ddae5ea/iPhone-13-PRO-localhost.png" width="250">
+        <img src="Byte%20for%20Bite%200a8a24c240174fd6997b2b532ddae5ea/iPhone-13-PRO-localhost_(1).png" width="250">
+    </div>
+</div>
+
+
+
+---
+
+#### Desktop:
+
+![Macbook-Air-localhost.png](Byte%20for%20Bite%200a8a24c240174fd6997b2b532ddae5ea/Macbook-Air-localhost.png)
+
+![Macbook-Air-localhost (1).png](Byte%20for%20Bite%200a8a24c240174fd6997b2b532ddae5ea/Macbook-Air-localhost_(1).png)
+
+---
+
+## Como rodar este projeto no seu computador?
+
+Para rodar este projeto localmente, é necessário atender alguns requisitos.
+
+<details>
+    <summary><b>Pré-requisitos:</b></summary>
+
+- Ter no mínimo 10GB livres no seu sistema.
+- Ter o Git instalado em seu terminal. **[link](https://github.com/git-guides/install-git)**
+- Ter uma chave SSH atrelada à sua conta no GitHub. [**link**](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
+- Ter o Docker instalado em sua máquina na versão mais recente. Para instalar o Docker, acesse este [**link**](https://www.docker.com/).
+
+</details>
+
+
+**Para rodar o projeto localmente, siga estes passos:**
+
+Clone o projeto
+
+```bash
+# Com SSH
+$ git clone git@github.com:Wesleyhmendes/Byte-for-Bite.git
+
+# Com HTTP
+$ git clone https://github.com/Wesleyhmendes/Byte-for-Bite.git
+```
+
+Mude para a pasta raiz:
+
+```bash
+$ cd Byte-for-Bite/app
+```
+
+Faça o `build` da aplicação pelo Docker:
+
+```bash
+$ docker-compose up -d --build
+```
+
+Para rodar os testes:
+
+```bash
+# pasta frontend
+$ npm run test
+
+#pasta backend
+$ npm run test
+
+```
+
+Para verificar a cobertura dos testes:
+
+ 
+
+```bash
+#pasta frontend
+$ npm run coverage
+
+#pasta backend
+$ npm run test:coverage
+```
+
+**Após os containers serem criados, basta acessar em seu navegador o endereço:**
+`http://localhost:3000`
+
+<aside>
+⚠️ Existe um arquivo `.env.example` na pasta frontend e na backend. Nele, você pode ver quais variáveis de ambiente são utilizadas no projeto.
+Crie um arquivo `.env` com essas mesmas variáveis e atribua os valores que achar desejar.
+
+</aside>
+
+---
+
+## **Contribuição**
+
+**Leonardo Defendi Prado - [GitHub](https://github.com/leonardodefendi)**
+
+**Felipe Cadena - [GitHub](https://github.com/felipeCadena)**
+
+---
+
+## Autores
+
+<div style="display: flex; flex-direction: row;">
+    <div style="flex: 1; padding-right: 20px;">
+        <img src="Byte%20for%20Bite%200a8a24c240174fd6997b2b532ddae5ea/foto-perfil-amarela.png" width="250">
+    </div>
+    <div style="flex: 2;">
+        <h3>Wesley Mendes <a href="https://emojiterra.com/pt/foguete/" target="_blank">🚀</a></h3>
+        <p>Desenvolvedor Web Full Stack | Java | Next.js | Node.js | TypeScript | MySql | PostgreSQL | Python</p>
+        <p><a href="https://www.linkedin.com/in/wesley-mendes/" target="_blank">Linkedin</a></p>
+        <p>Email: wesleymendes123321@gmail.com</p>
+    </div>
+</div>
+
+---
+
+<div style="display: flex; flex-direction: row;">
+    <div style="flex: 1; padding-right: 20px;">
+        <img src="Byte%20for%20Bite%200a8a24c240174fd6997b2b532ddae5ea/1697576847994.png" width="250">
+    </div>
+    <div style="flex: 2;">
+        <h3>Gabriel Muniz Ferreira</h3>
+        <p>Desenvolvedor Full- Stack | React.JS | TypeScript | Redux | Node.JS | MySQL | Metodologias Ágeis</p>
+        <p><a href="https://www.linkedin.com/in/gabriel-muniz-dev/" target="_blank">Linkedin</a></p>
+        <p>Email: <a href="mailto:gabrielmfd@gmail.com">gabrielmfd@gmail.com</a></p>
+        <p><a href="https://github.com/GabrielMunizz" target="_blank">GitHub</a></p>
+    </div>
+</div>

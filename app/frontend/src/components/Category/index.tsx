@@ -3,7 +3,6 @@ import { useContext, useRef, useEffect, useState } from 'react';
 import CategoryButton from '../CategoryButton/CategoryButton';
 import Context from '../../context/Context';
 import { ItemButton, InnerCarousel, Carousel } from './Category.styles';
-import Loading from '../Loading/Loading';
 
 export default function Category() {
   const [width, setWidth] = useState(0);
@@ -18,7 +17,7 @@ export default function Category() {
 
   return (
     <section>
-      { allCategories.length === 0 ? <Loading /> : null }
+      { allCategories.length === 0 && '' }
       <Carousel ref={ carousel } className="carousel" whileTap={ { cursor: 'grabbing' } }>
         <InnerCarousel drag="x" dragConstraints={ { right: 0, left: -width - 20 } } className="inner-carousel">
           { allCategories
