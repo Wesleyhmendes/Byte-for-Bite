@@ -5,6 +5,7 @@ import logo from '../../assets/Images/BfB_Logo.png';
 import logout from '../../assets/Icons/logout_icon.png';
 import verifiedIcon from '../../assets/Icons/AsideMenuDesktop/done_icon.png';
 import favoriteIcon from '../../assets/Icons/AsideMenuDesktop/favorite_icon.png';
+import { IoIosCloseCircle } from "react-icons/io";
 
 function AsideMenu() {
   const [open, setOpen] = useState(false);
@@ -12,7 +13,11 @@ function AsideMenu() {
   const navigate = useNavigate();
 
   const handleMenu = () => {
-    setOpen((prev) => !prev);
+    setOpen(!open);
+  };
+
+  const handleCloseMenu = () => {
+    setOpen(false);
   };
 
   return (
@@ -20,14 +25,19 @@ function AsideMenu() {
       <StyledBurger
         aria-label="asideMenu-btn"
         open={ open }
-        onMouseEnter={ handleMenu }
+        onClick={ handleMenu }
       >
         <div />
         <div />
         <div />
       </StyledBurger>
-      <Ul open={ open } onMouseLeave={ handleMenu }>
-        <img aria-label="logoImg" src={ logo } alt="logo bite for byte" />
+      <Ul open={ open }>
+        <div className="logoClose">
+          <img aria-label="logoImg" src={ logo } alt="logo bite for byte" />
+          <button className="close-btn" onClick={ handleCloseMenu }>
+            <IoIosCloseCircle />
+          </button>
+        </div>
         <h2 className="pages">Pages</h2>
         <Link to="/done-recipes">
           <li>

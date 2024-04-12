@@ -92,7 +92,7 @@ export const Ul = styled.ul<{ open: boolean }>`
     padding: 2rem 1rem 0 2rem;
   }
 
-  button {
+  .logout {
     align-items: center;
     color: ${theme.colors.text.text};
     display: flex;
@@ -108,6 +108,23 @@ export const Ul = styled.ul<{ open: boolean }>`
     &:hover {
       cursor: pointer;
       color: ${theme.colors.text.selectedText};
+    }
+  }
+
+  .logoClose {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
+
+    button {
+      margin-right: 2rem;
+      font-size: 30px;
+
+      &:hover {
+      cursor: pointer;
+      color: ${theme.colors.text.selectedText};
+    }
     }
   }
 
