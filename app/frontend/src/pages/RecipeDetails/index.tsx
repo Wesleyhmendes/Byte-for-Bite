@@ -76,9 +76,7 @@ export default function RecipeDetails() {
         <NotFound />
       ) : null}
 
-      {isLoading ? <h3>Loading...</h3> : null}
-
-      {loadingNextPage ? <Loading /> : null}
+      {isLoading || loadingNextPage ? <Loading /> : null}     
 
       {!loadingNextPage ? <Footer /> : null}
 
