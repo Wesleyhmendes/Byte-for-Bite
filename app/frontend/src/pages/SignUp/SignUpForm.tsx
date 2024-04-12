@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import { User, UserAction } from '../../type';
 import validateUser from '../../utils/validateUser';
-import GoogleAuth from './GoogleAuth';
+import GoogleAuth from '../../components/GoogleOAuth/GoogleAuth';
 import * as S from './SignUp.styles';
 
 type SignUpFormProps = {

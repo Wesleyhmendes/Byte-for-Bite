@@ -174,6 +174,7 @@ const useRecipesProvider = (path: string) => {
     byFilterPages,
     inProgress,
     favorites,
+    selectedCategory,
     getCategories,
     filterDispatch,
     setByFilterURL,
@@ -183,7 +184,6 @@ const useRecipesProvider = (path: string) => {
     checkInProgressRecipe,
     checkFavoriteRecipe,
     getRecipes,
-    selectedCategory,
   };
 };
 

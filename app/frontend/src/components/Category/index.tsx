@@ -3,7 +3,6 @@ import { useContext, useRef, useEffect, useState } from 'react';
 import CategoryButton from '../CategoryButton/CategoryButton';
 import Context from '../../context/Context';
 import { ItemButton, InnerCarousel, Carousel } from './Category.styles';
-import Loading from '../Loading/Loading';
 
 export default function Category() {
   const [width, setWidth] = useState(0);
