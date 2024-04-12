@@ -25,6 +25,30 @@ export const Main = styled.main`
   }
 `;
 
+export const CardAndClear = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+  .clearFilter {
+    align-items: center;
+    display: flex;
+    margin: 0 auto;
+    gap: 0.5rem;
+    width: 9rem;
+    color: ${theme.colors.text.lightText};
+    box-shadow: 1px 1px 3px 0px rgba(176, 176, 176, 0.75);
+    background: ${theme.colors.button.lightBtn};
+    padding: 0.4rem;
+    justify-content: center;
+    border-radius: 7px;
+
+    &:hover {
+      cursor: pointer;
+      color: ${theme.colors.text.selectedText};
+    }
+  }
+`;
+
 export const CardsContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -44,7 +68,6 @@ export const CardsContainer = styled.div`
   @media (min-width: 1280px) {
     padding: 0;
     gap: 0rem;
-    width: 85%;
   }
 
   @media (min-width: 1444px) {
@@ -110,6 +133,7 @@ export const ClearFilter = styled.div`
 
   p {
     font-size: larger;
+    margin-top: 2rem;
   }
 
   button {
