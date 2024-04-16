@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import drinkIcon from '../../assets/Icons/glass-wine.svg';
 import goBackIcon from '../../assets/Icons/go-back-icon.svg';
 import homeIcon from '../../assets/Icons/home-icon.svg';
@@ -27,7 +27,7 @@ export default function Footer() {
   };
 
   const navigate = useNavigate();
-
+  const currentRoute = useLocation().pathname;
   return (
     <FooterStyled
       data-testid="footer"
@@ -38,11 +38,11 @@ export default function Footer() {
         </button>
 
         <Link onClick={ handleReset } aria-label="drinks-btn" to="/drinks">
-          <IconDrinks src={ drinkIcon } alt="ícone de drink" className={ route } />
+          <IconDrinks src={ drinkIcon } alt="ícone de drink" route={ currentRoute } />
         </Link>
 
         <Link onClick={ handleReset } aria-label="meals-btn" to="/meals">
-          <IconMeal src={ mealIcon } alt="ícone do drink" className={ route } />
+          <IconMeal src={ mealIcon } alt="ícone do drink" route={ currentRoute } />
         </Link>
 
         <Link onClick={ handleReset } to="/meals" aria-label="home-btn">

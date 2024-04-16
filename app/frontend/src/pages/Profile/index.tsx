@@ -57,9 +57,15 @@ export default function Profile() {
     }
   };
 
+  setTimeout(() => {
+    if (error || userID === 0) {
+      return <h3>Profile not found</h3>;
+    }
+  }, 200);
+
   return (
     <S.Main>
-      {!isLoading && data.username ? (
+      { !isLoading && data.username ? (
         <S.UserInfoContainer>
           <button
             aria-label="changeImg-btn"
@@ -76,20 +82,21 @@ export default function Profile() {
             imageUpdated={ imageUpdated }
           />
 
-          <h2>{data.username}</h2>
-          <p>{data.email}</p>
+          <h2>{ data.username }</h2>
+          <p>{ data.email }</p>
         </S.UserInfoContainer>
-      ) : null}
+      ) : null }
 
-      {!isLoading && data.username ? (
+      { !isLoading && data.username ? (
         <RecipesCounter />
-      ) : null}
+      ) : null }
 
-      {!isLoading && data.username ? <RedirectButtons /> : null}
+      { !isLoading && data.username ? <RedirectButtons /> : null }
 
-      {isLoading ? <Loading /> : null}
+      { isLoading ? <Loading /> : null }
 
-      {error || userID === 0 ? <h3> Profile not found </h3> : null}
+      {/* {error || userID === 0 ? <h3> Profile not found </h3> : null} */ }
+
       <Footer />
     </S.Main>
   );

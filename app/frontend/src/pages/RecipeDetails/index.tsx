@@ -72,11 +72,17 @@ export default function RecipeDetails() {
         />
       ) : null}
 
-      {(error && !loadingNextPage) || userId === 0 ? (
+      {((error && userId === 0) || (error && !recipe) || (!recipe && !isLoading && !loadingNextPage)) && (
         <NotFound />
-      ) : null}
+      )}
 
-      {isLoading || loadingNextPage ? <Loading /> : null}     
+      {isLoading ? 
+      <div className="LoadingText">
+        <h3>Loading...</h3>
+        </div>
+        : null}
+
+      {loadingNextPage ? <Loading /> : null}
 
       {!loadingNextPage ? <Footer /> : null}
 

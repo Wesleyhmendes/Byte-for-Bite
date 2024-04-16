@@ -2,49 +2,47 @@ import styled from 'styled-components';
 import theme from '../../theme';
 
 export const NotFoundMain = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh;
-  margin-bottom: -7rem;
-  background-color: ${theme.colors.background.first};
-
-  
-`;
-
-export const NotFoundContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: ${theme.colors.background.white};
-  width: 30%;
-  height: 50%;
-  border-radius: 7px;
-
-  & h2 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-  }
-
-  & img {
-    width: 20rem;
-  }
-
-  & a {
-    display: flex;
-    justify-content: center;    
+  @media(min-width: 320px) {
     align-items: center;
-    width: 20%;
-    height: 8%;    
-    background-color: ${theme.colors.button.activeBtn};
-    border-radius: 7px;
-    color: #fff;
+    background-color: ${theme.colors.background.white};
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: flex-start;
+    margin-bottom: -7rem;
+    width: 100%;
+    
+    img {
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      font-size: larger;
+      font-weight: 500;
+      margin-bottom: 2rem;
+    }
+
+    a {
+      align-items: center; 
+      background-color: ${theme.colors.button.activeBtn};
+      border-radius: 7px;
+      color: #fff;
+      display: flex;
+      font-weight: 500;
+      justify-content: center;    
+      padding: 0.5rem 1rem;
+      width: fit-content;
+    }
+
+    & a:hover {
+      background-color: ${theme.colors.button.hoverBtn};
+    }
   }
 
-  & a:hover {
-    background-color: ${theme.colors.button.hoverBtn};
+  @media(min-width: 1280px) {
+    img {
+      width: 50%;
+      margin-bottom: 1rem;
+    }
   }
 `;
