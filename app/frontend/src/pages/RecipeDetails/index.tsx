@@ -76,7 +76,6 @@ export default function RecipeDetails() {
         <NotFound />
       )}
 
-
       {isLoading ? 
         <Loading /> 
         : null}

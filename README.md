@@ -10,7 +10,7 @@
 - Contribuição
 
 ## Onde acessar o app?
-**Caso queira acessar o app oficial, basta acessar [Byte-for-bite](https://frontend-production-a0e7.up.railway.app/)**. Crie sua conta e tenha acesso à diversas receitas de pratos ou drinks na palma da mão.
+**Caso queira acessar o app oficial, basta acessar [Byte-for-bite](https://byte-for-bite.up.railway.app/)**. Crie sua conta e tenha acesso à diversas receitas de pratos ou drinks na palma da mão.
 
 
 ## O que é possível com o Byte for Bite?
@@ -158,13 +158,15 @@ Faça o `build` da aplicação pelo Docker:
 $ docker-compose up -d --build
 ```
 
-Para rodar os testes:
+Para rodar os testes, instale as dependências primeiro:
 
 ```bash
 # pasta frontend
+$ npm install
 $ npm run test
 
 #pasta backend
+$ npm install
 $ npm run test
 
 ```
