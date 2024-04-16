@@ -76,7 +76,6 @@ export default function RecipeDetails() {
         <NotFound />
       )}
 
-
       {isLoading ? 
       <div className="LoadingText">
         <h3>Loading...</h3>
