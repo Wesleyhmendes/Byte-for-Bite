@@ -8,6 +8,18 @@ export const Main = styled.main`
     align-items: center;
     height: fit-content;
     margin-bottom: -4.5rem;
+
+    .LoadingText {
+      align-items: center;
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      width: 100%;
+
+      h3 {
+        font-size: xx-large;
+      }
+    }
 `;
 
 export const RecipeCard = styled.section`

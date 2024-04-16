@@ -35,15 +35,14 @@ export const FooterStyled = styled.footer`
   }
 `;
 
-export const IconMeal = styled.img`
-  ${(props) => props.className === '/meals' && css`
-    border-bottom: 3px solid ${theme.colors.background.first};
-  `}
-
+export const IconDrinks = styled.img<{ route: string }>`
+  border-bottom: ${(props) =>
+  props.route.endsWith("/drinks") ? `3px solid ${theme.colors.background.first}` : "1px solid transparent"};
 `;
 
-export const IconDrinks = styled.img`
-  ${(props) => props.className === '/drinks' && css`
-    border-bottom: 3px solid ${theme.colors.background.first};
-  `}
+export const IconMeal = styled.img<{ route: string }>`
+  border-bottom: ${(props) =>
+  props.route.endsWith("/meals") ? `3px solid ${theme.colors.background.first}` : "1px solid transparent"};
 `;
+
+
