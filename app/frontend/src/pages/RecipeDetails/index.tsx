@@ -77,9 +77,7 @@ export default function RecipeDetails() {
       )}
 
       {isLoading ? 
-      <div className="LoadingText">
-        <h3>Loading...</h3>
-        </div>
+        <Loading /> 
         : null}
 
       {loadingNextPage ? <Loading /> : null}
