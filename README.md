@@ -49,7 +49,7 @@ Byte for Bite é uma aplicação web de receitas. Nela, o usuário tem acesso à
 - **Stylelint** - Linter para CSS/SCSS para ajudar a manter um código CSS consistente.
 - **Framer-motion** - Biblioteca para animações fluidas e interativas em componentes React.
 - **OAuth Google** - Biblioteca para autenticação OAuth com o Google em aplicativos React.
-- **Sweetalert2** - ****Biblioteca para criar modais e alertas customizados com JavaScript.
+- **Sweetalert2** - Biblioteca para criar modais e alertas customizados com JavaScript.
 </details>
 
 <details>
